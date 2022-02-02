@@ -2,8 +2,13 @@ from rich.align import Align
 from rich.panel import Panel
 from rich.text import Text
 from textual.app import App
+from textual.message import Message
 from textual.widget import Widget
 from rich.progress_bar import ProgressBar
+
+
+class OkBoss(Message, bubble=True):
+    pass
 
 
 class RaceBar(Widget):
