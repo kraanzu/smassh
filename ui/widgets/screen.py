@@ -1,6 +1,11 @@
 from typing import Literal
 from textual.app import App
 from textual.widget import Widget
+from textual.message import Message
+
+
+class FinishedTyping(Message, bubble=True):
+    pass
 
 
 class Screen(Widget):
