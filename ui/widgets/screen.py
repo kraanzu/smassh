@@ -12,13 +12,14 @@ class Screen(Widget):
     def __init__(
         self,
         paragraph: str,
-        speed_threshold: int | None = None,
-        accuracy_threshhold: int | None = None,
+        speed_threshold: int = 0,
+        accuracy_threshhold: int = 0,
+        min_burst: int = 0,
         cursor_buddy_speed: int | None = None,
         force_correct: bool = False,
         tab_reset: bool = False,
         difficulty: Literal["normal", "expert", "master"] = "normal",
-        repeat_same: bool = False,
+        restart_same: bool = False,
         blind_mode: bool = False,
         single_line_words: bool = False,
         sound: bool = False,
@@ -27,11 +28,12 @@ class Screen(Widget):
         self.paragraph = paragraph
         self.speed_threshold = speed_threshold
         self.accuracy_threshhold = accuracy_threshhold
+        self.min_burst = min_burst
         self.cursor_buddy_speed = cursor_buddy_speed
         self.force_correct = force_correct
         self.tab_reset = tab_reset
         self.difficulty = difficulty
-        self.repeat_same = repeat_same
+        self.repeat_same = restart_same
         self.blind_mode = blind_mode
         self.single_line_words = single_line_words
         self.sound = sound

@@ -1,6 +1,7 @@
 from textual import events
 from textual.widget import Widget
 from rich.text import Span, Text
+from rich.panel import Panel
 
 
 class Option(Widget):
@@ -27,15 +28,17 @@ class Option(Widget):
         self.refresh()
 
     def render(self):
-        return Text(
-            self.options_string,
-            spans=[
-                Span(
-                    self.positions[self.cursor][0],
-                    self.positions[self.cursor][1],
-                    "reverse green",
-                )
-            ],
+        return Panel(
+            Text(
+                self.options_string,
+                spans=[
+                    Span(
+                        self.positions[self.cursor][0],
+                        self.positions[self.cursor][1],
+                        "reverse green",
+                    )
+                ],
+            )
         )
 
 
