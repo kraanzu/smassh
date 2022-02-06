@@ -6,15 +6,40 @@ class Parser(ConfigParser):
     file_path = os.path.join(os.path.expanduser("~"), ".termtyper.ini")
 
     def __init__(self) -> None:
+        super().__init__()
         if not self.read(self.file_path):
+            with open(self.file_path, "w"):
+                pass
+
             self._create_user_config()
             self.read(self.file_path)
 
-    def _create_user_config(self) -> bool:
-        raise NotImplemented
+    def _create_user_config(self):
 
-    def set(self, data: str, val: str):
+        self.add_section("user")
+        self.set_data("difficulty", "normal")
+        self.set_data("blind_mode", "off")
+        self.set_data("min_speed", "0")
+        self.set_data("min_accuracy", "0")
+        self.set_data("min_burst", "0")
+        self.set_data("force_correct", "off")
+        self.set_data("confidence_mode", "off")
+        self.set_data("single_line_words", "off")
+        self.set_data("caret_style", "off")
+        self.set_data("cursor_buddy", "0")
+        self.set_data("cursor_buddy_speed", "0")
+        self.set_data("tab_reset", "off")
+        self.set_data("restart_same", "off")
+        self.set_data("keypress_sound", "off")
+        self._write_to_file()
+
+    def _write_to_file(self):
+        with open(self.file_path, "w") as fp:
+            self.write(fp)
+
+    def set_data(self, data: str, val: str):
         super().set("user", data, val)
+        self._write_to_file()
 
-    def get(self, data: str) -> str:
+    def get_data(self, data: str) -> str:
         return super().get("user", data)

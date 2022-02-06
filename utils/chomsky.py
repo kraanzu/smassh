@@ -113,4 +113,8 @@ def chomsky(times=1, line_length=72):
         random.shuffle(phraselist)
         parts.append(phraselist)
     output = chain(*islice(zip(*parts), 0, times))
-    return textwrap.fill(" ".join(output), line_length)
+
+    if line_length:
+        return textwrap.fill(" ".join(output), line_length)
+    else:
+        return "\n".join(output)
