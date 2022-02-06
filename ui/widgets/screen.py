@@ -1,11 +1,16 @@
 from typing import Literal
+from bisect import bisect
+
+from rich.text import Span, Text
+from rich.panel import Panel
 from textual.app import App
 from textual.widget import Widget
-from textual.message import Message
+from textual.message import Message, MessageTarget
 
 
 class FinishedTyping(Message, bubble=True):
-    pass
+    def __init__(self, sender: MessageTarget) -> None:
+        super().__init__(sender)
 
 
 class Screen(Widget):
@@ -25,7 +30,10 @@ class Screen(Widget):
         sound: bool = False,
         caret_style: Literal["underline", "block", "off"] = "off",
     ):
-        self.paragraph = paragraph
+        super().__init__()
+        self.paragraph = Text(paragraph, spans=[Span(0, 0, "magenta")])
+        self.paragraph.append(" " + str(self._size))
+
         self.speed_threshold = speed_threshold
         self.accuracy_threshhold = accuracy_threshhold
         self.min_burst = min_burst
@@ -38,6 +46,55 @@ class Screen(Widget):
         self.single_line_words = single_line_words
         self.sound = sound
         self.caret_style = caret_style
+
+        self.spaces = [i for i, j in enumerate(self.paragraph.plain) if j == " "] + [
+            len(self.paragraph.plain)
+        ]
+        self.cursor_position = 0
+        self.total_key_presses = 0
+        self.mistakes = 0
+        self.mistakes_hashmap = dict()
+
+    def key_add(self, key: str):
+
+        if key == "ctrl+i":  # TAB
+            self.paragraph.spans = self.paragraph.spans[:1]
+            self.cursor_position = 0
+
+        elif key == "ctrl+h":  # BACKSPACE
+            if self.cursor_position:
+                self.cursor_position -= 1
+                self.paragraph.spans.pop()
+
+        elif len(key) == 1:
+            if key == " ":
+                if self.paragraph.plain[self.cursor_position] != " ":
+                    self.cursor_position = self.spaces[
+                        bisect(self.spaces, self.cursor_position)
+                    ]
+
+            elif key == self.paragraph.plain[self.cursor_position]:
+                self.paragraph.spans.append(
+                    Span(self.cursor_position, self.cursor_position + 1, "green")
+                )
+
+            else:
+                self.paragraph.spans.append(
+                    Span(self.cursor_position, self.cursor_position + 1, "red")
+                )
+
+            self.cursor_position += 1
+
+        self.refresh()
+
+    def render(self):
+        return Panel(
+            Text(
+                self.paragraph.plain,
+                spans=self.paragraph.spans
+                + [Span(self.cursor_position, self.cursor_position + 1, "reverse")],
+            )
+        )
 
 
 if __name__ == "__main__":

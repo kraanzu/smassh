@@ -1,5 +1,5 @@
 from rich.align import Align
-from rich.box import SIMPLE, HEAVY_EDGE, ROUNDED
+from rich.box import SIMPLE
 from rich.style import StyleType
 from rich.panel import Panel
 from rich.text import Text
@@ -48,7 +48,7 @@ class Button(Widget):
             ),
             style="black",
             border_style=self.bt_border_style if not self.is_hover else "bold magenta",
-            box=ROUNDED if not self.is_hover else HEAVY_EDGE,
+            # box=ROUNDED if not self.is_hover else HEAVY_EDGE,
             expand=False,
             height=5,
         )

@@ -1,7 +1,11 @@
 from textual import events
+from textual.message import Message, MessageTarget
 from textual.widget import Widget
+from rich.align import Align
 from rich.text import Span, Text
 from rich.panel import Panel
+
+from utils import Parser
 
 
 class Option(Widget):
@@ -9,7 +13,7 @@ class Option(Widget):
         super().__init__()
         self.name = name
         self.options = [i.strip() for i in options]
-        self.cursor = 0
+        self.cursor = self.options.index(Parser().get_data(self.name))
         self._set_option_string()
 
     def _set_option_string(self):
@@ -19,25 +23,30 @@ class Option(Widget):
             [i, i + m - 2] for i in range(1, len(self.options_string), m + 1)
         ]
 
-    def on_mouse_scroll_down(self, _: events.MouseScrollDown):
+    async def on_mouse_scroll_down(self, _: events.MouseScrollDown):
         self.cursor = (self.cursor + 1) % len(self.options)
+        Parser().set_data(self.name, self.options[self.cursor])
         self.refresh()
 
-    def on_mouse_scroll_up(self, _: events.MouseScrollUp):
+    async def on_mouse_scroll_up(self, _: events.MouseScrollUp):
         self.cursor = (self.cursor - 1 + len(self.options)) % len(self.options)
+        Parser().set_data(self.name, self.options[self.cursor])
         self.refresh()
 
     def render(self):
         return Panel(
-            Text(
-                self.options_string,
-                spans=[
-                    Span(
-                        self.positions[self.cursor][0],
-                        self.positions[self.cursor][1],
-                        "reverse green",
-                    )
-                ],
+            Align.center(
+                Text(
+                    self.options_string,
+                    spans=[
+                        Span(
+                            self.positions[self.cursor][0],
+                            self.positions[self.cursor][1],
+                            "reverse green",
+                        )
+                    ],
+                ),
+                vertical="middle",
             )
         )
 
