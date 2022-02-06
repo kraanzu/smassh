@@ -1,4 +1,5 @@
 from rich.align import Align
+from rich.box import HEAVY_EDGE
 from rich.text import Text, TextType
 from textual.app import App
 from textual.layouts.dock import DockLayout
@@ -6,10 +7,11 @@ from textual.widgets import Static, ScrollView
 from textual import events
 
 from rich.panel import Panel
-from os import get_terminal_size as termsize
+from os import get_terminal_size as termsize, supports_dir_fd
 
 from ui.settings_options import menu
-from ui.widgets import Button
+from ui.widgets import Button, RaceBar, Screen
+from utils import Parser
 
 percent = lambda part, total: int(part * total / 100)
 
@@ -22,7 +24,8 @@ welcome_message = """
 
 class TermTyper(App):
     async def on_load(self):
-        self.current_space = "settings"
+        self.parser = Parser()
+        self.current_space = "main_menu"
         self.x, self.y = termsize()
 
         # FOR MAIN MENU
@@ -33,6 +36,7 @@ class TermTyper(App):
                 ),
                 style="black",
                 border_style="magenta",
+                box=HEAVY_EDGE,
             )
         )
         self.bt_typing_space = Button(
@@ -43,13 +47,15 @@ class TermTyper(App):
         self.bt_quit = Button(label="Quit".center(30), name="bt_quit")
 
         # FOR SETTINGS
-        self.total_items = len(menu)
         self.menus = list(menu.keys())
         self.current_menu_index = 0
 
+        # FOR TYPING SPACE
+        self.race_bar = RaceBar()
+        self.typing_screen = Screen("hi there biteches!")
+
     async def on_mount(self):
-        await self.load_settings()
-        pass
+        await self.load_main_menu()
 
     async def clear_screen(self):
         if isinstance(self.view.layout, DockLayout):
@@ -70,7 +76,7 @@ class TermTyper(App):
     async def load_settings(self):
         await self.clear_screen()
 
-        self.current_menu = menu[self.current_menu_index]
+        self.current_menu = self.menus[self.current_menu_index]
         await self.view.dock(
             Static(
                 Panel(
@@ -79,7 +85,9 @@ class TermTyper(App):
                         vertical="middle",
                     ),
                     style="black",
-                    border_style="magenta",
+                    border_style="bold magenta",
+                    subtitle="Press L/R arrow keys to navigate through different menus",
+                    subtitle_align="left",
                 )
             ),
             size=percent(20, self.y),
@@ -99,7 +107,7 @@ class TermTyper(App):
             **{
                 f"item{i}": Static(
                     Panel(
-                        Align.center(
+                        Align.left(
                             menu[self.current_menu].items[i - 1].description,
                             vertical="middle",
                         )
@@ -118,14 +126,38 @@ class TermTyper(App):
         self.current_space = "settings"
 
     async def load_typing_space(self):
-        pass
+        await self.clear_screen()
+
+        self.current_space = "typing_space"
+        await self.view.dock(self.race_bar, size=percent(20, self.y))
+        await self.view.dock(self.typing_screen)
 
     async def on_resize(self, _: events.Resize) -> None:
         await eval(f"self.load_{self.current_space}()")
 
-    def on_key(self):
-        pass
+    async def on_key(self, event: events.Key):
+
+        if self.current_space == "settings":
+            match event.key:
+                case "right":
+                    self.current_menu_index = (self.current_menu_index + 1) % len(menu)
+                    await self.load_settings()
+
+                case "left":
+                    self.current_menu_index = (
+                        self.current_menu_index + len(menu) - 1
+                    ) % len(menu)
+                    await self.load_settings()
+
+                case "escape":
+                    await self.load_main_menu()
+        else:
+            self.typing_screen.key_add(event.key)
 
     async def handle_button_clicked(self, e: events.Click):
         if getattr(e.sender, "name") == "bt_quit":
             await self.action_quit()
+        elif getattr(e.sender, "name") == "bt_settings":
+            await self.load_settings()
+        elif getattr(e.sender, "name") == "bt_typing_space":
+            await self.load_typing_space()
