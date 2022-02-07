@@ -115,6 +115,6 @@ def chomsky(times=1, line_length=72):
     output = chain(*islice(zip(*parts), 0, times))
 
     if line_length:
-        return textwrap.fill(" ".join(output), line_length)
+        return " ".join(output)
     else:
         return "\n".join(output)

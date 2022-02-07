@@ -52,7 +52,6 @@ class TermTyper(App):
 
         # FOR TYPING SPACE
         self.race_bar = RaceBar()
-        self.typing_screen = Screen()
 
     async def on_mount(self):
         await self.load_main_menu()
@@ -128,6 +127,7 @@ class TermTyper(App):
     async def load_typing_space(self):
         await self.clear_screen()
 
+        self.typing_screen = Screen()
         self.current_space = "typing_space"
         await self.view.dock(self.race_bar, size=percent(20, self.y))
         await self.view.dock(self.typing_screen)
@@ -152,7 +152,10 @@ class TermTyper(App):
                 case "escape":
                     await self.load_main_menu()
         else:
-            self.typing_screen.key_add(event.key)
+            await self.typing_screen.key_add(event.key)
+
+    async def handle_update_race_bar(self, event):
+        self.race_bar.update(event.completed, event.speed)
 
     async def handle_button_clicked(self, e: events.Click):
         if getattr(e.sender, "name") == "bt_quit":

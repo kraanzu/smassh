@@ -1,3 +1,4 @@
+import time
 from typing import Literal
 from bisect import bisect
 from os import get_terminal_size
@@ -15,6 +16,13 @@ class FinishedTyping(Message, bubble=True):
         super().__init__(sender)
 
 
+class UpdateRaceBar(Message, bubble=True):
+    def __init__(self, sender: MessageTarget, completed: float, speed: float) -> None:
+        super().__init__(sender)
+        self.completed = completed
+        self.speed = speed
+
+
 empty_span = Span(0, 0, "")
 
 
@@ -24,8 +32,8 @@ class Screen(Widget):
         speed_threshold: int = 0,
         accuracy_threshhold: int = 0,
         min_burst: int = 0,
-        cursor_buddy_speed: int = 190,
-        force_correct: bool = False,
+        cursor_buddy_speed: int = 40,
+        force_correct: bool = True,
         tab_reset: bool = False,
         difficulty: Literal["normal", "expert", "master"] = "normal",
         restart_same: bool = False,
@@ -37,6 +45,7 @@ class Screen(Widget):
         super().__init__()
 
         self.set_paragraph()
+        self.start_time = time.time()
         self.speed_threshold = speed_threshold
         self.accuracy_threshhold = accuracy_threshhold
         self.min_burst = min_burst
@@ -53,9 +62,11 @@ class Screen(Widget):
         self.spaces = [i for i, j in enumerate(self.paragraph.plain) if j == " "] + [
             len(self.paragraph.plain)
         ]
+
+        self.started = False
         self.cursor_position = 0
         self.cursor_buddy_position = 0
-        self.total_key_presses = 0
+        self.correct_key_presses = 0
         self.mistakes = 0
         self.mistakes_hashmap = dict()
 
@@ -64,21 +75,47 @@ class Screen(Widget):
                 60 / (5 * self.cursor_buddy_speed), self.move_cursor_buddy
             )
 
-    def move_cursor_buddy(self):
-        if self.cursor_buddy_position < len(self.paragraph.plain) - 1:
-            self.cursor_buddy_position += 1
-            self.refresh()
+        self.set_interval(0.2, self._update_race_bar)
 
-    def reset_screen(self):
+    async def _update_race_bar(self):
+        if self.started:
+            await self.emit(
+                UpdateRaceBar(
+                    self,
+                    100 * self.correct_key_presses / len(self.paragraph.plain),
+                    60 * self.correct_key_presses / (time.time() - self.start_time) / 5,
+                )
+            )
+        else:
+            await self.emit(UpdateRaceBar(self, 0, 0))
+
+    def _get_color(self, type: str):
+        if self.blind_mode:
+            return "yellow"
+        else:
+            return "green" if type == "correct" else "red"
+
+    def move_cursor_buddy(self):
+        if self.started:
+            if self.cursor_buddy_position < len(self.paragraph.plain) - 1:
+                self.cursor_buddy_position += 1
+                self.refresh()
+
+    async def reset_screen(self):
         self.cursor_position = 0
+        self.cursor_buddy_position = 0
+        self.correct_key_presses = 0
+        self.started = False
         if self.repeat_same:
             self.paragraph.spans = self.paragraph.spans[:1]
         else:
             self.set_paragraph()
+
         self.refresh()
 
     def set_paragraph(self):
         self.paragraph_size = Parser().get_data("paragraph_size")
+
         if self.paragraph_size == "teensy":
             times = 2
         elif self.paragraph_size == "small":
@@ -92,11 +129,11 @@ class Screen(Widget):
         self.paragraph = Text(paragraph)
         self.refresh()
 
-    def key_add(self, key: str):
+    async def key_add(self, key: str):
+        self.console.bell()
 
         if key == "ctrl+i":  # TAB
-            self.paragraph.spans = self.paragraph.spans[:1]
-            self.cursor_position = 0
+            await self.reset_screen()
 
         elif key == "ctrl+h":  # BACKSPACE
             if self.cursor_position:
@@ -104,30 +141,55 @@ class Screen(Widget):
                 self.paragraph.spans.pop()
 
         elif len(key) == 1:
+
             if key == " ":
                 if self.paragraph.plain[self.cursor_position] != " ":
-                    next_space = self.spaces[bisect(self.spaces, self.cursor_position)]
-                    self.paragraph.spans.extend(
-                        [empty_span]
-                        * (
-                            next_space - self.cursor_position + 1
-                        )  # 1 for the next space
-                    )
-                    self.cursor_position = next_space
+                    if not self.force_correct:
+                        next_space = self.spaces[
+                            bisect(self.spaces, self.cursor_position)
+                        ]
+                        self.paragraph.spans.extend(
+                            [empty_span]
+                            * (
+                                next_space - self.cursor_position + 1
+                            )  # 1 for the next space
+                        )
+                        self.cursor_position = next_space
+                        self.correct_key_presses += 1
+                    else:
+                        return
                 else:
                     self.paragraph.spans.append(empty_span)
 
             elif key == self.paragraph.plain[self.cursor_position]:
                 self.paragraph.spans.append(
-                    Span(self.cursor_position, self.cursor_position + 1, "green")
+                    Span(
+                        self.cursor_position,
+                        self.cursor_position + 1,
+                        self._get_color("correct"),
+                    )
                 )
+                self.correct_key_presses += 1
 
             else:
+                if (
+                    self.paragraph.plain[self.cursor_position] == " "
+                    or self.force_correct
+                ):
+                    return
+
                 self.paragraph.spans.append(
-                    Span(self.cursor_position, self.cursor_position + 1, "red")
+                    Span(
+                        self.cursor_position,
+                        self.cursor_position + 1,
+                        self._get_color("mistake"),
+                    )
                 )
 
             self.cursor_position += 1
+            if not self.started:
+                self.start_time = time.time()
+            self.started = True
 
         self.refresh()
 

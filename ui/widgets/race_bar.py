@@ -2,13 +2,8 @@ from rich.align import Align
 from rich.panel import Panel
 from rich.text import Text
 from textual.app import App
-from textual.message import Message
 from textual.widget import Widget
 from rich.progress_bar import ProgressBar
-
-
-class OkBoss(Message, bubble=True):
-    pass
 
 
 class RaceBar(Widget):
@@ -21,9 +16,9 @@ class RaceBar(Widget):
         self,
         name: str | None = None,
         total: int = 100,
-        low: int = -1,
-        med: int = -1,
-        high: int = -1,
+        low: int = 20,
+        med: int = 30,
+        high: int = 40,
     ) -> None:
         super().__init__(name)
         self.completed = 0
@@ -67,7 +62,7 @@ class RaceBar(Widget):
                 + "Keep practicing and go on to become the world's greatest typer"
             )
 
-    def update(self, progress: int, speed: int):
+    def update(self, progress: float, speed: float):
         self.completed = progress
         self.speed = speed
         self.refresh()
