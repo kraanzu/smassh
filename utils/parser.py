@@ -31,6 +31,7 @@ class Parser(ConfigParser):
         self.set_data("tab_reset", "off")
         self.set_data("restart_same", "off")
         self.set_data("keypress_sound", "off")
+        self.set_data("paragraph_size", "small")
         self._write_to_file()
 
     def _write_to_file(self):
