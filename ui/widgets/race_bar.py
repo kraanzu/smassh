@@ -32,7 +32,6 @@ class RaceBar(Widget):
         self.low = low
         self.med = med
         self.high = high
-        self.counts = 0
         self.speed_sum = 0
 
     def get_speed_color(self) -> str:
@@ -70,7 +69,7 @@ class RaceBar(Widget):
 
     def update(self, progress: int, speed: int):
         self.completed = progress
-        self.speed_sum = speed
+        self.speed = speed
         self.refresh()
 
     def render(self):

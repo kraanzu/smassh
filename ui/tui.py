@@ -52,7 +52,7 @@ class TermTyper(App):
 
         # FOR TYPING SPACE
         self.race_bar = RaceBar()
-        self.typing_screen = Screen("hi there biteches!")
+        self.typing_screen = Screen()
 
     async def on_mount(self):
         await self.load_main_menu()

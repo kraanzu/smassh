@@ -1,5 +1,4 @@
 from textual import events
-from textual.message import Message, MessageTarget
 from textual.widget import Widget
 from rich.align import Align
 from rich.text import Span, Text
