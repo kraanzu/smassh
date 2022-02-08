@@ -41,7 +41,7 @@ class RaceBar(Widget):
             return "red"
 
     def get_remarks(self):
-        if self.low == -1:
+        if self.low == 0:
             return (
                 "This is the start of your journey!"
                 + "\n"
@@ -67,8 +67,8 @@ class RaceBar(Widget):
         if not self.finised:
             self.completed = progress
             self.speed = speed
+            self.finised = progress == 100 or speed == -1
             self.remarks = self.get_remarks()
-            self.finised = progress == 100
             self.refresh()
 
     def render(self):
@@ -79,7 +79,7 @@ class RaceBar(Widget):
                     completed=self.completed,
                     complete_style="bold " + self.get_speed_color(),
                 )
-                if self.completed < self.total
+                if not self.finised
                 else Text(self.remarks, style="bold green"),
                 vertical="middle",
             )

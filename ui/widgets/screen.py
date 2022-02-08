@@ -77,17 +77,24 @@ class Screen(Widget):
         self.set_interval(0.2, self._update_race_bar)
 
     async def _update_race_bar(self):
-        if self.started:
+        if self.started and not self.finised:
             self.raw_speed = (
                 60 * self.correct_key_presses / (time.time() - self.start_time) / 5
             )
             self.accuracy = (self.correct_key_presses / self.total_key_presses) * 100
             self.speed = (self.accuracy / 100) * self.raw_speed
+            progress = 100 * self.correct_key_presses / len(self.paragraph.plain)
+
+            if self.speed < self.min_speed or self.accuracy < self.min_accuracy:
+                self.finised = True
+                self.failed = True
+                self.speed = -1
+                self.refresh()
 
             await self.emit(
                 UpdateRaceBar(
                     self,
-                    100 * self.correct_key_presses / len(self.paragraph.plain),
+                    progress,
                     self.speed,
                 )
             )
@@ -220,7 +227,7 @@ class Screen(Widget):
         self.refresh()
 
     def render(self):
-        if not self.finised:
+        if not self.finised and not self.failed:
             return Panel(
                 Text(
                     self.paragraph.plain,
