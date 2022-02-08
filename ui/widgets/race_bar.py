@@ -28,6 +28,7 @@ class RaceBar(Widget):
         self.med = med
         self.high = high
         self.speed_sum = 0
+        self.finised = False
 
     def get_speed_color(self) -> str:
         if self.speed < self.low:
@@ -63,9 +64,12 @@ class RaceBar(Widget):
             )
 
     def update(self, progress: float, speed: float):
-        self.completed = progress
-        self.speed = speed
-        self.refresh()
+        if not self.finised:
+            self.completed = progress
+            self.speed = speed
+            self.remarks = self.get_remarks()
+            self.finised = progress == 100
+            self.refresh()
 
     def render(self):
         return Panel(
@@ -76,7 +80,7 @@ class RaceBar(Widget):
                     complete_style="bold " + self.get_speed_color(),
                 )
                 if self.completed < self.total
-                else Text(self.get_remarks(), style="bold green"),
+                else Text(self.remarks, style="bold green"),
                 vertical="middle",
             )
         )
