@@ -63,9 +63,8 @@ menu["hardcore"] = Menu(
             {
                 "off": "You will see green color on the letter if you typed it correctly else red",
                 "on": "You will only see yellow color if your have typed that letter",
-                "max": "You will not be shown any type of colorful help. You will be on your own",
             },
-            Option(name="blind_mode", options=["off", "on", "max"]),
+            Option(name="blind_mode", options=["off", "on"]),
         ),
     ],
 )
@@ -138,12 +137,12 @@ art_eye_candy = """
 menu["eye_candy"] = Menu(
     art_eye_candy,
     [
-        Setting(
-            "Single line words",
-            {},
-            Option(name="single_line_words", options=["off", "on"]),
-            info="when turned on... each word will be shown in a seperate line",
-        ),
+        # Setting(
+        #     "Single line words",
+        #     {},
+        #     Option(name="single_line_words", options=["off", "on"]),
+        #     info="when turned on... each word will be shown in a seperate line",
+        # ),
         Setting(
             "Caret style",
             {},
