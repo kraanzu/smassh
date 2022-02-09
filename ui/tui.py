@@ -1,13 +1,13 @@
 from rich.align import Align
 from rich.box import HEAVY_EDGE
-from rich.text import Text, TextType
+from rich.text import Text
 from textual.app import App
 from textual.layouts.dock import DockLayout
-from textual.widgets import Static, ScrollView
+from textual.widgets import Static
 from textual import events
 
 from rich.panel import Panel
-from os import get_terminal_size as termsize, supports_dir_fd
+from os import get_terminal_size as termsize
 
 from ui.settings_options import menu
 from ui.widgets import Button, RaceBar, Screen
@@ -50,8 +50,8 @@ class TermTyper(App):
         self.menus = list(menu.keys())
         self.current_menu_index = 0
 
-        # FOR TYPING SPACE
-        self.race_bar = RaceBar()
+        # TYING SCREEN
+        self.typing_screen = Screen()
 
     async def on_mount(self):
         await self.load_main_menu()
@@ -125,9 +125,9 @@ class TermTyper(App):
         self.current_space = "settings"
 
     async def load_typing_space(self):
+        self.race_bar = RaceBar()
         await self.clear_screen()
 
-        self.typing_screen = Screen()
         self.current_space = "typing_space"
         await self.view.dock(self.race_bar, size=percent(20, self.y))
         await self.view.dock(self.typing_screen)
@@ -136,7 +136,6 @@ class TermTyper(App):
         await eval(f"self.load_{self.current_space}()")
 
     async def on_key(self, event: events.Key):
-
         if self.current_space == "settings":
             match event.key:
                 case "right":
@@ -151,8 +150,17 @@ class TermTyper(App):
 
                 case "escape":
                     await self.load_main_menu()
-        else:
+
+        elif self.current_space == "typing_space":
+            if event.key == "escape":
+                await self.typing_screen.reset_screen()
+                await self.load_main_menu()
+                return
+
             await self.typing_screen.key_add(event.key)
+
+    async def handle_reset_bar(self, _):
+        self.race_bar.reset()
 
     async def handle_update_race_bar(self, event):
         self.race_bar.update(event.completed, event.speed)

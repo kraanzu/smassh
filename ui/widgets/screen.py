@@ -11,11 +11,6 @@ from textual.message import Message, MessageTarget
 from utils import chomsky, Parser
 
 
-class FinishedTyping(Message, bubble=True):
-    def __init__(self, sender: MessageTarget) -> None:
-        super().__init__(sender)
-
-
 class UpdateRaceBar(Message, bubble=True):
     def __init__(self, sender: MessageTarget, completed: float, speed: float) -> None:
         super().__init__(sender)
@@ -69,7 +64,6 @@ class Screen(Widget):
         self.total_key_presses = 0
         self.mistakes = 0
         self.mistakes_hashmap = dict()
-        self.correct = [False] * (self.paragraph_length + 1)
 
         if self.cursor_buddy_speed:
             self.set_interval(
@@ -136,7 +130,6 @@ class Screen(Widget):
             self.paragraph.spans = []
         else:
             self.set_paragraph()
-
         self.refresh()
 
     def set_paragraph(self):
@@ -154,6 +147,7 @@ class Screen(Widget):
         paragraph = chomsky(times, get_terminal_size()[0] - 5)
         self.paragraph = Text(paragraph)
         self.paragraph_length = len(self.paragraph.plain)
+        self.correct = [False] * (self.paragraph_length + 1)
         self.refresh()
 
     def report(self):
@@ -253,6 +247,7 @@ class Screen(Widget):
             self.started = True
 
             if self.cursor_position == self.paragraph_length:
+                await self._update_race_bar()
                 self.finised = True
 
         self.refresh()
