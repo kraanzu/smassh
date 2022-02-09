@@ -52,9 +52,9 @@ menu["hardcore"] = Menu(
         Setting(
             "Difficulty",
             {
-                "normal": "there are no restrictions... you can type at your own accuracy",
-                "expert": "moving to next word without having typed the previous word correctly will declare you failed",
-                "master": "You will have to be att 100% accuracy that is...typing even a letter incorrecyly will declare your failed",
+                "normal": "There are no restrictions... you can type at your own accuracy",
+                "expert": "Moving to next word without having typed the previous word correctly will declare you failed",
+                "master": "You will have to be at 100% accuracy i.e. ...typing even a letter incorrectly will declare your failed",
             },
             Option(name="difficulty", options=["normal", "expert", "master"]),
         ),
@@ -62,9 +62,10 @@ menu["hardcore"] = Menu(
             "Blind Mode",
             {
                 "off": "You will see green color on the letter if you typed it correctly else red",
-                "on": "You will only see yellow color if your have typed that letter",
+                "on": "You will only see yellow color if you have typed that letter",
             },
             Option(name="blind_mode", options=["off", "on"]),
+            "You should turn `force correct` off if you are turing blind mode on"
         ),
     ],
 )
@@ -137,12 +138,6 @@ art_eye_candy = """
 menu["eye_candy"] = Menu(
     art_eye_candy,
     [
-        # Setting(
-        #     "Single line words",
-        #     {},
-        #     Option(name="single_line_words", options=["off", "on"]),
-        #     info="when turned on... each word will be shown in a seperate line",
-        # ),
         Setting(
             "Caret style",
             {},
