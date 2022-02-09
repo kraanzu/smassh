@@ -85,9 +85,17 @@ class Screen(Widget):
             )
             self.accuracy = (self.correct_key_presses / self.total_key_presses) * 100
             self.speed = (self.accuracy / 100) * self.raw_speed
-            progress = 100 * self.correct_key_presses / len(self.paragraph.plain)
+            progress = (
+                100
+                * (self.correct_key_presses + self.mistakes)
+                / len(self.paragraph.plain)
+            )
 
-            if self.speed < self.min_speed or self.accuracy < self.min_accuracy:
+            if (
+                self.speed < self.min_speed
+                or self.accuracy < self.min_accuracy
+                or self.failed
+            ):
                 self.finised = True
                 self.failed = True
                 self.speed = -1
@@ -203,6 +211,9 @@ class Screen(Widget):
                     else:
                         return
                 else:
+                    if self.difficulty == "expert" and self.mistakes:
+                        self.failed = True
+
                     self.correct_key_presses += 1
                     self.paragraph.spans.append(empty_span)
 
@@ -231,6 +242,10 @@ class Screen(Widget):
                         self._get_color("mistake"),
                     )
                 )
+
+                self.mistakes += 1
+                if self.difficulty == "master":
+                    self.failed = True
 
             self.cursor_position += 1
             if not self.started:
