@@ -63,11 +63,14 @@ class RaceBar(Widget):
                 + "Keep practicing and go on to become the world's greatest typer"
             )
 
+    def reset(self):
+        self.finised = False
+
     def update(self, progress: float, speed: float):
         if not self.finised:
             self.completed = progress
-            self.speed = speed
             self.finised = progress == 100 or speed == -1
+            self.speed = speed
             self.remarks = self.get_remarks()
             self.refresh()
 

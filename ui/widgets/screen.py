@@ -18,6 +18,10 @@ class UpdateRaceBar(Message, bubble=True):
         self.speed = speed
 
 
+class ResetBar(Message, bubble=True):
+    pass
+
+
 empty_span = Span(0, 0, "")
 
 
@@ -36,7 +40,7 @@ class Screen(Widget):
         self.force_correct = parser.get_data("force_correct")
         self.tab_reset = parser.get_data("tab_reset")
         self.difficulty = parser.get_data("difficulty")
-        self.restart_same = parser.get_data("restart_same")
+        # self.restart_same = parser.get_data("restart_same")
         self.blind_mode = parser.get_data("blind_mode")
         self.confidence_mode = parser.get_data("confidence_mode")
         self.single_line_words = parser.get_data("single_line_words")
@@ -74,6 +78,7 @@ class Screen(Widget):
 
     async def _update_race_bar(self):
         if self.started and not self.finised:
+
             self.raw_speed = (
                 60 * self.correct_key_presses / (time.time() - self.start_time) / 5
             )
@@ -117,19 +122,22 @@ class Screen(Widget):
                 self.cursor_buddy_position += 1
                 self.refresh()
 
-    async def reset_screen(self):
+    async def reset_screen(self, restart_same=Parser().get_data("restart_same")):
         self.cursor_position = 0
         self.cursor_buddy_position = 0
         self.correct_key_presses = 0
+        self.mistakes = 0
         self.total_key_presses = 0
         self.started = False
         self.finised = False
         self.failed = False
 
-        if self.restart_same == "on":
+        if restart_same == "on":
             self.paragraph.spans = []
         else:
             self.set_paragraph()
+
+        await self.emit(ResetBar(self))
         self.refresh()
 
     def set_paragraph(self):
@@ -144,7 +152,8 @@ class Screen(Widget):
         else:
             times = 15
 
-        paragraph = chomsky(times, get_terminal_size()[0] - 5)
+        paragraph = "hello peter"
+        # paragraph = chomsky(times, get_terminal_size()[0] - 5)
         self.paragraph = Text(paragraph)
         self.paragraph_length = len(self.paragraph.plain)
         self.correct = [False] * (self.paragraph_length + 1)
