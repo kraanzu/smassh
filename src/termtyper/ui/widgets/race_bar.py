@@ -16,16 +16,19 @@ class RaceBar(Widget):
     def __init__(
         self,
         name: str | None = None,
-        total: int = 1,
+        total: float = 1,
     ) -> None:
         super().__init__(name)
         self.completed = 0
         self.total = total
         self.speed = 0
-        self.low = int(Parser().get_data("low"))
-        self.med = int(Parser().get_data("med"))
-        self.high = int(Parser().get_data("high"))
         self.finised = False
+        self._read_speed_records()
+
+    def _read_speed_records(self):
+        self.low = float(Parser().get_data("low"))
+        self.med = float(Parser().get_data("med"))
+        self.high = float(Parser().get_data("high"))
 
     def get_speed_color(self) -> str:
         """
@@ -45,7 +48,7 @@ class RaceBar(Widget):
         Shows a little paraphrase when you either
         complete the typing essay or when failed
         """
-        if self.low == 0:
+        if self.low == 100000:
             return (
                 "This is the start of your journey!"
                 + "\n"
@@ -71,6 +74,7 @@ class RaceBar(Widget):
         """
         reset the bar when the user wants to re-start
         """
+        self._read_speed_records()
         self.finised = False
         self.completed = False
 

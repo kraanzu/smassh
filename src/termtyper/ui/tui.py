@@ -126,6 +126,7 @@ class TermTyper(App):
 
     async def load_typing_space(self):
         self.race_bar = RaceBar()
+        self.typing_screen._refresh_settings()
         await self.clear_screen()
 
         self.current_space = "typing_space"
