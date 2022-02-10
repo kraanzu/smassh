@@ -8,6 +8,9 @@ c2 = "cyan"
 
 
 class Setting:
+    """
+    A class that holds one setting for the termtyper!
+    """
     def __init__(
         self, title: str, items: dict[str, str], widget: Widget, info: str = ""
     ) -> None:
@@ -32,6 +35,9 @@ class Setting:
 
 
 class Menu:
+    """
+    A menu clas for showing multiple settings in one page
+    """
     def __init__(self, ascii_art: str, items: list[Setting]):
         self.ascii_art = ascii_art
         self.items = items

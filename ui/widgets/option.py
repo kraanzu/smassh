@@ -8,6 +8,10 @@ from utils import Parser
 
 
 class Option(Widget):
+    """
+    A widget to show options in horizontal fashion
+    with the selected option with a colored background
+    """
     def __init__(self, name: str, options: list[str]):
         super().__init__()
         self.name = name

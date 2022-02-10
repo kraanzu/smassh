@@ -4,33 +4,33 @@ from rich.text import Text
 from textual.app import App
 from textual.widget import Widget
 from rich.progress_bar import ProgressBar
+from utils import Parser
 
 
 class RaceBar(Widget):
     """
-    A progress bar widget that shows the amount of writing of the typer
+    A progress bar widget that shows the progress of writing
     with colors accoring to the speed of the typer
     """
 
     def __init__(
         self,
         name: str | None = None,
-        total: int = 100,
-        low: int = 20,
-        med: int = 30,
-        high: int = 40,
+        total: int = 1,
     ) -> None:
         super().__init__(name)
         self.completed = 0
         self.total = total
         self.speed = 0
-        self.low = low
-        self.med = med
-        self.high = high
-        self.speed_sum = 0
+        self.low = int(Parser().get_data("low"))
+        self.med = int(Parser().get_data("med"))
+        self.high = int(Parser().get_data("high"))
         self.finised = False
 
     def get_speed_color(self) -> str:
+        """
+        returns speed color according to the current speed
+        """
         if self.speed < self.low:
             return "white"
         elif self.speed < self.med:
@@ -41,6 +41,10 @@ class RaceBar(Widget):
             return "red"
 
     def get_remarks(self):
+        """
+        Shows a little paraphrase when you either
+        complete the typing essay or when failed
+        """
         if self.low == 0:
             return (
                 "This is the start of your journey!"
@@ -64,12 +68,16 @@ class RaceBar(Widget):
             )
 
     def reset(self):
+        """
+        reset the bar when the user wants to re-start
+        """
         self.finised = False
+        self.completed = False
 
     def update(self, progress: float, speed: float):
         if not self.finised:
             self.completed = progress
-            self.finised = progress == 100 or speed == -1
+            self.finised = progress == 1 or speed == -1
             self.speed = speed
             self.remarks = self.get_remarks()
             self.refresh()

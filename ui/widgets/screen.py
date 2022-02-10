@@ -84,10 +84,8 @@ class Screen(Widget):
             )
             self.accuracy = (self.correct_key_presses / self.total_key_presses) * 100
             self.speed = (self.accuracy / 100) * self.raw_speed
-            progress = (
-                100
-                * (self.correct_key_presses + self.mistakes)
-                / len(self.paragraph.plain)
+            progress = (self.correct_key_presses + self.mistakes) / len(
+                self.paragraph.plain
             )
 
             if (
@@ -194,6 +192,8 @@ class Screen(Widget):
 
                 if self.correct[self.cursor_position]:
                     self.correct_key_presses -= 1
+                else:
+                    self.mistakes -= 1
 
                 self.cursor_position -= 1
                 self.paragraph.spans.pop()

@@ -8,6 +8,10 @@ from utils import Parser
 
 
 class NumberScroll(Widget):
+    """
+    A number scroll that acts as an option to set a particular value
+    """
+
     def __init__(
         self,
         name: str,

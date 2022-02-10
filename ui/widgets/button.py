@@ -13,6 +13,9 @@ class ButtonClicked(Message, bubble=True):
 
 
 class Button(Widget):
+    """
+    A class that renders a panel acting like a button
+    """
     def __init__(
         self,
         name: str | None = None,
@@ -27,10 +30,16 @@ class Button(Widget):
         self.is_hover = False
 
     def on_enter(self):
+        """
+        called when hovered by mouse pointer
+        """
         self.is_hover = True
         self.refresh()
 
     def on_leave(self):
+        """
+        called when the mouse pointer leaves
+        """
         self.is_hover = False
         self.refresh()
 
@@ -48,7 +57,6 @@ class Button(Widget):
             ),
             style="black",
             border_style=self.bt_border_style if not self.is_hover else "bold magenta",
-            # box=ROUNDED if not self.is_hover else HEAVY_EDGE,
             expand=False,
             height=5,
         )
