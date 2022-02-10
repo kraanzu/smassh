@@ -1,2 +1,4 @@
 from .ui import TermTyper
-TermTyper.run()
+
+def main():
+    TermTyper.run()

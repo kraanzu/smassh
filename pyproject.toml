@@ -14,3 +14,7 @@ textual = "^0.1.15"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+termtyper = 'termtyper.__init__:main'
+poetry = 'poetry.console:run'
