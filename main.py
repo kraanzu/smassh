@@ -1,3 +1,2 @@
-from ui.tui import TermTyper
-
+from src.termtyper.ui import TermTyper
 TermTyper.run()

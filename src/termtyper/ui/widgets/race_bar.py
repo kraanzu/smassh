@@ -4,7 +4,7 @@ from rich.text import Text
 from textual.app import App
 from textual.widget import Widget
 from rich.progress_bar import ProgressBar
-from utils import Parser
+from ...utils import Parser
 
 
 class RaceBar(Widget):

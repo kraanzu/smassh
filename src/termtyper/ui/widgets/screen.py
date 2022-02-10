@@ -8,7 +8,7 @@ from rich.panel import Panel
 from textual.app import App
 from textual.widget import Widget
 from textual.message import Message, MessageTarget
-from utils import chomsky, Parser
+from ...utils import chomsky, Parser
 
 
 class UpdateRaceBar(Message, bubble=True):

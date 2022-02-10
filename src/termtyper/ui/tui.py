@@ -9,9 +9,9 @@ from textual import events
 from rich.panel import Panel
 from os import get_terminal_size as termsize
 
-from ui.settings_options import menu
-from ui.widgets import Button, RaceBar, Screen
-from utils import Parser
+from .settings_options import menu
+from ..ui.widgets import Button, RaceBar, Screen
+from ..utils import Parser
 
 percent = lambda part, total: int(part * total / 100)
 

@@ -1,6 +1,6 @@
 from rich.text import TextType, Text
 from textual.widget import Widget
-from ui.widgets import Option, NumberScroll
+from ..ui.widgets import Option, NumberScroll
 from collections import OrderedDict
 
 c1 = "bold blue"
@@ -11,6 +11,7 @@ class Setting:
     """
     A class that holds one setting for the termtyper!
     """
+
     def __init__(
         self, title: str, items: dict[str, str], widget: Widget, info: str = ""
     ) -> None:
@@ -38,6 +39,7 @@ class Menu:
     """
     A menu clas for showing multiple settings in one page
     """
+
     def __init__(self, ascii_art: str, items: list[Setting]):
         self.ascii_art = ascii_art
         self.items = items
@@ -71,7 +73,7 @@ menu["hardcore"] = Menu(
                 "on": "You will only see yellow color if you have typed that letter",
             },
             Option(name="blind_mode", options=["off", "on"]),
-            "You should turn `force correct` off if you are turing blind mode on"
+            "You should turn `force correct` off if you are turing blind mode on",
         ),
     ],
 )

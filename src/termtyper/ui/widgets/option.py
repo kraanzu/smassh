@@ -4,7 +4,7 @@ from rich.align import Align
 from rich.text import Span, Text
 from rich.panel import Panel
 
-from utils import Parser
+from ...utils import Parser
 
 
 class Option(Widget):
