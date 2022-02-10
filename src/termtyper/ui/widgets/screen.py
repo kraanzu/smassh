@@ -186,6 +186,20 @@ class Screen(Widget):
                 + f"[{style}]TIME TAKEN[/{style}]           : {time.time() - self.start_time:.2f} seconds"
             )
 
+    def _is_key_correct(self):
+        return self.pressed_key == self.paragraph.plain[self.cursor_position]
+
+    def _check_min_burst(self):
+        pos = self.cursor_position - 1
+        correct = 0
+        total = 0
+        while pos >= 0 and self.paragraph.plain[pos] != " ":
+            correct += self.correct[pos]
+            total += 1
+            pos -= 1
+
+        return (100 * correct / total) > self.min_burst
+
     async def key_add(self, key: str):
         if key == "ctrl+i":  # TAB
             await self.reset_screen()
@@ -196,6 +210,7 @@ class Screen(Widget):
         if self.sound:
             self.console.bell()
 
+        self.pressed_key = key
         if key == "ctrl+h":  # BACKSPACE
             if self.confidence_mode == "max":
                 return
@@ -218,8 +233,12 @@ class Screen(Widget):
         elif len(key) == 1:
             self.total_key_presses += 1
             if key == " ":
-                if self.paragraph.plain[self.cursor_position] != " ":
-                    if self.force_correct == "off":
+                if not self._is_key_correct():
+                    if (
+                        self.force_correct == "off"
+                        and self.cursor_position
+                        and self.paragraph.plain[self.cursor_position - 1] != " "
+                    ):
                         next_space = self.spaces[
                             bisect(self.spaces, self.cursor_position)
                         ]
@@ -228,16 +247,21 @@ class Screen(Widget):
                         )  # 1 for the next space
                         self.paragraph.spans.extend([EMPTY_SPAN] * difference)
                         self.cursor_position = next_space
+                        if not self._check_min_burst():
+                            self.failed = True
                     else:
                         return
                 else:
+
                     if self.difficulty == "expert" and self.mistakes:
+                        self.failed = True
+                    if not self._check_min_burst():
                         self.failed = True
 
                     self.correct_key_presses += 1
                     self.paragraph.spans.append(EMPTY_SPAN)
 
-            elif key == self.paragraph.plain[self.cursor_position]:
+            elif self._is_key_correct():
                 self.paragraph.spans.append(
                     Span(
                         self.cursor_position,
