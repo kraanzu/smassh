@@ -55,13 +55,12 @@ class Screen(Widget):
         self.single_line_words = parser.get_data("single_line_words")
         self.caret_style = parser.get_data("caret_style")
 
-        match self.caret_style:
-            case "off":
-                self.cursor_style = ""
-            case "block":
-                self.cursor_style = "reverse"
-            case "underline":
-                self.cursor_style = "underline"
+        if self.caret_style == "off":
+            self.cursor_style = ""
+        elif self.caret_style == "on":
+            self.cursor_style = "reverse"
+        else:
+            self.cursor_style = "underline"
 
     def _get_color(self, type: str):
         if self.blind_mode == "on":
