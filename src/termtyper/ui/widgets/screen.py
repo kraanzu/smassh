@@ -8,7 +8,7 @@ from rich.panel import Panel
 from textual.app import App
 from textual.widget import Widget
 from textual.message import Message, MessageTarget
-from ...utils import chomsky, Parser
+from ...utils import chomsky, Parser, play_keysound, play_failed
 
 
 class UpdateRaceBar(Message, bubble=True):
@@ -53,7 +53,6 @@ class Screen(Widget):
         self.blind_mode = parser.get_data("blind_mode")
         self.confidence_mode = parser.get_data("confidence_mode")
         self.single_line_words = parser.get_data("single_line_words")
-        self.sound = parser.get_data("sound")
         self.caret_style = parser.get_data("caret_style")
 
         match self.caret_style:
@@ -114,6 +113,7 @@ class Screen(Widget):
             self.finised = True
             self.failed = True
             self.speed = -1
+            play_failed()
 
     async def _update_race_bar(self):
         if self.started and not self.finised:
@@ -207,8 +207,7 @@ class Screen(Widget):
         if self.finised:
             return
 
-        if self.sound:
-            self.console.bell()
+        play_keysound()
 
         self.pressed_key = key
         if key == "ctrl+h":  # BACKSPACE

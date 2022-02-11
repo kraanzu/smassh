@@ -1,10 +1,9 @@
 from rich.text import TextType, Text
 from textual.widget import Widget
-from ..ui.widgets import Option, NumberScroll
 from collections import OrderedDict
 
-c1 = "bold blue"
-c2 = "cyan"
+from ..ui.widgets import Option, NumberScroll
+from ..utils import play_keysound
 
 
 class Setting:
@@ -25,12 +24,15 @@ class Setting:
         self.description = self.render_description()
 
     def render_description(self) -> str:
+        c1 = "bold blue"
+        c2 = "yellow"
+        c3 = "cyan"
         return (
             f"[{c1}]{self.title}[/{c1}]"
             + "\n"
-            + self.info
+            + f"[{c2}]{self.info}[/{c2}]"
             + "\n".join(
-                f"[{c2}]{sub}[/{c2}]: {desc}" for sub, desc in self.items.items()
+                f"[{c3}]{sub}[/{c3}]: {desc}" for sub, desc in self.items.items()
             )
         )
 
@@ -58,22 +60,31 @@ menu["hardcore"] = Menu(
     art_hardcore,
     [
         Setting(
+            "Paragraph Size",
+            {},
+            Option(name="paragraph_size", options=["teensy", "small", "big", "huge"]),
+            info="So how much can your fingers handle?",
+        ),
+        Setting(
             "Difficulty",
             {
-                "normal": "There are no restrictions... you can type at your own accuracy",
-                "expert": "Moving to next word without having typed the previous word correctly will declare you failed",
-                "master": "You will have to be at 100% accuracy i.e. ...typing even a letter incorrectly will declare your failed",
+                "normal": "You can type at your own accuracy",
+                "expert": "Moving forward without writing the prev word correctly? YOU'RE FAILED!",
+                "master": "A single incorrect press will declare you failed",
             },
             Option(name="difficulty", options=["normal", "expert", "master"]),
+            "Where's the fun without some conditions?",
         ),
         Setting(
             "Blind Mode",
             {
-                "off": "You will see green color on the letter if you typed it correctly else red",
-                "on": "You will only see yellow color if you have typed that letter",
+                "off": "You will get to know whether you typed right or  wrong",
+                "on": "Just believe your spidey sense!",
             },
             Option(name="blind_mode", options=["off", "on"]),
-            "You should turn `force correct` off if you are turing blind mode on",
+            "Have a lot of Confidence? Try this !"
+            + "\n"
+            + "Note: You should turn [bold]force correct[/bold] off if you are turing blind mode on",
         ),
     ],
 )
@@ -92,19 +103,25 @@ menu["push_your_limits"] = Menu(
             "Min Speed",
             {},
             NumberScroll("min_speed"),
-            info="If your speed falls below this speed you will be declared failed",
+            info="Are you lightning MCQueen?"
+            + "\n"
+            + "Note: If your speed falls below this speed you will be declared failed",
         ),
         Setting(
             "Min Accuracy",
             {},
             NumberScroll("min_accuracy"),
-            info="If your accuracy falls below this accuracy you will be declared failed",
+            info="You can't go wrong with this"
+            + "\n"
+            + "Note: If your accuracy falls below this accuracy you will be declared failed",
         ),
         Setting(
             "Min Burst:",
             {},
             NumberScroll("min_burst"),
-            info="If your accuracy for a word falls below this accuracy you will be declared failed",
+            info="Wanna make your life harder?"
+            + "\n"
+            + "Note: If your accuracy for a word falls below this accuracy you will be declared failed",
         ),
     ],
 )
@@ -120,9 +137,14 @@ menu["discipline"] = Menu(
     [
         Setting(
             "Force correct",
-            {},
+            {
+                "on": "You will not be allowed to move forward until"
+                + "\n"
+                + "and unless all the characters until your cursor are typed correctly",
+                "off": "You live your life your own way!",
+            },
             Option(name="force_correct", options=["off", "on"]),
-            info="You will not be allowed to move forward until and unless all the characters uptil your cursor are typed correctly",
+            "Are you worthy?",
         ),
         Setting(
             "Confidence Mode:",
@@ -132,6 +154,7 @@ menu["discipline"] = Menu(
                 "max": "You will not be able to press backspace at all",
             },
             Option(name="confidence_mode", options=["off", "on", "max"]),
+            "Feeling Lucky?",
         ),
     ],
 )
@@ -148,7 +171,11 @@ menu["eye_candy"] = Menu(
     [
         Setting(
             "Caret style",
-            {},
+            {
+                "off": "[green]hello pete[/green]r",
+                "underline": "[green]hello pete[/green][underline]r[/underline]",
+                "block": "[green]hello pete[/green][reverse]r[/reverse]",
+            },
             Option(name="caret_style", options=["off", "underline", "block"]),
             info="Choose your style!",
         ),
@@ -156,7 +183,11 @@ menu["eye_candy"] = Menu(
             "Cursor buddy",
             {},
             NumberScroll("cursor_buddy_speed"),
-            info="A cursor will race along with you with this constant speed. '0' means it will not be visible",
+            info="Feeling a little lonely?"
+            + "\n"
+            + "A cursor will race along with you with this constant speed."
+            + "\n"
+            + "'0' means it will not be visible",
         ),
     ],
 )
@@ -178,6 +209,7 @@ menu["misc"] = Menu(
                 "off": "Pressing tab will have no effect ",
             },
             Option(name="tab_reset", options=["off", "on"]),
+            "Lost your gusto in the middle of typing? Restart by hitting a tab!",
         ),
         Setting(
             "Restart Same",
@@ -186,15 +218,40 @@ menu["misc"] = Menu(
                 "on": "Pressing tab will restart the typing session with the same paragraph",
             },
             Option(name="restart_same", options=["off", "on"]),
+            "Wanna practice the same paragraph over and over? This option is for you!",
         ),
+    ],
+)
+
+# Sixth Menu
+art_aesthetics = """
+╔═╗┌─┐┌─┐┌┬┐┬ ┬┌─┐┌┬┐┬┌─┐┌─┐
+╠═╣├┤ └─┐ │ ├─┤├┤  │ ││  └─┐
+╩ ╩└─┘└─┘ ┴ ┴ ┴└─┘ ┴ ┴└─┘└─┘
+"""
+
+menu["ear_candy"] = Menu(
+    art_aesthetics,
+    [
         Setting(
             "Keypress Sound",
             {
-                "off": "There will be no sound on keypress",
-                "on": "Pressing a key will trigger a console bell except backspace",
-                "backspace": "Pressing any key will trigger console bell",
+                "off": "Already have good switches? There will be no sound on keypress",
+                "on": "Pressing a key will trigger a click sound except backspace",
+                "backspace": "Pressing any key will trigger click sound",
             },
             Option(name="keypress_sound", options=["off", "on", "backspace"]),
+            "See ear candy menu for to get into the nitty gritty",
+        ),
+        Setting(
+            "Click sound",
+            {"cream": "Smooth soothing sound to the ears"},
+            Option(
+                "sound",
+                options=["cream", "lubed", "mech", "heavy"],
+                callback=play_keysound,
+            ),
+            "Choose whats most pleasing to you ears :)",
         ),
     ],
 )

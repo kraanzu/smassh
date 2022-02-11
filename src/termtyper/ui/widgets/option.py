@@ -1,3 +1,4 @@
+from typing import Callable
 from textual import events
 from textual.widget import Widget
 from rich.align import Align
@@ -12,11 +13,13 @@ class Option(Widget):
     A widget to show options in horizontal fashion
     with the selected option with a colored background
     """
-    def __init__(self, name: str, options: list[str]):
+
+    def __init__(self, name: str, options: list[str], callback: Callable = None):
         super().__init__()
         self.name = name
         self.options = [i.strip() for i in options]
         self.cursor = self.options.index(Parser().get_data(self.name))
+        self.callback = callback
         self._set_option_string()
 
     def _set_option_string(self):
@@ -29,11 +32,19 @@ class Option(Widget):
     async def on_mouse_scroll_down(self, _: events.MouseScrollDown):
         self.cursor = (self.cursor + 1) % len(self.options)
         Parser().set_data(self.name, self.options[self.cursor])
+
+        if self.callback:
+            self.callback()
+
         self.refresh()
 
     async def on_mouse_scroll_up(self, _: events.MouseScrollUp):
         self.cursor = (self.cursor - 1 + len(self.options)) % len(self.options)
         Parser().set_data(self.name, self.options[self.cursor])
+
+        if self.callback:
+            self.callback()
+
         self.refresh()
 
     def render(self):
