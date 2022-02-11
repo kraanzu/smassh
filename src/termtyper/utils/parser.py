@@ -32,6 +32,7 @@ class Parser(ConfigParser):
         self.set_data("sounds_loc", str(loc))
 
     def _create_user_config(self):
+        print("No config found !\nCreating....")
 
         self.add_section("user")
 

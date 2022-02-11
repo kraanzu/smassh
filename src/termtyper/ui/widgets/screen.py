@@ -161,7 +161,6 @@ class Screen(Widget):
             times = 15
 
         paragraph = chomsky(times, get_terminal_size()[0] - 5) + " "
-        paragraph = "this is a short video on termtyper "
         self.paragraph = Text(paragraph)
         self.paragraph_length = len(self.paragraph.plain)
 
