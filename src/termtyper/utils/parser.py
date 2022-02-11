@@ -38,7 +38,7 @@ class Parser(ConfigParser):
         self.set_data("restart_same", "off")
         self.set_data("keypress_sound", "off")
         self.set_data("paragraph_size", "teensy")
-        self.set_data("sound", "off")
+        self.set_data("sound", "mech")
 
         # FOR MAINTING THE SPEED RECORDS
         self.set_data("low", "100000")
