@@ -58,9 +58,9 @@ class RaceBar(Widget):
         if self.speed <= self.low:
             return "Lame!"
         elif self.speed <= self.med:
-            return "You are still at your medium speed!"
-        elif self.speed < self.high:
             return "When are you going to take this seriously ?"
+        elif self.speed < self.high:
+            return "You are still at your medium speed!"
         elif self.speed == self.high:
             return "Ah so close! Got to push a bit more"
         else:

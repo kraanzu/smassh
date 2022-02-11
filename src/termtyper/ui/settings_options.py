@@ -52,9 +52,9 @@ menu: dict[str, Menu] = OrderedDict()
 
 # First Menu
 art_hardcore = """
-╦ ╦┌─┐┬─┐┌┬┐┌─┐┌─┐┬─┐┌─┐
-╠═╣├─┤├┬┘ │││  │ │├┬┘├┤
-╩ ╩┴ ┴┴└──┴┘└─┘└─┘┴└─└─┘
+┬ ┬┌─┐┬─┐┌┬┐┌─┐┌─┐┬─┐┌─┐
+├─┤├─┤├┬┘ │││  │ │├┬┘├┤
+┴ ┴┴ ┴┴└──┴┘└─┘└─┘┴└─└─┘
 """
 menu["hardcore"] = Menu(
     art_hardcore,
@@ -92,9 +92,9 @@ menu["hardcore"] = Menu(
 
 # Second menu
 art_push_your_limits = """
-╔═╗┬ ┬┌─┐┬ ┬  ╦ ╦┌─┐┬ ┬┬─┐  ╦  ┬┌┬┐┬┌┬┐┌─┐
-╠═╝│ │└─┐├─┤  ╚╦╝│ ││ │├┬┘  ║  │││││ │ └─┐
-╩  └─┘└─┘┴ ┴   ╩ └─┘└─┘┴└─  ╩═╝┴┴ ┴┴ ┴ └─┘
+┌─┐┬ ┬┌─┐┬ ┬  ┬ ┬┌─┐┬ ┬┬─┐  ┬  ┬┌┬┐┬┌┬┐┌─┐
+├─┘│ │└─┐├─┤  └┬┘│ ││ │├┬┘  │  │││││ │ └─┐
+┴  └─┘└─┘┴ ┴   ┴ └─┘└─┘┴└─  ┴─┘┴┴ ┴┴ ┴ └─┘
 """
 menu["push_your_limits"] = Menu(
     art_push_your_limits,
@@ -128,9 +128,9 @@ menu["push_your_limits"] = Menu(
 
 # Third Menu
 art_discipline = """
-╔╦╗┬┌─┐┌─┐┬┌─┐┬  ┬┌┐┌┌─┐
- ║║│└─┐│  │├─┘│  ││││├┤
-═╩╝┴└─┘└─┘┴┴  ┴─┘┴┘└┘└─┘
+┌┬┐┬┌─┐┌─┐┬┌─┐┬  ┬┌┐┌┌─┐
+ │││└─┐│  │├─┘│  ││││├┤
+─┴┘┴└─┘└─┘┴┴  ┴─┘┴┘└┘└─┘
 """
 menu["discipline"] = Menu(
     art_discipline,
@@ -161,9 +161,9 @@ menu["discipline"] = Menu(
 
 # Fourth Menu
 art_eye_candy = """
-╔═╗┬ ┬┌─┐  ╔═╗┌─┐┌┐┌┌┬┐┬ ┬
-║╣ └┬┘├┤   ║  ├─┤│││ ││└┬┘
-╚═╝ ┴ └─┘  ╚═╝┴ ┴┘└┘─┴┘ ┴
+┌─┐┬ ┬┌─┐  ┌─┐┌─┐┌┐┌┌┬┐┬ ┬
+├┤ └┬┘├┤   │  ├─┤│││ ││└┬┘
+└─┘ ┴ └─┘  └─┘┴ ┴┘└┘─┴┘ ┴
 """
 
 menu["eye_candy"] = Menu(
@@ -193,10 +193,48 @@ menu["eye_candy"] = Menu(
 )
 
 # Fifth Menu
+art_aesthetics = """
+┌─┐┌─┐┌─┐┌┬┐┬ ┬┌─┐┌┬┐┬┌─┐┌─┐
+├─┤├┤ └─┐ │ ├─┤├┤  │ ││  └─┐
+┴ ┴└─┘└─┘ ┴ ┴ ┴└─┘ ┴ ┴└─┘└─┘
+"""
+
+menu["ear_candy"] = Menu(
+    art_aesthetics,
+    [
+        Setting(
+            "Keypress Sound",
+            {
+                "off": "Already have good switches? There will be no sound on keypress",
+                "on": "Pressing a key will trigger a click sound except backspace",
+                "backspace": "Pressing any key will trigger click sound",
+            },
+            Option(name="keypress_sound", options=["off", "on", "backspace"]),
+            "See ear candy menu for to get into the nitty gritty",
+        ),
+        Setting(
+            "Click sound",
+            {
+                "cream": "Smooth soothing sound to the ears :)",
+                "lubed": "Just the right amount",
+                "mech": "Mechanical feel baby!",
+                "heavy": "Wanna feel like you are on a typewriter?",
+            },
+            Option(
+                "sound",
+                options=["cream", "lubed", "mech", "heavy"],
+                callback=play_keysound,
+            ),
+            "Choose whats most pleasing to you ears :)",
+        ),
+    ],
+)
+
+# Sixth Menu
 art_misc = """
-╔╦╗┬┌─┐┌─┐┌─┐┬  ┬  ┌─┐┌┐┌┌─┐┌─┐┬ ┬┌─┐
-║║║│└─┐│  ├┤ │  │  ├─┤│││├┤ │ ││ │└─┐
-╩ ╩┴└─┘└─┘└─┘┴─┘┴─┘┴ ┴┘└┘└─┘└─┘└─┘└─┘
+┌┬┐┬┌─┐┌─┐┌─┐┬  ┬  ┌─┐┌┐┌┌─┐┌─┐┬ ┬┌─┐
+││││└─┐│  ├┤ │  │  ├─┤│││├┤ │ ││ │└─┐
+┴ ┴┴└─┘└─┘└─┘┴─┘┴─┘┴ ┴┘└┘└─┘└─┘└─┘└─┘
 """
 
 menu["misc"] = Menu(
@@ -219,39 +257,6 @@ menu["misc"] = Menu(
             },
             Option(name="restart_same", options=["off", "on"]),
             "Wanna practice the same paragraph over and over? This option is for you!",
-        ),
-    ],
-)
-
-# Sixth Menu
-art_aesthetics = """
-╔═╗┌─┐┌─┐┌┬┐┬ ┬┌─┐┌┬┐┬┌─┐┌─┐
-╠═╣├┤ └─┐ │ ├─┤├┤  │ ││  └─┐
-╩ ╩└─┘└─┘ ┴ ┴ ┴└─┘ ┴ ┴└─┘└─┘
-"""
-
-menu["ear_candy"] = Menu(
-    art_aesthetics,
-    [
-        Setting(
-            "Keypress Sound",
-            {
-                "off": "Already have good switches? There will be no sound on keypress",
-                "on": "Pressing a key will trigger a click sound except backspace",
-                "backspace": "Pressing any key will trigger click sound",
-            },
-            Option(name="keypress_sound", options=["off", "on", "backspace"]),
-            "See ear candy menu for to get into the nitty gritty",
-        ),
-        Setting(
-            "Click sound",
-            {"cream": "Smooth soothing sound to the ears"},
-            Option(
-                "sound",
-                options=["cream", "lubed", "mech", "heavy"],
-                callback=play_keysound,
-            ),
-            "Choose whats most pleasing to you ears :)",
         ),
     ],
 )

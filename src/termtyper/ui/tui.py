@@ -16,9 +16,9 @@ from ..utils import Parser
 percent = lambda part, total: int(part * total / 100)
 
 welcome_message = """
-╦ ╦┌─┐┬  ┌─┐┌─┐┌┬┐┌─┐  ┌┬┐┌─┐  ┌┬┐┌─┐┬─┐┌┬┐┌┬┐┬ ┬┌─┐┌─┐  ┬
-║║║├┤ │  │  │ ││││├┤    │ │ │   │ ├┤ ├┬┘│││ │ └┬┘├─┘├┤   │
-╚╩╝└─┘┴─┘└─┘└─┘┴ ┴└─┘   ┴ └─┘   ┴ └─┘┴└─┴ ┴ ┴  ┴ ┴  └─┘  o
+┬ ┬┌─┐┬  ┌─┐┌─┐┌┬┐┌─┐  ┌┬┐┌─┐  ┌┬┐┌─┐┬─┐┌┬┐┌┬┐┬ ┬┌─┐┌─┐┬─┐  ┬
+│││├┤ │  │  │ ││││├┤    │ │ │   │ ├┤ ├┬┘│││ │ └┬┘├─┘├┤ ├┬┘  │
+└┴┘└─┘┴─┘└─┘└─┘┴ ┴└─┘   ┴ └─┘   ┴ └─┘┴└─┴ ┴ ┴  ┴ ┴  └─┘┴└─  o
 """
 
 
@@ -85,8 +85,10 @@ class TermTyper(App):
                     ),
                     style="black",
                     border_style="bold magenta",
-                    subtitle="Press L/R arrow keys to navigate through different menus",
-                    subtitle_align="left",
+                    title="Press L/R ARROW keys to navigate through different menus",
+                    title_align="left",
+                    subtitle="Scroll on the option box to change",
+                    subtitle_align="right",
                 )
             ),
             size=percent(20, self.y),

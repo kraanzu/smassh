@@ -54,6 +54,7 @@ class Screen(Widget):
         self.confidence_mode = parser.get_data("confidence_mode")
         self.single_line_words = parser.get_data("single_line_words")
         self.caret_style = parser.get_data("caret_style")
+        self.keypress_sound = parser.get_data("keypress_sound")
 
         match self.caret_style:
             case "off":
@@ -159,22 +160,20 @@ class Screen(Widget):
         else:
             times = 15
 
-        paragraph = chomsky(times, get_terminal_size()[0] - 5)
-        # paragraph = "hello peter ok ok ok :w"
+        paragraph = chomsky(times, get_terminal_size()[0] - 5) + " "
+        paragraph = "this is a short video on termtyper "
         self.paragraph = Text(paragraph)
         self.paragraph_length = len(self.paragraph.plain)
 
-        self.spaces = [i for i, j in enumerate(paragraph) if j == " "] + [
-            self.paragraph_length
-        ]
+        self.spaces = [i for i, j in enumerate(paragraph) if j == " "]
         self.correct = [False] * (self.paragraph_length + 1)
         self.refresh()
 
     def report(self):
+        style = "bold red"
         if self.failed:
-            return "FAILED"
+            return f"[{style}]FAILED[/{style}]"
         else:
-            style = "bold red"
             return (
                 "\n"
                 + f"[{style}]RAW SPEED[/{style}]            : {self.raw_speed:.2f} WPM"
@@ -198,7 +197,7 @@ class Screen(Widget):
             total += 1
             pos -= 1
 
-        return (100 * correct / total) > self.min_burst
+        return (100 * correct / total) >= self.min_burst
 
     async def key_add(self, key: str):
         if key == "ctrl+i":  # TAB
@@ -207,7 +206,8 @@ class Screen(Widget):
         if self.finised:
             return
 
-        play_keysound()
+        if self.keypress_sound == "on":
+            play_keysound()
 
         self.pressed_key = key
         if key == "ctrl+h":  # BACKSPACE
@@ -245,6 +245,7 @@ class Screen(Widget):
                             next_space - self.cursor_position + 1
                         )  # 1 for the next space
                         self.paragraph.spans.extend([EMPTY_SPAN] * difference)
+                        self.mistakes += difference
                         self.cursor_position = next_space
                         if not self._check_min_burst():
                             self.failed = True

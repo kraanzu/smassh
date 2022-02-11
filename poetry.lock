@@ -62,8 +62,8 @@ rich = ">=11.0.0,<12.0.0"
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.10"
-content-hash = "83685341138d0136fdc63466c21f057c15cc86392c7260edf347da9422f84bfc"
+python-versions = "^3.9"
+content-hash = "607c07e6b721bc7dc49cc8726d018aedcf0cc28a4840d8cbd0b252a43abaf5ef"
 
 [metadata.files]
 colorama = [
