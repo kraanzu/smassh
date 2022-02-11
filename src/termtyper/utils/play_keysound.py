@@ -1,13 +1,10 @@
+from ..utils import Parser
 from playsound import playsound
 from threading import Thread
-from pathlib import Path
-from ..utils import Parser
-
-loc = Parser().get_data("sounds_loc")
 
 
 def get_sound_location(sound: str):
-    return str(Path().joinpath(loc, f"{sound}.wav"))
+    return f"./src/termtyper/sounds/{sound}.wav"
 
 
 def play(sound_file):
