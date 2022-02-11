@@ -138,18 +138,19 @@ class TermTyper(App):
 
     async def on_key(self, event: events.Key):
         if self.current_space == "settings":
-            if event.key == "right":
-                self.current_menu_index = (self.current_menu_index + 1) % len(menu)
-                await self.load_settings()
+            match event.key:
+                case "right":
+                    self.current_menu_index = (self.current_menu_index + 1) % len(menu)
+                    await self.load_settings()
 
-            elif event.key == "left":
-                self.current_menu_index = (
-                    self.current_menu_index + len(menu) - 1
-                ) % len(menu)
-                await self.load_settings()
+                case "left":
+                    self.current_menu_index = (
+                        self.current_menu_index + len(menu) - 1
+                    ) % len(menu)
+                    await self.load_settings()
 
-            elif event.key == "escape":
-                await self.load_main_menu()
+                case "escape":
+                    await self.load_main_menu()
 
         elif self.current_space == "typing_space":
             if event.key == "escape":
