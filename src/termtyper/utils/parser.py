@@ -1,5 +1,7 @@
 import os
 from configparser import ConfigParser
+import subprocess
+from pathlib import Path
 
 
 class Parser(ConfigParser):
@@ -17,6 +19,17 @@ class Parser(ConfigParser):
 
             self._create_user_config()
             self.read(self.file_path)
+
+    def set_sound_location(self):
+        loc = [
+            i[10:]
+            for i in subprocess.check_output("pip show rich".split())
+            .decode()
+            .splitlines()
+            if i.startswith("Location")
+        ][0]
+        loc = Path().joinpath(loc, "termtyper", "sounds")
+        self.set_data("sounds_loc", str(loc))
 
     def _create_user_config(self):
 
@@ -44,6 +57,10 @@ class Parser(ConfigParser):
         self.set_data("low", "100000")
         self.set_data("med", "0")
         self.set_data("high", "0")
+
+        # Sounds location
+        self.set_sound_location()
+
         self._write_to_file()
 
     def _write_to_file(self):
