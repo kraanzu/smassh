@@ -20,7 +20,7 @@ class Parser(ConfigParser):
             self._create_user_config()
             self.read(self.file_path)
 
-    def set_sound_location(self):
+    def set_sound_location(self) -> None:
         loc = [
             i[10:]
             for i in subprocess.check_output("pip show rich".split())
@@ -31,7 +31,7 @@ class Parser(ConfigParser):
         loc = Path().joinpath(loc, "termtyper", "sounds")
         self.set_data("sounds_loc", str(loc))
 
-    def _create_user_config(self):
+    def _create_user_config(self) -> None:
         print("No config found !\nCreating....")
 
         self.add_section("user")
@@ -64,11 +64,11 @@ class Parser(ConfigParser):
 
         self._write_to_file()
 
-    def _write_to_file(self):
+    def _write_to_file(self) -> None:
         with open(self.file_path, "w") as fp:
             self.write(fp)
 
-    def set_data(self, data: str, val: str):
+    def set_data(self, data: str, val: str) -> None:
         super().set("user", data, val)
         self._write_to_file()
 

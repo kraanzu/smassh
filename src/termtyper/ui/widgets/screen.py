@@ -1,17 +1,23 @@
-from os import get_terminal_size
 import time
 from bisect import bisect
 from rich.align import Align
-
-from rich.text import Span, Text
+from rich.console import RenderableType
+from rich.text import Span, Text, TextType
 from rich.panel import Panel
 from textual.app import App
 from textual.widget import Widget
 from textual.message import Message, MessageTarget
+
 from ...utils import chomsky, Parser, play_keysound, play_failed
+
+EMPTY_SPAN = Span(0, 0, "")
 
 
 class UpdateRaceBar(Message, bubble=True):
+    """
+    An Event Class to continously update the Race Bar
+    """
+
     def __init__(self, sender: MessageTarget, completed: float, speed: float) -> None:
         super().__init__(sender)
         self.completed = completed
@@ -19,10 +25,11 @@ class UpdateRaceBar(Message, bubble=True):
 
 
 class ResetBar(Message, bubble=True):
+    """
+    An Event Class to reset the bar
+    """
+
     pass
-
-
-EMPTY_SPAN = Span(0, 0, "")
 
 
 class Screen(Widget):
@@ -40,7 +47,7 @@ class Screen(Widget):
 
         self.set_interval(0.2, self._update_race_bar)
 
-    def _refresh_settings(self):
+    def _refresh_settings(self) -> None:
         parser = Parser()
         self.set_paragraph()
         self.min_speed = int(parser.get_data("min_speed"))
@@ -64,13 +71,20 @@ class Screen(Widget):
             case "underline":
                 self.cursor_style = "underline"
 
-    def _get_color(self, type: str):
+    def _get_color(self, type: str) -> str:
+        """
+        returns color for typed letter
+        """
+
         if self.blind_mode == "on":
             return "yellow"
         else:
             return "green" if type == "correct" else "red"
 
-    def _reset_params(self):
+    def _reset_params(self) -> None:
+        """
+        resets everyting on typing start
+        """
 
         self.started = False
         self.finised = False
@@ -83,7 +97,11 @@ class Screen(Widget):
         self.total_key_presses = 0
         self.mistakes = 0
 
-    def _update_speed_records(self):
+    def _update_speed_records(self) -> None:
+        """
+        Updates speed records when the typing is over
+        """
+
         if self.speed == -1:
             return
 
@@ -96,7 +114,11 @@ class Screen(Widget):
         high = max(float(Parser().get_data("high")), self.speed)
         Parser().set_data("high", str(high))
 
-    def _update_measurements(self):
+    def _update_measurements(self) -> None:
+        """
+        Recalibrate the measurements for speed, accuracy and progress
+        """
+
         self.raw_speed = (
             60 * self.correct_key_presses / (time.time() - self.start_time) / 5
         )
@@ -116,7 +138,11 @@ class Screen(Widget):
             self.speed = -1
             play_failed()
 
-    async def _update_race_bar(self):
+    async def _update_race_bar(self) -> None:
+        """
+        Simultaneously updates race bar with typing
+        """
+
         if self.started and not self.finised:
             self._update_measurements()
             await self.emit(
@@ -131,13 +157,22 @@ class Screen(Widget):
         else:
             await self.emit(UpdateRaceBar(self, 0, 0))
 
-    def move_cursor_buddy(self):
+    def move_cursor_buddy(self) -> None:
+        """
+        Manages the cursor buddy if set
+        """
+
         if self.started:
             if self.cursor_buddy_position < self.paragraph_length - 1:
                 self.cursor_buddy_position += 1
                 self.refresh()
 
-    async def reset_screen(self, restart_same=Parser().get_data("restart_same")):
+    async def reset_screen(
+        self, restart_same=Parser().get_data("restart_same")
+    ) -> None:
+        """
+        Reset the screen when left in mid of typing or re-started
+        """
 
         self._reset_params()
         if restart_same == "on":
@@ -148,7 +183,11 @@ class Screen(Widget):
         await self.emit(ResetBar(self))
         self.refresh()
 
-    def set_paragraph(self):
+    def set_paragraph(self) -> None:
+        """
+        Sets the paragraph for the Screen
+        """
+
         self.paragraph_size = Parser().get_data("paragraph_size")
 
         if self.paragraph_size == "teensy":
@@ -160,7 +199,7 @@ class Screen(Widget):
         else:
             times = 15
 
-        paragraph = chomsky(times, get_terminal_size()[0] - 5) + " "
+        paragraph = chomsky(times) + " "
         self.paragraph = Text(paragraph)
         self.paragraph_length = len(self.paragraph.plain)
 
@@ -168,7 +207,11 @@ class Screen(Widget):
         self.correct = [False] * (self.paragraph_length + 1)
         self.refresh()
 
-    def report(self):
+    def report(self) -> TextType:
+        """
+        Generates a report when the typing is finised
+        """
+
         style = "bold red"
         if self.failed:
             return f"[{style}]FAILED[/{style}]"
@@ -184,10 +227,16 @@ class Screen(Widget):
                 + f"[{style}]TIME TAKEN[/{style}]           : {time.time() - self.start_time:.2f} seconds"
             )
 
-    def _is_key_correct(self):
+    def _is_key_correct(self) -> bool:
+        """Check if the current pressed key matches with the current cursor position"""
+
         return self.pressed_key == self.paragraph.plain[self.cursor_position]
 
     def _check_min_burst(self):
+        """
+        Check if the min_burst rule is violated
+        """
+
         pos = self.cursor_position - 1
         correct = 0
         total = 0
@@ -198,7 +247,11 @@ class Screen(Widget):
 
         return (100 * correct / total) >= self.min_burst
 
-    async def key_add(self, key: str):
+    async def key_add(self, key: str) -> None:
+        """
+        Process the pressed key
+        """
+
         if key == "ctrl+i":  # TAB
             await self.reset_screen()
 
@@ -301,7 +354,7 @@ class Screen(Widget):
 
         self.refresh()
 
-    def render(self):
+    def render(self) -> RenderableType:
         if not self.finised and not self.failed:
             return Panel(
                 Text(

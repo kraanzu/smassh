@@ -10,7 +10,7 @@ from rich.panel import Panel
 from os import get_terminal_size as termsize
 
 from .settings_options import menu
-from ..ui.widgets import Button, RaceBar, Screen
+from ..ui.widgets import Button, RaceBar, Screen, UpdateRaceBar, ResetBar
 from ..utils import Parser
 
 percent = lambda part, total: int(part * total / 100)
@@ -23,7 +23,7 @@ welcome_message = """
 
 
 class TermTyper(App):
-    async def on_load(self):
+    async def on_load(self) -> None:
         self.parser = Parser()
         self.current_space = "main_menu"
         self.x, self.y = termsize()
@@ -53,15 +53,23 @@ class TermTyper(App):
         # TYING SCREEN
         self.typing_screen = Screen()
 
-    async def on_mount(self):
+    async def on_mount(self) -> None:
         await self.load_main_menu()
 
-    async def clear_screen(self):
+    async def clear_screen(self) -> None:
+        """
+        Removes all the widgets and clears the window
+        """
+
         if isinstance(self.view.layout, DockLayout):
             self.view.layout.docks.clear()
         self.view.widgets.clear()
 
-    async def load_main_menu(self):
+    async def load_main_menu(self) -> None:
+        """
+        Renders the Main Menu
+        """
+
         await self.clear_screen()
         await self.view.dock(self.banner, size=percent(30, self.y))
         await self.view.dock(
@@ -73,6 +81,10 @@ class TermTyper(App):
         self.current_space = "main_menu"
 
     async def load_settings(self):
+        """
+        Renders the Settings
+        """
+
         await self.clear_screen()
 
         self.current_menu = self.menus[self.current_menu_index]
@@ -126,7 +138,11 @@ class TermTyper(App):
 
         self.current_space = "settings"
 
-    async def load_typing_space(self):
+    async def load_typing_space(self) -> None:
+        """
+        Renders the Typing Space
+        """
+
         self.race_bar = RaceBar()
         self.typing_screen._refresh_settings()
         await self.clear_screen()
@@ -136,9 +152,13 @@ class TermTyper(App):
         await self.view.dock(self.typing_screen)
 
     async def on_resize(self, _: events.Resize) -> None:
+        """
+        Re renders the screen when the terminal is resized
+        """
+
         await eval(f"self.load_{self.current_space}()")
 
-    async def on_key(self, event: events.Key):
+    async def on_key(self, event: events.Key) -> None:
         if self.current_space == "settings":
             match event.key:
                 case "right":
@@ -162,10 +182,10 @@ class TermTyper(App):
 
             await self.typing_screen.key_add(event.key)
 
-    async def handle_reset_bar(self, _):
+    async def handle_reset_bar(self, _: ResetBar) -> None:
         self.race_bar.reset()
 
-    async def handle_update_race_bar(self, event):
+    async def handle_update_race_bar(self, event: UpdateRaceBar) -> None:
         self.race_bar.update(event.completed, event.speed)
 
     async def handle_button_clicked(self, e: events.Click):

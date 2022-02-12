@@ -102,11 +102,14 @@ objects = """ problems of phonemic and morphological analysis.
     the strong generative capacity of the theory."""
 # List of OBJECTs selected for profound sententiousness.
 
-import textwrap, random
+import random
 from itertools import chain, islice
 
 
-def chomsky(times=1, line_length=72):
+def chomsky(times: int = 1) -> str:
+    """
+    produces a paragraph
+    """
     parts = []
     for part in (leadins, subjects, verbs, objects):
         phraselist = list(map(str.strip, part.splitlines()))
@@ -114,7 +117,4 @@ def chomsky(times=1, line_length=72):
         parts.append(phraselist)
     output = chain(*islice(zip(*parts), 0, times))
 
-    if line_length:
-        return " ".join(output)
-    else:
-        return "\n".join(output)
+    return " ".join(output)

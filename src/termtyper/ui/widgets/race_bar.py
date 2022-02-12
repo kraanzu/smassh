@@ -1,4 +1,5 @@
 from rich.align import Align
+from rich.console import RenderableType
 from rich.panel import Panel
 from rich.text import Text
 from textual.app import App
@@ -25,7 +26,7 @@ class RaceBar(Widget):
         self.finised = False
         self._read_speed_records()
 
-    def _read_speed_records(self):
+    def _read_speed_records(self) -> None:
         self.low = float(Parser().get_data("low"))
         self.med = float(Parser().get_data("med"))
         self.high = float(Parser().get_data("high"))
@@ -43,7 +44,7 @@ class RaceBar(Widget):
         else:
             return "red"
 
-    def get_remarks(self):
+    def get_remarks(self) -> str:
         """
         Shows a little paraphrase when you either
         complete the typing essay or when failed
@@ -74,11 +75,16 @@ class RaceBar(Widget):
         """
         reset the bar when the user wants to re-start
         """
+
         self._read_speed_records()
         self.finised = False
         self.completed = False
 
     def update(self, progress: float, speed: float):
+        """
+        Updates the bar with the most current measurements
+        """
+
         if not self.finised:
             self.completed = progress
             self.finised = progress == 1 or speed == -1
@@ -86,7 +92,7 @@ class RaceBar(Widget):
             self.remarks = self.get_remarks()
             self.refresh()
 
-    def render(self):
+    def render(self) -> RenderableType:
         return Panel(
             Align.center(
                 ProgressBar(
