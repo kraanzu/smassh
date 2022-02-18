@@ -103,7 +103,7 @@ menu["push_your_limits"] = Menu(
             "Min Speed",
             {},
             NumberScroll("min_speed"),
-            info="Are you lightning MCQueen?"
+            info="Are you fast enough?"
             + "\n"
             + "Note: If your speed falls below this speed you will be declared failed",
         ),
@@ -210,7 +210,7 @@ menu["ear_candy"] = Menu(
                 "backspace": "Pressing any key will trigger click sound",
             },
             Option(name="keypress_sound", options=["off", "on", "backspace"]),
-            "See ear candy menu for to get into the nitty gritty",
+            "Sounds good?",
         ),
         Setting(
             "Click sound",
