@@ -65,11 +65,7 @@ class RaceBar(Widget):
         elif self.speed == self.high:
             return "Ah so close! Got to push a bit more"
         else:
-            return (
-                "Now this is what they say `Pushing past your limits`"
-                + "\n"
-                + "Keep practicing and go on to become the world's greatest typer"
-            )
+            return "Ah yes! `Pushing past your limits` I see"
 
     def reset(self):
         """
