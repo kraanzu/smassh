@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "termtyper"
-version = "0.1.0"
+version = "1.0.0"
 description = "A TUI based typing application"
 authors = ["kraanzu <kraanzu@gmail.com>"]
 license = "MIT"
