@@ -1,4 +1,3 @@
-from rich.text import TextType, Text
 from textual.widget import Widget
 from collections import OrderedDict
 

@@ -13,7 +13,10 @@ from .settings_options import menu
 from ..ui.widgets import Button, RaceBar, Screen, UpdateRaceBar, ResetBar
 from ..utils import Parser
 
-percent = lambda part, total: int(part * total / 100)
+
+def percent(part, total):
+    return int(part * total / 100)
+
 
 welcome_message = """
 ┬ ┬┌─┐┬  ┌─┐┌─┐┌┬┐┌─┐  ┌┬┐┌─┐  ┌┬┐┌─┐┬─┐┌┬┐┌┬┐┬ ┬┌─┐┌─┐┬─┐  ┬

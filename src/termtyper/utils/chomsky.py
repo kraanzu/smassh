@@ -1,3 +1,7 @@
+import random
+from itertools import chain, islice
+
+
 """CHOMSKY is an aid to writing linguistic papers in the style
     of the great master.  It is based on selected phrases taken
     from actual books and articles written by Noam Chomsky.
@@ -7,6 +11,7 @@
         (CHOMSKY n)  -- for example
         (CHOMSKY 5) generates half a screen of linguistic truth."""
 
+# List of LEADINs to buy time.
 leadins = """To characterize a linguistic level L,
     On the other hand,
     This suggests that
@@ -42,8 +47,8 @@ leadins = """To characterize a linguistic level L,
     It must be emphasized, once again, that
     Let us continue to suppose that
     Notice, incidentally, that """
-# List of LEADINs to buy time.
 
+# List of SUBJECTs chosen for maximum professorial macho.
 subjects = """ the notion of level of grammaticalness
     a case of semigrammaticalness of a different sort
     most of the methodological work in modern linguistics
@@ -62,8 +67,8 @@ subjects = """ the notion of level of grammaticalness
     relational information
     the systematic use of complex symbols
     the theory of syntactic features developed earlier"""
-# List of SUBJECTs chosen for maximum professorial macho.
 
+# List of VERBs chosen for autorecursive obfuscation.
 verbs = """can be defined in such a way as to impose
     delimits
     suffices to account for
@@ -81,8 +86,8 @@ verbs = """can be defined in such a way as to impose
     is necessary to impose an interpretation on
     appears to correlate rather closely with
     is rather different from"""
-# List of VERBs chosen for autorecursive obfuscation.
 
+# List of OBJECTs selected for profound sententiousness.
 objects = """ problems of phonemic and morphological analysis.
     a corpus of utterance tokens upon which conformity has been defined by the paired utterance test.
     the traditional practice of grammarians.
@@ -100,10 +105,6 @@ objects = """ problems of phonemic and morphological analysis.
     an important distinction in language use.
     the requirement that branching is not tolerated within the dominance scope of a complex symbol.
     the strong generative capacity of the theory."""
-# List of OBJECTs selected for profound sententiousness.
-
-import random
-from itertools import chain, islice
 
 
 def chomsky(times: int = 1) -> str:
