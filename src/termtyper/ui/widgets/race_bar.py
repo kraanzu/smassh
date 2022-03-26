@@ -27,9 +27,9 @@ class RaceBar(Widget):
         self._read_speed_records()
 
     def _read_speed_records(self) -> None:
-        self.low = float(Parser().get_data("low"))
-        self.med = float(Parser().get_data("med"))
-        self.high = float(Parser().get_data("high"))
+        self.low = float(Parser().get_speed("low"))
+        self.med = float(Parser().get_speed("med"))
+        self.high = float(Parser().get_speed("high"))
 
     def get_speed_color(self) -> str:
         """

@@ -105,14 +105,14 @@ class Screen(Widget):
         if self.speed == -1:
             return
 
-        med = (float(Parser().get_data("med")) + self.speed) / 2
-        Parser().set_data("med", str(med))
+        med = (Parser().get_speed("med") + self.speed) / 2
+        Parser().set_speed("med", med)
 
-        low = min(float(Parser().get_data("low")), self.speed)
-        Parser().set_data("low", str(low))
+        low = min(Parser().get_speed("low"), self.speed)
+        Parser().set_speed("low", low)
 
-        high = max(float(Parser().get_data("high")), self.speed)
-        Parser().set_data("high", str(high))
+        high = max(Parser().get_speed("high"), self.speed)
+        Parser().set_speed("high", high)
 
     def _update_measurements(self) -> None:
         """

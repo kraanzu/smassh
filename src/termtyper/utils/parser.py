@@ -2,6 +2,9 @@ import os
 from configparser import ConfigParser
 import subprocess
 from pathlib import Path
+from typing import Literal, Union
+
+NumberType = Union[int, float]
 
 
 class Parser(ConfigParser):
@@ -55,14 +58,22 @@ class Parser(ConfigParser):
         self.set_data("sound", "mech")
 
         # FOR MAINTING THE SPEED RECORDS
-        self.set_data("low", "100000")
-        self.set_data("med", "0")
-        self.set_data("high", "0")
+        for size in ["teensy", "small", "big", "huge"]:
+            self.set_data(f"{size}_low", "100000")
+            self.set_data(f"{size}_med", "0")
+            self.set_data(f"{size}_high", "0")
 
         # Sounds location
         self.set_sound_location()
-
         self._write_to_file()
+
+    def set_speed(self, speed: Literal["low", "med", "high"], value: NumberType):
+        paragraph_size = self.get_data("paragraph_size")
+        return self.set_data(f"{paragraph_size}_{speed}", str(value))
+
+    def get_speed(self, speed: Literal["low", "med", "high"]):
+        paragraph_size = self.get_data("paragraph_size")
+        return float(self.get_data(f"{paragraph_size}_{speed}"))
 
     def _write_to_file(self) -> None:
         with open(self.file_path, "w") as fp:
