@@ -1,0 +1,8 @@
+-   repo: local
+    hooks:
+    -   id: black
+        name: black
+        entry: black
+        language: system
+        types: [python]
+        require_serial: true
