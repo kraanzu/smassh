@@ -1,8 +1,16 @@
 -   repo: local
     hooks:
+    -   id: flake8
+        name: flake8
+        entry: flake8
+        language: system
+        types: [python]
+        require_serial: true
+
     -   id: black
         name: black
         entry: black
         language: system
         types: [python]
         require_serial: true
+
