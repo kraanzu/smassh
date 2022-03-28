@@ -232,7 +232,7 @@ class Screen(Widget):
 
         return self.pressed_key == self.paragraph.plain[self.cursor_position]
 
-    def _check_min_burst(self):
+    def _check_min_burst(self) -> bool:
         """
         Check if the min_burst rule is violated
         """
@@ -252,7 +252,7 @@ class Screen(Widget):
         Process the pressed key
         """
 
-        if key == "ctrl+i":  # TAB
+        if key == "ctrl+i" and self.tab_reset == "on":  # TAB
             await self.reset_screen()
 
         if self.finised:
