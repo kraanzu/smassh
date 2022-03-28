@@ -83,7 +83,7 @@ class RaceBar(Widget):
 
         if not self.finised:
             self.completed = progress
-            self.finised = progress == 1 or speed == -1
+            self.finised = progress >= 1 or speed == -1
             self.speed = speed
             self.remarks = self.get_remarks()
             self.refresh()
