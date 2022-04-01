@@ -147,7 +147,7 @@ class TermTyper(App):
         """
 
         self.race_bar = RaceBar()
-        self.typing_screen._refresh_settings()
+        await self.typing_screen._refresh_settings()
         await self.clear_screen()
 
         self.current_space = "typing_space"

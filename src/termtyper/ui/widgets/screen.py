@@ -38,16 +38,10 @@ class Screen(Widget):
     ):
         super().__init__()
 
-        self._refresh_settings()
         self._reset_params()
-        if self.cursor_buddy_speed:
-            self.set_interval(
-                60 / (5 * self.cursor_buddy_speed), self.move_cursor_buddy
-            )
-
         self.set_interval(0.2, self._update_race_bar)
 
-    def _refresh_settings(self) -> None:
+    async def _refresh_settings(self) -> None:
         parser = Parser()
         self.set_paragraph()
         self.min_speed = int(parser.get_data("min_speed"))
@@ -70,6 +64,14 @@ class Screen(Widget):
                 self.cursor_style = "reverse"
             case "underline":
                 self.cursor_style = "underline"
+
+        if hasattr(self, "buddy_timer"):
+            await self.buddy_timer.stop()
+
+        if self.cursor_buddy_speed:
+            self.buddy_timer = self.set_interval(
+                60 / (5 * self.cursor_buddy_speed), self.move_cursor_buddy
+            )
 
     def _get_color(self, type: str) -> str:
         """
@@ -252,7 +254,7 @@ class Screen(Widget):
         Process the pressed key
         """
 
-        if key == "ctrl+i" and self.tab_reset == "on":  # TAB
+        if key == "ctrl+i":  # TAB
             await self.reset_screen()
 
         if self.finised:
