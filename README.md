@@ -12,7 +12,7 @@ It is built on top of [textual](https://github.com/Textualize/textual) which pro
 - [x] Have ***faith in yourself?*** Try writing with no colors to guide you
 - [x] Are you ***fast enough***? Try by setting a minimum speed threshold and see if you can maintain that
 - [x] Are you ***accurate enough?*** Try by setting a minimum accuracy threshold and see if you can type like a pro
-- [x] Want something ***even more harder?*** Try min burst which will fail you when you can't even type a world with proper accuracy
+- [x] Want something ***even more harder?*** Try min burst which will fail you when you can't even type a word with proper accuracy
 - [x] ***Sucks to press backspace*** when making mistakes? Try force correct which will not let you move forward with your mistakes
 - [x] Gut feeling that ***you will not press backspace?*** Try confidence mode with 3 levels
 - [x] Want ***different cursor design?*** Choose between off, underline and block mode!
