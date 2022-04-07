@@ -27,15 +27,23 @@ class NumberScroll(Widget):
         self.max_value = max_value
         self.min_value = min_value
 
-    def on_mouse_scroll_down(self, _: events.MouseScrollDown) -> None:
-        self.value = min(self.step + self.value, self.max_value)
+    def update(self):
         Parser().set_data(self.name, str(self.value))
         self.refresh()
 
-    def on_mouse_scroll_up(self, _: events.MouseScrollUp) -> None:
+    def select_next_option(self) -> None:
+        self.value = min(self.step + self.value, self.max_value)
+        self.update()
+
+    def select_prev_option(self) -> None:
         self.value = max(self.value - self.step, self.min_value)
-        Parser().set_data(self.name, str(self.value))
-        self.refresh()
+        self.update()
+
+    def on_mouse_scroll_down(self, _: events.MouseScrollDown) -> None:
+        self.select_next_option()
+
+    def on_mouse_scroll_up(self, _: events.MouseScrollUp) -> None:
+        self.select_prev_option()
 
     def render(self) -> RenderableType:
         return Panel(

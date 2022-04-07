@@ -10,7 +10,15 @@ from rich.panel import Panel
 from os import get_terminal_size as termsize
 
 from .settings_options import menu
-from ..ui.widgets import Button, RaceBar, Screen, UpdateRaceBar, ResetBar
+from ..ui.widgets import (
+    Button,
+    RaceBar,
+    Screen,
+    UpdateRaceBar,
+    ResetBar,
+    ButtonSelect,
+    ButtonClicked,
+)
 from ..utils import Parser
 
 
@@ -48,6 +56,10 @@ class TermTyper(App):
         )
         self.bt_settings = Button(label="Settings".center(30), name="bt_settings")
         self.bt_quit = Button(label="Quit".center(30), name="bt_quit")
+
+        self.current_button_index = 0
+        self.bt_typing_space.select()
+        self.buttons = [self.bt_typing_space, self.bt_settings, self.bt_quit]
 
         # FOR SETTINGS
         self.menus = list(menu.keys())
@@ -162,7 +174,25 @@ class TermTyper(App):
         await eval(f"self.load_{self.current_space}()")
 
     async def on_key(self, event: events.Key) -> None:
-        if self.current_space == "settings":
+        if self.current_space == "main_menu":
+            match event.key:
+                case "j" | "down":
+                    self.current_button_index = (self.current_button_index + 1) % 3
+
+                case "k" | "up":
+                    self.current_button_index = (self.current_button_index - 1 + 3) % 3
+
+                case "enter":
+                    button = self.buttons[self.current_button_index]
+                    await button.emit(ButtonClicked(button))
+
+                case _:
+                    return
+
+            button = self.buttons[self.current_button_index]
+            await button.emit(ButtonSelect(button))
+
+        elif self.current_space == "settings":
             match event.key:
                 case "right":
                     self.current_menu_index = (self.current_menu_index + 1) % len(menu)
@@ -190,6 +220,15 @@ class TermTyper(App):
 
     async def handle_update_race_bar(self, event: UpdateRaceBar) -> None:
         self.race_bar.update(event.completed, event.speed)
+
+    async def handle_button_select(self, event: ButtonSelect):
+        for button in self.buttons:
+            if button.name != getattr(event.sender, "name"):
+                button.deselect()
+            else:
+                button.select()
+
+            button.refresh()
 
     async def handle_button_clicked(self, e: events.Click):
         if getattr(e.sender, "name") == "bt_quit":

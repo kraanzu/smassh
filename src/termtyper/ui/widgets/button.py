@@ -9,6 +9,14 @@ from textual.message import Message
 from textual.widget import Widget
 
 
+class ButtonSelect(Message, bubble=True):
+    """
+    An Event class for when the Button is clicked
+    """
+
+    pass
+
+
 class ButtonClicked(Message, bubble=True):
     """
     An Event class for when the Button is clicked
@@ -35,19 +43,26 @@ class Button(Widget):
         self.bt_border_style = border_style
         self.is_hover = False
 
-    def on_enter(self) -> None:
-        """
-        called when hovered by mouse pointer
-        """
+    def select(self):
         self.is_hover = True
         self.refresh()
 
-    def on_leave(self) -> None:
-        """
-        called when the mouse pointer leaves
-        """
+    def deselect(self):
         self.is_hover = False
         self.refresh()
+
+    async def on_enter(self) -> None:
+        """
+        called when hovered by mouse pointer
+        """
+        await self.emit(ButtonSelect(self))
+
+    # def on_leave(self) -> None:
+    #     """
+    #     called when the mouse pointer leaves
+    #     """
+    #     self.is_hover = False
+    #     self.refresh()
 
     async def on_click(self, _: events.Click) -> None:
         await self.emit(ButtonClicked(self))
