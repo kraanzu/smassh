@@ -1,7 +1,5 @@
 import os
 from configparser import ConfigParser
-import subprocess
-from pathlib import Path
 from typing import Literal, Union
 
 NumberType = Union[int, float]
@@ -22,17 +20,6 @@ class Parser(ConfigParser):
 
             self._create_user_config()
             self.read(self.file_path)
-
-    def set_sound_location(self) -> None:
-        loc = [
-            i[10:]
-            for i in subprocess.check_output("pip show rich".split())
-            .decode()
-            .splitlines()
-            if i.startswith("Location")
-        ][0]
-        loc = Path().joinpath(loc, "termtyper", "sounds")
-        self.set_data("sounds_loc", str(loc))
 
     def _create_user_config(self) -> None:
         print("No config found !\nCreating....")
@@ -63,8 +50,6 @@ class Parser(ConfigParser):
             self.set_data(f"{size}_med", "0")
             self.set_data(f"{size}_high", "0")
 
-        # Sounds location
-        self.set_sound_location()
         self._write_to_file()
 
     def set_speed(self, speed: Literal["low", "med", "high"], value: NumberType):
