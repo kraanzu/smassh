@@ -26,6 +26,15 @@ class NumberScroll(Widget):
         self.step = step
         self.max_value = max_value
         self.min_value = min_value
+        self.selected = False
+
+    def highlight(self):
+        self.selected = True
+        self.refresh()
+
+    def lowlight(self):
+        self.selected = False
+        self.refresh()
 
     def update(self):
         Parser().set_data(self.name, str(self.value))
@@ -50,7 +59,8 @@ class NumberScroll(Widget):
             Align.center(
                 Text(str(self.value).center(5), style="reverse green"),
                 vertical="middle",
-            )
+            ),
+            border_style="magenta" if self.selected else "white",
         )
 
 

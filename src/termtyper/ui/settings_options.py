@@ -1,8 +1,10 @@
-from textual.widget import Widget
+from typing import Union
 from collections import OrderedDict
 
 from ..ui.widgets import Option, NumberScroll
 from ..utils import play_keysound
+
+SettingWidget = Union[Option, NumberScroll]
 
 
 class Setting:
@@ -11,7 +13,7 @@ class Setting:
     """
 
     def __init__(
-        self, title: str, items: dict[str, str], widget: Widget, info: str = ""
+        self, title: str, items: dict[str, str], widget: SettingWidget, info: str = ""
     ) -> None:
         self.title = title
         self.items = items
@@ -21,6 +23,18 @@ class Setting:
             self.info += "\n"
 
         self.description = self.render_description()
+
+    def select(self):
+        self.widget.highlight()
+
+    def deselect(self):
+        self.widget.lowlight()
+
+    def select_next(self):
+        self.widget.select_next_option()
+
+    def select_prev(self):
+        self.widget.select_prev_option()
 
     def render_description(self) -> str:
         c1 = "bold blue"
@@ -45,6 +59,30 @@ class Menu:
         self.ascii_art = ascii_art
         self.items = items
         self.height = max(i.description.count("\n") for i in items) + 1
+        self.size = len(items)
+        self.selected_index = 0
+        self.update()
+
+    def select_next_setting(self):
+        self.selected_index = (self.selected_index + 1) % self.size
+        self.update()
+
+    def select_prev_setting(self):
+        self.selected_index = (self.selected_index - 1 + self.size) % self.size
+        self.update()
+
+    def select_next_setting_option(self):
+        self.items[self.selected_index].select_next()
+
+    def select_prev_setting_option(self):
+        self.items[self.selected_index].select_prev()
+
+    def update(self):
+        for index, setting in enumerate(self.items):
+            if index == self.selected_index:
+                setting.select()
+            else:
+                setting.deselect()
 
 
 menu: dict[str, Menu] = OrderedDict()

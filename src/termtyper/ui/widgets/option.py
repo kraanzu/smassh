@@ -16,14 +16,23 @@ class Option(Widget):
     """
 
     def __init__(
-        self, name: str, options: list[str], callback: Callable = None
+        self, name: str, options: list[str], callback: Callable = lambda: None
     ) -> None:
         super().__init__()
         self.name = name
         self.options = [i.strip() for i in options]
         self.cursor = self.options.index(Parser().get_data(self.name))
         self.callback = callback
+        self.selected = False
         self._set_option_string()
+
+    def highlight(self):
+        self.selected = True
+        self.refresh()
+
+    def lowlight(self):
+        self.selected = False
+        self.refresh()
 
     def _set_option_string(self) -> None:
         """
@@ -36,23 +45,27 @@ class Option(Widget):
             [i, i + m - 2] for i in range(1, len(self.options_string), m + 1)
         ]
 
-    async def on_mouse_scroll_down(self, _: events.MouseScrollDown) -> None:
-        self.cursor = (self.cursor + 1) % len(self.options)
+    def update(self):
         Parser().set_data(self.name, self.options[self.cursor])
 
         if self.callback:
             self.callback()
 
         self.refresh()
+
+    def select_next_option(self):
+        self.cursor = (self.cursor + 1) % len(self.options)
+        self.update()
+
+    def select_prev_option(self):
+        self.cursor = (self.cursor - 1 + len(self.options)) % len(self.options)
+        self.update()
+
+    async def on_mouse_scroll_down(self, _: events.MouseScrollDown) -> None:
+        self.select_next_option()
 
     async def on_mouse_scroll_up(self, _: events.MouseScrollUp) -> None:
-        self.cursor = (self.cursor - 1 + len(self.options)) % len(self.options)
-        Parser().set_data(self.name, self.options[self.cursor])
-
-        if self.callback:
-            self.callback()
-
-        self.refresh()
+        self.select_prev_option()
 
     def render(self) -> RenderableType:
         return Panel(
@@ -68,7 +81,8 @@ class Option(Widget):
                     ],
                 ),
                 vertical="middle",
-            )
+            ),
+            border_style="magenta" if self.selected else "white",
         )
 
 

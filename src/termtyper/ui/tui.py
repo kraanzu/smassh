@@ -19,7 +19,7 @@ from ..ui.widgets import (
     ButtonSelect,
     ButtonClicked,
 )
-from ..utils import Parser
+from ..utils import Parser, HELP_BANNER, HELP_MESSAGE
 
 
 def percent(part, total):
@@ -80,6 +80,12 @@ class TermTyper(App):
             self.view.layout.docks.clear()
         self.view.widgets.clear()
 
+    async def load_help_menu(self):
+        await self.clear_screen()
+        await self.view.dock(HELP_BANNER, size=percent(25, self.y))
+        await self.view.dock(HELP_MESSAGE)
+        self.current_space = "help_menu"
+
     async def load_main_menu(self) -> None:
         """
         Renders the Main Menu
@@ -112,9 +118,8 @@ class TermTyper(App):
                     ),
                     style="black",
                     border_style="bold magenta",
-                    title="Press L/R ARROW keys to navigate through different menus",
-                    title_align="left",
-                    subtitle="Scroll on the option box to change",
+                    title="Press ctrl+h for help",
+                    title_align="right",
                     subtitle_align="right",
                 )
             ),
@@ -174,7 +179,11 @@ class TermTyper(App):
         await eval(f"self.load_{self.current_space}()")
 
     async def on_key(self, event: events.Key) -> None:
-        if self.current_space == "main_menu":
+        if self.current_space == "help_menu":
+            if event.key in ["ctrl+h", "escape"]:
+                await self.load_settings()
+
+        elif self.current_space == "main_menu":
             match event.key:
                 case "j" | "down":
                     self.current_button_index = (self.current_button_index + 1) % 3
@@ -194,15 +203,30 @@ class TermTyper(App):
 
         elif self.current_space == "settings":
             match event.key:
-                case "right":
+                case "ctrl+h":
+                    await self.load_help_menu()
+
+                case "ctrl+i":
                     self.current_menu_index = (self.current_menu_index + 1) % len(menu)
                     await self.load_settings()
 
-                case "left":
+                case "shift+tab":
                     self.current_menu_index = (
                         self.current_menu_index + len(menu) - 1
                     ) % len(menu)
                     await self.load_settings()
+
+                case "j" | "down":
+                    menu[self.current_menu].select_next_setting()
+
+                case "k" | "up":
+                    menu[self.current_menu].select_prev_setting()
+
+                case "h" | "left":
+                    menu[self.current_menu].select_prev_setting_option()
+
+                case "l" | "right":
+                    menu[self.current_menu].select_next_setting_option()
 
                 case "escape":
                     await self.load_main_menu()
