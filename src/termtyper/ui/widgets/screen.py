@@ -6,30 +6,11 @@ from rich.text import Span, Text, TextType
 from rich.panel import Panel
 from textual.app import App
 from textual.widget import Widget
-from textual.message import Message, MessageTarget
 
 from ...utils import chomsky, Parser, play_keysound, play_failed
+from ...events import UpdateRaceBar, ResetBar
 
 EMPTY_SPAN = Span(0, 0, "")
-
-
-class UpdateRaceBar(Message, bubble=True):
-    """
-    An Event Class to continously update the Race Bar
-    """
-
-    def __init__(self, sender: MessageTarget, completed: float, speed: float) -> None:
-        super().__init__(sender)
-        self.completed = completed
-        self.speed = speed
-
-
-class ResetBar(Message, bubble=True):
-    """
-    An Event Class to reset the bar
-    """
-
-    pass
 
 
 class Screen(Widget):

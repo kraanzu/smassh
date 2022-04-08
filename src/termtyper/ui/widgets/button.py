@@ -5,24 +5,9 @@ from rich.style import StyleType
 from rich.panel import Panel
 from rich.text import Text
 from textual import events
-from textual.message import Message
 from textual.widget import Widget
 
-
-class ButtonSelect(Message, bubble=True):
-    """
-    An Event class for when the Button is clicked
-    """
-
-    pass
-
-
-class ButtonClicked(Message, bubble=True):
-    """
-    An Event class for when the Button is clicked
-    """
-
-    pass
+from ...events import ButtonClicked, ButtonSelect
 
 
 class Button(Widget):
