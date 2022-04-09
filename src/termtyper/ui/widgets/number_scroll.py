@@ -1,4 +1,5 @@
 from rich.align import Align
+from rich.box import HEAVY
 from rich.console import RenderableType
 from textual import events
 from textual.widget import Widget
@@ -28,15 +29,15 @@ class NumberScroll(Widget):
         self.min_value = min_value
         self.selected = False
 
-    def highlight(self):
+    def highlight(self) -> None:
         self.selected = True
         self.refresh()
 
-    def lowlight(self):
+    def lowlight(self) -> None:
         self.selected = False
         self.refresh()
 
-    def update(self):
+    def update(self) -> None:
         Parser().set_data(self.name, str(self.value))
         self.refresh()
 
@@ -61,6 +62,7 @@ class NumberScroll(Widget):
                 vertical="middle",
             ),
             border_style="magenta" if self.selected else "white",
+            box=HEAVY,
         )
 
 

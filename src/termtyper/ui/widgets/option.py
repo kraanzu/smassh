@@ -1,4 +1,5 @@
 from typing import Callable
+from rich.box import HEAVY
 from rich.console import RenderableType
 from textual import events
 from textual.widget import Widget
@@ -26,11 +27,11 @@ class Option(Widget):
         self.selected = False
         self._set_option_string()
 
-    def highlight(self):
+    def highlight(self) -> None:
         self.selected = True
         self.refresh()
 
-    def lowlight(self):
+    def lowlight(self) -> None:
         self.selected = False
         self.refresh()
 
@@ -45,7 +46,7 @@ class Option(Widget):
             [i, i + m - 2] for i in range(1, len(self.options_string), m + 1)
         ]
 
-    def update(self):
+    def update(self) -> None:
         Parser().set_data(self.name, self.options[self.cursor])
 
         if self.callback:
@@ -53,11 +54,11 @@ class Option(Widget):
 
         self.refresh()
 
-    def select_next_option(self):
+    def select_next_option(self) -> None:
         self.cursor = (self.cursor + 1) % len(self.options)
         self.update()
 
-    def select_prev_option(self):
+    def select_prev_option(self) -> None:
         self.cursor = (self.cursor - 1 + len(self.options)) % len(self.options)
         self.update()
 
@@ -83,6 +84,7 @@ class Option(Widget):
                 vertical="middle",
             ),
             border_style="magenta" if self.selected else "white",
+            box=HEAVY,
         )
 
 

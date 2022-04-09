@@ -14,7 +14,7 @@ title = """
 """
 
 
-def prettier(help_menu):
+def prettier(help_menu) -> str:
     message = ""
     for help in help_menu:
         message = (

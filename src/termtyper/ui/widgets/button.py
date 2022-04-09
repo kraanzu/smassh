@@ -1,5 +1,5 @@
 from rich.align import Align
-from rich.box import SIMPLE
+from rich.box import SIMPLE, HEAVY
 from rich.console import RenderableType
 from rich.style import StyleType
 from rich.panel import Panel
@@ -28,11 +28,11 @@ class Button(Widget):
         self.bt_border_style = border_style
         self.is_hover = False
 
-    def select(self):
+    def select(self) -> None:
         self.is_hover = True
         self.refresh()
 
-    def deselect(self):
+    def deselect(self) -> None:
         self.is_hover = False
         self.refresh()
 
@@ -41,13 +41,6 @@ class Button(Widget):
         called when hovered by mouse pointer
         """
         await self.emit(ButtonSelect(self))
-
-    # def on_leave(self) -> None:
-    #     """
-    #     called when the mouse pointer leaves
-    #     """
-    #     self.is_hover = False
-    #     self.refresh()
 
     async def on_click(self, _: events.Click) -> None:
         await self.emit(ButtonClicked(self))
@@ -65,8 +58,7 @@ class Button(Widget):
                 Text(self.label, style=self.bt_style),
                 vertical="middle",
             ),
-            style="black",
-            border_style=self.bt_border_style if not self.is_hover else "bold magenta",
-            expand=False,
+            border_style=self.bt_border_style if not self.is_hover else "magenta",
             height=5,
+            box=HEAVY,
         )

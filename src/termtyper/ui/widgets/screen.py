@@ -14,11 +14,8 @@ EMPTY_SPAN = Span(0, 0, "")
 
 
 class Screen(Widget):
-    def __init__(
-        self,
-    ):
+    def __init__(self) -> None:
         super().__init__()
-
         self._reset_params()
         self.set_interval(0.2, self._update_race_hud)
 
@@ -129,12 +126,7 @@ class Screen(Widget):
         if self.started and not self.finised:
             self._update_measurements()
             await self.emit(
-                UpdateRaceHUD(
-                    self,
-                    self.progress,
-                    self.speed,
-                    self.accuracy
-                )
+                UpdateRaceHUD(self, self.progress, self.speed, self.accuracy)
             )
 
             self.refresh()

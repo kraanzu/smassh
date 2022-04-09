@@ -1,4 +1,5 @@
 from rich.align import Align
+from rich.box import SIMPLE
 from rich.console import RenderableType
 from rich.panel import Panel
 from rich.text import Text
@@ -70,7 +71,7 @@ class RaceHUD(Widget):
         else:
             return "Ah yes! `Pushing past your limits` I see"
 
-    def reset(self):
+    def reset(self) -> None:
         """
         reset the bar when the user wants to re-start
         """
@@ -79,7 +80,7 @@ class RaceHUD(Widget):
         self.finished = False
         self.completed = False
 
-    def update(self, progress: float, speed: float, accuracy: float):
+    def update(self, progress: float, speed: float, accuracy: float) -> None:
         """
         Updates the HUD with the most current measurements
         """
@@ -113,7 +114,8 @@ class RaceHUD(Widget):
                             ),
                             style="bold " + self.get_speed_color(),
                             justify="center",
-                        )
+                        ),
+                        box=SIMPLE,
                     ),
                 ],
             )
@@ -136,6 +138,6 @@ if __name__ == "__main__":
 
         def inc(self):
             self.plus += 5
-            self.x.update(self.plus, 500)
+            self.x.update(self.plus, 500, 0)
 
     MyApp.run()
