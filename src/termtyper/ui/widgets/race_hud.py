@@ -1,3 +1,5 @@
+from decimal import Rounded
+from tracemalloc import start
 from rich.align import Align
 from rich.console import RenderableType
 from rich.panel import Panel
@@ -7,10 +9,12 @@ from textual.widget import Widget
 from rich.progress_bar import ProgressBar
 from ...utils import Parser
 
+from rich.columns import Columns
 
-class RaceBar(Widget):
+
+class RaceHUD(Widget):
     """
-    A progress bar widget that shows the progress of writing
+    A dashboard widget that shows the progress of writing
     with colors accoring to the speed of the typer
     """
 
@@ -21,9 +25,10 @@ class RaceBar(Widget):
     ) -> None:
         super().__init__(name)
         self.completed = 0
+        self.accuracy = 0
         self.total = total
         self.speed = 0
-        self.finised = False
+        self.finished = False
         self._read_speed_records()
 
     def _read_speed_records(self) -> None:
@@ -73,42 +78,53 @@ class RaceBar(Widget):
         """
 
         self._read_speed_records()
-        self.finised = False
+        self.finished = False
         self.completed = False
 
-    def update(self, progress: float, speed: float):
+    def update(self, progress: float, speed: float, accuracy: float):
         """
-        Updates the bar with the most current measurements
+        Updates the HUD with the most current measurements
         """
-
-        if not self.finised:
+        if not self.finished:
             self.completed = progress
-            self.finised = progress >= 1 or speed == -1
+            self.finished = progress >= 1 or speed == -1
             self.speed = speed
+            self.accuracy = accuracy
             self.remarks = self.get_remarks()
             self.refresh()
-
+            
     def render(self) -> RenderableType:
-        return Panel(
+        return Panel(Columns([
+            Panel(
             Align.center(
                 ProgressBar(
                     total=self.total,
                     completed=self.completed,
                     complete_style="bold " + self.get_speed_color(),
                 )
-                if not self.finised
-                else Text(self.remarks, style="bold green"),
-                vertical="middle",
-            )
-        )
+            )),
 
+            Panel(
+                    Text.assemble("Typing Performance\n\nW",
+                                    "PM: {}    Accuracy: {}%    Progress: {}%".format(
+                                                "{:.2f}".format(self.speed),
+                                                "{:.2f}".format(self.accuracy), 
+                                                "{:.2f}".format(self.completed*100)), 
+                                                style="bold " + self.get_speed_color(),
+                                                justify="center")
+                )
+            ], 
+            )
+            if not self.finished
+            else Align.center(Text(self.remarks, style="bold green", justify="center"))
+            )
 
 if __name__ == "__main__":
 
     class MyApp(App):
         async def on_mount(self):
             self.plus = 5
-            self.x = RaceBar()
+            self.x = RaceHUD()
             self.set_interval(0.1, self.inc)
             await self.view.dock(self.x, size=5)
 

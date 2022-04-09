@@ -1,6 +1,6 @@
 from .button import Button, ButtonSelect, ButtonClicked
-from .race_bar import RaceBar
-from .screen import Screen, ResetBar, UpdateRaceBar
+from .race_hud import RaceHUD
+from .screen import Screen, ResetHUD, UpdateRaceHUD
 from .option import Option
 from .number_scroll import NumberScroll
 
@@ -8,10 +8,10 @@ __all__ = [
     "Button",
     "ButtonSelect",
     "ButtonClicked",
-    "RaceBar",
+    "RaceHUD",
     "Screen",
-    "ResetBar",
-    "UpdateRaceBar",
+    "ResetHUD",
+    "UpdateRaceHUD",
     "Option",
     "NumberScroll",
 ]

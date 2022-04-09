@@ -17,20 +17,21 @@ class ButtonClicked(Message, bubble=True):
     pass
 
 
-class UpdateRaceBar(Message, bubble=True):
+class UpdateRaceHUD(Message, bubble=True):
     """
-    An Event Class to continously update the Race Bar
+    An Event Class to continously update the Race HUD
     """
 
-    def __init__(self, sender: MessageTarget, completed: float, speed: float) -> None:
+    def __init__(self, sender: MessageTarget, completed: float, speed: float, accuracy: float) -> None:
         super().__init__(sender)
         self.completed = completed
         self.speed = speed
+        self.accuracy = accuracy
 
 
-class ResetBar(Message, bubble=True):
+class ResetHUD(Message, bubble=True):
     """
-    An Event Class to reset the bar
+    An Event Class to reset the HUD
     """
 
     pass

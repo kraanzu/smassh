@@ -8,7 +8,7 @@ from textual.app import App
 from textual.widget import Widget
 
 from ...utils import chomsky, Parser, play_keysound, play_failed
-from ...events import UpdateRaceBar, ResetBar
+from ...events import UpdateRaceHUD, ResetHUD
 
 EMPTY_SPAN = Span(0, 0, "")
 
@@ -20,7 +20,7 @@ class Screen(Widget):
         super().__init__()
 
         self._reset_params()
-        self.set_interval(0.2, self._update_race_bar)
+        self.set_interval(0.2, self._update_race_hud)
 
     async def _refresh_settings(self) -> None:
         parser = Parser()
@@ -121,24 +121,25 @@ class Screen(Widget):
             self.speed = -1
             play_failed()
 
-    async def _update_race_bar(self) -> None:
+    async def _update_race_hud(self) -> None:
         """
-        Simultaneously updates race bar with typing
+        Simultaneously updates race HUD with typing
         """
 
         if self.started and not self.finised:
             self._update_measurements()
             await self.emit(
-                UpdateRaceBar(
+                UpdateRaceHUD(
                     self,
                     self.progress,
                     self.speed,
+                    self.accuracy
                 )
             )
 
             self.refresh()
         else:
-            await self.emit(UpdateRaceBar(self, 0, 0))
+            await self.emit(UpdateRaceHUD(self, 0, 0, 0))
 
     def move_cursor_buddy(self) -> None:
         """
@@ -163,7 +164,7 @@ class Screen(Widget):
         else:
             self.set_paragraph()
 
-        await self.emit(ResetBar(self))
+        await self.emit(ResetHUD(self))
         self.refresh()
 
     def set_paragraph(self) -> None:
@@ -333,7 +334,7 @@ class Screen(Widget):
 
             if self.cursor_position >= self.paragraph_length - 1:
                 self.correct_key_presses += 1
-                await self._update_race_bar()
+                await self._update_race_hud()
                 self.finised = True
 
         self.refresh()

@@ -1,8 +1,8 @@
-from .events import ButtonClicked, ButtonSelect, ResetBar, UpdateRaceBar
+from .events import ButtonClicked, ButtonSelect, ResetHUD, UpdateRaceHUD
 
 __all__ = [
     "ButtonSelect",
     "ButtonClicked",
-    "ResetBar",
-    "UpdateRaceBar",
+    "ResetHUD",
+    "UpdateRaceHUD",
 ]
