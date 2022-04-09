@@ -106,7 +106,7 @@ class RaceHUD(Widget):
                     ),
                     Panel(
                         Text(
-                            "PM: {}    Accuracy: {}%    Progress: {}%".format(
+                            "WPM: {}    Accuracy: {}%    Progress: {}%".format(
                                 "{:.2f}".format(self.speed),
                                 "{:.2f}".format(self.accuracy),
                                 "{:.2f}".format(self.completed * 100),
