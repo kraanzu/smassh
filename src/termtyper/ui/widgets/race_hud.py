@@ -103,14 +103,15 @@ class RaceHUD(Widget):
                                 completed=self.completed,
                                 complete_style="bold " + self.get_speed_color(),
                             )
-                        )
+                        ),
+                        box=SIMPLE,
                     ),
                     Panel(
                         Text(
-                            "WPM: {}    Accuracy: {}%    Progress: {}%".format(
-                                "{:.2f}".format(self.speed),
+                            "WPM: {}    Accuracy: {}%    Progress: {}".format(
+                                "{:2.2f}".format(self.speed),
                                 "{:.2f}".format(self.accuracy),
-                                "{:.2f}".format(self.completed * 100),
+                                "{:.2%}".format(self.completed),
                             ),
                             style="bold " + self.get_speed_color(),
                             justify="center",

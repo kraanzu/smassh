@@ -168,7 +168,7 @@ class TermTyper(App):
         await self.clear_screen()
 
         self.current_space = "typing_space"
-        await self.view.dock(self.race_hud, size=10)
+        await self.view.dock(self.race_hud, size=percent(30, self.y))
         await self.view.dock(self.typing_screen)
 
     async def on_resize(self, _: events.Resize) -> None:
