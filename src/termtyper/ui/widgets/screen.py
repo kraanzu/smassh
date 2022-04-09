@@ -77,6 +77,11 @@ class Screen(Widget):
         self.total_key_presses = 0
         self.mistakes = 0
 
+    def _get_previous_character(self) -> str:
+        # well there were multiple places where this was needed.
+        # why not make a function? ;)
+        return self.paragraph.plain[self.cursor_position - 1]
+
     def _update_speed_records(self) -> None:
         """
         Updates speed records when the typing is over
@@ -238,14 +243,21 @@ class Screen(Widget):
             play_keysound()
 
         self.pressed_key = key
-        if key == "ctrl+h":  # BACKSPACE
+        if key == "ctrl+w":
+            if self.cursor_position and self._get_previous_character() == " ":
+                await self.key_add("ctrl+h")
+
+            while self.cursor_position and self._get_previous_character() != " ":
+                await self.key_add("ctrl+h")
+
+        elif key == "ctrl+h":  # BACKSPACE
             if self.confidence_mode == "max":
                 return
 
             if self.cursor_position:
                 if (
                     self.confidence_mode == "on"
-                    and self.paragraph.plain[self.cursor_position - 1] == " "
+                    and self._get_previous_character() == " "
                 ):
                     return
 
@@ -264,7 +276,7 @@ class Screen(Widget):
                     if (
                         self.force_correct == "off"
                         and self.cursor_position
-                        and self.paragraph.plain[self.cursor_position - 1] != " "
+                        and self._get_previous_character() != " "
                     ):
                         next_space = self.spaces[
                             bisect(self.spaces, self.cursor_position)
