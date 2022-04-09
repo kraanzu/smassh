@@ -12,10 +12,10 @@ from os import get_terminal_size as termsize
 from .settings_options import menu
 from ..ui.widgets import (
     Button,
-    RaceBar,
+    RaceHUD,
     Screen,
-    UpdateRaceBar,
-    ResetBar,
+    UpdateRaceHUD,
+    ResetHUD,
     ButtonSelect,
     ButtonClicked,
 )
@@ -163,19 +163,20 @@ class TermTyper(App):
         Renders the Typing Space
         """
 
-        self.race_bar = RaceBar()
+        self.race_hud = RaceHUD()
         await self.typing_screen._refresh_settings()
         await self.clear_screen()
 
         self.current_space = "typing_space"
-        await self.view.dock(self.race_bar, size=percent(20, self.y))
+        await self.view.dock(self.race_hud, size=10)
         await self.view.dock(self.typing_screen)
 
     async def on_resize(self, _: events.Resize) -> None:
         """
         Re renders the screen when the terminal is resized
         """
-
+        # Update the x and y variables with the new terminal size
+        self.x, self.y = termsize()
         await eval(f"self.load_{self.current_space}()")
 
     async def on_key(self, event: events.Key) -> None:
@@ -239,11 +240,11 @@ class TermTyper(App):
 
             await self.typing_screen.key_add(event.key)
 
-    async def handle_reset_bar(self, _: ResetBar) -> None:
-        self.race_bar.reset()
+    async def handle_reset_hud(self, _: ResetHUD) -> None:
+        self.race_hud.reset()
 
-    async def handle_update_race_bar(self, event: UpdateRaceBar) -> None:
-        self.race_bar.update(event.completed, event.speed)
+    async def handle_update_race_hud(self, event: UpdateRaceHUD) -> None:
+        self.race_hud.update(event.completed, event.speed, event.accuracy)
 
     async def handle_button_select(self, event: ButtonSelect):
         for button in self.buttons:
