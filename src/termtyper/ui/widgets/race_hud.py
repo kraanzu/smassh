@@ -1,5 +1,3 @@
-from decimal import Rounded
-from tracemalloc import start
 from rich.align import Align
 from rich.console import RenderableType
 from rich.panel import Panel
@@ -92,32 +90,32 @@ class RaceHUD(Widget):
             self.accuracy = accuracy
             self.remarks = self.get_remarks()
             self.refresh()
-            
+
     def render(self) -> RenderableType:
         return Panel(Columns([
             Panel(
-            Align.center(
-                ProgressBar(
-                    total=self.total,
-                    completed=self.completed,
-                    complete_style="bold " + self.get_speed_color(),
-                )
-            )),
+                Align.center(
+                    ProgressBar(
+                        total=self.total,
+                        completed=self.completed,
+                        complete_style="bold " + self.get_speed_color(),
+                    )
+                )),
 
             Panel(
-                    Text.assemble("Typing Performance\n\nW",
-                                    "PM: {}    Accuracy: {}%    Progress: {}%".format(
-                                                "{:.2f}".format(self.speed),
-                                                "{:.2f}".format(self.accuracy), 
-                                                "{:.2f}".format(self.completed*100)), 
-                                                style="bold " + self.get_speed_color(),
-                                                justify="center")
-                )
-            ], 
+                Text("PM: {}    Accuracy: {}%    Progress: {}%".format(
+                    "{:.2f}".format(self.speed),
+                    "{:.2f}".format(self.accuracy),
+                    "{:.2f}".format(self.completed * 100)),
+                    style="bold " + self.get_speed_color(),
+                    justify="center")
             )
+        ],
+        )
             if not self.finished
             else Align.center(Text(self.remarks, style="bold green", justify="center"))
-            )
+        )
+
 
 if __name__ == "__main__":
 
