@@ -233,7 +233,7 @@ class Screen(Widget):
         Process the pressed key
         """
 
-        if key == "ctrl+i":  # TAB
+        if key == "ctrl+i" and self.tab_reset == "yes":  # TAB
             await self.reset_screen()
 
         if self.finised:
