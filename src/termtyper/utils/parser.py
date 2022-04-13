@@ -5,7 +5,12 @@ from typing import Literal, Union
 NumberType = Union[int, float]
 
 
-def get_config_location():
+def get_config_location() -> str:
+    """
+    Finds the config dir for the system
+    $XDG_CONFIG_HOME > ~/.config > ~/
+    """
+
     try:
         return os.environ["XDG_CONFIG_HOME"]
     except KeyError:
@@ -19,7 +24,8 @@ def get_config_location():
 
 class Parser(ConfigParser):
     """
-    A class to parse the currenty set options in the settings menu
+    A sub class of ConfigParser class
+    to parse the currenty set options in the settings menu
     """
 
     config_path = os.path.join(get_config_location(), "termtyper")
@@ -32,6 +38,10 @@ class Parser(ConfigParser):
             self.read(self.file_path)
 
     def _create_user_config(self) -> None:
+        """
+        Creates a new config
+        """
+
         try:
             os.mkdir(self.config_path)
         except FileExistsError:
@@ -70,11 +80,13 @@ class Parser(ConfigParser):
 
         self._write_to_file()
 
-    def set_speed(self, speed: Literal["low", "med", "high"], value: NumberType):
+    def set_speed(
+        self, speed: Literal["low", "med", "high"], value: NumberType
+    ) -> None:
         paragraph_size = self.get_data("paragraph_size")
-        return self.set_data(f"{paragraph_size}_{speed}", str(value))
+        self.set_data(f"{paragraph_size}_{speed}", str(value))
 
-    def get_speed(self, speed: Literal["low", "med", "high"]):
+    def get_speed(self, speed: Literal["low", "med", "high"]) -> float:
         paragraph_size = self.get_data("paragraph_size")
         return float(self.get_data(f"{paragraph_size}_{speed}"))
 
