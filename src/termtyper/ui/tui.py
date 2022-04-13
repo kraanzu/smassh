@@ -1,13 +1,13 @@
+from os import get_terminal_size as termsize
 from rich.align import Align
 from rich.box import HEAVY_EDGE
 from rich.text import Text
+from rich.panel import Panel
+
 from textual.app import App
 from textual.layouts.dock import DockLayout
-from textual.widgets import Static
+from textual.widgets import Static, ScrollView
 from textual import events
-
-from rich.panel import Panel
-from os import get_terminal_size as termsize
 
 from .settings_options import menu
 from ..ui.widgets import (
@@ -19,7 +19,13 @@ from ..ui.widgets import (
     ButtonSelect,
     ButtonClicked,
 )
-from ..utils import Parser, HELP_BANNER, HELP_MESSAGE
+from ..utils import (
+    Parser,
+    HELP_BANNER,
+    HELP_MESSAGE,
+    GETTING_STARTERD_BANNER,
+    GETTING_STARTERD_MESSAGE,
+)
 
 
 def percent(part, total):
@@ -54,12 +60,18 @@ class TermTyper(App):
             label="Start Typing !".center(30),
             name="bt_typing_space",
         )
+        self.bt_getting_started = Button(
+            label="Getting Started".center(30), name="bt_getting_started"
+        )
         self.bt_settings = Button(label="Settings".center(30), name="bt_settings")
-        self.bt_quit = Button(label="Quit".center(30), name="bt_quit")
 
         self.current_button_index = 0
         self.bt_typing_space.select()
-        self.buttons = [self.bt_typing_space, self.bt_settings, self.bt_quit]
+        self.buttons = [
+            self.bt_typing_space,
+            self.bt_getting_started,
+            self.bt_settings,
+        ]
 
         # FOR SETTINGS
         self.menus = list(menu.keys())
@@ -67,6 +79,9 @@ class TermTyper(App):
 
         # TYING SCREEN
         self.typing_screen = Screen()
+
+        # Quit keybind
+        await self.bind("ctrl+q", "quit", "quit the application")
 
     async def on_mount(self) -> None:
         await self.load_main_menu()
@@ -94,12 +109,26 @@ class TermTyper(App):
         await self.clear_screen()
         await self.view.dock(self.banner, size=percent(30, self.y))
         await self.view.dock(
-            self.bt_typing_space,
-            self.bt_settings,
-            self.bt_quit,
-            size=percent(25, self.y),
+            *self.buttons,
         )
         self.current_space = "main_menu"
+
+    async def load_getting_started(self):
+        self.getting_started_scroll = ScrollView(Align.center(GETTING_STARTERD_MESSAGE))
+        await self.clear_screen()
+        await self.view.dock(GETTING_STARTERD_BANNER, size=percent(25, self.y))
+        await self.view.dock(
+            Static(
+                Align.center(
+                    "press [magenta]j(down)/k(up)[/magenta] to navigate and [red]escape[/red] to exit",
+                    vertical="middle",
+                )
+            ),
+            edge="bottom",
+            size=percent(15, self.y),
+        )
+        await self.view.dock(self.getting_started_scroll)
+        self.current_space = "getting_started"
 
     async def load_settings(self):
         """
@@ -232,6 +261,14 @@ class TermTyper(App):
                 case "escape":
                     await self.load_main_menu()
 
+        elif self.current_space == "getting_started":
+            if event.key == "escape":
+                await self.load_main_menu()
+            elif event.key in ["j", "down"]:
+                self.getting_started_scroll.scroll_up()
+            elif event.key in ["k", "up"]:
+                self.getting_started_scroll.scroll_down()
+
         elif self.current_space == "typing_space":
             if event.key == "escape":
                 await self.typing_screen.reset_screen()
@@ -256,8 +293,8 @@ class TermTyper(App):
             button.refresh()
 
     async def handle_button_clicked(self, e: events.Click):
-        if getattr(e.sender, "name") == "bt_quit":
-            await self.action_quit()
+        if getattr(e.sender, "name") == "bt_getting_started":
+            await self.load_getting_started()
         elif getattr(e.sender, "name") == "bt_settings":
             await self.load_settings()
         elif getattr(e.sender, "name") == "bt_typing_space":
