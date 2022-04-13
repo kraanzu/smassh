@@ -5,24 +5,42 @@ from typing import Literal, Union
 NumberType = Union[int, float]
 
 
+def get_config_location():
+    try:
+        return os.environ["XDG_CONFIG_HOME"]
+    except KeyError:
+        home = os.path.expanduser("~")
+        config_dir = os.path.join(home, ".config")
+        if os.path.isdir(config_dir):
+            return config_dir
+        else:
+            return home
+
+
 class Parser(ConfigParser):
     """
     A class to parse the currenty set options in the settings menu
     """
 
-    file_path = os.path.join(os.path.expanduser("~"), ".termtyper.ini")
+    config_path = os.path.join(get_config_location(), "termtyper")
+    file_path = os.path.join(config_path, "termtyper.ini")
 
     def __init__(self) -> None:
         super().__init__()
         if not self.read(self.file_path):
-            with open(self.file_path, "w"):
-                pass
-
             self._create_user_config()
             self.read(self.file_path)
 
     def _create_user_config(self) -> None:
+        try:
+            os.mkdir(self.config_path)
+        except FileExistsError:
+            pass
+
         print("No config found !\nCreating....")
+
+        with open(self.file_path, "w"):
+            pass
 
         self.add_section("user")
 
