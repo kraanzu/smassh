@@ -28,19 +28,19 @@ It is built on top of [textual](https://github.com/Textualize/textual) which pro
 
 ## One Liner ✍🏻
 ```bash
-$ python -m pip install git+https://github.com/kraanzu/termtyper.git
+python -m pip install git+https://github.com/kraanzu/termtyper.git
 ```
 
 ## Or if you prefer Manual Installation 📝
 ``` bash
-$ git clone https://github.com/kraanzu/termtyper.git
-$ cd termtyper
-$ pip install .
+git clone https://github.com/kraanzu/termtyper.git
+cd termtyper
+pip install .
 ```
 
 # Usage 🎮
 ```bash
-$ termtyper
+termtyper
 ```
 Any changes made in the settings are saved automatically on changing! 🤗
 
