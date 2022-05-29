@@ -49,3 +49,8 @@ https://user-images.githubusercontent.com/97718086/153621507-0379f4e8-78bc-435f-
 
 # Contribution 🤝
 Always open to PRs :)
+
+# Next Steps
+- Multiple Themes
+- Multiple writing modes
+- Online Racing 
