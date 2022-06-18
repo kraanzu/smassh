@@ -10,22 +10,8 @@ from textual.widgets import Static, ScrollView
 from textual import events
 
 from .settings_options import menu
-from ..ui.widgets import (
-    Button,
-    RaceHUD,
-    Screen,
-    UpdateRaceHUD,
-    ResetHUD,
-    ButtonSelect,
-    ButtonClicked,
-)
-from ..utils import (
-    Parser,
-    HELP_BANNER,
-    HELP_MESSAGE,
-    GETTING_STARTERD_BANNER,
-    GETTING_STARTERD_MESSAGE,
-)
+from ..ui.widgets import *  # NOQA
+from ..utils import *  # NOQA
 
 
 def percent(part, total):

@@ -1,11 +1,12 @@
 from typing import Callable
 from rich.box import HEAVY
+from rich.tree import Tree
 from rich.console import RenderableType
+from rich.align import Align
+from rich.text import Text
+from rich.panel import Panel
 from textual import events
 from textual.widget import Widget
-from rich.align import Align
-from rich.text import Span, Text
-from rich.panel import Panel
 
 from ...utils import Parser
 
@@ -22,32 +23,38 @@ class Option(Widget):
         super().__init__()
         self.name = name
         self.options = [i.strip() for i in options]
-        self.cursor = self.options.index(Parser().get_data(self.name))
+        self._max_len = max(len(i) for i in self.options)
+        self._cursor = self.options.index(Parser().get_data(self.name))
         self.callback = callback
-        self.selected = False
-        self._set_option_string()
+        self._selected = False
+
+    @property
+    def cursor(self):
+        return self._cursor
+
+    @cursor.setter
+    def cursor(self, new: int):
+        total = len(self.options)
+        self._cursor = max(0, min(new, total - 1))
+        self.update()
+
+    @property
+    def selected(self):
+        return self._selected
+
+    @selected.setter
+    def selected(self, new: bool):
+        self._selected = new
+        self.update()
 
     def highlight(self) -> None:
         self.selected = True
-        self.refresh()
 
     def lowlight(self) -> None:
         self.selected = False
-        self.refresh()
-
-    def _set_option_string(self) -> None:
-        """
-        Sets the renderable for viewing
-        """
-
-        m = max(len(i) for i in self.options) + 4  # 4 for nice padding
-        self.options_string = "|".join(i.center(m) for i in self.options)
-        self.positions = [
-            [i, i + m - 2] for i in range(1, len(self.options_string), m + 1)
-        ]
 
     def update(self) -> None:
-        Parser().set_data(self.name, self.options[self.cursor])
+        Parser().set_data(self.name, self.options[self._cursor])
 
         if self.callback:
             self.callback()
@@ -55,35 +62,36 @@ class Option(Widget):
         self.refresh()
 
     def select_next_option(self) -> None:
-        self.cursor = (self.cursor + 1) % len(self.options)
-        self.update()
+        self.cursor += 1
 
     def select_prev_option(self) -> None:
-        self.cursor = (self.cursor - 1 + len(self.options)) % len(self.options)
-        self.update()
+        self.cursor -= 1
 
     async def on_mouse_scroll_down(self, _: events.MouseScrollDown) -> None:
-        self.select_next_option()
-
-    async def on_mouse_scroll_up(self, _: events.MouseScrollUp) -> None:
         self.select_prev_option()
 
+    async def on_mouse_scroll_up(self, _: events.MouseScrollUp) -> None:
+        self.select_next_option()
+
     def render(self) -> RenderableType:
+        tree = Tree("")
+        tree.hide_root = True
+        tree.expanded = True
+        for index, i in enumerate(self.options):
+            label = Text(i.ljust(self._max_len))
+
+            if index == self._cursor:
+                label.stylize("b green")
+                label += " "
+
+            tree.add(label)
+
         return Panel(
             Align.center(
-                Text(
-                    self.options_string,
-                    spans=[
-                        Span(
-                            self.positions[self.cursor][0],
-                            self.positions[self.cursor][1],
-                            "reverse green",
-                        )
-                    ],
-                ),
+                tree,
                 vertical="middle",
             ),
-            border_style="magenta" if self.selected else "white",
+            border_style="magenta" if self._selected else "white",
             box=HEAVY,
         )
 
