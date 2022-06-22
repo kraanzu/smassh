@@ -1,5 +1,5 @@
 # Termtyper 🖮
-Termtyper is a TUI (Text User Interface) typing application that provides you a great feel with typing with a lot of options to tweak!</br>
+Termtyper is a TUI (Text User Interface) typing application that tests your typing while providing you with sounds as you type imitating enjoyable keyboard sounds!</br>
 It is highly inspired by [monkeytype](https://monkeytype.com/)</br>
 It is built on top of [textual](https://github.com/Textualize/textual) which provides the UI for the application
 
