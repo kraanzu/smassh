@@ -31,6 +31,9 @@ class TermTyper(App):
         self.current_space = "main_menu"
         self.x, self.y = termsize()
 
+        self.top = Static("")
+        self.bottom = ScrollView("")
+
         # FOR MAIN MENU
         self.banner = Static(
             Panel(
