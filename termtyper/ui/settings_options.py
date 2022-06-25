@@ -1,5 +1,12 @@
 from typing import Union
 from collections import OrderedDict
+from rich.console import RenderableType
+from rich.panel import Panel
+from rich.table import Table
+from textual.events import Key
+from textual.widget import Widget
+
+from termtyper.ui.widgets import banners
 
 from ..ui.widgets import Option, NumberScroll
 from ..utils import play_keysound
@@ -50,7 +57,7 @@ class Setting:
         )
 
 
-class Menu:
+class Menu(Widget):
     """
     A menu clas for showing multiple settings in one page
     """
@@ -59,16 +66,16 @@ class Menu:
         self.ascii_art = ascii_art
         self.items = items
         self.height = max(i.description.count("\n") for i in items) + 1
-        self.size = len(items)
+        self._total = len(items)
         self.selected_index = 0
         self.update()
 
     def select_next_setting(self):
-        self.selected_index = (self.selected_index + 1) % self.size
+        self.selected_index = (self.selected_index + 1) % self._total
         self.update()
 
     def select_prev_setting(self):
-        self.selected_index = (self.selected_index - 1 + self.size) % self.size
+        self.selected_index = (self.selected_index - 1 + self._total) % self._total
         self.update()
 
     def select_next_setting_option(self):
@@ -84,17 +91,22 @@ class Menu:
             else:
                 setting.deselect()
 
+    def render(self) -> RenderableType:
+        table = Table.grid(expand=True)
+        table.add_column("Desc", ratio=80)
+        table.add_column("Opts", ratio=20)
+
+        for i in self.items:
+            table.add_row(Panel(i.render_description(), height=8), i.widget)
+
+        return table
+
 
 menu: dict[str, Menu] = OrderedDict()
 
 # First Menu
-art_hardcore = """
-┬ ┬┌─┐┬─┐┌┬┐┌─┐┌─┐┬─┐┌─┐
-├─┤├─┤├┬┘ │││  │ │├┬┘├┤
-┴ ┴┴ ┴┴└──┴┘└─┘└─┘┴└─└─┘
-"""
 menu["hardcore"] = Menu(
-    art_hardcore,
+    banners["hardcore"],
     [
         Setting(
             "Paragraph Size",
@@ -128,13 +140,8 @@ menu["hardcore"] = Menu(
 
 
 # Second menu
-art_push_your_limits = """
-┌─┐┬ ┬┌─┐┬ ┬  ┬ ┬┌─┐┬ ┬┬─┐  ┬  ┬┌┬┐┬┌┬┐┌─┐
-├─┘│ │└─┐├─┤  └┬┘│ ││ │├┬┘  │  │││││ │ └─┐
-┴  └─┘└─┘┴ ┴   ┴ └─┘└─┘┴└─  ┴─┘┴┴ ┴┴ ┴ └─┘
-"""
 menu["push_your_limits"] = Menu(
-    art_push_your_limits,
+    banners["push_your_limits"],
     [
         Setting(
             "Min Speed",
@@ -164,13 +171,9 @@ menu["push_your_limits"] = Menu(
 )
 
 # Third Menu
-art_discipline = """
-┌┬┐┬┌─┐┌─┐┬┌─┐┬  ┬┌┐┌┌─┐
- │││└─┐│  │├─┘│  ││││├┤
-─┴┘┴└─┘└─┘┴┴  ┴─┘┴┘└┘└─┘
-"""
+
 menu["discipline"] = Menu(
-    art_discipline,
+    banners["discipline"],
     [
         Setting(
             "Force correct",
@@ -197,14 +200,8 @@ menu["discipline"] = Menu(
 )
 
 # Fourth Menu
-art_eye_candy = """
-┌─┐┬ ┬┌─┐  ┌─┐┌─┐┌┐┌┌┬┐┬ ┬
-├┤ └┬┘├┤   │  ├─┤│││ ││└┬┘
-└─┘ ┴ └─┘  └─┘┴ ┴┘└┘─┴┘ ┴
-"""
-
 menu["eye_candy"] = Menu(
-    art_eye_candy,
+    banners["eye_candy"],
     [
         Setting(
             "Caret style",
@@ -230,14 +227,8 @@ menu["eye_candy"] = Menu(
 )
 
 # Fifth Menu
-art_aesthetics = """
-┌─┐┌─┐┌─┐┌┬┐┬ ┬┌─┐┌┬┐┬┌─┐┌─┐
-├─┤├┤ └─┐ │ ├─┤├┤  │ ││  └─┐
-┴ ┴└─┘└─┘ ┴ ┴ ┴└─┘ ┴ ┴└─┘└─┘
-"""
-
 menu["ear_candy"] = Menu(
-    art_aesthetics,
+    banners["aesthetics"],
     [
         Setting(
             "Keypress Sound",
@@ -260,7 +251,7 @@ menu["ear_candy"] = Menu(
             Option(
                 "sound",
                 options=["cream", "lubed", "mech", "heavy"],
-                callback=play_keysound,
+                # callback=play_keysound,
             ),
             "Choose whats most pleasing to you ears :)",
         ),
@@ -268,14 +259,8 @@ menu["ear_candy"] = Menu(
 )
 
 # Sixth Menu
-art_misc = """
-┌┬┐┬┌─┐┌─┐┌─┐┬  ┬  ┌─┐┌┐┌┌─┐┌─┐┬ ┬┌─┐
-││││└─┐│  ├┤ │  │  ├─┤│││├┤ │ ││ │└─┐
-┴ ┴┴└─┘└─┘└─┘┴─┘┴─┘┴ ┴┘└┘└─┘└─┘└─┘└─┘
-"""
-
 menu["misc"] = Menu(
-    art_misc,
+    banners["misc"],
     [
         Setting(
             "Tab Reset",
@@ -297,3 +282,53 @@ menu["misc"] = Menu(
         ),
     ],
 )
+
+
+class MenuSlide(Widget):
+    def __init__(self, menus=list(menu.values())):
+        super().__init__()
+        self.menus = menus
+        self._current = 0
+
+    @property
+    def current(self):
+        return self._current
+
+    @current.setter
+    def current(self, val: int):
+        _total = len(self.menus)
+        self._current = (val + _total) % _total
+        self.refresh()
+
+    @property
+    def curr_menu(self):
+        return self.menus[self.current]
+
+    def next(self):
+        self.current += 1
+
+    def prev(self):
+        self.current -= 1
+
+    def banner(self) -> str:
+        return self.menus[self.current].ascii_art
+
+    async def key_press(self, event: Key):
+        match event.key:
+            case "j" | "down":
+                self.curr_menu.select_next_setting()
+            case "k" | "up":
+                self.curr_menu.select_prev_setting()
+            case "J" | "shift+down":
+                self.curr_menu.select_next_setting_option()
+            case "K" | "shift+up":
+                self.curr_menu.select_prev_setting_option()
+            case "ctrl+i":
+                self.next()
+            case "shift+tab":
+                self.prev()
+
+        self.refresh()
+
+    def render(self) -> RenderableType:
+        return self.menus[self.current].render()

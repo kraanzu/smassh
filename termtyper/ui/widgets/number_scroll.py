@@ -62,7 +62,7 @@ class NumberScroll(Widget):
                 vertical="middle",
             ),
             border_style="magenta" if self.selected else "white",
-            box=HEAVY,
+            height = 8
         )
 
 

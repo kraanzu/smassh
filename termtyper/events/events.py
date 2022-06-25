@@ -14,7 +14,9 @@ class ButtonClicked(Message, bubble=True):
     An Event class for when the Button is clicked
     """
 
-    pass
+    def __init__(self, sender: MessageTarget, value: str) -> None:
+        super().__init__(sender)
+        self.value = value
 
 
 class UpdateRaceHUD(Message, bubble=True):
@@ -22,7 +24,9 @@ class UpdateRaceHUD(Message, bubble=True):
     An Event Class to continously update the Race HUD
     """
 
-    def __init__(self, sender: MessageTarget, completed: float, speed: float, accuracy: float) -> None:
+    def __init__(
+        self, sender: MessageTarget, completed: float, speed: float, accuracy: float
+    ) -> None:
         super().__init__(sender)
         self.completed = completed
         self.speed = speed

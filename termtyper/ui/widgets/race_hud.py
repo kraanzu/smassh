@@ -1,5 +1,5 @@
 from rich.align import Align
-from rich.box import SIMPLE
+from rich.box import MINIMAL, SIMPLE
 from rich.console import RenderableType
 from rich.panel import Panel
 from rich.text import Text
@@ -124,7 +124,8 @@ class RaceHUD(Widget):
             else Align.center(
                 Text(self.remarks, style="bold green", justify="center"),
                 vertical="middle",
-            )
+            ),
+            box=MINIMAL,
         )
 
 

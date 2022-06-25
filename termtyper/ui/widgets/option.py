@@ -1,5 +1,5 @@
 from typing import Callable
-from rich.box import HEAVY
+from rich.box import HEAVY, MINIMAL
 from rich.tree import Tree
 from rich.console import RenderableType
 from rich.align import Align
@@ -24,7 +24,10 @@ class Option(Widget):
         self.name = name
         self.options = [i.strip() for i in options]
         self._max_len = max(len(i) for i in self.options)
-        self._cursor = self.options.index(Parser().get_data(self.name))
+        try:
+            self._cursor = self.options.index(Parser().get_data(self.name))
+        except:
+            self._cursor = 0
         self.callback = callback
         self._selected = False
 
@@ -73,16 +76,23 @@ class Option(Widget):
     async def on_mouse_scroll_up(self, _: events.MouseScrollUp) -> None:
         self.select_next_option()
 
+    async def key_press(self, event: events.Key):
+        match event.key:
+            case "j" | "down":
+                self.select_next_option()
+            case "k" | "up":
+                self.select_prev_option()
+
     def render(self) -> RenderableType:
         tree = Tree("")
         tree.hide_root = True
         tree.expanded = True
         for index, i in enumerate(self.options):
             label = Text(i.ljust(self._max_len))
+            label.pad(1)
 
             if index == self._cursor:
-                label.stylize("b green")
-                label += " "
+                label.stylize("r green")
 
             tree.add(label)
 
@@ -91,8 +101,8 @@ class Option(Widget):
                 tree,
                 vertical="middle",
             ),
-            border_style="magenta" if self._selected else "white",
-            box=HEAVY,
+            border_style="magenta" if self.selected else "white",
+            height=8,
         )
 
 
