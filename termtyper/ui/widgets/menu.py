@@ -13,6 +13,9 @@ from termtyper.utils.help_menu import percent
 from termtyper.utils.play_keysound import get_sound_location, play
 
 
+seperator = Text("─" * 35, style="bold dim black")
+
+
 class Menu(Option):
     """
     A widget to show options in horizontal fashion
@@ -50,9 +53,12 @@ class Menu(Option):
 
             if index == self._cursor:
                 label.stylize("b green")
-                label += " "
+                label = Text(">  ") + label
+            else:
+                label = Text("   ") + label
 
-            tree.add(label)
+            tree.add(Align.center(label))
+            tree.add(Align.center(seperator))
 
         return Panel(
             Align.center(
