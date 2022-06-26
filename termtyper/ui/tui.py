@@ -114,10 +114,8 @@ class TermTyper(App):
         elif self.current_space == "getting_started":
             if event.key == "escape":
                 await self.load_main_menu()
-            elif event.key in ["j", "down"]:
-                self.bottom.scroll_up()
-            elif event.key in ["k", "up"]:
-                self.bottom.scroll_down()
+            else:
+                self.bottom.key_press(event)
 
         elif self.current_space == "typing_space":
             if event.key == "escape":

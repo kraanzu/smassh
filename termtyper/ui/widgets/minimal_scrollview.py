@@ -1,4 +1,5 @@
 from rich.console import RenderableType
+from textual.events import Key
 from textual.layouts.grid import GridLayout
 from textual.message import Message
 from textual.widgets import ScrollView
@@ -23,6 +24,13 @@ class MinimalScrollView(ScrollView):
 
     def downscroll(self):
         super().scroll_down()
+
+    def key_press(self, event: Key):
+        match event.key:
+            case 'j' | 'down':
+                super().scroll_up()
+            case 'k' | 'up':
+                super().scroll_down()
 
     async def handle_window_change(self, message: Message) -> None:
         message.stop()
