@@ -2,11 +2,12 @@ from os import get_terminal_size as termsize
 from rich.align import Align
 
 from textual.app import App
-from textual.widgets import Static, ScrollView
+from textual.widgets import Static
 from textual import events
 
 from termtyper.ui.settings_options import MenuSlide
 from termtyper.ui.widgets.menu import Menu
+from termtyper.ui.widgets.minimal_scrollview import MinimalScrollView
 
 from ..ui.widgets import *  # NOQA
 from ..utils import *  # NOQA
@@ -24,7 +25,7 @@ class TermTyper(App):
         self.settings = MenuSlide()
 
         self.top = Static("hi")
-        self.bottom = ScrollView("")
+        self.bottom = MinimalScrollView("")
 
         # FOR MAIN MENU
         self.banner = Static(banners["welcome"])

@@ -70,12 +70,6 @@ class Option(Widget):
     def select_prev_option(self) -> None:
         self.cursor -= 1
 
-    async def on_mouse_scroll_down(self, _: events.MouseScrollDown) -> None:
-        self.select_prev_option()
-
-    async def on_mouse_scroll_up(self, _: events.MouseScrollUp) -> None:
-        self.select_next_option()
-
     async def key_press(self, event: events.Key):
         match event.key:
             case "j" | "down":
