@@ -1,13 +1,13 @@
 from os import get_terminal_size
-from rich.box import MINIMAL
+from rich.box import HEAVY, MINIMAL
 from rich.tree import Tree
 from rich.console import RenderableType
 from rich.align import Align
-from rich.text import Text
+from rich.text import Text, TextType
 from rich.panel import Panel
 from textual import events
+from textual.message import Message
 
-from termtyper.events.events import ButtonClicked
 from termtyper.ui.widgets.option import Option
 from termtyper.utils.help_menu import percent
 from termtyper.utils.play_keysound import get_sound_location, play
@@ -23,6 +23,21 @@ class Menu(Option):
     A widget to show options in horizontal fashion
     with the selected option with a colored background
     """
+
+    def __init__(
+        self,
+        name: str,
+        options: list[str],
+        message: Message,
+        draw_border: bool = False,
+        draw_seperator: bool = False,
+        title: str = "",
+    ) -> None:
+        super().__init__(name, options)
+        self.message = message
+        self.draw_border = draw_border
+        self.draw_seperator = draw_seperator
+        self.title = title
 
     @property
     def cursor(self):
@@ -43,7 +58,7 @@ class Menu(Option):
                 self.select_prev_option()
             case "enter":
                 await self.post_message(
-                    ButtonClicked(self, self.options[self.cursor]),
+                    self.message(self, self.options[self.cursor]),
                 )
 
     def render(self) -> RenderableType:
@@ -55,22 +70,26 @@ class Menu(Option):
 
             if index == self._cursor:
                 label.stylize("b green")
-                label = Text(">  ") + label
+                label = Text("> ") + label
             else:
-                label = Text("   ") + label
+                label = Text("  ") + label
 
             tree.add(Align.center(label))
-            tree.add(Align.center(seperator))
+            if self.draw_seperator:
+                tree.add(Align.center(seperator))
 
         return self.render_panel(tree)
 
     def render_panel(self, tree) -> RenderableType:
-        return Panel(
-            Align.center(
-                tree, vertical="middle", height=percent(80, get_terminal_size()[1])
+        return Align.center(
+            Panel(
+                tree,
+                box=HEAVY if self.draw_border else MINIMAL,
+                expand=False,
+                title=self.title,
             ),
-            box=MINIMAL,
-            height=HEIGHT,
+            vertical="middle",
+            height=percent(80, get_terminal_size()[1]),
         )
 
 

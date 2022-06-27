@@ -4,7 +4,7 @@ from rich.align import Align
 from textual.app import App
 from textual.widgets import Static
 from textual import events
-from termtyper.events.events import ParaSizeChange
+from termtyper.events.events import LoadScreen, ParaSizeChange
 
 from termtyper.ui.settings_options import MenuSlide
 from termtyper.ui.widgets.menu import Menu
@@ -39,7 +39,12 @@ class TermTyper(App):
             "Settings": self.load_settings,
             "Quit": self.action_quit,
         }
-        self.menu = Menu("buttons", list(self.buttons.keys()))
+        self.menu = Menu(
+            "buttons",
+            list(self.buttons.keys()),
+            ButtonClicked,
+            draw_seperator=True,
+        )
 
         self.typing_screen = Screen()
 
@@ -103,42 +108,43 @@ class TermTyper(App):
         await self.bottom.update(self.typing_screen)
 
     async def on_key(self, event: events.Key) -> None:
-        if self.current_space == "help_menu":
-            if event.key in ["ctrl+h", "escape"]:
-                await self.load_settings()
+        match self.current_space:
 
-        elif self.current_space == "main_menu":
-            await self.menu.key_press(event)
+            case "help_menu":
+                if event.key in ["ctrl+h", "escape"]:
+                    await self.load_settings()
 
-        elif self.current_space == "settings":
-            if event.key == "escape":
-                await self.load_main_menu()
-            elif event.key == "ctrl+h":
-                await self.load_help_menu()
-            else:
-                await self.settings.key_press(event)
-                await self.top.update(self.settings.banner())
+            case "main_menu":
+                await self.menu.key_press(event)
 
-        elif self.current_space == "getting_started":
-            if event.key == "escape":
-                await self.load_main_menu()
-            else:
-                self.bottom.key_press(event)
+            case "settings":
+                if event.key == "ctrl+h":
+                    await self.load_help_menu()
+                else:
+                    await self.settings.key_press(event)
+                    await self.top.update(self.settings.banner())
 
-        elif self.current_space == "size_menu":
-            await self.size_menu.key_press(event)
+            case "getting_started":
+                if event.key == "escape":
+                    await self.load_main_menu()
+                else:
+                    self.bottom.key_press(event)
 
-        elif self.current_space == "typing_space":
-            if event.key == "escape":
-                await self.load_main_menu()
-                await self.typing_screen.reset_screen()
-                return
+            case "size_menu":
+                await self.size_menu.key_press(event)
 
-            if event.key == "ctrl+s":
-                await self.bottom.update(self.size_menu)
-                self.current_space = "size_menu"
+            case "typing_space":
+                if event.key == "escape":
+                    await self.load_main_menu()
+                    await self.typing_screen.reset_screen()
+                    return
 
-            await self.typing_screen.key_add(event.key)
+                if event.key == "ctrl+s":
+                    await self.typing_screen.reset_screen()
+                    await self.bottom.update(self.size_menu)
+                    self.current_space = "size_menu"
+
+                await self.typing_screen.key_add(event.key)
 
     async def handle_reset_hud(self, _: ResetHUD) -> None:
         self.race_hud.reset()
@@ -147,9 +153,13 @@ class TermTyper(App):
         self.race_hud.update(event.completed, event.speed, event.accuracy)
 
     async def handle_para_size_change(self, e: ParaSizeChange):
-        self.typing_screen.set_paragraph(e.length)
         await self.bottom.update(self.typing_screen)
+        Parser().set_data("paragraph_size", e.length)
+        await self.typing_screen.reset_screen()
         self.current_space = "typing_space"
+
+    async def handle_load_screen(self, e: LoadScreen):
+        await eval(f"self.load_{e.screen}()")
 
     async def handle_button_clicked(self, e: ButtonClicked):
         await self.buttons[e.value]()

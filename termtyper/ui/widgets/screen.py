@@ -11,6 +11,8 @@ from rich.panel import Panel
 from textual.app import App
 from textual.widget import Widget
 
+from termtyper.events.events import LoadScreen
+
 from ...utils import chomsky, Parser, play_keysound, play_failed
 from ...events import UpdateRaceHUD, ResetHUD
 
@@ -171,11 +173,11 @@ class Screen(Widget):
         await self.emit(ResetHUD(self))
         self.refresh()
 
-    def set_paragraph(self, size=Parser().get_data("paragraph_size")) -> None:
+    def set_paragraph(self) -> None:
         """
         Sets the paragraph for the Screen
         """
-
+        size = Parser().get_data("paragraph_size")
         if size == "teensy":
             times = 1
         elif size == "small":
@@ -240,6 +242,10 @@ class Screen(Widget):
         """
         Process the pressed key
         """
+
+        # if key == "escape":
+        #     self.post_message_no_wait(LoadScreen(self, "main_menu"))
+        #     await self.reset_screen()
 
         if key == "ctrl+i" and self.tab_reset == "on":  # TAB
             await self.reset_screen()

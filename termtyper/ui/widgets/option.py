@@ -27,6 +27,7 @@ class Option(Widget):
             self._cursor = self.options.index(Parser().get_data(self.name))
         except:
             self._cursor = 0
+
         self.callback = callback
         self._selected = False
 

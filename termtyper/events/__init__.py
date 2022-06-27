@@ -1,4 +1,11 @@
-from .events import ButtonClicked, ButtonSelect, ResetHUD, UpdateRaceHUD, ParaSizeChange
+from .events import (
+    ButtonClicked,
+    ButtonSelect,
+    ResetHUD,
+    UpdateRaceHUD,
+    ParaSizeChange,
+    LoadScreen,
+)
 
 __all__ = [
     "ButtonSelect",
@@ -6,4 +13,5 @@ __all__ = [
     "ResetHUD",
     "UpdateRaceHUD",
     "ParaSizeChange",
+    "LoadScreen",
 ]

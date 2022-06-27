@@ -5,6 +5,7 @@ from rich.panel import Panel
 from rich.table import Table
 from textual.events import Key
 from textual.widget import Widget
+from termtyper.events.events import LoadScreen
 
 from termtyper.ui.widgets import banners
 
@@ -57,7 +58,7 @@ class Setting:
         )
 
 
-class Menu(Widget):
+class SettingMenu(Widget):
     """
     A menu clas for showing multiple settings in one page
     """
@@ -102,10 +103,10 @@ class Menu(Widget):
         return table
 
 
-menu: dict[str, Menu] = OrderedDict()
+menu: dict[str, SettingMenu] = OrderedDict()
 
 # First Menu
-menu["hardcore"] = Menu(
+menu["hardcore"] = SettingMenu(
     banners["hardcore"],
     [
         Setting(
@@ -140,7 +141,7 @@ menu["hardcore"] = Menu(
 
 
 # Second menu
-menu["push_your_limits"] = Menu(
+menu["push_your_limits"] = SettingMenu(
     banners["push_your_limits"],
     [
         Setting(
@@ -172,7 +173,7 @@ menu["push_your_limits"] = Menu(
 
 # Third Menu
 
-menu["discipline"] = Menu(
+menu["discipline"] = SettingMenu(
     banners["discipline"],
     [
         Setting(
@@ -200,7 +201,7 @@ menu["discipline"] = Menu(
 )
 
 # Fourth Menu
-menu["eye_candy"] = Menu(
+menu["eye_candy"] = SettingMenu(
     banners["eye_candy"],
     [
         Setting(
@@ -227,7 +228,7 @@ menu["eye_candy"] = Menu(
 )
 
 # Fifth Menu
-menu["ear_candy"] = Menu(
+menu["ear_candy"] = SettingMenu(
     banners["aesthetics"],
     [
         Setting(
@@ -259,7 +260,7 @@ menu["ear_candy"] = Menu(
 )
 
 # Sixth Menu
-menu["misc"] = Menu(
+menu["misc"] = SettingMenu(
     banners["misc"],
     [
         Setting(
@@ -327,6 +328,8 @@ class MenuSlide(Widget):
                 self.next()
             case "shift+tab":
                 self.prev()
+            case "escape":
+                await self.post_message(LoadScreen(self, "main_menu"))
 
         self.refresh()
 

@@ -43,6 +43,16 @@ class UpdateRaceHUD(Message, bubble=True):
         self.accuracy = accuracy
 
 
+class LoadScreen(Message, bubble=True):
+    """
+    An Event class to load the wanted screen
+    """
+
+    def __init__(self, sender: MessageTarget, screen: str) -> None:
+        super().__init__(sender)
+        self.screen = screen
+    pass
+
 class ResetHUD(Message, bubble=True):
     """
     An Event Class to reset the HUD
