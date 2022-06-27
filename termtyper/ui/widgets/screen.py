@@ -1,6 +1,8 @@
-from os import get_terminal_size
 import time
-from bisect import bisect
+from itertools import accumulate
+from os import get_terminal_size
+from textwrap import wrap
+from bisect import bisect, bisect_right
 from rich.align import Align
 from rich.box import MINIMAL
 from rich.console import RenderableType
@@ -13,7 +15,9 @@ from ...utils import chomsky, Parser, play_keysound, play_failed
 from ...events import UpdateRaceHUD, ResetHUD
 
 EMPTY_SPAN = Span(0, 0, "")
-HEIGHT = round(0.75 * get_terminal_size()[1])
+x, y = get_terminal_size()
+HEIGHT = round(0.75 * y)
+WIDTH = round(0.80 * x)
 
 
 class Screen(Widget):
@@ -185,6 +189,9 @@ class Screen(Widget):
 
         paragraph = chomsky(times) + " "
         self.paragraph = Text(paragraph)
+        self.wrapped = [0] + list(
+            accumulate([len(i) + (len(i) != WIDTH) for i in wrap(paragraph, WIDTH)])
+        )
         self.paragraph_length = len(self.paragraph.plain)
 
         self.spaces = [i for i, j in enumerate(paragraph) if j == " "]
@@ -353,7 +360,11 @@ class Screen(Widget):
 
         self.refresh()
 
+    def find_cusrsor(self) -> int:
+        return bisect_right(self.wrapped, self.cursor_position)
+
     def render(self) -> RenderableType:
+        line = self.find_cusrsor()
         if not self.finised and not self.failed:
             return Align.center(
                 Panel(
@@ -376,9 +387,13 @@ class Screen(Widget):
                             if self.cursor_buddy_speed
                             else EMPTY_SPAN
                         ],
-                    ),
+                    )[
+                        self.wrapped[line - 1] : self.wrapped[
+                            min(len(self.wrapped) - 1, line + 2)
+                        ]
+                    ],
+                    width=WIDTH + 4,
                     box=MINIMAL,
-                    width=40,
                 ),
                 vertical="middle",
                 height=HEIGHT,
