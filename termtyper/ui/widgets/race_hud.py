@@ -1,14 +1,13 @@
 from rich.align import Align
-from rich.box import MINIMAL, SIMPLE
-from rich.console import RenderableType
+from rich.box import MINIMAL
+from rich.console import Group, RenderableType
 from rich.panel import Panel
 from rich.text import Text
 from textual.app import App
 from textual.widget import Widget
-from rich.progress_bar import ProgressBar
-from ...utils import Parser
 
-from rich.columns import Columns
+from termtyper.ui.widgets.progress_bar import ProgressBar
+from ...utils import Parser
 
 
 class RaceHUD(Widget):
@@ -94,29 +93,26 @@ class RaceHUD(Widget):
 
     def render(self) -> RenderableType:
         return Panel(
-            Columns(
-                [
-                    Panel(
-                        Align.center(
-                            ProgressBar(
-                                total=self.total,
-                                completed=self.completed,
-                                complete_style="bold " + self.get_speed_color(),
-                            )
-                        ),
-                        box=SIMPLE,
+            Group(
+                *[
+                    Align.center(
+                        ProgressBar(
+                            total=self.total,
+                            completed=self.completed,
+                            color="bold " + self.get_speed_color(),
+                            bar_style="minimal",
+                        ).render()
                     ),
-                    Panel(
+                    Align.center(
                         Text(
-                            "WPM: {}    Accuracy: {}%    Progress: {}".format(
+                            "\n\n\n"
+                            + "WPM: {}    Accuracy: {}%    Progress: {}".format(
                                 "{:2.2f}".format(self.speed),
                                 "{:.2f}".format(self.accuracy),
                                 "{:.2%}".format(self.completed),
                             ),
                             style="bold " + self.get_speed_color(),
-                            justify="center",
                         ),
-                        box=SIMPLE,
                     ),
                 ],
             )

@@ -10,7 +10,6 @@ from termtyper.events.events import LoadScreen
 from termtyper.ui.widgets import banners
 
 from ..ui.widgets import Option, NumberScroll
-from ..utils import play_keysound
 
 SettingWidget = Union[Option, NumberScroll]
 

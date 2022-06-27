@@ -11,8 +11,6 @@ from rich.panel import Panel
 from textual.app import App
 from textual.widget import Widget
 
-from termtyper.events.events import LoadScreen
-
 from ...utils import chomsky, Parser, play_keysound, play_failed
 from ...events import UpdateRaceHUD, ResetHUD
 
