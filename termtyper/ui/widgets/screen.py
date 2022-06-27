@@ -360,11 +360,12 @@ class Screen(Widget):
 
         self.refresh()
 
-    def find_cusrsor(self) -> int:
-        return bisect_right(self.wrapped, self.cursor_position)
+    def find_cursor(self) -> int:
+        pos = bisect_right(self.wrapped, self.cursor_position)
+        return max(1, min(len(self.wrapped) - 2, pos) - 1)
 
     def render(self) -> RenderableType:
-        line = self.find_cusrsor()
+        line = self.find_cursor()
         if not self.finised and not self.failed:
             return Align.center(
                 Panel(
