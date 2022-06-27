@@ -45,6 +45,11 @@ class TermTyper(App):
     async def on_mount(self) -> None:
         await self.setup_grid()
         await self.load_main_menu()
+        self.set_interval(0.1, self.refresher)
+
+    async def refresher(self):
+        self.top.refresh()
+        self.bottom.refresh()
 
     async def setup_grid(self):
         self.grid = await self.view.dock_grid()
@@ -124,9 +129,6 @@ class TermTyper(App):
                 return
 
             await self.typing_screen.key_add(event.key)
-
-        self.top.refresh()
-        self.bottom.refresh()
 
     async def handle_reset_hud(self, _: ResetHUD) -> None:
         self.race_hud.reset()
