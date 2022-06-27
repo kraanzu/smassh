@@ -9,7 +9,7 @@ from termtyper.events.events import LoadScreen, ParaSizeChange
 from termtyper.ui.settings_options import MenuSlide
 from termtyper.ui.widgets.menu import Menu
 from termtyper.ui.widgets.minimal_scrollview import MinimalScrollView
-from termtyper.ui.widgets.size_menu import SizeMenu
+from termtyper.ui.widgets.menus import SizeMenu
 
 from ..ui.widgets import *  # NOQA
 from ..utils import *  # NOQA
