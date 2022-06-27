@@ -9,6 +9,16 @@ class ButtonSelect(Message, bubble=True):
     pass
 
 
+class ParaSizeChange(Message, bubble=True):
+    """
+    An Event class for when the size is changed
+    """
+
+    def __init__(self, sender: MessageTarget, length: str) -> None:
+        super().__init__(sender)
+        self.length = length
+
+
 class ButtonClicked(Message, bubble=True):
     """
     An Event class for when the Button is clicked

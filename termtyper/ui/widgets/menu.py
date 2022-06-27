@@ -12,6 +12,8 @@ from termtyper.ui.widgets.option import Option
 from termtyper.utils.help_menu import percent
 from termtyper.utils.play_keysound import get_sound_location, play
 
+HEIGHT = round(0.8 * get_terminal_size()[1])
+
 
 seperator = Text("─" * 35, style="bold dim black")
 
@@ -60,12 +62,15 @@ class Menu(Option):
             tree.add(Align.center(label))
             tree.add(Align.center(seperator))
 
+        return self.render_panel(tree)
+
+    def render_panel(self, tree) -> RenderableType:
         return Panel(
             Align.center(
                 tree, vertical="middle", height=percent(80, get_terminal_size()[1])
             ),
-            border_style="magenta" if self._selected else "white",
             box=MINIMAL,
+            height=HEIGHT,
         )
 
 

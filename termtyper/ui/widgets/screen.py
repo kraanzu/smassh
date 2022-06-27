@@ -171,18 +171,16 @@ class Screen(Widget):
         await self.emit(ResetHUD(self))
         self.refresh()
 
-    def set_paragraph(self) -> None:
+    def set_paragraph(self, size=Parser().get_data("paragraph_size")) -> None:
         """
         Sets the paragraph for the Screen
         """
 
-        self.paragraph_size = Parser().get_data("paragraph_size")
-
-        if self.paragraph_size == "teensy":
+        if size == "teensy":
             times = 1
-        elif self.paragraph_size == "small":
+        elif size == "small":
             times = 5
-        elif self.paragraph_size == "big":
+        elif size == "big":
             times = 10
         else:
             times = 15

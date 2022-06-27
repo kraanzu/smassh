@@ -1,5 +1,4 @@
 from typing import Callable
-from rich.box import HEAVY, MINIMAL
 from rich.tree import Tree
 from rich.console import RenderableType
 from rich.align import Align

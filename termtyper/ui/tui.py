@@ -4,10 +4,12 @@ from rich.align import Align
 from textual.app import App
 from textual.widgets import Static
 from textual import events
+from termtyper.events.events import ParaSizeChange
 
 from termtyper.ui.settings_options import MenuSlide
 from termtyper.ui.widgets.menu import Menu
 from termtyper.ui.widgets.minimal_scrollview import MinimalScrollView
+from termtyper.ui.widgets.size_menu import SizeMenu
 
 from ..ui.widgets import *  # NOQA
 from ..utils import *  # NOQA
@@ -23,6 +25,7 @@ class TermTyper(App):
         self.current_space = "main_menu"
         self.x, self.y = termsize()
         self.settings = MenuSlide()
+        self.size_menu = SizeMenu()
 
         self.top = Static("hi")
         self.bottom = MinimalScrollView("")
@@ -122,11 +125,18 @@ class TermTyper(App):
             else:
                 self.bottom.key_press(event)
 
+        elif self.current_space == "size_menu":
+            await self.size_menu.key_press(event)
+
         elif self.current_space == "typing_space":
             if event.key == "escape":
                 await self.load_main_menu()
                 await self.typing_screen.reset_screen()
                 return
+
+            if event.key == "ctrl+s":
+                await self.bottom.update(self.size_menu)
+                self.current_space = "size_menu"
 
             await self.typing_screen.key_add(event.key)
 
@@ -135,6 +145,11 @@ class TermTyper(App):
 
     async def handle_update_race_hud(self, event: UpdateRaceHUD) -> None:
         self.race_hud.update(event.completed, event.speed, event.accuracy)
+
+    async def handle_para_size_change(self, e: ParaSizeChange):
+        self.typing_screen.set_paragraph(e.length)
+        await self.bottom.update(self.typing_screen)
+        self.current_space = "typing_space"
 
     async def handle_button_clicked(self, e: ButtonClicked):
         await self.buttons[e.value]()
