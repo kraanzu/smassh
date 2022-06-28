@@ -4,12 +4,12 @@ from rich.align import Align
 from textual.app import App
 from textual.widgets import Static
 from textual import events
-from termtyper.events.events import LoadScreen, ParaSizeChange
+from termtyper.events.events import BarThemeChange, LoadScreen, ParaSizeChange
 
 from termtyper.ui.settings_options import MenuSlide
 from termtyper.ui.widgets.menu import Menu
 from termtyper.ui.widgets.minimal_scrollview import MinimalScrollView
-from termtyper.ui.widgets.menus import SizeMenu
+from termtyper.ui.widgets.menus import BarThemeMenu, SizeMenu
 
 from ..ui.widgets import *  # NOQA
 from ..utils import *  # NOQA
@@ -26,6 +26,7 @@ class TermTyper(App):
         self.x, self.y = termsize()
         self.settings = MenuSlide()
         self.size_menu = SizeMenu()
+        self.bar_theme_menu = BarThemeMenu()
 
         self.top = Static("hi")
         self.bottom = MinimalScrollView("")
@@ -133,6 +134,9 @@ class TermTyper(App):
             case "size_menu":
                 await self.size_menu.key_press(event)
 
+            case "bar_theme_menu":
+                await self.bar_theme_menu.key_press(event)
+
             case "typing_space":
                 if event.key == "escape":
                     await self.load_main_menu()
@@ -144,6 +148,14 @@ class TermTyper(App):
                     await self.bottom.update(self.size_menu)
                     self.current_space = "size_menu"
 
+                if event.key == "ctrl+b":
+                    await self.bottom.update(self.bar_theme_menu)
+                    self.current_space = "bar_theme_menu"
+
+                if event.key == "ctrl+b":
+                    await self.bottom.update(self.bar_theme_menu)
+                    self.current_space = "bar_theme_menu"
+
                 await self.typing_screen.key_add(event.key)
 
     async def handle_reset_hud(self, _: ResetHUD) -> None:
@@ -151,6 +163,11 @@ class TermTyper(App):
 
     async def handle_update_race_hud(self, event: UpdateRaceHUD) -> None:
         self.race_hud.update(event.completed, event.speed, event.accuracy)
+
+    async def handle_bar_theme_change(self, e: BarThemeChange):
+        await self.bottom.update(self.typing_screen)
+        Parser().set_data("bar_theme", e.theme)
+        self.current_space = "typing_space"
 
     async def handle_para_size_change(self, e: ParaSizeChange):
         await self.bottom.update(self.typing_screen)

@@ -9,6 +9,16 @@ class ButtonSelect(Message, bubble=True):
     pass
 
 
+class BarThemeChange(Message, bubble=True):
+    """
+    An Event class for when the size is changed
+    """
+
+    def __init__(self, sender: MessageTarget, theme: str) -> None:
+        super().__init__(sender)
+        self.theme = theme
+
+
 class ParaSizeChange(Message, bubble=True):
     """
     An Event class for when the size is changed
@@ -51,7 +61,9 @@ class LoadScreen(Message, bubble=True):
     def __init__(self, sender: MessageTarget, screen: str) -> None:
         super().__init__(sender)
         self.screen = screen
+
     pass
+
 
 class ResetHUD(Message, bubble=True):
     """

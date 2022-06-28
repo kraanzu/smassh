@@ -27,6 +27,7 @@ class RaceHUD(Widget):
         self.total = total
         self.speed = 0
         self.finished = False
+        self.theme = Parser().get_data("bar_theme")
         self._read_speed_records()
 
     def _read_speed_records(self) -> None:
@@ -91,6 +92,10 @@ class RaceHUD(Widget):
             self.remarks = self.get_remarks()
             self.refresh()
 
+    def refresh(self, repaint: bool = True, layout: bool = False) -> None:
+        self.theme = Parser().get_data("bar_theme")
+        return super().refresh(repaint, layout)
+
     def render(self) -> RenderableType:
         return Panel(
             Group(
@@ -100,7 +105,7 @@ class RaceHUD(Widget):
                             total=self.total,
                             completed=self.completed,
                             color="bold " + self.get_speed_color(),
-                            bar_style="minimal",
+                            bar_style=self.theme,
                         ).render()
                     ),
                     Align.center(

@@ -5,6 +5,7 @@ from .events import (
     UpdateRaceHUD,
     ParaSizeChange,
     LoadScreen,
+    BarThemeChange
 )
 
 __all__ = [
@@ -14,4 +15,5 @@ __all__ = [
     "UpdateRaceHUD",
     "ParaSizeChange",
     "LoadScreen",
+    "BarThemeChange"
 ]
