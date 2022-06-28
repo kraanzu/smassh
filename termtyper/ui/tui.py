@@ -40,7 +40,7 @@ class TermTyper(App):
             "Settings": self.load_settings,
             "Quit": self.action_quit,
         }
-        self.menu = Menu(
+        self.main_menu = Menu(
             "buttons",
             list(self.buttons.keys()),
             ButtonClicked,
@@ -79,7 +79,7 @@ class TermTyper(App):
         """
         self.current_space = "main_menu"
         await self.top.update(self.banner)
-        await self.bottom.update(self.menu)
+        await self.bottom.update(self.main_menu)
         self.refresh()
 
     async def load_getting_started(self):
@@ -116,7 +116,7 @@ class TermTyper(App):
                     await self.load_settings()
 
             case "main_menu":
-                await self.menu.key_press(event)
+                await self.main_menu.key_press(event)
 
             case "settings":
                 if event.key == "ctrl+h":
