@@ -11,7 +11,7 @@ from rich.panel import Panel
 from textual.app import App
 from textual.widget import Widget
 
-from ...utils import chomsky, Parser, play_keysound, play_failed
+from ...utils import generate, Parser, play_keysound, play_failed
 from ...events import UpdateRaceHUD, ResetHUD
 
 EMPTY_SPAN = Span(0, 0, "")
@@ -185,7 +185,7 @@ class Screen(Widget):
         else:
             times = 15
 
-        paragraph = chomsky(times) + " "
+        paragraph = generate(times) + " "
         self.paragraph = Text(paragraph)
         self.wrapped = [0] + list(
             accumulate([len(i) + (len(i) != WIDTH) for i in wrap(paragraph, WIDTH)])
