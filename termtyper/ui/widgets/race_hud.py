@@ -27,8 +27,12 @@ class RaceHUD(Widget):
         self.total = total
         self.speed = 0
         self.finished = False
+        self.details = False
         self.theme = Parser().get_data("bar_theme")
         self._read_speed_records()
+
+    def toggle_details(self):
+        self.details = not self.details
 
     def _read_speed_records(self) -> None:
         self.low = float(Parser().get_speed("low"))
@@ -118,7 +122,9 @@ class RaceHUD(Widget):
                             ),
                             style="bold " + self.get_speed_color(),
                         ),
-                    ),
+                    )
+                    if self.details
+                    else "",
                 ],
             )
             if not self.finished

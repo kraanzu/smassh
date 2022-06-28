@@ -143,6 +143,9 @@ class TermTyper(App):
                     await self.typing_screen.reset_screen()
                     return
 
+                if event.key == "ctrl+z":
+                    self.race_hud.toggle_details()
+
                 if event.key == "ctrl+s":
                     await self.typing_screen.reset_screen()
                     await self.bottom.update(self.size_menu)
