@@ -3,6 +3,31 @@ from configparser import ConfigParser
 from typing import Literal, Union
 
 NumberType = Union[int, float]
+SIZES = ["teensy", "small", "big", "huge"]
+SpeedType = Literal["low", "med", "high"]
+
+DEFAULTS = {
+    "difficulty": "normal",
+    "blind_mode": "off",
+    "min_speed": "0",
+    "min_accuracy": "0",
+    "min_burst": "0",
+    "force_correct": "off",
+    "confidence_mode": "off",
+    "single_line_words": "off",
+    "caret_style": "block",
+    "cursor_buddy": "0",
+    "cursor_buddy_speed": "0",
+    "tab_reset": "off",
+    "restart_same": "off",
+    "keypress_sound": "off",
+    "paragraph_size": "teensy",
+    "bar_theme": "minimal",
+    "sound": "mech",
+    **{f"{size}_low": "100000" for size in SIZES},
+    **{f"{size}_med": "0" for size in SIZES},
+    **{f"{size}_high": "0" for size in SIZES},
+}
 
 
 def get_config_location() -> str:
@@ -55,29 +80,8 @@ class Parser(ConfigParser):
         self.add_section("user")
 
         # FOR SETTINGS
-        self.set_data("difficulty", "normal")
-        self.set_data("blind_mode", "off")
-        self.set_data("min_speed", "0")
-        self.set_data("min_accuracy", "0")
-        self.set_data("min_burst", "0")
-        self.set_data("force_correct", "off")
-        self.set_data("confidence_mode", "off")
-        self.set_data("single_line_words", "off")
-        self.set_data("caret_style", "block")
-        self.set_data("cursor_buddy", "0")
-        self.set_data("cursor_buddy_speed", "0")
-        self.set_data("tab_reset", "off")
-        self.set_data("restart_same", "off")
-        self.set_data("keypress_sound", "off")
-        self.set_data("paragraph_size", "teensy")
-        self.set_data("bar_theme", "minimal")
-        self.set_data("sound", "mech")
-
-        # FOR MAINTING THE SPEED RECORDS
-        for size in ["teensy", "small", "big", "huge"]:
-            self.set_data(f"{size}_low", "100000")
-            self.set_data(f"{size}_med", "0")
-            self.set_data(f"{size}_high", "0")
+        for i, j in DEFAULTS.items():
+            self.set_data(i, j)
 
         self._write_to_file()
 
@@ -87,7 +91,7 @@ class Parser(ConfigParser):
         paragraph_size = self.get_data("paragraph_size")
         self.set_data(f"{paragraph_size}_{speed}", str(value))
 
-    def get_speed(self, speed: Literal["low", "med", "high"]) -> float:
+    def get_speed(self, speed: SpeedType) -> float:
         paragraph_size = self.get_data("paragraph_size")
         return float(self.get_data(f"{paragraph_size}_{speed}"))
 
@@ -100,4 +104,9 @@ class Parser(ConfigParser):
         self._write_to_file()
 
     def get_data(self, data: str) -> str:
-        return super().get("user", data)
+        try:
+            return super().get("user", data)
+        except:
+            default = DEFAULTS[data]
+            self.set_data(data, default)
+            return default
