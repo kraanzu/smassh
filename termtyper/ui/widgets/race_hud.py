@@ -28,16 +28,16 @@ class RaceHUD(Widget):
         self.speed = 0
         self.finished = False
         self.details = False
-        self.theme = Parser().get_data("bar_theme")
+        self.theme = Parser().get_theme("bar_theme")
         self._read_speed_records()
 
     def toggle_details(self):
         self.details = not self.details
 
     def _read_speed_records(self) -> None:
-        self.low = float(Parser().get_speed("low"))
-        self.med = float(Parser().get_speed("med"))
-        self.high = float(Parser().get_speed("high"))
+        self.low = Parser().get_speed("low")
+        self.med = Parser().get_speed("med")
+        self.high = Parser().get_speed("high")
 
     def get_speed_color(self) -> str:
         """
@@ -97,7 +97,7 @@ class RaceHUD(Widget):
             self.refresh()
 
     def refresh(self, repaint: bool = True, layout: bool = False) -> None:
-        self.theme = Parser().get_data("bar_theme")
+        self.theme = Parser().get_theme("bar_theme")
         return super().refresh(repaint, layout)
 
     def render(self) -> RenderableType:
@@ -109,7 +109,7 @@ class RaceHUD(Widget):
                             total=self.total,
                             completed=self.completed,
                             color="bold " + self.get_speed_color(),
-                            bar_style=self.theme,
+                            bar_style=Parser().get_theme("bar_theme"),
                         ).render()
                     ),
                     Align.center(

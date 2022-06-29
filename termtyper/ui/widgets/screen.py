@@ -28,7 +28,6 @@ class Screen(Widget):
 
     async def _refresh_settings(self) -> None:
         parser = Parser()
-        self.set_paragraph()
         self.min_speed = int(parser.get_data("min_speed"))
         self.min_accuracy = int(parser.get_data("min_accuracy"))
         self.min_burst = int(parser.get_data("min_burst"))
@@ -39,8 +38,11 @@ class Screen(Widget):
         self.blind_mode = parser.get_data("blind_mode")
         self.confidence_mode = parser.get_data("confidence_mode")
         self.single_line_words = parser.get_data("single_line_words")
-        self.caret_style = parser.get_data("caret_style")
-        self.keypress_sound = parser.get_data("keypress_sound")
+        self.caret_style = parser.get_theme("caret_style")
+        self.keypress_sound = parser.get_theme("sound")
+        self.allow_numbers = parser.get_para_setting("numbers")
+        self.allow_puncs = parser.get_para_setting("punctuations")
+        self.set_paragraph()
 
         match self.caret_style:
             case "off":
@@ -185,7 +187,7 @@ class Screen(Widget):
         else:
             times = 15
 
-        paragraph = generate(times) + " "
+        paragraph = generate(times, self.allow_numbers, self.allow_puncs) + " "
         self.paragraph = Text(paragraph)
         self.wrapped = [0] + list(
             accumulate([len(i) + (len(i) != WIDTH) for i in wrap(paragraph, WIDTH)])
@@ -251,7 +253,7 @@ class Screen(Widget):
         if self.finised:
             return
 
-        if self.keypress_sound == "on":
+        if self.keypress_sound != "none":
             play_keysound()
 
         self.pressed_key = key

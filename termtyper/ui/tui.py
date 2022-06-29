@@ -19,9 +19,11 @@ def percent(part, total):
     return int(part * total / 100)
 
 
+parser = Parser()
+
+
 class TermTyper(App):
     async def on_load(self) -> None:
-        self.parser = Parser()
         self.current_space = "main_menu"
         self.x, self.y = termsize()
         self.settings = MenuSlide()
@@ -168,13 +170,14 @@ class TermTyper(App):
         self.race_hud.update(event.completed, event.speed, event.accuracy)
 
     async def handle_bar_theme_change(self, e: BarThemeChange):
+        parser.set("theming", "bar_theme", e.theme)
         await self.bottom.update(self.typing_screen)
-        Parser().set_data("bar_theme", e.theme)
+        self.race_hud.refresh()
         self.current_space = "typing_space"
 
     async def handle_para_size_change(self, e: ParaSizeChange):
         await self.bottom.update(self.typing_screen)
-        Parser().set_data("paragraph_size", e.length)
+        parser.set_data("paragraph_size", e.length)
         await self.typing_screen.reset_screen()
         self.current_space = "typing_space"
 

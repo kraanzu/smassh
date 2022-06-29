@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Callable, Literal
 from rich.tree import Tree
 from rich.console import RenderableType
 from rich.align import Align
@@ -9,6 +9,11 @@ from textual.widget import Widget
 
 from ...utils import Parser
 
+parser = Parser()
+SectionType = Literal[
+    "user", "theming", "paragraph", "speed records word", "speed records time"
+]
+
 
 class Option(Widget):
     """
@@ -17,15 +22,21 @@ class Option(Widget):
     """
 
     def __init__(
-        self, name: str, options: list[str], callback: Callable = lambda: None
+        self,
+        name: str,
+        options: list[str],
+        callback: Callable = lambda: None,
+        section: SectionType | None = None,
     ) -> None:
         super().__init__()
         self.name = name
         self.options = [i.strip() for i in options]
         self._max_len = max(len(i) for i in self.options)
-        try:
-            self._cursor = self.options.index(Parser().get_data(self.name))
-        except:
+        self.section = section
+
+        if self.section:
+            self._cursor = self.options.index(parser.get(self.section, self.name))
+        else:
             self._cursor = 0
 
         self.callback = callback
@@ -57,7 +68,8 @@ class Option(Widget):
         self.selected = False
 
     def update(self) -> None:
-        Parser().set_data(self.name, self.options[self._cursor])
+        if self.section:
+            Parser().set(self.section, self.name, self.options[self._cursor])
 
         if self.callback:
             self.callback()

@@ -32,8 +32,9 @@ class Menu(Option):
         draw_border: bool = False,
         draw_seperator: bool = False,
         title: str = "",
+        section: str | None = None,
     ) -> None:
-        super().__init__(name, options)
+        super().__init__(name, options, section=section)
         self.message = message
         self.draw_border = draw_border
         self.draw_seperator = draw_seperator

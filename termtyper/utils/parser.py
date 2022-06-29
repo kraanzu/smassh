@@ -1,9 +1,11 @@
 import os
+from pathlib import Path
 from configparser import ConfigParser
-from typing import Literal, Union
+from typing import Any, Literal, Union
 
 NumberType = Union[int, float]
 SIZES = ["teensy", "small", "big", "huge"]
+TIMES = ["15", "30", "60", "120"]
 SpeedType = Literal["low", "med", "high"]
 
 DEFAULTS = {
@@ -15,34 +17,51 @@ DEFAULTS = {
     "force_correct": "off",
     "confidence_mode": "off",
     "single_line_words": "off",
-    "caret_style": "block",
     "cursor_buddy": "0",
     "cursor_buddy_speed": "0",
     "tab_reset": "off",
     "restart_same": "off",
-    "keypress_sound": "off",
     "paragraph_size": "teensy",
+}
+
+PARAPHRASE = {
+    "numbers": False,
+    "punctuations": False,
+}
+
+SPEED_RECORDS_WORDS = {
+    **{f"{size}_low": 100000 for size in SIZES},
+    **{f"{size}_med": 0 for size in SIZES},
+    **{f"{size}_high": 0 for size in SIZES},
+}
+
+SPEED_RECORDS_TIME = {
+    **{f"{time}_low": 100000 for time in TIMES},
+    **{f"{time}_med": 0 for time in TIMES},
+    **{f"{time}_high": 0 for time in TIMES},
+}
+
+THEMING = {
+    "caret_style": "block",
     "bar_theme": "minimal",
     "sound": "mech",
-    **{f"{size}_low": "100000" for size in SIZES},
-    **{f"{size}_med": "0" for size in SIZES},
-    **{f"{size}_high": "0" for size in SIZES},
+    "keypress_sound": "off",
 }
 
 
-def get_config_location() -> str:
+def get_config_location() -> Path:
     """
     Finds the config dir for the system
     $XDG_CONFIG_HOME > ~/.config > ~/
     """
 
     try:
-        return os.environ["XDG_CONFIG_HOME"]
+        return Path.expanduser(Path(os.environ["XDG_CONFIG_HOME"]))
     except KeyError:
-        home = os.path.expanduser("~")
+        home = Path.home()
         config_dir = os.path.join(home, ".config")
         if os.path.isdir(config_dir):
-            return config_dir
+            return Path(config_dir)
         else:
             return home
 
@@ -53,47 +72,65 @@ class Parser(ConfigParser):
     to parse the currenty set options in the settings menu
     """
 
-    config_path = os.path.join(get_config_location(), "termtyper")
-    file_path = os.path.join(config_path, "termtyper.ini")
+    config_path = get_config_location() / "termtyper"
+    file_path = config_path / "termtyper.ini"
 
     def __init__(self) -> None:
         super().__init__()
         if not self.read(self.file_path):
             self._create_user_config()
-            self.read(self.file_path)
+        else:
+            if len(self.sections()) == 1:
+                self.clear()
+                self._create_user_config()
 
     def _create_user_config(self) -> None:
         """
         Creates a new config
         """
 
-        try:
+        if not self.config_path.is_dir():
             os.mkdir(self.config_path)
-        except FileExistsError:
-            pass
 
         print("No config found !\nCreating....")
-
         with open(self.file_path, "w"):
             pass
 
-        self.add_section("user")
-
-        # FOR SETTINGS
-        for i, j in DEFAULTS.items():
-            self.set_data(i, j)
+        self.read_dict(
+            {
+                "user": DEFAULTS,
+                "theming": THEMING,
+                "paragraph": PARAPHRASE,
+                "speed records word": SPEED_RECORDS_WORDS,
+                "speed records time": SPEED_RECORDS_TIME,
+            }
+        )
 
         self._write_to_file()
 
-    def set_speed(
-        self, speed: Literal["low", "med", "high"], value: NumberType
-    ) -> None:
+    def set(self, section: str, option: str, value: str | None = None) -> None:
+        super().set(section, option, value)
+        self._write_to_file()
+
+    def set_speed(self, speed: SpeedType, value: NumberType) -> None:
         paragraph_size = self.get_data("paragraph_size")
-        self.set_data(f"{paragraph_size}_{speed}", str(value))
+        self.set(f"speed records word", f"{paragraph_size}_{speed}", str(value))
 
     def get_speed(self, speed: SpeedType) -> float:
         paragraph_size = self.get_data("paragraph_size")
-        return float(self.get_data(f"{paragraph_size}_{speed}"))
+        return float(self.get("speed records word", f"{paragraph_size}_{speed}"))
+
+    def get_theme(self, data: str):
+        return self.get("theming", data)
+
+    def set_theme(self, data: str, value: Any):
+        return self.set("user", data, str(value))
+
+    def get_para_setting(self, data: str) -> bool:
+        return self.getboolean("paragraph", data)
+
+    def set_para_setting(self, data: str, value: Any):
+        return self.set("paragraph", data, str(value))
 
     def _write_to_file(self) -> None:
         with open(self.file_path, "w") as fp:
@@ -101,12 +138,6 @@ class Parser(ConfigParser):
 
     def set_data(self, data: str, val: str) -> None:
         super().set("user", data, val)
-        self._write_to_file()
 
     def get_data(self, data: str) -> str:
-        try:
-            return super().get("user", data)
-        except:
-            default = DEFAULTS[data]
-            self.set_data(data, default)
-            return default
+        return super().get("user", data)
