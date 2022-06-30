@@ -137,7 +137,7 @@ class Parser(ConfigParser):
             self.write(fp)
 
     def set_data(self, data: str, val: str) -> None:
-        super().set("user", data, val)
+        self.set("user", data, val)
 
     def get_data(self, data: str) -> str:
         return super().get("user", data)

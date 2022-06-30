@@ -170,14 +170,18 @@ class TermTyper(App):
         self.race_hud.update(event.completed, event.speed, event.accuracy)
 
     async def handle_bar_theme_change(self, e: BarThemeChange):
-        parser.set("theming", "bar_theme", e.theme)
+        if e.theme is not None:
+            parser.set("theming", "bar_theme", e.theme)
+
         await self.bottom.update(self.typing_screen)
         self.race_hud.refresh()
         self.current_space = "typing_space"
 
     async def handle_para_size_change(self, e: ParaSizeChange):
+        if e.length is not None:
+            parser.set_data("paragraph_size", e.length)
+
         await self.bottom.update(self.typing_screen)
-        parser.set_data("paragraph_size", e.length)
         await self.typing_screen.reset_screen()
         self.current_space = "typing_space"
 

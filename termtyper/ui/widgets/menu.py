@@ -1,4 +1,5 @@
 from os import get_terminal_size
+from typing import Callable
 from rich.box import HEAVY, MINIMAL
 from rich.tree import Tree
 from rich.console import RenderableType
@@ -28,7 +29,7 @@ class Menu(Option):
         self,
         name: str,
         options: list[str],
-        message: Message,
+        message: Callable,
         draw_border: bool = False,
         draw_seperator: bool = False,
         title: str = "",
@@ -61,6 +62,8 @@ class Menu(Option):
                 await self.post_message(
                     self.message(self, self.options[self.cursor]),
                 )
+            case "escape":
+                await self.post_message(self.message(self))
 
     def render(self) -> RenderableType:
         tree = Tree("")

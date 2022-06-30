@@ -14,7 +14,7 @@ class BarThemeChange(Message, bubble=True):
     An Event class for when the size is changed
     """
 
-    def __init__(self, sender: MessageTarget, theme: str) -> None:
+    def __init__(self, sender: MessageTarget, theme: str | None = None) -> None:
         super().__init__(sender)
         self.theme = theme
 
@@ -24,7 +24,7 @@ class ParaSizeChange(Message, bubble=True):
     An Event class for when the size is changed
     """
 
-    def __init__(self, sender: MessageTarget, length: str) -> None:
+    def __init__(self, sender: MessageTarget, length: str | None = None) -> None:
         super().__init__(sender)
         self.length = length
 
