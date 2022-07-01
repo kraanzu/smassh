@@ -165,6 +165,7 @@ class Screen(Widget):
         """
 
         self._reset_params()
+        await self._refresh_settings()
         if restart_same == "on":
             self.paragraph.spans = []
         else:

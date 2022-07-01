@@ -140,26 +140,35 @@ class TermTyper(App):
                 await self.bar_theme_menu.key_press(event)
 
             case "typing_space":
-                if event.key == "escape":
-                    await self.load_main_menu()
-                    await self.typing_screen.reset_screen()
-                    return
 
-                if event.key == "ctrl+z":
-                    self.race_hud.toggle_details()
+                match event.key:
+                    case "escape":
+                        await self.load_main_menu()
+                        await self.typing_screen.reset_screen()
 
-                if event.key == "ctrl+s":
-                    await self.typing_screen.reset_screen()
-                    await self.bottom.update(self.size_menu)
-                    self.current_space = "size_menu"
+                    case "ctrl+n":
+                        parser.toggle_numbers()
+                        await self.typing_screen.reset_screen()
 
-                if event.key == "ctrl+b":
-                    await self.bottom.update(self.bar_theme_menu)
-                    self.current_space = "bar_theme_menu"
+                    case "ctrl+p":
+                        parser.toggle_punctuations()
+                        await self.typing_screen.reset_screen()
 
-                if event.key == "ctrl+b":
-                    await self.bottom.update(self.bar_theme_menu)
-                    self.current_space = "bar_theme_menu"
+                    case "ctrl+z":
+                        self.race_hud.toggle_details()
+
+                    case "ctrl+s":
+                        await self.typing_screen.reset_screen()
+                        await self.bottom.update(self.size_menu)
+                        self.current_space = "size_menu"
+
+                    case "ctrl+b":
+                        await self.bottom.update(self.bar_theme_menu)
+                        self.current_space = "bar_theme_menu"
+
+                    case "ctrl+b":
+                        await self.bottom.update(self.bar_theme_menu)
+                        self.current_space = "bar_theme_menu"
 
                 await self.typing_screen.key_add(event.key)
 

@@ -108,6 +108,14 @@ class Parser(ConfigParser):
 
         self._write_to_file()
 
+    def toggle_numbers(self):
+        numbers = not self.getboolean("paragraph", "numbers")
+        self.set("paragraph", "numbers", str(numbers))
+
+    def toggle_punctuations(self):
+        punctuations = not self.getboolean("paragraph", "punctuations")
+        self.set("paragraph", "punctuations", str(punctuations))
+
     def set(self, section: str, option: str, value: str | None = None) -> None:
         super().set(section, option, value)
         self._write_to_file()
