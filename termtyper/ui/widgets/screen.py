@@ -42,6 +42,8 @@ class Screen(Widget):
         self.keypress_sound = parser.get_theme("sound")
         self.allow_numbers = parser.get_para_setting("numbers")
         self.allow_puncs = parser.get_para_setting("punctuations")
+        self.mode = Parser().get("mode", "writing mode")
+        self.timeout = int(Parser().get("user", "timeout"))
         self.set_paragraph()
 
         match self.caret_style:
@@ -138,14 +140,24 @@ class Screen(Widget):
         """
 
         if self.started and not self.finised:
+
             self._update_measurements()
-            await self.emit(
-                UpdateRaceHUD(self, self.progress, self.speed, self.accuracy)
-            )
+            if self.mode == "words":
+                progress = self.progress
+            else:
+                progress = time.time() - self.start_time
+                progress = (self.timeout - progress) / self.timeout
+                if progress < 0:
+                    self.end_typing()
+
+            await self.emit(UpdateRaceHUD(self, progress, self.speed, self.accuracy))
 
             self.refresh()
         else:
-            await self.emit(UpdateRaceHUD(self, 0, 0, 0))
+            if self.mode == "words":
+                await self.emit(UpdateRaceHUD(self, 0, 0, 0))
+            else:
+                await self.emit(UpdateRaceHUD(self, 1, 0, 0))
 
     def move_cursor_buddy(self) -> None:
         """
@@ -178,15 +190,19 @@ class Screen(Widget):
         """
         Sets the paragraph for the Screen
         """
-        size = Parser().get_data("paragraph_size")
-        if size == "teensy":
-            times = 1
-        elif size == "small":
-            times = 5
-        elif size == "big":
-            times = 10
+
+        if self.mode == "words":
+            size = Parser().get_data("paragraph_size")
+            if size == "teensy":
+                times = 1
+            elif size == "small":
+                times = 5
+            elif size == "big":
+                times = 10
+            else:
+                times = 15
         else:
-            times = 15
+            times = 100
 
         paragraph = generate(times, self.allow_numbers, self.allow_puncs) + " "
         self.paragraph = Text(paragraph)

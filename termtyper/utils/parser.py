@@ -22,6 +22,7 @@ DEFAULTS = {
     "tab_reset": "off",
     "restart_same": "off",
     "paragraph_size": "teensy",
+    "timeout": "15",
 }
 
 PARAPHRASE = {
@@ -126,12 +127,24 @@ class Parser(ConfigParser):
         self._write_to_file()
 
     def set_speed(self, speed: SpeedType, value: NumberType) -> None:
-        paragraph_size = self.get_data("paragraph_size")
-        self.set(f"speed records word", f"{paragraph_size}_{speed}", str(value))
+        mode = self.get("mode", "writing mode")
+
+        if mode == "words":
+            paragraph_size = self.get_data("paragraph_size")
+            self.set(f"speed records word", f"{paragraph_size}_{speed}", str(value))
+        else:
+            timeout = int(self.get_data("timeout"))
+            self.set(f"speed records time", f"{timeout}_{speed}", str(value))
 
     def get_speed(self, speed: SpeedType) -> float:
-        paragraph_size = self.get_data("paragraph_size")
-        return float(self.get("speed records word", f"{paragraph_size}_{speed}"))
+        mode = self.get("mode", "writing mode")
+
+        if mode == "words":
+            paragraph_size = self.get_data("paragraph_size")
+            return float(self.get(f"speed records word", f"{paragraph_size}_{speed}"))
+        else:
+            timeout = int(self.get_data("timeout"))
+            return float(self.get(f"speed records time", f"{timeout}_{speed}"))
 
     def get_theme(self, data: str):
         return self.get("theming", data)

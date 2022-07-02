@@ -4,10 +4,9 @@ from rich.box import HEAVY, MINIMAL
 from rich.tree import Tree
 from rich.console import RenderableType
 from rich.align import Align
-from rich.text import Text, TextType
+from rich.text import Text
 from rich.panel import Panel
 from textual import events
-from textual.message import Message
 
 from termtyper.ui.widgets.option import Option
 from termtyper.utils.help_menu import percent
