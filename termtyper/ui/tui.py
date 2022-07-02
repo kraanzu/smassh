@@ -1,4 +1,3 @@
-from os import get_terminal_size as termsize
 from rich.align import Align
 
 from textual.app import App
@@ -31,17 +30,14 @@ parser = Parser()
 class TermTyper(App):
     async def on_load(self) -> None:
         self.current_space = "main_menu"
-        self.x, self.y = termsize()
         self.settings = MenuSlide()
         self.size_menu = SizeMenu()
         self.timeout_menu = TimeoutMenu()
         self.mode_menu = ModeMenu()
         self.bar_theme_menu = BarThemeMenu()
 
-        self.top = Static("hi")
+        self.top = Static("")
         self.bottom = MinimalScrollView("")
-
-        # FOR MAIN MENU
         self.banner = Static(banners["welcome"])
 
         self.buttons = {
