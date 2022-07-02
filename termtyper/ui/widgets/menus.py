@@ -2,7 +2,12 @@ from rich.align import Align
 from rich.console import RenderableType
 from rich.text import Text
 from rich.tree import Tree
-from termtyper.events.events import BarThemeChange, ParaSizeChange, TimeoutChange
+from termtyper.events.events import (
+    BarThemeChange,
+    ModeChange,
+    ParaSizeChange,
+    TimeoutChange,
+)
 from termtyper.ui.widgets.menu import Menu
 
 
@@ -30,6 +35,7 @@ class TimeoutMenu(Menu):
             title="How much time can your fingers last?",
             section="user",
         )
+
     def render(self) -> RenderableType:
         tree = Tree("")
         tree.hide_root = True
@@ -58,4 +64,17 @@ class BarThemeMenu(Menu):
             draw_border=True,
             title="Choose your theme",
             section="theming",
+        )
+
+
+class ModeMenu(Menu):
+    def __init__(self):
+        options = ["words", "time"]
+        super().__init__(
+            "writing mode",
+            options,
+            ModeChange,
+            draw_border=True,
+            title="Choose you desired mode",
+            section="mode",
         )

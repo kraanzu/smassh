@@ -28,6 +28,17 @@ class ParaSizeChange(Message, bubble=True):
         super().__init__(sender)
         self.length = length
 
+
+class ModeChange(Message, bubble=True):
+    """
+    An Event class for when the size is changed
+    """
+
+    def __init__(self, sender: MessageTarget, mode: str | None = None) -> None:
+        super().__init__(sender)
+        self.mode = mode
+
+
 class TimeoutChange(Message, bubble=True):
     """
     An Event class for when the size is changed

@@ -7,6 +7,7 @@ from textual import events
 from termtyper.events.events import (
     BarThemeChange,
     LoadScreen,
+    ModeChange,
     ParaSizeChange,
     TimeoutChange,
 )
@@ -14,7 +15,7 @@ from termtyper.events.events import (
 from termtyper.ui.settings_options import MenuSlide
 from termtyper.ui.widgets.menu import Menu
 from termtyper.ui.widgets.minimal_scrollview import MinimalScrollView
-from termtyper.ui.widgets.menus import BarThemeMenu, SizeMenu, TimeoutMenu
+from termtyper.ui.widgets.menus import BarThemeMenu, ModeMenu, SizeMenu, TimeoutMenu
 
 from ..ui.widgets import *  # NOQA
 from ..utils import *  # NOQA
@@ -34,6 +35,7 @@ class TermTyper(App):
         self.settings = MenuSlide()
         self.size_menu = SizeMenu()
         self.timeout_menu = TimeoutMenu()
+        self.mode_menu = ModeMenu()
         self.bar_theme_menu = BarThemeMenu()
 
         self.top = Static("hi")
@@ -139,6 +141,9 @@ class TermTyper(App):
                 else:
                     self.bottom.key_press(event)
 
+            case "mode_menu":
+                await self.mode_menu.key_press(event)
+
             case "size_menu":
                 await self.size_menu.key_press(event)
 
@@ -180,9 +185,9 @@ class TermTyper(App):
                         await self.bottom.update(self.bar_theme_menu)
                         self.current_space = "bar_theme_menu"
 
-                    case "ctrl+b":
-                        await self.bottom.update(self.bar_theme_menu)
-                        self.current_space = "bar_theme_menu"
+                    case "ctrl+o":
+                        await self.bottom.update(self.mode_menu)
+                        self.current_space = "mode_menu"
 
                 await self.typing_screen.key_add(event.key)
 
@@ -191,6 +196,15 @@ class TermTyper(App):
 
     async def handle_update_race_hud(self, event: UpdateRaceHUD) -> None:
         self.race_hud.update(event.completed, event.speed, event.accuracy)
+
+    async def handle_mode_change(self, e: ModeChange):
+        if e.mode is not None:
+            parser.set("mode", "writing mode", e.mode)
+
+        await self.typing_screen.reset_screen()
+        self.race_hud.reset()
+        await self.bottom.update(self.typing_screen)
+        self.current_space = "typing_space"
 
     async def handle_bar_theme_change(self, e: BarThemeChange):
         if e.theme is not None:

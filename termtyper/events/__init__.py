@@ -7,6 +7,7 @@ from .events import (
     TimeoutChange,
     LoadScreen,
     BarThemeChange,
+    ModeChange,
 )
 
 __all__ = [
@@ -18,4 +19,5 @@ __all__ = [
     "TimeoutChange",
     "LoadScreen",
     "BarThemeChange",
+    "ModeChange",
 ]
