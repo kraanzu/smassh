@@ -188,7 +188,7 @@ class TermTyper(App):
 
     async def handle_para_size_change(self, e: ParaSizeChange):
         if e.length is not None:
-            parser.set_data("paragraph_size", e.length)
+            parser.set("user", "paragraph_size", e.length)
 
         await self.bottom.update(self.typing_screen)
         await self.typing_screen.reset_screen()

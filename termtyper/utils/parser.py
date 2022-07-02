@@ -48,6 +48,10 @@ THEMING = {
     "keypress_sound": "off",
 }
 
+MODE = {
+    "writing mode": "words",
+}
+
 
 def get_config_location() -> Path:
     """
@@ -101,6 +105,7 @@ class Parser(ConfigParser):
                 "user": DEFAULTS,
                 "theming": THEMING,
                 "paragraph": PARAPHRASE,
+                "mode": MODE,
                 "speed records word": SPEED_RECORDS_WORDS,
                 "speed records time": SPEED_RECORDS_TIME,
             }
@@ -143,9 +148,6 @@ class Parser(ConfigParser):
     def _write_to_file(self) -> None:
         with open(self.file_path, "w") as fp:
             self.write(fp)
-
-    def set_data(self, data: str, val: str) -> None:
-        self.set("user", data, val)
 
     def get_data(self, data: str) -> str:
         return super().get("user", data)

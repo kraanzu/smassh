@@ -244,10 +244,6 @@ class Screen(Widget):
         Process the pressed key
         """
 
-        # if key == "escape":
-        #     self.post_message_no_wait(LoadScreen(self, "main_menu"))
-        #     await self.reset_screen()
-
         if key == "ctrl+i" and self.tab_reset == "on":  # TAB
             await self.reset_screen()
 
@@ -361,8 +357,12 @@ class Screen(Widget):
             if self.cursor_position >= self.paragraph_length - 1:
                 self.correct_key_presses += 1
                 await self._update_race_hud()
-                self.finised = True
+                self.end_typing()
 
+        self.refresh()
+
+    def end_typing(self):
+        self.finised = True
         self.refresh()
 
     def find_cursor(self) -> int:
