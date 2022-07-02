@@ -53,6 +53,7 @@ class TermTyper(App):
             draw_seperator=True,
         )
 
+        self.race_hud = RaceHUD()
         self.typing_screen = Screen()
 
         await self.bind("ctrl+q", "quit", "quit the application")
@@ -109,8 +110,8 @@ class TermTyper(App):
         """
 
         self.current_space = "typing_space"
-        self.race_hud = RaceHUD()
         await self.typing_screen._refresh_settings()
+        self.race_hud.reset()
         await self.top.update(self.race_hud)
         await self.bottom.update(self.typing_screen)
 
@@ -197,8 +198,8 @@ class TermTyper(App):
         if e.mode is not None:
             parser.set("mode", "writing mode", e.mode)
 
-        await self.typing_screen.reset_screen()
         self.race_hud.reset()
+        await self.typing_screen.reset_screen()
         await self.bottom.update(self.typing_screen)
         self.current_space = "typing_space"
 
