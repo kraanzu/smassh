@@ -4,12 +4,17 @@ from rich.align import Align
 from textual.app import App
 from textual.widgets import Static
 from textual import events
-from termtyper.events.events import BarThemeChange, LoadScreen, ParaSizeChange
+from termtyper.events.events import (
+    BarThemeChange,
+    LoadScreen,
+    ParaSizeChange,
+    TimeoutChange,
+)
 
 from termtyper.ui.settings_options import MenuSlide
 from termtyper.ui.widgets.menu import Menu
 from termtyper.ui.widgets.minimal_scrollview import MinimalScrollView
-from termtyper.ui.widgets.menus import BarThemeMenu, SizeMenu
+from termtyper.ui.widgets.menus import BarThemeMenu, SizeMenu, TimeoutMenu
 
 from ..ui.widgets import *  # NOQA
 from ..utils import *  # NOQA
@@ -28,6 +33,7 @@ class TermTyper(App):
         self.x, self.y = termsize()
         self.settings = MenuSlide()
         self.size_menu = SizeMenu()
+        self.timeout_menu = TimeoutMenu()
         self.bar_theme_menu = BarThemeMenu()
 
         self.top = Static("hi")
@@ -136,6 +142,9 @@ class TermTyper(App):
             case "size_menu":
                 await self.size_menu.key_press(event)
 
+            case "timeout_menu":
+                await self.timeout_menu.key_press(event)
+
             case "bar_theme_menu":
                 await self.bar_theme_menu.key_press(event)
 
@@ -158,9 +167,14 @@ class TermTyper(App):
                         self.race_hud.toggle_details()
 
                     case "ctrl+s":
+                        mode = parser.get("mode", "writing mode")
                         await self.typing_screen.reset_screen()
-                        await self.bottom.update(self.size_menu)
-                        self.current_space = "size_menu"
+                        if mode == "words":
+                            await self.bottom.update(self.size_menu)
+                            self.current_space = "size_menu"
+                        else:
+                            await self.bottom.update(self.timeout_menu)
+                            self.current_space = "timeout_menu"
 
                     case "ctrl+b":
                         await self.bottom.update(self.bar_theme_menu)
@@ -184,6 +198,14 @@ class TermTyper(App):
 
         await self.bottom.update(self.typing_screen)
         self.race_hud.refresh()
+        self.current_space = "typing_space"
+
+    async def handle_timeout_change(self, e: TimeoutChange):
+        if e.time is not None:
+            parser.set("user", "timeout", e.time.split()[0])
+
+        await self.bottom.update(self.typing_screen)
+        await self.typing_screen.reset_screen()
         self.current_space = "typing_space"
 
     async def handle_para_size_change(self, e: ParaSizeChange):

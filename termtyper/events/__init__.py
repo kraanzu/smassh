@@ -4,8 +4,9 @@ from .events import (
     ResetHUD,
     UpdateRaceHUD,
     ParaSizeChange,
+    TimeoutChange,
     LoadScreen,
-    BarThemeChange
+    BarThemeChange,
 )
 
 __all__ = [
@@ -14,6 +15,7 @@ __all__ = [
     "ResetHUD",
     "UpdateRaceHUD",
     "ParaSizeChange",
+    "TimeoutChange",
     "LoadScreen",
-    "BarThemeChange"
+    "BarThemeChange",
 ]
