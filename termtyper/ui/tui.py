@@ -136,7 +136,7 @@ class TermTyper(App):
                 if event.key == "escape":
                     await self.load_main_menu()
                 else:
-                    self.bottom.key_press(event)
+                    await self.bottom.key_press(event)
 
             case "mode_menu":
                 await self.mode_menu.key_press(event)

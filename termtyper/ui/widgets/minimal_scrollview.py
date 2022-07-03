@@ -25,12 +25,16 @@ class MinimalScrollView(ScrollView):
     def downscroll(self):
         super().scroll_down()
 
-    def key_press(self, event: Key):
+    async def key_press(self, event: Key):
         match event.key:
-            case 'j' | 'down':
+            case "j" | "down":
                 super().scroll_up()
-            case 'k' | 'up':
+            case "k" | "up":
                 super().scroll_down()
+            case "g" | "home":
+                await super().key_home()
+            case "G" | "end":
+                await super().key_end()
 
     async def handle_window_change(self, message: Message) -> None:
         message.stop()
