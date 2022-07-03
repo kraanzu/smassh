@@ -1,4 +1,5 @@
 from rich.align import Align
+from rich import box
 from rich.console import RenderableType
 from textual import events
 from textual.widget import Widget
@@ -68,6 +69,7 @@ class NumberScroll(Widget):
             ),
             border_style="magenta" if self.selected else "white",
             height=8,
+            box = box.HEAVY
         )
 
 

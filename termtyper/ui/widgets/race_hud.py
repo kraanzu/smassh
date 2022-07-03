@@ -29,7 +29,6 @@ class RaceHUD(Widget):
         self.finished = False
         self.details = False
         self.theme = Parser().get_theme("bar_theme")
-        self.mode = Parser().get("mode", "writing mode")
         self._read_speed_records()
 
     def toggle_details(self):
@@ -90,11 +89,12 @@ class RaceHUD(Widget):
         Updates the HUD with the most current measurements
         """
 
+        mode = Parser().get("mode", "writing mode")
         if not self.finished:
             self.completed = progress
             self.finished = (
                 (progress >= 2 or speed == -1)
-                if self.mode == "words"
+                if mode == "words"
                 else progress <= 0
             )
             self.speed = speed

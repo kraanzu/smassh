@@ -1,5 +1,6 @@
 from typing import Union
 from collections import OrderedDict
+from rich import box
 from rich.console import RenderableType
 from rich.panel import Panel
 from rich.table import Table
@@ -96,8 +97,16 @@ class SettingMenu(Widget):
         table.add_column("Desc", ratio=80)
         table.add_column("Opts", ratio=20)
 
-        for i in self.items:
-            table.add_row(Panel(i.render_description(), height=8), i.widget)
+        for index, i in enumerate(self.items):
+            table.add_row(
+                Panel(
+                    i.render_description(),
+                    height=8,
+                    border_style="magenta" if index == self.selected_index else "",
+                    box=box.HEAVY,
+                ),
+                i.widget,
+            )
 
         return table
 

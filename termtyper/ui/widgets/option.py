@@ -1,4 +1,5 @@
 from typing import Callable, Literal
+from rich import box
 from rich.tree import Tree
 from rich.console import RenderableType
 from rich.align import Align
@@ -109,6 +110,7 @@ class Option(Widget):
             ),
             border_style="magenta" if self.selected else "white",
             height=8,
+            box=box.HEAVY,
         )
 
 
