@@ -51,6 +51,14 @@ press {colored("ctrl+h", "bold blue")} once in the setting menu
 
 Some basic keybindings while in typing space:
 
+ - pressing {colored("ctrl+z", "bold blue")} will toggle race-bar details
+
+ - pressing {colored("ctrl+b", "bold blue")} will open up a bar theme menu
+
+ - pressing {colored("ctrl+s", "bold blue")} will open ap a size/time change menu
+
+ - pressing {colored("ctrl+o", "bold blue")} will open up a mode change menu
+
  - pressing {colored("ctrl+w", "bold blue")} will delete a whole word
  eg:
 
