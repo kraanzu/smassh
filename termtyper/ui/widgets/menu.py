@@ -33,12 +33,14 @@ class Menu(Option):
         draw_seperator: bool = False,
         title: str = "",
         section: str | None = None,
+        live_change: bool = True,
     ) -> None:
         super().__init__(name, options, section=section)
         self.message = message
         self.draw_border = draw_border
         self.draw_seperator = draw_seperator
         self.title = title
+        self.live_change = live_change
 
     @property
     def cursor(self):
@@ -48,8 +50,12 @@ class Menu(Option):
     def cursor(self, new: int):
         total = len(self.options)
         self._cursor = max(0, min(new, total - 1))
-        self.update()
+
+        if self.live_change:
+            self.update()
+
         play(get_sound_location("mech"))
+        self.refresh()
 
     async def key_press(self, event: events.Key):
         match event.key:
@@ -63,6 +69,7 @@ class Menu(Option):
                 )
             case "escape":
                 await self.post_message(self.message(self))
+                self.reset_cursor()
 
     def render(self) -> RenderableType:
         tree = Tree("")

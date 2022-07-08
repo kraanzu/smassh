@@ -34,14 +34,15 @@ class Option(Widget):
         self.options = [i.strip() for i in options]
         self._max_len = max(len(i) for i in self.options)
         self.section = section
+        self.callback = callback
+        self._selected = False
+        self.reset_cursor()
 
+    def reset_cursor(self):
         if self.section:
             self._cursor = self.options.index(parser.get(self.section, self.name))
         else:
             self._cursor = 0
-
-        self.callback = callback
-        self._selected = False
 
     @property
     def cursor(self):

@@ -197,9 +197,9 @@ class TermTyper(App):
     async def handle_mode_change(self, e: ModeChange):
         if e.mode is not None:
             parser.set("mode", "writing mode", e.mode)
+            self.race_hud.reset()
+            await self.typing_screen.reset_screen()
 
-        self.race_hud.reset()
-        await self.typing_screen.reset_screen()
         await self.bottom.update(self.typing_screen)
         self.current_space = "typing_space"
 

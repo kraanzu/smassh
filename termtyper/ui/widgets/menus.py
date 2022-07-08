@@ -21,6 +21,7 @@ class SizeMenu(Menu):
             draw_border=True,
             title="How much words can your fingers handle?",
             section="user",
+            live_change=False,
         )
 
 
@@ -34,6 +35,7 @@ class TimeoutMenu(Menu):
             draw_border=True,
             title="How much time can your fingers last?",
             section="user",
+            live_change=False,
         )
 
     def render(self) -> RenderableType:
@@ -77,4 +79,5 @@ class ModeMenu(Menu):
             draw_border=True,
             title="Choose you desired mode",
             section="mode",
+            live_change=False,
         )
