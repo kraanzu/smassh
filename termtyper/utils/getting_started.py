@@ -1,5 +1,8 @@
 from rich.align import Align
+from rich.console import RenderableType
 from rich.panel import Panel
+from rich.tree import Tree
+from textual.widget import Widget
 from textual.widgets import Static
 
 
@@ -26,35 +29,38 @@ def colored(text: str, color: str) -> str:
     return f"[{color}]{text}[/{color}]"
 
 
-seperator = f"{colored('─' * 50, 'bold dim black')}"
+seperator = f"{colored('─' * 70, 'bold dim black')}"
 
 
-GETTING_STARTERD_MESSAGE = f"""
+INTRO = f"""
 {colored(f'''
 Termtyper is a TUI typing application which was highly inspired
 by monekytpe -- An online web-based typing application which is
 by far the most customizable typing application
 
-Termtyper tries to bring features of monkeytype to terminal
-and maybe more? who knows :p'''
+Termtyper tries to bring features of monkeytype to terminal'''
 , "orange1")}
-
-{seperator}
-
 
 The UI is pretty straightforward, you can start typing
 or can tweak settings from the `settings` options in main-menu.
 You will get a detailed description of each settings there :)
+"""
 
+KEYBINDS_HEADER = f"""
 {colored("Note:", "yellow")}
 If you need any help regarding settings...
 press {colored("ctrl+h", "bold blue")} once in the setting menu
 
-{seperator}
-
 Some basic keybindings while in typing space:
+"""
+
+KEYBINGS = f"""
 
  {keybind("ctrl+z","toggle race-bar details" )}
+
+ {keybind("ctrl+n","toggle numbers" )}
+
+ {keybind("ctrl+p","toggle punctuations" )}
 
  {keybind("ctrl+b","open up a bar theme menu" )}
 
@@ -71,12 +77,27 @@ Some basic keybindings while in typing space:
      after pressing {colored("ctrl+w", "bold blue")}:
      {colored("This is", "green")} {colored("h", "reverse")}elloWorld
 
+"""
+
+OUTRO = f"""
 Also, you can exit the application by pressing {colored("ctrl+q", "bold blue")} :)
 
-{seperator}
-{seperator}
 
            {colored("I hope you like my little project :heart:", "plum2")}
 
                     -- {colored("kraanzu", "medium_purple1")}
 """
+
+
+class GettingStarted(Widget):
+    def render(self) -> RenderableType:
+
+        tree = Tree("")
+        tree.hide_root = True
+        tree.expanded = True
+
+        for i in [INTRO, KEYBINDS_HEADER, KEYBINGS, OUTRO]:
+            tree.add(Align.center(i))
+            tree.add(Align.center(seperator))
+
+        return tree

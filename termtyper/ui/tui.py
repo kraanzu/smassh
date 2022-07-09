@@ -91,7 +91,7 @@ class TermTyper(App):
 
     async def load_getting_started(self):
         self.current_space = "getting_started"
-        self.getting_started_scroll = Align.center(GETTING_STARTERD_MESSAGE)
+        self.getting_started_scroll = GettingStarted()
         await self.top.update(GETTING_STARTERD_BANNER)
         await self.bottom.update(self.getting_started_scroll)
 
