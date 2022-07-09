@@ -93,7 +93,7 @@ class RaceHUD(Widget):
         if not self.finished:
             self.completed = progress
             self.finished = (
-                (progress >= 2 or speed == -1)
+                (progress >= 1 or speed == -1)
                 if mode == "words"
                 else progress <= 0
             )
