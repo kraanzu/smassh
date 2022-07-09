@@ -389,6 +389,13 @@ class Screen(Widget):
                         spans=self.paragraph.spans
                         + [
                             Span(
+                                self.cursor_position + 1,
+                                len(self.paragraph.plain),
+                                "dim white",
+                            )
+                        ]
+                        + [
+                            Span(
                                 self.cursor_position,
                                 self.cursor_position + 1,
                                 self.cursor_style,
