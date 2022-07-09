@@ -270,14 +270,8 @@ class Screen(Widget):
             play_keysound()
 
         self.pressed_key = key
-        if key == "ctrl+l":
-            if self.cursor_position and self._get_previous_character() == ".":
-                await self.key_add("ctrl+h")
 
-            while self.cursor_position and self._get_previous_character() != ".":
-                await self.key_add("ctrl+h")
-
-        elif key == "ctrl+w":
+        if key == "ctrl+w":
             if self.cursor_position and self._get_previous_character() == " ":
                 await self.key_add("ctrl+h")
 
