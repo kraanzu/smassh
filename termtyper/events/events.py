@@ -54,7 +54,7 @@ class ButtonClicked(Message, bubble=True):
     An Event class for when the Button is clicked
     """
 
-    def __init__(self, sender: MessageTarget, value: str) -> None:
+    def __init__(self, sender: MessageTarget, value: str | None = None) -> None:
         super().__init__(sender)
         self.value = value
 

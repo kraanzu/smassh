@@ -231,4 +231,5 @@ class TermTyper(App):
         await eval(f"self.load_{e.screen}()")
 
     async def handle_button_clicked(self, e: ButtonClicked):
-        await self.buttons[e.value]()
+        if e.value:
+            await self.buttons[e.value]()
