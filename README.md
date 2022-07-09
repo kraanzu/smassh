@@ -25,6 +25,12 @@ cd termtyper
 pip3 install .
 ```
 
+> Or maybe You use Arch btw?
+
+```
+paru -S termtyper-git
+```
+
 And then simply type `termtyper` in your terminal to launch it.. ezy pzy
 
 > ⚠️ Note: Config file for `termtyper` is located at your $XDG_CONFIG_HOME (or ~/.config/termtyper)
