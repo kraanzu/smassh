@@ -41,6 +41,7 @@ class Menu(Option):
         self.draw_seperator = draw_seperator
         self.title = title
         self.live_change = live_change
+        self.fallback = None
 
     @property
     def cursor(self):
@@ -57,10 +58,10 @@ class Menu(Option):
         play(get_sound_location("mech"))
         self.refresh()
 
-    def set_fallback(self):
-        self.fallback = self.cursor
-
     async def key_press(self, event: events.Key):
+
+        if self.fallback is None:
+            self.fallback = self.cursor
 
         match event.key:
             case "j" | "down":
@@ -71,9 +72,11 @@ class Menu(Option):
                 await self.post_message(
                     self.message(self, self.options[self.cursor]),
                 )
+                self.fallback = None
             case "escape":
                 await self.post_message(self.message(self))
                 self.cursor = self.fallback
+                self.fallback = None
 
     def render(self) -> RenderableType:
         tree = Tree("")
