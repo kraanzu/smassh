@@ -44,8 +44,9 @@ And then simply type `termtyper` in your terminal to launch it.. ezy pzy
 - An interactive & beautiful UI
 - Mechanical sounds!
 - Words and Time based typing
+- Real-time comparision of speed carets
 - Racebar themes with typing-speed based colors
-- Change themes/settings on the fly
+- Change styles/settings on the fly
 - Lots of options to tweak! (See [tweaks](https://github.com/kraanzu/termtyper#tweaks-gear))
 
 # Tweaks :gear:
