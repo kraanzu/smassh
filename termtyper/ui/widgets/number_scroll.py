@@ -1,5 +1,5 @@
 from rich.align import Align
-from rich.box import HEAVY
+from rich import box
 from rich.console import RenderableType
 from textual import events
 from textual.widget import Widget
@@ -7,6 +7,8 @@ from rich.text import Text
 from rich.panel import Panel
 
 from ...utils import Parser
+
+parser = Parser()
 
 
 class NumberScroll(Widget):
@@ -20,10 +22,13 @@ class NumberScroll(Widget):
         step: int = 1,
         min_value: int = 0,
         max_value: int = 500,
+        section: str | None = None,
     ) -> None:
         super().__init__()
         self.name = name
-        self.value = int(Parser().get_data(self.name))
+        self.section = section
+        if section:
+            self.value = int(parser.get(section, self.name))
         self.step = step
         self.max_value = max_value
         self.min_value = min_value
@@ -38,7 +43,8 @@ class NumberScroll(Widget):
         self.refresh()
 
     def update(self) -> None:
-        Parser().set_data(self.name, str(self.value))
+        if self.section:
+            parser.set(self.section, self.name, str(self.value))
         self.refresh()
 
     def select_next_option(self) -> None:
@@ -62,7 +68,8 @@ class NumberScroll(Widget):
                 vertical="middle",
             ),
             border_style="magenta" if self.selected else "white",
-            box=HEAVY,
+            height=8,
+            box = box.HEAVY
         )
 
 

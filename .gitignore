@@ -1,6 +1,7 @@
 # tests folder
 tests/
 main.py
+test.py
 x.py
 
 # Byte-compiled / optimized / DLL files

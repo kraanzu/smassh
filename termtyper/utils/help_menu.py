@@ -49,9 +49,9 @@ HELP_MENU = [
     },
     {
         "title": "Navigate between different options",
-        "subject": "  - Use l/right to move to next option"
+        "subject": "  - Use J/shift+down to move to next option"
         + "\n"
-        + "  - Use k/up for h/left to previous option",
+        + "  - Use k/up for K/shift+up to previous option",
     },
 ]
 

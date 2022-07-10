@@ -1,5 +1,5 @@
-from playsound import playsound
 from threading import Thread
+from preferredsoundplayer import playsound
 from os import path
 
 from ..utils import Parser
@@ -16,7 +16,7 @@ def play(sound_file: str) -> None:
 
 
 def play_keysound() -> None:
-    sound = Parser().get_data("sound")
+    sound = Parser().get_theme("sound")
     sound_file = get_sound_location(sound)
     play(sound_file)
 

@@ -1,14 +1,13 @@
 from rich.align import Align
-from rich.box import SIMPLE
-from rich.console import RenderableType
+from rich.box import MINIMAL
+from rich.console import Group, RenderableType
 from rich.panel import Panel
 from rich.text import Text
 from textual.app import App
 from textual.widget import Widget
-from rich.progress_bar import ProgressBar
-from ...utils import Parser
 
-from rich.columns import Columns
+from termtyper.ui.widgets.progress_bar import ProgressBar
+from ...utils import Parser
 
 
 class RaceHUD(Widget):
@@ -28,12 +27,17 @@ class RaceHUD(Widget):
         self.total = total
         self.speed = 0
         self.finished = False
+        self.details = False
+        self.theme = Parser().get_theme("bar_theme")
         self._read_speed_records()
 
+    def toggle_details(self):
+        self.details = not self.details
+
     def _read_speed_records(self) -> None:
-        self.low = float(Parser().get_speed("low"))
-        self.med = float(Parser().get_speed("med"))
-        self.high = float(Parser().get_speed("high"))
+        self.low = Parser().get_speed("low")
+        self.med = Parser().get_speed("med")
+        self.high = Parser().get_speed("high")
 
     def get_speed_color(self) -> str:
         """
@@ -84,47 +88,57 @@ class RaceHUD(Widget):
         """
         Updates the HUD with the most current measurements
         """
+
+        mode = Parser().get("mode", "writing mode")
         if not self.finished:
             self.completed = progress
-            self.finished = progress >= 1 or speed == -1
+            self.finished = (
+                (progress >= 1 or speed == -1)
+                if mode == "words"
+                else progress <= 0
+            )
             self.speed = speed
             self.accuracy = accuracy
             self.remarks = self.get_remarks()
             self.refresh()
 
+    def refresh(self, repaint: bool = True, layout: bool = False) -> None:
+        self.theme = Parser().get_theme("bar_theme")
+        return super().refresh(repaint, layout)
+
     def render(self) -> RenderableType:
         return Panel(
-            Columns(
-                [
-                    Panel(
-                        Align.center(
-                            ProgressBar(
-                                total=self.total,
-                                completed=self.completed,
-                                complete_style="bold " + self.get_speed_color(),
-                            )
-                        ),
-                        box=SIMPLE,
+            Group(
+                *[
+                    Align.center(
+                        ProgressBar(
+                            total=self.total,
+                            completed=self.completed,
+                            color="bold " + self.get_speed_color(),
+                            bar_style=Parser().get_theme("bar_theme"),
+                        ).render()
                     ),
-                    Panel(
+                    Align.center(
                         Text(
-                            "WPM: {}    Accuracy: {}%    Progress: {}".format(
+                            "\n\n\n"
+                            + "WPM: {}    Accuracy: {}%    Progress: {}".format(
                                 "{:2.2f}".format(self.speed),
                                 "{:.2f}".format(self.accuracy),
                                 "{:.2%}".format(self.completed),
                             ),
                             style="bold " + self.get_speed_color(),
-                            justify="center",
                         ),
-                        box=SIMPLE,
-                    ),
+                    )
+                    if self.details
+                    else "",
                 ],
             )
             if not self.finished
             else Align.center(
                 Text(self.remarks, style="bold green", justify="center"),
                 vertical="middle",
-            )
+            ),
+            box=MINIMAL,
         )
 
 

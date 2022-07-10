@@ -1,56 +1,91 @@
+<img src="https://user-images.githubusercontent.com/97718086/177029838-49fc77c2-6dc4-4d62-ab6b-1d830c7260b5.png" align="right" alt="Termtyper icon" width="303" height="200">
+
 # Termtyper 🖮
-Termtyper is a TUI (Text User Interface) typing application that tests your typing while providing you with sounds as you type imitating enjoyable keyboard sounds!</br>
-It is highly inspired by [monkeytype](https://monkeytype.com/)</br>
-It is built on top of [textual](https://github.com/Textualize/textual) which provides the UI for the application
 
-# Features 🤓
+_A typing application to level up your fingers!_
 
-- [x] Fully responsive with a bunch of settings to tweak
-- [x] Support for different size paragraphs
-- [x] Progress bar that tracks your completion and changes color according to your speed
-- [x] ***Love challenges?*** Increase typing difficulty with three different level modes 
-- [x] Have ***faith in yourself?*** Try writing with no colors to guide you
-- [x] Are you ***fast enough***? Try by setting a minimum speed threshold and see if you can maintain that
-- [x] Are you ***accurate enough?*** Try by setting a minimum accuracy threshold and see if you can type like a pro
-- [x] Want something ***even more harder?*** Try min burst which will fail you when you can't even type a word with proper accuracy
-- [x] ***Sucks to press backspace*** when making mistakes? Try force correct which will not let you move forward with your mistakes
-- [x] Gut feeling that ***you will not press backspace?*** Try confidence mode with 3 levels
-- [x] Want ***different cursor design?*** Choose between off, underline and block mode!
-- [x] Want to see how you are doing in real time? Try ***cursor buddy which will race along with you!***
-- [x] Wanna hear those ***mechanical clicks*** while typing? Try out different keypress sounds 
-- [x] Aww.. wanna ***restart in mid of the battle?*** Quickly press a tab!
-- [x] So you want to ***repeat same paragraph again and again?***... You totally can! 
+[![GitHub issues](https://img.shields.io/github/issues/kraanzu/termtyper?color=red&style=for-the-badge)](https://github.com/kraanzu/termtyper/issues)
+[![GitHub stars](https://img.shields.io/github/stars/kraanzu/termtyper?color=green&style=for-the-badge)](https://github.com/kraanzu/termtyper/stargazers)
+[![GitHub license](https://img.shields.io/github/license/kraanzu/termtyper?color=yellow&style=for-the-badge)](https://github.com/kraanzu/termtyper/blob/main/LICENSE)
+[![Support Server](https://img.shields.io/discord/989186205025464390.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge)](https://discord.gg/W6Ax4xXy)
 
 # Installation 🔨
-⚠️ **Note**: Termtype needs python version ^3.10</br>
-***⚠️ There might be some issues on Windows***.. it should run just fine on Linux and Mac </br>
 
+> You can install termtyper easily using python one-liner
 
-## One Liner ✍🏻
 ```bash
-python -m pip install git+https://github.com/kraanzu/termtyper.git
+python3 -m pip install git+https://github.com/kraanzu/termtyper.git
 ```
 
-## Or if you prefer Manual Installation 📝
-``` bash
+> Or the long way?
+
+```bash
 git clone https://github.com/kraanzu/termtyper.git
 cd termtyper
-pip install .
+pip3 install .
 ```
 
-# Usage 🎮
-```bash
-termtyper
-```
-Any changes made in the settings are saved automatically on changing! 🤗
+> Or maybe You use Arch btw?
 
-# Demo Video 📽️
-https://user-images.githubusercontent.com/97718086/153621507-0379f4e8-78bc-435f-82d1-9edcb8db27a7.mp4
+```
+paru -S termtyper-git
+```
+
+And then simply type `termtyper` in your terminal to launch it.. ezy pzy
+
+> ⚠️ Note: Config file for `termtyper` is located at your $XDG_CONFIG_HOME (or ~/.config/termtyper)
+
+> ⚠️ Note: You must use python version >=3.10
+
+# Features 🌟
+
+> Some features that termtyper comes with:
+
+- An interactive & beautiful UI
+- Mechanical sounds!
+- Words and Time based typing
+- Racebar themes with typing-speed based colors
+- Change themes/settings on the fly
+- Lots of options to tweak! (See [tweaks](https://github.com/kraanzu/termtyper/edit/refurbish/README.md#tweaks-gear))
+
+# Tweaks :gear:
+
+| Tweak           | Description                                                                  |
+| --------------- | :--------------------------------------------------------------------------- |
+| Difficulty      | Choose how strict termtyper should be with your wrong keypresses             |
+| Blind mode      | You wouldn't be able to see your mistakes                                    |
+| Min Speed       | Fall below this average speed and you fail!                                  |
+| Min Accuracy    | Fall below this average accuracy and you fail!                               |
+| Min Burst       | Fall below this average accuracy for even a word and you fail!               |
+| Force Correct   | You wouldn't be able to able to go on without cleaning your pool of mistakes |
+| Confidence mode | Are you sure you don't need backspace? Try this :)                           |
+| Caret Style     | Caret style matters!                                                         |
+| Cursor Buddy    | Setup your cursor buddy to run along with you!                               |
+| Keypress Sound  | Need sounds while typing? Select your preference here                        |
+| Click Sound     | Choose the sound you wanna hear when you smack that key!                     |
+| Tab Reset       | Hey hey! You wanna reset already? I got ya!                                  |
+| Restart Same    | I won't stop until I clear that passage!                                     |
+
+> That's it fellas (See [Contribution](https://github.com/kraanzu/termtyper/edit/refurbish/README.md#contribution-) if you want something more)
+
+> See Demo Video below in order to get a visual :)
+
+# Demo 🎥
+
+Will do!
 
 # Contribution 🤝
-Always open to PRs :)
 
-# Next Steps
-- Multiple Themes
-- Multiple writing modes
-- Online Racing 
+- Want to contribute? Feel free to open a PR! 😸
+- Got some ideas for improvements? I'm all ears! 👂
+
+---
+
+---
+
+#### Other TUI projects 🤓 :
+
+If you liked termtyper then you might wanna try out some of my other TUI projects as well
+
+- [dooit](https://github.com/kraanzu/dooit) - A todo app that you didn't ask for but needed!
+- [gupshup](https://github.com/kraanzu/gupshup) - A localhost TUI chat client
