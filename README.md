@@ -46,7 +46,7 @@ And then simply type `termtyper` in your terminal to launch it.. ezy pzy
 - Words and Time based typing
 - Racebar themes with typing-speed based colors
 - Change themes/settings on the fly
-- Lots of options to tweak! (See [tweaks](https://github.com/kraanzu/termtyper/edit/refurbish/README.md#tweaks-gear))
+- Lots of options to tweak! (See [tweaks](https://github.com/kraanzu/termtyper#tweaks-gear))
 
 # Tweaks :gear:
 
@@ -66,7 +66,7 @@ And then simply type `termtyper` in your terminal to launch it.. ezy pzy
 | Tab Reset       | Hey hey! You wanna reset already? I got ya!                                  |
 | Restart Same    | I won't stop until I clear that passage!                                     |
 
-> That's it fellas (See [Contribution](https://github.com/kraanzu/termtyper/edit/refurbish/README.md#contribution-) if you want something more)
+> That's it fellas (See [Contribution](https://github.com/kraanzu/termtyper#contribution-) if you want something more)
 
 > See Demo Video below in order to get a visual :)
 
@@ -80,7 +80,6 @@ Will do!
 - Got some ideas for improvements? I'm all ears! 👂
 
 ---
-
 ---
 
 #### Other TUI projects 🤓 :
