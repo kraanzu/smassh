@@ -57,7 +57,11 @@ class Menu(Option):
         play(get_sound_location("mech"))
         self.refresh()
 
+    def set_fallback(self):
+        self.fallback = self.cursor
+
     async def key_press(self, event: events.Key):
+
         match event.key:
             case "j" | "down":
                 self.select_next_option()
@@ -69,7 +73,7 @@ class Menu(Option):
                 )
             case "escape":
                 await self.post_message(self.message(self))
-                self.reset_cursor()
+                self.cursor = self.fallback
 
     def render(self) -> RenderableType:
         tree = Tree("")

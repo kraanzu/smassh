@@ -179,6 +179,7 @@ class TermTyper(App):
                             self.current_space = "timeout_menu"
 
                     case "ctrl+b":
+                        self.bar_theme_menu.set_fallback()
                         await self.bottom.update(self.bar_theme_menu)
                         self.current_space = "bar_theme_menu"
 
