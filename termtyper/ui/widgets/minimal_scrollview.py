@@ -11,7 +11,7 @@ class MinimalScrollView(ScrollView):
     """
 
     async def update(self, renderable: RenderableType, home: bool = False) -> None:
-        return await super().update(renderable, home)
+        await super().update(renderable, home)
 
     def scroll_down(self) -> None:
         return

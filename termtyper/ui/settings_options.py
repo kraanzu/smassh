@@ -113,7 +113,38 @@ class SettingMenu(Widget):
 
 menu: dict[str, SettingMenu] = OrderedDict()
 
-# First Menu
+# First menu
+menu["push_your_limits"] = SettingMenu(
+    banners["push_your_limits"],
+    [
+        Setting(
+            "Min Speed",
+            {},
+            NumberScroll("min_speed", section="user"),
+            info="Are you fast enough?"
+            + "\n"
+            + "Note: If your speed falls below this speed you will be declared failed",
+        ),
+        Setting(
+            "Min Accuracy",
+            {},
+            NumberScroll("min_accuracy", section="user"),
+            info="You can't go wrong with this"
+            + "\n"
+            + "Note: If your accuracy falls below this accuracy you will be declared failed",
+        ),
+        Setting(
+            "Min Burst:",
+            {},
+            NumberScroll("min_burst", section="user"),
+            info="Wanna make your life harder?"
+            + "\n"
+            + "Note: If your accuracy for a word falls below this accuracy you will be declared failed",
+        ),
+    ],
+)
+
+# Second Menu
 menu["hardcore"] = SettingMenu(
     banners["hardcore"],
     [
@@ -145,37 +176,6 @@ menu["hardcore"] = SettingMenu(
     ],
 )
 
-
-# Second menu
-menu["push_your_limits"] = SettingMenu(
-    banners["push_your_limits"],
-    [
-        Setting(
-            "Min Speed",
-            {},
-            NumberScroll("min_speed", section="user"),
-            info="Are you fast enough?"
-            + "\n"
-            + "Note: If your speed falls below this speed you will be declared failed",
-        ),
-        Setting(
-            "Min Accuracy",
-            {},
-            NumberScroll("min_accuracy", section="user"),
-            info="You can't go wrong with this"
-            + "\n"
-            + "Note: If your accuracy falls below this accuracy you will be declared failed",
-        ),
-        Setting(
-            "Min Burst:",
-            {},
-            NumberScroll("min_burst", section="user"),
-            info="Wanna make your life harder?"
-            + "\n"
-            + "Note: If your accuracy for a word falls below this accuracy you will be declared failed",
-        ),
-    ],
-)
 
 # Third Menu
 

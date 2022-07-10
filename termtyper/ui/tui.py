@@ -1,5 +1,3 @@
-from rich.align import Align
-
 from textual.app import App
 from textual.widgets import Static
 from textual import events
@@ -91,9 +89,9 @@ class TermTyper(App):
 
     async def load_getting_started(self):
         self.current_space = "getting_started"
-        self.getting_started_scroll = GettingStarted()
+        self.getting_started = GettingStarted()
         await self.top.update(GETTING_STARTERD_BANNER)
-        await self.bottom.update(self.getting_started_scroll)
+        await self.bottom.update(self.getting_started)
 
     async def load_settings(self):
         """
