@@ -61,7 +61,6 @@ class Option(Widget):
     @selected.setter
     def selected(self, new: bool):
         self._selected = new
-        self.update()
 
     def highlight(self) -> None:
         self.selected = True
@@ -71,7 +70,7 @@ class Option(Widget):
 
     def update(self) -> None:
         if self.section:
-            Parser().set(self.section, self.name, self.options[self._cursor])
+            Parser().set(self.section, self.name, self.options[self.cursor])
 
         if self.callback:
             self.callback()
