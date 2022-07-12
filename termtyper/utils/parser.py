@@ -131,20 +131,20 @@ class Parser(ConfigParser):
 
         if mode == "words":
             paragraph_size = self.get_data("paragraph_size")
-            self.set(f"speed records word", f"{paragraph_size}_{speed}", str(value))
+            self.set("speed records word", f"{paragraph_size}_{speed}", str(value))
         else:
             timeout = int(self.get_data("timeout"))
-            self.set(f"speed records time", f"{timeout}_{speed}", str(value))
+            self.set("speed records time", f"{timeout}_{speed}", str(value))
 
     def get_speed(self, speed: SpeedType) -> float:
         mode = self.get("mode", "writing mode")
 
         if mode == "words":
             paragraph_size = self.get_data("paragraph_size")
-            return float(self.get(f"speed records word", f"{paragraph_size}_{speed}"))
+            return float(self.get("speed records word", f"{paragraph_size}_{speed}"))
         else:
             timeout = int(self.get_data("timeout"))
-            return float(self.get(f"speed records time", f"{timeout}_{speed}"))
+            return float(self.get("speed records time", f"{timeout}_{speed}"))
 
     def get_theme(self, data: str):
         return self.get("theming", data)

@@ -69,7 +69,7 @@ class NumberScroll(Widget):
             ),
             border_style="magenta" if self.selected else "white",
             height=8,
-            box = box.HEAVY
+            box=box.HEAVY,
         )
 
 

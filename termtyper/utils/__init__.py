@@ -12,5 +12,5 @@ __all__ = [
     "HELP_MESSAGE",
     "HELP_BANNER",
     "GettingStarted",
-    "GETTING_STARTERD_BANNER"
+    "GETTING_STARTERD_BANNER",
 ]
