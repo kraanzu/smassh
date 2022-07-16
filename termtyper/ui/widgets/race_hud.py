@@ -89,11 +89,14 @@ class RaceHUD(Widget):
         Updates the HUD with the most current measurements
         """
 
-        mode = Parser().get("mode", "writing mode")
+        self.mode = Parser().get("mode", "writing mode")
+
         if not self.finished:
             self.completed = progress
             self.finished = (
-                (progress >= 1 or speed == -1) if mode == "words" else progress <= 0
+                (progress >= 1 or speed == -1)
+                if self.mode == "words"
+                else progress <= 0
             )
             self.speed = speed
             self.accuracy = accuracy
@@ -103,6 +106,28 @@ class RaceHUD(Widget):
     def refresh(self, repaint: bool = True, layout: bool = False) -> None:
         self.theme = Parser().get_theme("bar_theme")
         return super().refresh(repaint, layout)
+
+    def get_details(self) -> RenderableType:
+
+        if self.mode == "words":
+            param = "Progress"
+            value = f"{self.completed * 100: 2.2f}%"
+        else:
+            left = int(Parser().get_data("timeout"))
+            param = "Time left"
+            value = str(int(left * self.completed))
+
+        return Align.center(
+            Text(
+                "\n\n\n"
+                + f"WPM: {self.speed: 2.2f}"
+                + "   "
+                + f"Accuracy: {self.accuracy :.2f}"
+                + "   "
+                + f"{param}: {value}",
+                style="bold " + self.get_speed_color(),
+            )
+        )
 
     def render(self) -> RenderableType:
         return Panel(
@@ -116,19 +141,7 @@ class RaceHUD(Widget):
                             bar_style=Parser().get_theme("bar_theme"),
                         ).render()
                     ),
-                    Align.center(
-                        Text(
-                            "\n\n\n"
-                            + "WPM: {}    Accuracy: {}%    Progress: {}".format(
-                                "{:2.2f}".format(self.speed),
-                                "{:.2f}".format(self.accuracy),
-                                "{:.2%}".format(self.completed),
-                            ),
-                            style="bold " + self.get_speed_color(),
-                        ),
-                    )
-                    if self.details
-                    else "",
+                    self.get_details() if self.details else "",
                 ],
             )
             if not self.finished
