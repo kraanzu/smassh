@@ -78,7 +78,7 @@ class Screen(Widget):
         """
 
         self.started = False
-        self.finised = False
+        self.finished = False
         self.failed = False
         self.speed = 0
         self.min_speed = 0
@@ -129,7 +129,8 @@ class Screen(Widget):
             or self.accuracy < self.min_accuracy
             or self.failed
         ):
-            self.finised = True
+            self.finished = True
+            self.finish_time = time.time()
             self.failed = True
             self.speed = -1
             play_failed()
@@ -139,7 +140,7 @@ class Screen(Widget):
         Simultaneously updates race HUD with typing
         """
 
-        if self.started and not self.finised:
+        if self.started and not self.finished:
 
             self._update_measurements()
             if self.mode == "words":
@@ -232,7 +233,7 @@ class Screen(Widget):
                 + "\n"
                 + f"[{style}]ACCURACY[/{style}]             : {self.accuracy:.2f} %"
                 + "\n"
-                + f"[{style}]TIME TAKEN[/{style}]           : {time.time() - self.start_time:.2f} seconds"
+                + f"[{style}]TIME TAKEN[/{style}]           : {self.finish_time - self.start_time:.2f} seconds"
             )
 
     def _is_key_correct(self) -> bool:
@@ -263,7 +264,7 @@ class Screen(Widget):
         if key == "ctrl+i" and self.tab_reset == "on":  # TAB
             await self.reset_screen()
 
-        if self.finised:
+        if self.finished:
             return
 
         if self.keypress_sound != "none":
@@ -372,7 +373,8 @@ class Screen(Widget):
         self.refresh()
 
     def end_typing(self):
-        self.finised = True
+        self.finished = True
+        self.finish_time = time.time()
         self.refresh()
 
     def find_cursor(self) -> int:
@@ -381,7 +383,7 @@ class Screen(Widget):
 
     def render(self) -> RenderableType:
         line = self.find_cursor()
-        if not self.finised and not self.failed:
+        if not self.finished and not self.failed:
             return Align.center(
                 Panel(
                     Text(
