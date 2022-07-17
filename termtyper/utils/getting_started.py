@@ -35,7 +35,7 @@ seperator = f"{colored('─' * 70, 'bold dim black')}"
 INTRO = f"""
 {colored(f'''
 Termtyper is a TUI typing application which was highly inspired
-by monekytpe -- An online web-based typing application which is
+by monkeytype -- An online web-based typing application which is
 by far the most customizable typing application
 
 Termtyper tries to bring features of monkeytype to terminal'''
