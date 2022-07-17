@@ -56,7 +56,7 @@ Some basic keybindings while in typing space:
 
 KEYBINGS = f"""
 
- {keybind("ctrl+z","toggle race-bar details" )}
+ {keybind("ctrl+d","toggle race-bar details" )}
 
  {keybind("ctrl+n","toggle numbers" )}
 

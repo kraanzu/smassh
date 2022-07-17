@@ -163,7 +163,7 @@ class TermTyper(App):
                         parser.toggle_punctuations()
                         await self.typing_screen.reset_screen()
 
-                    case "ctrl+z":
+                    case "ctrl+d":
                         self.race_hud.toggle_details()
 
                     case "ctrl+s":
