@@ -7,7 +7,7 @@ _A typing application to level up your fingers!_
 [![GitHub issues](https://img.shields.io/github/issues/kraanzu/termtyper?color=red&style=for-the-badge)](https://github.com/kraanzu/termtyper/issues)
 [![GitHub stars](https://img.shields.io/github/stars/kraanzu/termtyper?color=green&style=for-the-badge)](https://github.com/kraanzu/termtyper/stargazers)
 [![GitHub license](https://img.shields.io/github/license/kraanzu/termtyper?color=yellow&style=for-the-badge)](https://github.com/kraanzu/termtyper/blob/main/LICENSE)
-[![Support Server](https://img.shields.io/discord/989186205025464390.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge)](https://discord.gg/W6Ax4xXy)
+[![Support Server](https://img.shields.io/discord/989186205025464390.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge)](https://discord.gg/WA2ER9MBWa)
 
 # Installation 🔨
 
