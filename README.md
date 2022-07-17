@@ -73,7 +73,9 @@ And then simply type `termtyper` in your terminal to launch it.. ezy pzy
 
 # Demo 🎥
 
-Will do!
+https://user-images.githubusercontent.com/97718086/179387912-27b0016b-fa31-4284-9006-c11d24171065.mp4
+
+
 
 # Contribution 🤝
 
