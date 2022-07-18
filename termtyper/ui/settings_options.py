@@ -248,7 +248,7 @@ menu["ear_candy"] = SettingMenu(
             {
                 "off": "Already have good switches? There will be no sound on keypress",
                 "on": "Pressing a key will trigger a click sound except backspace",
-                "backspace": "Pressing any key will trigger click sound",
+                "backspace": "Pressing key, including backspace, will trigger click sound",
             },
             Option(
                 name="keypress_sound",

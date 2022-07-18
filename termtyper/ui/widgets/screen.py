@@ -18,6 +18,7 @@ EMPTY_SPAN = Span(0, 0, "")
 x, y = get_terminal_size()
 HEIGHT = round(0.75 * y)
 WIDTH = round(0.80 * x)
+parser = Parser
 
 
 class Screen(Widget):
@@ -39,7 +40,7 @@ class Screen(Widget):
         self.confidence_mode = parser.get_data("confidence_mode")
         self.single_line_words = parser.get_data("single_line_words")
         self.caret_style = parser.get_theme("caret_style")
-        self.keypress_sound = parser.get_theme("sound")
+        self.keypress_sound = parser.get_theme("keypress_sound")
         self.allow_numbers = parser.get_para_setting("numbers")
         self.allow_puncs = parser.get_para_setting("punctuations")
         self.mode = Parser().get("mode", "writing mode")
@@ -87,6 +88,7 @@ class Screen(Widget):
         self.correct_key_presses = 0
         self.total_key_presses = 0
         self.mistakes = 0
+        self.keypress_sound = parser().get_theme("keypress_sound")
 
     def _get_previous_character(self) -> str:
         # well there were multiple places where this was needed.
@@ -267,8 +269,9 @@ class Screen(Widget):
         if self.finished:
             return
 
-        if self.keypress_sound != "none":
-            play_keysound()
+        if self.keypress_sound != "off":
+            if not (key == "ctrl+h" and self.keypress_sound != "backspace"):
+                play_keysound()
 
         self.pressed_key = key
 
