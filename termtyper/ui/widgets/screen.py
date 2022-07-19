@@ -368,8 +368,7 @@ class Screen(Widget):
                 self.start_time = time.time()
             self.started = True
 
-            if self.cursor_position >= self.paragraph_length - 1:
-                self.correct_key_presses += 1
+            if self.cursor_position > self.paragraph_length - 1:
                 await self._update_race_hud()
                 self.end_typing()
 
