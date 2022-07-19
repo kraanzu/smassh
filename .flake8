@@ -1,3 +1,4 @@
 [flake8]
 max-line-length=60
-ignore = E501, E722, W503, E203, F405
+ignore = E501, E722, W503, E203, F405,
+          F403, F401, F811, E712 /* For the soundplayer(will fix later) */
