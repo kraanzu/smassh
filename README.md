@@ -53,19 +53,19 @@ And then simply type `termtyper` in your terminal to launch it.. ezy pzy
 
 | Tweak           | Description                                                                  |
 | --------------- | :--------------------------------------------------------------------------- |
-| Difficulty      | Choose how strict termtyper should be with your wrong keypresses             |
 | Blind mode      | You wouldn't be able to see your mistakes                                    |
-| Min Speed       | Fall below this average speed and you fail!                                  |
+| Caret Style     | Caret style matters!                                                         |
+| Click Sound     | Choose the sound you wanna hear when you smack that key!                     |
+| Confidence mode | Are you sure you don't need backspace? Try this :)                           |
+| Cursor Buddy    | Setup your cursor buddy to run along with you!                               |
+| Difficulty      | Choose how strict termtyper should be with your wrong keypresses             |
+| Force Correct   | You wouldn't be able to able to go on without cleaning your pool of mistakes |
+| Keypress Sound  | Need sounds while typing? Select your preference here                        |
 | Min Accuracy    | Fall below this average accuracy and you fail!                               |
 | Min Burst       | Fall below this average accuracy for even a word and you fail!               |
-| Force Correct   | You wouldn't be able to able to go on without cleaning your pool of mistakes |
-| Confidence mode | Are you sure you don't need backspace? Try this :)                           |
-| Caret Style     | Caret style matters!                                                         |
-| Cursor Buddy    | Setup your cursor buddy to run along with you!                               |
-| Keypress Sound  | Need sounds while typing? Select your preference here                        |
-| Click Sound     | Choose the sound you wanna hear when you smack that key!                     |
-| Tab Reset       | Hey hey! You wanna reset already? I got ya!                                  |
+| Min Speed       | Fall below this average speed and you fail!                                  |
 | Restart Same    | I won't stop until I clear that passage!                                     |
+| Tab Reset       | Hey hey! You wanna reset already? I got ya!                                  |
 
 > That's it fellas (See [Contribution](https://github.com/kraanzu/termtyper#contribution-) if you want something more)
 
