@@ -1,5 +1,5 @@
 from threading import Thread
-from preferredsoundplayer import playsound
+from .preferredsoundplayer import playsound
 from os import path
 
 from ..utils import Parser
