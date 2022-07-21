@@ -1,5 +1,5 @@
 from pathlib import Path
-from random import choice
+from random import choice, random, randint
 
 WORD_FILE = Path(__file__).parent / "txt" / "words.txt"
 PUNCS = "$%&'(),-.:;?"
@@ -7,7 +7,7 @@ with open(WORD_FILE, "r") as f:
     words = f.read().splitlines()
 
 
-def generate(times: int = 1, numbers: bool = False, punctuations: bool = False) -> str:
+def generate(times: int = 1, numbers: bool = False, punctuations: bool = False, capitalizitions: str = "off") -> str:
     """
     produces a paragraph
     """
@@ -24,6 +24,22 @@ def generate(times: int = 1, numbers: bool = False, punctuations: bool = False) 
         if i in PUNCS:
             para += i
         else:
+            match capitalizitions:
+                case "on":
+                    if random() > 0.7:
+                        i = i.capitalize()
+                case "max":
+                    r = random()
+                    if r > 0.7:
+                        i = i.capitalize()
+                    elif r > 0.6:
+                        i = i.upper()
+                    elif r > 0.4:
+                        upper_indexs = [randint(0, len(i) - 1) for _i in range(randint(1, len(i)))]
+                        for index in upper_indexs:
+                            i = i[:index] + i[index].upper() + i[index + 1:]
+                case _:
+                    pass
             para += " " + i
 
     return para.strip()

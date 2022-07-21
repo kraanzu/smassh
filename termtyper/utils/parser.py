@@ -16,6 +16,7 @@ DEFAULTS = {
     "min_burst": "0",
     "force_correct": "off",
     "confidence_mode": "off",
+    "capitalization_mode": "off",
     "single_line_words": "off",
     "cursor_buddy": "0",
     "cursor_buddy_speed": "0",
