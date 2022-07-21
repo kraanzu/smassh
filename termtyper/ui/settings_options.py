@@ -8,9 +8,8 @@ from textual.events import Key
 from textual.widget import Widget
 from termtyper.events.events import LoadScreen
 
-from termtyper.ui.widgets import banners
-
-from ..ui.widgets import Option, NumberScroll
+from ..utils.getting_started import colored
+from ..ui.widgets import Option, NumberScroll, banners
 
 SettingWidget = Union[Option, NumberScroll]
 
@@ -328,8 +327,11 @@ class MenuSlide(Widget):
     def prev(self):
         self.current -= 1
 
-    def banner(self) -> str:
-        return self.menus[self.current].ascii_art
+    def banner(self) -> Panel:
+        banner = self.menus[self.current].ascii_art
+        banner.title = f"Press {colored('ctrl+h','b green')} for help"
+        banner.title_align = "right"
+        return banner
 
     async def key_press(self, event: Key):
         match event.key:
