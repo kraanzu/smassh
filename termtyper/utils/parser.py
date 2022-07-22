@@ -116,13 +116,13 @@ class Parser(ConfigParser):
 
     def add_default_config(self, section: str, option: str) -> None:
         d = {
-                "user": DEFAULTS,
-                "theming": THEMING,
-                "paragraph": PARAPHRASE,
-                "mode": MODE,
-                "speed records word": SPEED_RECORDS_WORDS,
-                "speed records time": SPEED_RECORDS_TIME,
-            }
+            "user": DEFAULTS,
+            "theming": THEMING,
+            "paragraph": PARAPHRASE,
+            "mode": MODE,
+            "speed records word": SPEED_RECORDS_WORDS,
+            "speed records time": SPEED_RECORDS_TIME,
+        }
         if section in d:
             if option in d[section]:
                 self.set(section, option, str(d[section][option]))
