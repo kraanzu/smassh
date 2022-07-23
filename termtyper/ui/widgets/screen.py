@@ -18,7 +18,7 @@ EMPTY_SPAN = Span(0, 0, "")
 x, y = get_terminal_size()
 HEIGHT = round(0.75 * y)
 WIDTH = round(0.80 * x)
-parser = Parser
+parser = Parser()
 
 
 class Screen(Widget):
@@ -28,7 +28,6 @@ class Screen(Widget):
         self.set_interval(0.2, self._update_race_hud)
 
     async def _refresh_settings(self) -> None:
-        parser = Parser()
         self.min_speed = int(parser.get_data("min_speed"))
         self.min_accuracy = int(parser.get_data("min_accuracy"))
         self.min_burst = int(parser.get_data("min_burst"))
@@ -44,8 +43,9 @@ class Screen(Widget):
         self.allow_numbers = parser.get_para_setting("numbers")
         self.allow_puncs = parser.get_para_setting("punctuations")
         self.allow_cap = parser.get_data("capitalization_mode")
-        self.mode = Parser().get("mode", "writing mode")
-        self.timeout = int(Parser().get("user", "timeout"))
+        self.mode = parser.get("mode", "writing mode")
+        self.timeout = int(parser.get("user", "timeout"))
+        self.keypress_sound = parser.get_theme("keypress_sound")
         self.set_paragraph()
 
         match self.caret_style:
@@ -89,7 +89,6 @@ class Screen(Widget):
         self.correct_key_presses = 0
         self.total_key_presses = 0
         self.mistakes = 0
-        self.keypress_sound = parser().get_theme("keypress_sound")
 
     def _get_previous_character(self) -> str:
         # well there were multiple places where this was needed.
@@ -104,14 +103,14 @@ class Screen(Widget):
         if self.speed == -1:
             return
 
-        med = (Parser().get_speed("med") + self.speed) / 2
-        Parser().set_speed("med", med)
+        med = (parser.get_speed("med") + self.speed) / 2
+        parser.set_speed("med", med)
 
-        low = min(Parser().get_speed("low"), self.speed)
-        Parser().set_speed("low", low)
+        low = min(parser.get_speed("low"), self.speed)
+        parser.set_speed("low", low)
 
-        high = max(Parser().get_speed("high"), self.speed)
-        Parser().set_speed("high", high)
+        high = max(parser.get_speed("high"), self.speed)
+        parser.set_speed("high", high)
 
     def _update_measurements(self) -> None:
         """
@@ -126,7 +125,6 @@ class Screen(Widget):
         self.accuracy = (correct / total) * 100
         self.speed = (self.accuracy / 100) * self.raw_speed
         self.progress = (correct + mistake) / len(self.paragraph.plain)
-        self.highest_score = Parser().get_speed("high")
 
         if (
             self.speed < self.min_speed
@@ -174,9 +172,7 @@ class Screen(Widget):
                 self.cursor_buddy_position += 1
                 self.refresh()
 
-    async def reset_screen(
-        self, restart_same=Parser().get_data("restart_same")
-    ) -> None:
+    async def reset_screen(self, restart_same=parser.get_data("restart_same")) -> None:
         """
         Reset the screen when left in mid of typing or re-started
         """
@@ -197,7 +193,7 @@ class Screen(Widget):
         """
 
         if self.mode == "words":
-            size = Parser().get_data("paragraph_size")
+            size = parser.get_data("paragraph_size")
             if size == "teensy":
                 times = 1
             elif size == "small":
@@ -209,7 +205,9 @@ class Screen(Widget):
         else:
             times = 100
 
-        paragraph = generate(times, self.allow_numbers, self.allow_puncs, self.allow_cap) + " "
+        paragraph = (
+            generate(times, self.allow_numbers, self.allow_puncs, self.allow_cap) + " "
+        )
         self.paragraph = Text(paragraph)
         self.wrapped = [0] + list(
             accumulate([len(i) + (len(i) != WIDTH) for i in wrap(paragraph, WIDTH)])
@@ -225,6 +223,7 @@ class Screen(Widget):
         Generates a report when the typing is finised
         """
 
+        highest_score = parser.get_speed("high")
         style = "bold red"
         if self.failed:
             return f"[{style}]FAILED[/{style}]"
@@ -239,7 +238,7 @@ class Screen(Widget):
                 + "\n"
                 + f"[{style}]TIME TAKEN[/{style}]           : {self.finish_time - self.start_time:.2f} seconds"
                 + "\n"
-                + f"[{style}]HIGHEST SCORE[/{style}]        : {self.highest_score:.2f} WPM"
+                + f"[{style}]HIGHEST SCORE[/{style}]        : {highest_score:.2f} WPM"
             )
 
     def _is_key_correct(self) -> bool:
