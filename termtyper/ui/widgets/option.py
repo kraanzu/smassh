@@ -7,7 +7,6 @@ from rich.text import Text
 from rich.panel import Panel
 from textual import events
 from textual.widget import Widget
-from configparser import NoOptionError
 
 from ...utils import Parser
 
@@ -41,11 +40,7 @@ class Option(Widget):
 
     def reset_cursor(self):
         if self.section:
-            try:
-                self._cursor = self.options.index(parser.get(self.section, self.name))
-            except NoOptionError:
-                parser.add_default_config(self.section, self.name)
-                self.reset_cursor()
+            self._cursor = self.options.index(parser.get(self.section, self.name))
         else:
             self._cursor = 0
 
