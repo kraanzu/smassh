@@ -126,6 +126,7 @@ class Screen(Widget):
         self.accuracy = (correct / total) * 100
         self.speed = (self.accuracy / 100) * self.raw_speed
         self.progress = (correct + mistake) / len(self.paragraph.plain)
+        self.highest_score = Parser().get_speed("high")
 
         if (
             self.speed < self.min_speed
@@ -237,6 +238,8 @@ class Screen(Widget):
                 + f"[{style}]ACCURACY[/{style}]             : {self.accuracy:.2f} %"
                 + "\n"
                 + f"[{style}]TIME TAKEN[/{style}]           : {self.finish_time - self.start_time:.2f} seconds"
+                + "\n"
+                + f"[{style}]HIGHEST SCORE[/{style}]        : {self.highest_score:.2f} WPM"
             )
 
     def _is_key_correct(self) -> bool:

@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from configparser import ConfigParser
+from configparser import ConfigParser, NoSectionError, NoOptionError
 from typing import Any, Literal, Union
 
 NumberType = Union[int, float]
@@ -54,6 +54,15 @@ MODE = {
     "writing mode": "words",
 }
 
+CONF_DICT = {
+    "user": DEFAULTS,
+    "theming": THEMING,
+    "paragraph": PARAPHRASE,
+    "mode": MODE,
+    "speed records word": SPEED_RECORDS_WORDS,
+    "speed records time": SPEED_RECORDS_TIME,
+}
+
 
 def get_config_location() -> Path:
     """
@@ -102,25 +111,35 @@ class Parser(ConfigParser):
         with open(self.file_path, "w"):
             pass
 
-        self.read_dict(
-            {
-                "user": DEFAULTS,
-                "theming": THEMING,
-                "paragraph": PARAPHRASE,
-                "mode": MODE,
-                "speed records word": SPEED_RECORDS_WORDS,
-                "speed records time": SPEED_RECORDS_TIME,
-            }
-        )
+        self.read_dict(CONF_DICT)
 
         self._write_to_file()
 
+    def _add_default_config(self, section: str, option: str) -> None:
+        if section in CONF_DICT:
+            if option in CONF_DICT[section]:
+                self.set(section, option, str(CONF_DICT[section][option]))
+            else:
+                raise NoOptionError(option, section)
+        else:
+            raise NoSectionError(section)
+
+    def get(self, section: str, option: str, **kwargs) -> str:
+        """
+        Override the get method to add the default value if data doesn't exist
+        """
+        try:
+            return super().get(section, option, raw=kwargs.get("raw", True), vars=kwargs.get("vars", None))
+        except NoOptionError:
+            self._add_default_config(section, option)
+            return super().get(section, option, raw=kwargs.get("raw", True), vars=kwargs.get("vars", None))
+
     def toggle_numbers(self):
-        numbers = not self.getboolean("paragraph", "numbers")
+        numbers = not bool(self.get("paragraph", "numbers"))
         self.set("paragraph", "numbers", str(numbers))
 
     def toggle_punctuations(self):
-        punctuations = not self.getboolean("paragraph", "punctuations")
+        punctuations = not bool(self.get("paragraph", "punctuations"))
         self.set("paragraph", "punctuations", str(punctuations))
 
     def set(self, section: str, option: str, value: str | None = None) -> None:
@@ -154,7 +173,7 @@ class Parser(ConfigParser):
         return self.set("user", data, str(value))
 
     def get_para_setting(self, data: str) -> bool:
-        return self.getboolean("paragraph", data)
+        return bool(self.get("paragraph", data))
 
     def set_para_setting(self, data: str, value: Any):
         return self.set("paragraph", data, str(value))
@@ -164,4 +183,4 @@ class Parser(ConfigParser):
             self.write(fp)
 
     def get_data(self, data: str) -> str:
-        return super().get("user", data)
+        return self.get("user", data)
