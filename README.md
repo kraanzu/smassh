@@ -54,6 +54,7 @@ And then simply type `termtyper` in your terminal to launch it.. ezy pzy
 | Tweak           | Description                                                                  |
 | --------------- | :--------------------------------------------------------------------------- |
 | Blind mode      | You wouldn't be able to see your mistakes                                    |
+| Capital Letters | Some letters in your tasks will be capitalized!                              |
 | Caret Style     | Caret style matters!                                                         |
 | Click Sound     | Choose the sound you wanna hear when you smack that key!                     |
 | Confidence mode | Are you sure you don't need backspace? Try this :)                           |
