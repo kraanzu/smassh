@@ -43,6 +43,7 @@ class Screen(Widget):
         self.keypress_sound = parser.get_theme("keypress_sound")
         self.allow_numbers = parser.get_para_setting("numbers")
         self.allow_puncs = parser.get_para_setting("punctuations")
+        self.allow_cap = parser.get_data("capitalization_mode")
         self.mode = Parser().get("mode", "writing mode")
         self.timeout = int(Parser().get("user", "timeout"))
         self.set_paragraph()
@@ -208,7 +209,7 @@ class Screen(Widget):
         else:
             times = 100
 
-        paragraph = generate(times, self.allow_numbers, self.allow_puncs) + " "
+        paragraph = generate(times, self.allow_numbers, self.allow_puncs, self.allow_cap) + " "
         self.paragraph = Text(paragraph)
         self.wrapped = [0] + list(
             accumulate([len(i) + (len(i) != WIDTH) for i in wrap(paragraph, WIDTH)])

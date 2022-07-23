@@ -204,6 +204,18 @@ menu["discipline"] = SettingMenu(
             ),
             "Feeling Lucky?",
         ),
+        Setting(
+            "Capitalization Mode:",
+            {
+                "off": "All lowercase words, don't worry about your 'Shift' key",
+                "on": "You will come across some words that start with a capital letter, but not many",
+                "max": "Try a mixed-case word trial",
+            },
+            Option(
+                name="capitalization_mode", options=["off", "on", "max"], section="user"
+            ),
+            "Getting your hands dirty?",
+        ),
     ],
 )
 
@@ -239,7 +251,7 @@ menu["eye_candy"] = SettingMenu(
 )
 
 # Fifth Menu
-menu["ear_candy"] = SettingMenu(
+menu["aesthetics"] = SettingMenu(
     banners["aesthetics"],
     [
         Setting(
