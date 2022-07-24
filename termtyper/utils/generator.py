@@ -1,10 +1,9 @@
-from pathlib import Path
+from .words import words
 from random import choice, random, randint
 
-WORD_FILE = Path(__file__).parent / "txt" / "words.txt"
+
 PUNCS = "$%&'(),-.:;?"
-with open(WORD_FILE, "r") as f:
-    words = f.read().splitlines()
+words = words.split()
 
 
 def generate(times: int = 1, numbers: bool = False, punctuations: bool = False, capitalizitions: str = "off") -> str:
