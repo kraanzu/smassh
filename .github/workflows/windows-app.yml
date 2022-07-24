@@ -25,12 +25,13 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install -r requirements.txt
         pip install pyinstaller
     - name: Package app with pyinstaller
       run: |
-        pyinstaller -D termtyper.py
+        pyinstaller -F termtyper.py
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
       with:
         name: termtyper
-        path: ./dist/
+        path: ./dist/termtyper.exe
