@@ -33,4 +33,4 @@ jobs:
       uses: actions/upload-artifact@v3.1.0
       with:
         name: termtyper
-        path: ./disk/termtyper.exe
+        path: ./dist/
