@@ -11,6 +11,8 @@ _A typing application to level up your fingers!_
 
 # Installation 🔨
 
+## For Python Users:
+
 > You can install termtyper easily using python one-liner
 
 ```bash
@@ -36,6 +38,12 @@ And then simply type `termtyper` in your terminal to launch it.. ezy pzy
 > ⚠️ Note: Config file for `termtyper` is located at your $XDG_CONFIG_HOME (or ~/.config/termtyper)
 
 > ⚠️ Note: You must use python version >=3.10
+
+## Not Familiar with Python?
+
+> Visit our [Actions](https://github.com/kraanzu/termtyper/actions/workflows/app.yml) page and get Artifacts (all executable files!) from the latest run!
+
+Statues: [![Python application](https://github.com/kraanzu/termtyper/actions/workflows/app.yml/badge.svg)](https://github.com/kraanzu/termtyper/actions/workflows/app.yml)
 
 # Features 🌟
 
