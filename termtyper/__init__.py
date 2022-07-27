@@ -2,7 +2,6 @@ import pkg_resources
 import argparse
 
 from .ui import TermTyper
-from .utils import Parser
 
 
 def main():
@@ -27,5 +26,4 @@ def main():
         print(f"termtyper - {ver}")
         return
 
-    Parser()
     TermTyper.run(args.quiet)
