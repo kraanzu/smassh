@@ -34,6 +34,7 @@ class Menu(Option):
         title: str = "",
         section: str | None = None,
         live_change: bool = True,
+        quiet: bool = False,
     ) -> None:
         super().__init__(name, options, section=section)
         self.message = message
@@ -42,6 +43,7 @@ class Menu(Option):
         self.title = title
         self.live_change = live_change
         self.fallback = None
+        self.quiet = quiet
 
     @property
     def cursor(self):
@@ -55,7 +57,9 @@ class Menu(Option):
         if self.live_change:
             self.update()
 
-        play(get_sound_location("mech"))
+        if not self.quiet:
+            play(get_sound_location("mech"))
+
         self.refresh()
 
     async def key_press(self, event: events.Key):

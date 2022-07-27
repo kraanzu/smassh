@@ -129,10 +129,20 @@ class Parser(ConfigParser):
         Override the get method to add the default value if data doesn't exist
         """
         try:
-            return super().get(section, option, raw=kwargs.get("raw", True), vars=kwargs.get("vars", None))
+            return super().get(
+                section,
+                option,
+                raw=kwargs.get("raw", True),
+                vars=kwargs.get("vars", None),
+            )
         except NoOptionError:
             self._add_default_config(section, option)
-            return super().get(section, option, raw=kwargs.get("raw", True), vars=kwargs.get("vars", None))
+            return super().get(
+                section,
+                option,
+                raw=kwargs.get("raw", True),
+                vars=kwargs.get("vars", None),
+            )
 
     def toggle_numbers(self):
         numbers = not bool(self.get("paragraph", "numbers"))
@@ -170,7 +180,7 @@ class Parser(ConfigParser):
         return self.get("theming", data)
 
     def set_theme(self, data: str, value: Any):
-        return self.set("user", data, str(value))
+        return self.set("theming", data, str(value))
 
     def get_para_setting(self, data: str) -> bool:
         return bool(self.get("paragraph", data))

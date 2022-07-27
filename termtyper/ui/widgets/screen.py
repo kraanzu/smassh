@@ -22,8 +22,9 @@ parser = Parser()
 
 
 class Screen(Widget):
-    def __init__(self) -> None:
+    def __init__(self, quiet: bool) -> None:
         super().__init__()
+        self.quiet = quiet
         self._reset_params()
         self.set_interval(0.2, self._update_race_hud)
 
@@ -39,7 +40,6 @@ class Screen(Widget):
         self.confidence_mode = parser.get_data("confidence_mode")
         self.single_line_words = parser.get_data("single_line_words")
         self.caret_style = parser.get_theme("caret_style")
-        self.keypress_sound = parser.get_theme("keypress_sound")
         self.allow_numbers = parser.get_para_setting("numbers")
         self.allow_puncs = parser.get_para_setting("punctuations")
         self.allow_cap = parser.get_data("capitalization_mode")
@@ -272,9 +272,12 @@ class Screen(Widget):
         if self.finished:
             return
 
-        if self.keypress_sound != "off":
-            if not (key == "ctrl+h" and self.keypress_sound != "backspace"):
-                play_keysound()
+        if (
+            not self.quiet
+            and self.keypress_sound != "off"
+            and not (key == "ctrl+h" and self.keypress_sound != "backspace")
+        ):
+            play_keysound()
 
         self.pressed_key = key
 

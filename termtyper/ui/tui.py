@@ -1,3 +1,4 @@
+import asyncio
 from textual.app import App
 from textual.widgets import Static
 from textual import events
@@ -26,6 +27,15 @@ parser = Parser()
 
 
 class TermTyper(App):
+    @classmethod
+    def run(cls, quiet: bool = False):
+        async def run_app() -> None:
+            app = cls()
+            app.quiet = quiet
+            await app.process_messages()
+
+        asyncio.run(run_app())
+
     async def on_load(self) -> None:
         self.current_space = "main_menu"
         self.settings = MenuSlide()
@@ -49,10 +59,11 @@ class TermTyper(App):
             list(self.buttons.keys()),
             ButtonClicked,
             draw_seperator=True,
+            quiet=self.quiet,
         )
 
         self.race_hud = RaceHUD()
-        self.typing_screen = Screen()
+        self.typing_screen = Screen(self.quiet)
 
         await self.bind("ctrl+q", "quit", "quit the application")
 
