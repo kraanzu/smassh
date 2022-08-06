@@ -11,14 +11,15 @@ from rich.panel import Panel
 from textual.app import App
 from textual.widget import Widget
 
-from ...utils import generate, Parser, play_keysound, play_failed
+from ...utils import generate, play_keysound, play_failed
+from ...utils.parser import MAIN_PARSER
 from ...events import UpdateRaceHUD, ResetHUD
 
 EMPTY_SPAN = Span(0, 0, "")
 x, y = get_terminal_size()
 HEIGHT = round(0.75 * y)
 WIDTH = round(0.80 * x)
-parser = Parser()
+parser = MAIN_PARSER
 
 
 class Screen(Widget):

@@ -2,7 +2,7 @@ from threading import Thread
 from .preferredsoundplayer import playsound
 from os import path
 
-from ..utils import Parser
+from ..utils.parser import MAIN_PARSER
 
 SOUNDS_LOC = path.join(path.dirname(__file__), "..", "sounds")
 
@@ -16,7 +16,7 @@ def play(sound_file: str) -> None:
 
 
 def play_keysound() -> None:
-    sound = Parser().get_theme("sound")
+    sound = MAIN_PARSER.get_theme("sound")
     sound_file = get_sound_location(sound)
     play(sound_file)
 

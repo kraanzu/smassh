@@ -18,12 +18,14 @@ from termtyper.ui.widgets.menus import BarThemeMenu, ModeMenu, SizeMenu, Timeout
 from ..ui.widgets import *  # NOQA
 from ..utils import *  # NOQA
 
+from ..utils.parser import MAIN_PARSER
+
 
 def percent(part, total):
     return int(part * total / 100)
 
 
-parser = Parser()
+parser = MAIN_PARSER
 
 
 class TermTyper(App):
