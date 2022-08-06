@@ -195,4 +195,5 @@ class Parser(ConfigParser):
     def get_data(self, data: str) -> str:
         return self.get("user", data)
 
+
 MAIN_PARSER = Parser()
