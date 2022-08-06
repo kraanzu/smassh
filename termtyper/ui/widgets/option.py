@@ -8,9 +8,9 @@ from rich.panel import Panel
 from textual import events
 from textual.widget import Widget
 
-from ...utils import Parser
+from ...utils.parser import MAIN_PARSER
 
-parser = Parser()
+parser = MAIN_PARSER
 SectionType = Literal[
     "user", "theming", "paragraph", "speed records word", "speed records time"
 ]
@@ -70,7 +70,7 @@ class Option(Widget):
 
     def update(self) -> None:
         if self.section:
-            Parser().set(self.section, self.name, self.options[self.cursor])
+            parser.set(self.section, self.name, self.options[self.cursor])
 
         if self.callback:
             self.callback()

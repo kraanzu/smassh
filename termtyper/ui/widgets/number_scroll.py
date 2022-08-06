@@ -6,9 +6,9 @@ from textual.widget import Widget
 from rich.text import Text
 from rich.panel import Panel
 
-from ...utils import Parser
+from ...utils.parser import MAIN_PARSER
 
-parser = Parser()
+parser = MAIN_PARSER
 
 
 class NumberScroll(Widget):

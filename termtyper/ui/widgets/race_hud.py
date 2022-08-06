@@ -7,7 +7,9 @@ from textual.app import App
 from textual.widget import Widget
 
 from termtyper.ui.widgets.progress_bar import ProgressBar
-from ...utils import Parser
+from ...utils.parser import MAIN_PARSER
+
+parser = MAIN_PARSER
 
 
 class RaceHUD(Widget):
@@ -28,16 +30,16 @@ class RaceHUD(Widget):
         self.speed = 0
         self.finished = False
         self.details = False
-        self.theme = Parser().get_theme("bar_theme")
+        self.theme = parser.get_theme("bar_theme")
         self._read_speed_records()
 
     def toggle_details(self):
         self.details = not self.details
 
     def _read_speed_records(self) -> None:
-        self.low = Parser().get_speed("low")
-        self.med = Parser().get_speed("med")
-        self.high = Parser().get_speed("high")
+        self.low = parser.get_speed("low")
+        self.med = parser.get_speed("med")
+        self.high = parser.get_speed("high")
 
     def get_speed_color(self) -> str:
         """
@@ -89,7 +91,7 @@ class RaceHUD(Widget):
         Updates the HUD with the most current measurements
         """
 
-        self.mode = Parser().get("mode", "writing mode")
+        self.mode = parser.get("mode", "writing mode")
 
         if not self.finished:
             self.completed = progress
@@ -104,7 +106,7 @@ class RaceHUD(Widget):
             self.refresh()
 
     def refresh(self, repaint: bool = True, layout: bool = False) -> None:
-        self.theme = Parser().get_theme("bar_theme")
+        self.theme = parser.get_theme("bar_theme")
         return super().refresh(repaint, layout)
 
     def get_details(self) -> RenderableType:
@@ -113,7 +115,7 @@ class RaceHUD(Widget):
             param = "Progress"
             value = f"{self.completed * 100: 2.2f}%"
         else:
-            left = int(Parser().get_data("timeout"))
+            left = int(parser.get_data("timeout"))
             param = "Time left"
             value = str(int(left * self.completed))
 
@@ -138,7 +140,7 @@ class RaceHUD(Widget):
                             total=self.total,
                             completed=self.completed,
                             color="bold " + self.get_speed_color(),
-                            bar_style=Parser().get_theme("bar_theme"),
+                            bar_style=parser.get_theme("bar_theme"),
                         ).render()
                     ),
                     self.get_details() if self.details else "",
