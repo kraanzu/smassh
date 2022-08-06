@@ -207,7 +207,13 @@ class Screen(Widget):
             times = 100
 
         paragraph = (
-            generate(times, self.allow_numbers, self.allow_puncs, self.allow_cap) + " "
+            generate(
+                times,
+                (self.allow_numbers),
+                (self.allow_puncs),
+                self.allow_cap,
+            )
+            + " "
         )
         self.paragraph = Text(paragraph)
         self.wrapped = [0] + list(

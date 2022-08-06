@@ -1,6 +1,6 @@
 import os
+from configparser import ConfigParser, NoOptionError, NoSectionError
 from pathlib import Path
-from configparser import ConfigParser, NoSectionError, NoOptionError
 from typing import Any, Literal, Union
 
 NumberType = Union[int, float]
@@ -145,12 +145,16 @@ class Parser(ConfigParser):
             )
 
     def toggle_numbers(self):
-        numbers = not bool(self.get("paragraph", "numbers"))
-        self.set("paragraph", "numbers", str(numbers))
+        numbers = self.get("paragraph", "numbers")
+        self.set("paragraph", "numbers", "True" if str(numbers) == "False" else "False")
 
     def toggle_punctuations(self):
-        punctuations = not bool(self.get("paragraph", "punctuations"))
-        self.set("paragraph", "punctuations", str(punctuations))
+        punctuations = self.get("paragraph", "punctuations")
+        self.set(
+            "paragraph",
+            "punctuations",
+            "True" if str(punctuations) == "False" else "False",
+        )
 
     def set(self, section: str, option: str, value: str | None = None) -> None:
         super().set(section, option, value)
@@ -183,7 +187,7 @@ class Parser(ConfigParser):
         return self.set("theming", data, str(value))
 
     def get_para_setting(self, data: str) -> bool:
-        return bool(self.get("paragraph", data))
+        return eval(self.get("paragraph", data))
 
     def set_para_setting(self, data: str, value: Any):
         return self.set("paragraph", data, str(value))
