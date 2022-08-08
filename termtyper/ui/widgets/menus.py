@@ -58,7 +58,7 @@ class TimeoutMenu(Menu):
 
 class BarThemeMenu(Menu):
     def __init__(self):
-        options = ["minimal", "pacman", "doge", "ballon", "rust"]
+        options = ["minimal", "pacman", "doge", "balloon", "rust"]
         super().__init__(
             "bar_theme",
             options,

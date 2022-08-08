@@ -3,7 +3,7 @@ from typing import Literal
 from rich.text import Text
 from textual.widget import Widget
 
-BarStyle = Literal["minimal", "pacman", "rust", "doge", "ballon"]
+BarStyle = Literal["minimal", "pacman", "rust", "doge", "balloon"]
 Segment = tuple[str, str]
 
 
@@ -31,7 +31,7 @@ class ProgressBar(Widget):
             style="d black",
         )
 
-    def render_ballon(self, done, rem):
+    def render_balloon(self, done, rem):
         total = done + rem
         bg = "⠁⠈⠐⠠⢀⡀⠄⠂"
         bg = bg * ceil(total, len(bg))
