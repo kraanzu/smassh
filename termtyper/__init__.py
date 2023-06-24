@@ -1,4 +1,4 @@
-import pkg_resources
+import importlib.metadata
 import argparse
 
 from .ui import TermTyper
@@ -22,7 +22,7 @@ def main():
     args = args.parse_args()
 
     if args.version:
-        ver = pkg_resources.get_distribution("dooit").version
+        ver = importlib.metadata.version("termtyper")
         print(f"termtyper - {ver}")
         return
 
