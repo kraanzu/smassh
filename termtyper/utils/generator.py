@@ -1,16 +1,15 @@
-from .words import words
+from .words import english_words, french_words
 from random import choice, random, randint
 
 
 PUNCS = "$%&'(),-.:;?"
-words = words.split()
-
 
 def generate(
     times: int = 1,
     numbers: bool = False,
     punctuations: bool = False,
     capitalizitions: str = "off",
+    language: str = "english",
 ) -> str:
     """
     produces a paragraph
@@ -21,6 +20,15 @@ def generate(
         extra.extend([str(choice(range(1, 10000))) for _ in " " * 200])
     if punctuations:
         extra.extend([choice(PUNCS) for _ in " " * 200])
+    
+    match language:
+        case "english":
+            words = english_words
+        case "french":
+            words = french_words
+        case _:
+            pass
+    words = words.split()
 
     arr = [choice(words + extra) for _ in " " * times]
     para = ""

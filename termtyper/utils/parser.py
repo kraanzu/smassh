@@ -24,6 +24,7 @@ DEFAULTS = {
     "restart_same": "off",
     "paragraph_size": "teensy",
     "timeout": "15",
+    "language": "english",
 }
 
 PARAPHRASE = {

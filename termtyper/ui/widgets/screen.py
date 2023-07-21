@@ -47,6 +47,7 @@ class Screen(Widget):
         self.mode = parser.get("mode", "writing mode")
         self.timeout = int(parser.get("user", "timeout"))
         self.keypress_sound = parser.get_theme("keypress_sound")
+        self.language = parser.get_data("language")
         self.set_paragraph()
 
         match self.caret_style:
@@ -212,6 +213,7 @@ class Screen(Widget):
                 (self.allow_numbers),
                 (self.allow_puncs),
                 self.allow_cap,
+                self.language,
             )
             + " "
         )
