@@ -1,4 +1,4 @@
-words = """the
+english_words = """the
 of
 to
 and

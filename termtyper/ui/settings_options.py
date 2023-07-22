@@ -59,7 +59,7 @@ class Setting:
 
 class SettingMenu(Widget):
     """
-    A menu clas for showing multiple settings in one page
+    A menu class for showing multiple settings in one page
     """
 
     def __init__(self, ascii_art: RenderableType, items: list[Setting]):
@@ -309,6 +309,16 @@ menu["misc"] = SettingMenu(
             Option(name="restart_same", options=["off", "on"], section="user"),
             "Wanna practice the same paragraph over and over? This option is for you!",
         ),
+        Setting(
+            "Language",
+            {},
+            Option(
+                name="language", 
+                options=["english", "french"], 
+                section="user"
+            ),
+            "Choose the language you want the words to be generated from !",
+        )
     ],
 )
 
