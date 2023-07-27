@@ -1,0 +1,34 @@
+TypingSpace {
+  background: $boost;
+  layout: grid;
+  grid-size: 1 2;
+  grid-rows: 1fr 3fr;
+}
+
+SettingsScreen {
+  padding: 1;
+  layout: vertical;
+  overflow: auto;
+  scrollbar-size: 1 1;
+}
+
+Setting {
+  height: auto;
+}
+
+SettingMenu {
+  height: auto;
+}
+
+Horizontal {
+  height: auto;
+}
+
+Horizontal > Static{
+  width: 7fr;
+}
+
+Horizontal > Option, NumberScroll{
+  width: 3fr;
+  align: center middle;
+}
