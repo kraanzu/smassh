@@ -1,5 +1,5 @@
 from textual.screen import Screen
 
 
-class HelpMenuScreen(Screen):
+class HelpScreen(Screen):
     pass
