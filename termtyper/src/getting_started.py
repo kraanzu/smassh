@@ -48,9 +48,8 @@ You will get a detailed description of each settings there :)
 
 KEYBINDS_HEADER = f"""
 {colored("Note:", "yellow")}
-If you need any help regarding settings...
-press {colored("ctrl+h", "bold blue")} once in the setting menu
-
+Press {colored("ctrl+h", "bold blue")} in the setting menu
+to get info on how configs work :)
 Some basic keybindings while in typing space:
 """
 
@@ -63,10 +62,6 @@ KEYBINGS = f"""
  {keybind("ctrl+p","toggle punctuations" )}
 
  {keybind("ctrl+b","open up a bar theme menu" )}
-
- {keybind("ctrl+s","open up a size/time change menu" )}
-
- {keybind("ctrl+o","open up a mode change menu" )}
 
  {keybind("ctrl+w","delete a whole word" )}
 
@@ -82,16 +77,15 @@ KEYBINGS = f"""
 OUTRO = f"""
 Also, you can exit the application by pressing {colored("ctrl+q", "bold blue")} :)
 
+{colored("I hope you like my little project :heart:", "plum2")}
+[@click=app.sponsor]I'll really appreciate it if you can sponsor this project![/],
 
-           {colored("I hope you like my little project :heart:", "plum2")}
-
-                    -- {colored("kraanzu", "medium_purple1")}
+                   -- {colored("kraanzu", "medium_purple1")}
 """
 
 
 class GettingStarted(Widget):
     def render(self) -> RenderableType:
-
         tree = Tree("")
         tree.hide_root = True
         tree.expanded = True
