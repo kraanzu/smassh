@@ -78,7 +78,7 @@ OUTRO = f"""
 Also, you can exit the application by pressing {colored("ctrl+q", "bold blue")} :)
 
 {colored("I hope you like my little project :heart:", "plum2")}
-[@click=app.sponsor]I'll really appreciate it if you can sponsor this project![/],
+[@click=app.sponsor]If you like, you can sponsor this project on GitHub![/],
 
                    -- {colored("kraanzu", "medium_purple1")}
 """
