@@ -1,4 +1,4 @@
-french_words = '''à
+french_words = """à
 abandonner
 abattre
 abri
@@ -1459,4 +1459,4 @@ vrai
 vraiment
 vue
 y
-yeux'''
+yeux"""

@@ -28,7 +28,6 @@ def generate(
         case _:
             words = english_words
 
-
     words = words.split()
     arr = [choice(words + extra) for _ in " " * times]
     para = ""
