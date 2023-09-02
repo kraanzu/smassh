@@ -37,7 +37,6 @@ class Banner(Label):
     Text Widget to render text in a bigger font
     """
 
-
     def render(self) -> RenderableType:
         return generate_figlet(self.text)
 

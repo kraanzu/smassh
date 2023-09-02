@@ -3,7 +3,6 @@ from rich.box import MINIMAL
 from rich.console import Group, RenderableType
 from rich.panel import Panel
 from rich.text import Text
-from textual.app import App
 from textual.widget import Widget
 
 from termtyper.ui.widgets.progress_bar import ProgressBar
@@ -23,7 +22,7 @@ class RaceHUD(Widget):
         name: str | None = None,
         total: float = 1,
     ) -> None:
-        super().__init__(name)
+        super().__init__(name=name)
         self.completed = 0
         self.accuracy = 0
         self.total = total
@@ -110,7 +109,6 @@ class RaceHUD(Widget):
         return super().refresh(repaint, layout)
 
     def get_details(self) -> RenderableType:
-
         if self.mode == "words":
             param = "Progress"
             value = f"{self.completed * 100: 2.2f}%"
@@ -153,19 +151,3 @@ class RaceHUD(Widget):
             ),
             box=MINIMAL,
         )
-
-
-if __name__ == "__main__":
-
-    class MyApp(App):
-        async def on_mount(self):
-            self.plus = 5
-            self.x = RaceHUD()
-            self.set_interval(0.1, self.inc)
-            await self.view.dock(self.x, size=5)
-
-        def inc(self):
-            self.plus += 5
-            self.x.update(self.plus, 500, 0)
-
-    MyApp.run()

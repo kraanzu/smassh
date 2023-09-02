@@ -8,7 +8,6 @@ from rich.box import MINIMAL
 from rich.console import RenderableType
 from rich.text import Span, Text, TextType
 from rich.panel import Panel
-from textual.app import App
 from textual.widget import Widget
 
 from ...utils import generate, play_keysound, play_failed
@@ -22,8 +21,8 @@ WIDTH = round(0.80 * x)
 parser = MAIN_PARSER
 
 
-class Screen(Widget):
-    def __init__(self, quiet: bool) -> None:
+class Typer(Widget):
+    def __init__(self, quiet: bool = False) -> None:
         super().__init__()
         self.quiet = quiet
         self._reset_params()
@@ -145,7 +144,6 @@ class Screen(Widget):
         """
 
         if self.started and not self.finished:
-
             self._update_measurements()
             if self.mode == "words":
                 progress = self.progress
@@ -155,14 +153,16 @@ class Screen(Widget):
                 if progress < 0:
                     self.end_typing()
 
-            await self.emit(UpdateRaceHUD(self, progress, self.speed, self.accuracy))
+            await self.post_message(
+                UpdateRaceHUD(self, progress, self.speed, self.accuracy)
+            )
 
             self.refresh()
         else:
             if self.mode == "words":
-                await self.emit(UpdateRaceHUD(self, 0, 0, 0))
+                await self.post_message(UpdateRaceHUD(self, 0, 0, 0))
             else:
-                await self.emit(UpdateRaceHUD(self, 1, 0, 0))
+                await self.post_message(UpdateRaceHUD(self, 1, 0, 0))
 
     def move_cursor_buddy(self) -> None:
         """
@@ -186,7 +186,7 @@ class Screen(Widget):
         else:
             self.set_paragraph()
 
-        await self.emit(ResetHUD(self))
+        await self.post_message(ResetHUD(self))
         self.refresh()
 
     def set_paragraph(self) -> None:
@@ -339,7 +339,6 @@ class Screen(Widget):
                     else:
                         return
                 else:
-
                     if self.difficulty == "expert" and self.mistakes:
                         self.failed = True
                     if not self._check_min_burst():
@@ -447,13 +446,3 @@ class Screen(Widget):
                 Align.center(self.report(), vertical="middle", height=HEIGHT),
                 box=MINIMAL,
             )
-
-
-if __name__ == "__main__":
-
-    class MyApp(App):
-        async def on_mount(self):
-            self.x = Screen()
-            await self.view.dock(self.x)
-
-    MyApp.run()

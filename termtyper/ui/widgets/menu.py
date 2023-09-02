@@ -63,7 +63,6 @@ class Menu(Option):
         self.refresh()
 
     async def key_press(self, event: events.Key):
-
         if self.fallback is None:
             self.fallback = self.cursor
 
@@ -112,15 +111,3 @@ class Menu(Option):
             vertical="middle",
             height=percent(80, get_terminal_size()[1]),
         )
-
-
-if __name__ == "__main__":
-    from textual.app import App
-
-    class MyApp(App):
-        async def on_mount(self):
-            await self.view.dock(
-                Option("test", ["Linux", "MacPriceyOS", "YourPCRanIntoAnError"])
-            )
-
-    MyApp.run()

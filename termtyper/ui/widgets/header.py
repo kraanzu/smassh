@@ -30,6 +30,7 @@ class Header(Widget):
         grid-size: 3 1;
         grid-rows: 5;
         grid-columns: 1fr 8fr 1fr;
+        background: #252a34;
     }
     """
 
@@ -41,5 +42,6 @@ class Header(Widget):
             yield NavItem("󰌌 home", "typing")
             yield NavItem(" about", "about")
             yield NavItem(" settings", "settings")
+            yield NavItem("! help", "help")
 
         yield NavItem(get_username())
