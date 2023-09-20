@@ -1,6 +1,6 @@
 import webbrowser
 from textual import on
-from textual.app import App, ComposeResult
+from textual.app import App, ComposeResult, events
 from textual.screen import Screen
 from textual.widgets import ContentSwitcher
 from termtyper.ui.events.events import SetScreen
@@ -29,6 +29,11 @@ class BaseScreen(Screen):
     @on(SetScreen)
     def screen_change(self, event: SetScreen):
         self.query_one(ContentSwitcher).current = event.screen_name
+
+    def on_key(self, event: events.Key):
+        visible = self.query_one(ContentSwitcher).visible_content
+        if visible:
+            visible.on_key(event)
 
 
 class TermTyper(App):
