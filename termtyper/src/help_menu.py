@@ -7,13 +7,6 @@ def percent(part, total):
     return int(part * total / 100)
 
 
-title = """
-┬ ┬┌─┐┬  ┌─┐  ┌┬┐┌─┐┌┐┌┬ ┬
-├─┤├┤ │  ├─┘  │││├┤ ││││ │
-┴ ┴└─┘┴─┘┴    ┴ ┴└─┘┘└┘└─┘
-"""
-
-
 def prettier(help_menu) -> str:
     message = ""
     for help in help_menu:
@@ -55,18 +48,6 @@ HELP_MENU = [
     },
 ]
 
-HELP_BANNER = Static(
-    Panel(
-        Align.center(title),
-        style="bold blue",
-        border_style="bold magenta",
-    )
-)
-
 HELP_MESSAGE = Static(
-    Panel(
-        Align.center(prettier(HELP_MENU)),
-        style="black",
-        border_style="bold magenta",
-    )
+    Align.center(prettier(HELP_MENU)),
 )
