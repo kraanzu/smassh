@@ -1,5 +1,4 @@
 from rich.align import Align
-from rich.panel import Panel
 from textual.widgets import Static
 
 
@@ -20,20 +19,12 @@ def prettier(help_menu) -> str:
             + "\n"
         )
 
-    message += (
-        "\n" * 3 + "     [bold magenta]press ctrl+h/escape to quit[/bold magenta]"
-    )
+    message += "     [bold magenta]press ctrl+h/escape to quit[/bold magenta]"
 
     return message
 
 
 HELP_MENU = [
-    {
-        "title": "Navigate between different menus",
-        "subject": "  - Use [bold]tab[/bold] to move to next menu"
-        + "\n"
-        + "  - Use [bold]shift+tab[/bold] move to previous menu",
-    },
     {
         "title": "Navigate between different settings",
         "subject": "  - Use j/down to move to next setting"
@@ -42,9 +33,9 @@ HELP_MENU = [
     },
     {
         "title": "Navigate between different options",
-        "subject": "  - Use J/shift+down to move to next option"
+        "subject": "  - Use [bold]tab[/bold] to move to next option"
         + "\n"
-        + "  - Use K/shift+up to move to previous option",
+        + "  - Use [bold]shift+tab[/bold] to move to previous option",
     },
 ]
 
