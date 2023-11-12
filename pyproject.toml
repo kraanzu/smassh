@@ -7,7 +7,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-textual = "^0.35.1"
+textual = "^0.41.0"
 appdirs = "^1.4.4"
 
 [tool.poetry.dev-dependencies]
