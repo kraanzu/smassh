@@ -2,7 +2,7 @@ from typing import Optional
 from rich.console import RenderableType
 from textual.widget import Widget
 from termtyper.src.figlet import generate_figlet
-from termtyper.ui.events.events import SetScreen
+from termtyper.ui.events import SetScreen
 
 
 class Label(Widget):

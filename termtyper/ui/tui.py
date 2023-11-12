@@ -3,7 +3,7 @@ from textual import on
 from textual.app import App, ComposeResult, events
 from textual.screen import Screen
 from textual.widgets import ContentSwitcher
-from termtyper.ui.events.events import SetScreen
+from termtyper.ui.events import SetScreen
 from termtyper.ui.widgets import *  # noqa
 
 
