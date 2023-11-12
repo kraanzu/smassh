@@ -25,7 +25,7 @@ class BaseScreen(Screen):
             SettingsScreen(id="settings"),
             HelpScreen(id="help"),
             # initial screen
-            initial="about",
+            initial="typing",
         )
 
     @on(SetScreen)
