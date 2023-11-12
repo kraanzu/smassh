@@ -5,6 +5,7 @@ from textual.screen import Screen
 from textual.widgets import ContentSwitcher
 from termtyper.ui.events import SetScreen
 from termtyper.ui.widgets import *  # noqa
+from termtyper.ui.screens import *  # noqa
 
 
 class BaseScreen(Screen):
