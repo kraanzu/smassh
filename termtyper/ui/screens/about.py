@@ -46,7 +46,7 @@ class Section(Widget):
         return Text.from_markup(self.renderable)
 
 
-class AboutWidget(BaseScroll):
+class AboutScreen(BaseScroll):
     def compose(self) -> ComposeResult:
         yield Section(INTRO)
         yield HorizontalRule()

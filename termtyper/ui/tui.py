@@ -20,10 +20,10 @@ class BaseScreen(Screen):
     def compose(self) -> ComposeResult:
         yield Header()
         yield ContentSwitcher(
-            TypingSpace(id="typing"),
-            AboutWidget(id="about"),
-            SettingsWidget(id="settings"),
-            HelpWidget(id="help"),
+            TypingScreen(id="typing"),
+            AboutScreen(id="about"),
+            SettingsScreen(id="settings"),
+            HelpScreen(id="help"),
             # initial screen
             initial="about",
         )

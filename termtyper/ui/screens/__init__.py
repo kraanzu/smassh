@@ -1,6 +1,6 @@
-from .typing import TypingSpace
-from .help import HelpWidget
-from .about import AboutWidget
-from .settings import SettingsWidget
+from .typing import TypingScreen
+from .help import HelpScreen
+from .about import AboutScreen
+from .settings import SettingsScreen
 
-__all__ = ["TypingSpace", "HelpWidget", "AboutWidget", "SettingsWidget"]
+__all__ = ["TypingScreen", "HelpScreen", "AboutScreen", "SettingsScreen"]

@@ -4,6 +4,6 @@ from termtyper.src.help_menu import HELP_MESSAGE
 from termtyper.ui.widgets.base_scroll import BaseScroll
 
 
-class HelpWidget(BaseScroll):
+class HelpScreen(BaseScroll):
     def compose(self) -> ComposeResult:
         yield HELP_MESSAGE
