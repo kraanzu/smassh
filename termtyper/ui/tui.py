@@ -23,6 +23,7 @@ class BaseScreen(Screen):
             AboutWidget(id="about"),
             SettingsWidget(id="settings"),
             HelpWidget(id="help"),
+            # initial screen
             initial="about",
         )
 
