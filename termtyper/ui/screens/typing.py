@@ -1,6 +1,7 @@
 from textual.app import ComposeResult
 from termtyper.ui.widgets.base_scroll import BaseScroll
 from termtyper.ui.widgets.config_strip import TypingConfigStrip
+from termtyper.ui.widgets.space import Space
 
 
 class TypingScreen(BaseScroll):
@@ -13,3 +14,4 @@ class TypingScreen(BaseScroll):
 
     def compose(self) -> ComposeResult:
         yield TypingConfigStrip()
+        yield Space()
