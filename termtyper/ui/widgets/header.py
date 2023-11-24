@@ -41,7 +41,7 @@ class Header(Widget):
             home = NavItem("󰌌 home", "typing")
             home.add_class("active")
 
-            yield Banner("smassh", "typing")
+            yield Banner("smassh")
             yield home
             yield NavItem(" about", "about")
             yield NavItem(" settings", "settings")
