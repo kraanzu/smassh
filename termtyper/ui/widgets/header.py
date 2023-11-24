@@ -38,8 +38,11 @@ class Header(Widget):
         yield Static()
 
         with Horizontal():
+            home = NavItem("󰌌 home", "typing")
+            home.add_class("active")
+
             yield Banner("smassh", "typing")
-            yield NavItem("󰌌 home", "typing")
+            yield home
             yield NavItem(" about", "about")
             yield NavItem(" settings", "settings")
             yield NavItem("󰋗 help", "help")
