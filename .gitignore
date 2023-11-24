@@ -1,5 +1,6 @@
 # tests folder
 tests/
+*map
 
 # extras
 backport/
