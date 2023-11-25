@@ -5,19 +5,6 @@ from textual.widget import Widget
 from termtyper.ui.widgets.base_scroll import BaseScroll
 
 
-class HorizontalRule(Widget):
-    DEFAULT_CSS = """
-    HorizontalRule {
-        height: 1;
-        content-align: center middle;
-    }
-    """
-
-    def render(self) -> RenderableType:
-        size = int(0.6 * self.size.width)
-        return "━" * size
-
-
 class Section(Widget):
     DEFAULT_CSS = """
     Section {
