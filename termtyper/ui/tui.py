@@ -8,9 +8,9 @@ from termtyper.ui.widgets import *  # noqa
 from termtyper.ui.screens import *  # noqa
 
 
-class BaseScreen(Screen):
+class MainScreen(Screen):
     DEFAULT_CSS = """
-    BaseScreen {
+    MainScreen {
         layout: grid;
         grid-size: 1 2;
         grid-rows: 5 1fr;
@@ -40,7 +40,7 @@ class BaseScreen(Screen):
 
 class TermTyper(App):
     async def on_mount(self):
-        self.push_screen(BaseScreen())
+        self.push_screen(MainScreen())
 
     def action_sponsor(self):
         webbrowser.open("https://github.com/sponsors/kraanzu")
