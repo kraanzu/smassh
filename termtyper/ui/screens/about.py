@@ -2,7 +2,6 @@ from rich.console import RenderableType
 from rich.text import Text
 from textual.app import ComposeResult
 from textual.widget import Widget
-from termtyper.src.getting_started import INTRO, KEYBINDS_HEADER, KEYBINGS, OUTRO
 from termtyper.ui.widgets.base_scroll import BaseScroll
 
 
@@ -17,16 +16,6 @@ class HorizontalRule(Widget):
     def render(self) -> RenderableType:
         size = int(0.6 * self.size.width)
         return "━" * size
-
-
-class AboutScroll(Widget):
-    DEFAULT_CSS = """
-    AboutScroll {
-        layout: vertical;
-        overflow-y: scroll;
-        scrollbar-size: 1 1;
-    }
-    """
 
 
 class Section(Widget):
@@ -46,12 +35,37 @@ class Section(Widget):
         return Text.from_markup(self.renderable)
 
 
+class AboutDescription(Section):
+    def __init__(self):
+        TEXT = """\
+    Termtyper is a TUI typing application which was highly inspired
+    by monkeytype -- An online web-based typing application which is
+    by far the most customizable typing application
+
+    Termtyper tries to bring features of monkeytype to terminal
+    """
+        super().__init__(TEXT)
+        self.styles.padding = 2
+
+
+class Sponsor(Section):
+    def __init__(self):
+        TEXT = """\
+    [@click=app.sponsor]Sponsor this project on GitHub![/],
+    """
+        super().__init__(TEXT)
+
+
+class AboutOutro(Section):
+    def __init__(self):
+        TEXT = """\
+        Made with ❤️  by kraanzu
+        """
+        super().__init__(TEXT)
+
+
 class AboutScreen(BaseScroll):
     def compose(self) -> ComposeResult:
-        yield Section(INTRO)
-        yield HorizontalRule()
-        yield Section(KEYBINDS_HEADER)
-        yield HorizontalRule()
-        yield Section(KEYBINGS)
-        yield HorizontalRule()
-        yield Section(OUTRO)
+        yield AboutDescription()
+        yield Sponsor()
+        yield AboutOutro()
