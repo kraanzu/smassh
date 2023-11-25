@@ -1,44 +1,14 @@
-from rich.align import Align
-from textual.widgets import Static
-
-
-def percent(part, total):
-    return int(part * total / 100)
-
-
-def prettier(help_menu) -> str:
-    message = ""
-    for help in help_menu:
-        message = (
-            message
-            + "\n"
-            + f"[bold blue]{help['title']}:[/bold blue]"
-            + "\n"
-            + f"[bold yellow]{help['subject']}[/bold yellow]"
-            + "\n"
-            + "\n"
-        )
-
-    message += "     [bold magenta]press ctrl+h/escape to quit[/bold magenta]"
-
-    return message
-
-
-HELP_MENU = [
-    {
-        "title": "Navigate between different settings",
-        "subject": "  - Use j/down to move to next setting"
-        + "\n"
-        + "  - Use k/up for move to previous setting",
-    },
-    {
-        "title": "Navigate between different options",
-        "subject": "  - Use [bold]tab[/bold] to move to next option"
-        + "\n"
-        + "  - Use [bold]shift+tab[/bold] to move to previous option",
-    },
+TYPING_KEYBINDS = [
+    ("ctrl+d", "toggle race-bar details"),
+    ("ctrl+n", "toggle numbers"),
+    ("ctrl+p", "toggle punctuations"),
+    ("ctrl+b", "open up a bar theme menu"),
+    ("ctrl+w", "delete a whole word"),
 ]
 
-HELP_MESSAGE = Static(
-    Align.center(prettier(HELP_MENU)),
-)
+SETTINGS_KEYBINDS = [
+    ("j/down", "move to next setting"),
+    ("k/up", "move to previous setting"),
+    ("tab", "move to next option"),
+    ("shift+tab", "move to previous option"),
+]
