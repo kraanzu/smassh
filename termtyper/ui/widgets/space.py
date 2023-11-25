@@ -8,7 +8,7 @@ from termtyper.src.generator import master_generator
 class Space(Widget):
     DEFAULT_CSS = """
     Space {
-        height: 100%;
+        height: 1fr;
         width: 100%;
         content-align: center middle;
     }

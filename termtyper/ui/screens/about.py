@@ -2,7 +2,7 @@ from rich.console import RenderableType
 from rich.text import Text
 from textual.app import ComposeResult
 from textual.widget import Widget
-from termtyper.ui.widgets.base_scroll import BaseScroll
+from termtyper.ui.widgets.base_scroll import BaseWindow
 
 
 class Section(Widget):
@@ -51,7 +51,7 @@ class AboutOutro(Section):
         super().__init__(TEXT)
 
 
-class AboutScreen(BaseScroll):
+class AboutScreen(BaseWindow):
     def compose(self) -> ComposeResult:
         yield AboutDescription()
         yield Sponsor()

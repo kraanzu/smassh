@@ -5,7 +5,7 @@ from rich.text import Text
 from textual.widget import Widget
 from textual.app import ComposeResult
 from termtyper.src.help_menu import SETTINGS_KEYBINDS, TYPING_KEYBINDS
-from termtyper.ui.widgets.base_scroll import BaseScroll
+from termtyper.ui.widgets.base_scroll import BaseWindow
 
 
 class Table(Widget):
@@ -44,7 +44,7 @@ class Table(Widget):
         return table
 
 
-class HelpScreen(BaseScroll):
+class HelpScreen(BaseWindow):
     def compose(self) -> ComposeResult:
         yield Table("Typing Screen", TYPING_KEYBINDS)
         yield Table("Settings Screen", SETTINGS_KEYBINDS)

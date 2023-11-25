@@ -2,11 +2,11 @@ from textual.app import events
 from textual.widget import Widget
 
 
-class BaseScroll(Widget):
+class BaseWindow(Widget):
     DEFAULT_CSS = """
-    BaseScroll {
+    BaseWindow {
         layout: vertical;
-        overflow-y: scroll;
+        overflow-y: auto;
         height: 1fr;
         background: #2e3440;
     }
