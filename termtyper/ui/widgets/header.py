@@ -47,4 +47,4 @@ class Header(Widget):
             yield NavItem(" settings", "settings")
             yield NavItem("󰋗 help", "help")
 
-        yield NavItem(get_username())
+        # yield NavItem("  " + get_username())
