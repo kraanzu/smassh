@@ -43,9 +43,3 @@ class ConfigManager(Parser):
             "punctuations",
             "True" if str(punctuations) == "False" else "False",
         )
-
-    def get(self, option) -> str:
-        return super().get(self.section, option)
-
-    def set(self, key: str, value: Any) -> None:
-        return super().set(self.section, key, str(value))

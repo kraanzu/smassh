@@ -60,8 +60,8 @@ class Parser:
     def full_path(self) -> Path:
         return self.config_path.joinpath(self.file_name)
 
-    def set(self, data: str, key: str, value: Any) -> None:
-        self.config[data][key] = value
+    def set(self, key: str, value: Any) -> None:
+        self.config[key] = value
         self.save()
 
     def update(self, data: Dict[str, Any]) -> None:
@@ -79,7 +79,7 @@ class Parser:
         os.makedirs(self.config_path, exist_ok=True)
         self.save()
 
-    def get_data(self, data: str) -> Any:
+    def get(self, data: str) -> Any:
         return self.config.get(data)
 
     def read_from_file(self) -> Dict[str, Any]:
