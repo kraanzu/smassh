@@ -53,7 +53,6 @@ class NavItem(Label):
     """
 
     def on_click(self) -> None:
-        super().on_click()
         if self.parent:
             for item in self.parent.query(NavItem):
                 item.remove_class("active")
