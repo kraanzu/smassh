@@ -1,29 +1,7 @@
 from json import load, dump
 import os
 from pathlib import Path
-from typing import Any, Dict, Literal, Union
-
-NumberType = Union[int, float]
-SpeedType = Literal["low", "med", "high"]
-SIZES = ["teensy", "small", "big", "huge"]
-TIMES = ["15", "30", "60", "120"]
-
-SPEED_RECORDS_WORDS = {
-    **{f"{size}_low": 100000 for size in SIZES},
-    **{f"{size}_med": 0 for size in SIZES},
-    **{f"{size}_high": 0 for size in SIZES},
-}
-
-SPEED_RECORDS_TIME = {
-    **{f"{time}_low": 100000 for time in TIMES},
-    **{f"{time}_med": 0 for time in TIMES},
-    **{f"{time}_high": 0 for time in TIMES},
-}
-
-DATA_DICT = {
-    "speed records word": SPEED_RECORDS_WORDS,
-    "speed records time": SPEED_RECORDS_TIME,
-}
+from typing import Any, Dict
 
 
 def combine_into(d: dict, to: dict) -> None:

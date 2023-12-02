@@ -2,7 +2,16 @@ from pathlib import Path
 from .parser import Parser
 import appdirs
 
-DEFAULTS = {}
+
+DEFAULT_NUMBER_VALUES = {
+    i: {"low": 100000, "med": 0, "high": 0} for i in (15, 30, 60, 120)
+}
+
+
+DEFAULTS = {
+    "words": DEFAULT_NUMBER_VALUES,
+    "time": DEFAULT_NUMBER_VALUES,
+}
 
 
 class DataParser(Parser):
