@@ -1,7 +1,7 @@
+from json import load, dump
 import os
-from configparser import ConfigParser
 from pathlib import Path
-from typing import Dict, Literal, Union
+from typing import Any, Dict, Literal, Union
 
 NumberType = Union[int, float]
 SpeedType = Literal["low", "med", "high"]
@@ -26,33 +26,50 @@ DATA_DICT = {
 }
 
 
-class Parser(ConfigParser):
+def combine_into(d: dict, to: dict) -> None:
+    for k, v in d.items():
+        if isinstance(v, dict):
+            combine_into(v, to.setdefault(k, {}))
+        else:
+            to[k] = v
+
+
+class Parser:
     """
     A sub class of ConfigParser class
     to parse the currenty set options in the settings menu
     """
 
     _file_name = "smassh"
-    _section: str
     config_path: Path
-    DEFAULT_CONFIG: Dict[str, Dict[str, str]]
+    DEFAULT_CONFIG: Dict[str, Any]
 
     def __init__(self) -> None:
         super().__init__()
-        if not self.read(self.full_path):
+        self.config = self.DEFAULT_CONFIG
+        if not Path.is_file(self.full_path):
             self._create_user_config()
+        else:
+            self.update(self.read_from_file())
 
     @property
     def file_name(self) -> str:
-        return self._file_name + ".yaml"
+        return self._file_name + ".json"
 
     @property
     def full_path(self) -> Path:
-        return self.config_path.joinpath(self._file_name)
+        return self.config_path.joinpath(self.file_name)
+
+    def set(self, data: str, key: str, value: Any) -> None:
+        self.config[data][key] = value
+        self.save()
+
+    def update(self, data: Dict[str, Any]) -> None:
+        combine_into(data, self.config)
 
     def save(self) -> None:
         with open(self.full_path, "w") as fp:
-            self.write(fp)
+            dump(self.config, fp)
 
     def _create_user_config(self) -> None:
         """
@@ -60,35 +77,11 @@ class Parser(ConfigParser):
         """
 
         os.makedirs(self.config_path, exist_ok=True)
-        self.read_dict(self.DEFAULT_CONFIG)
         self.save()
 
-    def _add_default_config(self, section: str, option: str) -> None:
-        self.set(section, option, str(self.DEFAULT_CONFIG[section][option]))
+    def get_data(self, data: str) -> Any:
+        return self.config.get(data)
 
-    def set(self, section: str, option: str, value: str | None = None) -> None:
-        super().set(section, option, value)
-        self.save()
-
-    def get_data(self, data: str) -> str:
-        return self.get(self._section, data)
-
-    # def set_speed(self, speed: SpeedType, value: NumberType) -> None:
-    #     mode = self.get("mode", "writing mode")
-    #
-    #     if mode == "words":
-    #         paragraph_size = self.get_data("paragraph_size")
-    #         self.set("speed records word", f"{paragraph_size}_{speed}", str(value))
-    #     else:
-    #         timeout = int(self.get_data("timeout"))
-    #         self.set("speed records time", f"{timeout}_{speed}", str(value))
-    #
-    # def get_speed(self, speed: SpeedType) -> float:
-    #     mode = self.get("mode", "writing mode")
-    #
-    #     if mode == "words":
-    #         paragraph_size = self.get_data("paragraph_size")
-    #         return float(self.get("speed records word", f"{paragraph_size}_{speed}"))
-    #     else:
-    #         timeout = int(self.get_data("timeout"))
-    #         return float(self.get("speed records time", f"{timeout}_{speed}"))
+    def read_from_file(self) -> Dict[str, Any]:
+        with open(self.full_path, "r") as fp:
+            return load(fp)
