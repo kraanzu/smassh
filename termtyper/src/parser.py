@@ -1,5 +1,5 @@
 import os
-from configparser import ConfigParser, NoOptionError
+from configparser import ConfigParser
 from pathlib import Path
 from typing import Dict, Literal, Union
 
@@ -33,6 +33,7 @@ class Parser(ConfigParser):
     """
 
     _file_name = "smassh"
+    _section: str
     config_path: Path
     DEFAULT_CONFIG: Dict[str, Dict[str, str]]
 
@@ -65,31 +66,12 @@ class Parser(ConfigParser):
     def _add_default_config(self, section: str, option: str) -> None:
         self.set(section, option, str(self.DEFAULT_CONFIG[section][option]))
 
-    def get(self, section: str, option: str, **kwargs) -> str:
-        """
-        Override the get method to add the default value if data doesn't exist
-        """
-
-        def super_get():
-            return super().get(
-                section,
-                option,
-                raw=kwargs.get("raw", True),
-                vars=kwargs.get("vars", None),
-            )
-
-        try:
-            return super_get()
-        except NoOptionError:
-            self._add_default_config(section, option)
-            return super_get()
-
     def set(self, section: str, option: str, value: str | None = None) -> None:
         super().set(section, option, value)
         self.save()
 
     def get_data(self, data: str) -> str:
-        return self.get("user", data)
+        return self.get(self._section, data)
 
     # def set_speed(self, speed: SpeedType, value: NumberType) -> None:
     #     mode = self.get("mode", "writing mode")
