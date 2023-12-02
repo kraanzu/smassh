@@ -6,8 +6,7 @@ DEFAULTS = {}
 
 
 class DataParser(Parser):
-    config_path = Path(appdirs.user_config_dir("smassh"))
-    section = "config"
+    config_path = Path(appdirs.user_data_dir("smassh"))
     DEFAULT_CONFIG = DEFAULTS
 
 
