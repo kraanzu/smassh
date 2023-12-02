@@ -27,7 +27,7 @@ DEFAULTS = {
 }
 
 
-class ConfigManager(Parser):
+class ConfigParser(Parser):
     config_path = Path(appdirs.user_config_dir("smassh"))
     section = "config"
     DEFAULT_CONFIG = DEFAULTS
@@ -44,4 +44,4 @@ class ConfigManager(Parser):
         )
 
 
-config_parser = ConfigManager()
+config_parser = ConfigParser()
