@@ -42,3 +42,6 @@ class ConfigManager(Parser):
             "punctuations",
             "True" if str(punctuations) == "False" else "False",
         )
+
+
+config_parser = ConfigManager()

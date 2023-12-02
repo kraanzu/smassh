@@ -1,7 +1,6 @@
 from typing import List
 from rich.console import RenderableType
 from textual.widget import Widget
-from termtyper.src.parser import Parser
 
 
 class BaseOption(Widget):
