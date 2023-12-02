@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Any
 from .parser import Parser
 import appdirs
 
