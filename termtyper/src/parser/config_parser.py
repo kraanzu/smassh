@@ -29,7 +29,6 @@ DEFAULTS = {
 
 class ConfigParser(Parser):
     config_path = Path(appdirs.user_config_dir("smassh"))
-    section = "config"
     DEFAULT_CONFIG = DEFAULTS
 
     def toggle_numbers(self):
