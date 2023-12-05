@@ -7,7 +7,7 @@ from termtyper.ui.widgets.base_scroll import BaseWindow
 class SettingsScreen(BaseWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.current_option = 0
+        self.current_option = -1
 
     @property
     def current_setting(self):
