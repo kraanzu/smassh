@@ -55,6 +55,10 @@ Label:hover {
   color: #81a1c1;
 }
 
+Section {
+  color: #ebcb8b;
+}
+
 BaseWindow {
   scrollbar-background: #2e3440;
   scrollbar-background-active: #3b4252;
