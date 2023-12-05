@@ -48,6 +48,13 @@ Bracket {
   color: #3b4252;
 }
 
+Label {
+  color: #d8dee9;
+}
+Label:hover {
+  color: #81a1c1;
+}
+
 BaseWindow {
   scrollbar-background: #2e3440;
   scrollbar-background-active: #3b4252;
