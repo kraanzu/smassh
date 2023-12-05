@@ -26,6 +26,7 @@ class SettingsScreen(BaseWindow):
                 self.current_setting.remove_class("selected")
                 self.current_option += 1
                 self.current_setting.add_class("selected")
+                self.current_setting.scroll_visible()
                 self.refresh()
 
         elif key == "up":
@@ -33,6 +34,7 @@ class SettingsScreen(BaseWindow):
                 self.current_setting.remove_class("selected")
                 self.current_option -= 1
                 self.current_setting.add_class("selected")
+                self.current_setting.scroll_visible()
                 self.refresh()
 
         elif key == "tab":
