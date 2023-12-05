@@ -3,6 +3,7 @@ from textual import on
 from textual.app import App, ComposeResult, events
 from textual.screen import Screen
 from textual.widgets import ContentSwitcher
+from termtyper.ui.css import CSS
 from termtyper.ui.events import SetScreen
 from termtyper.ui.widgets import *  # noqa
 from termtyper.ui.screens import *  # noqa
@@ -39,6 +40,8 @@ class MainScreen(Screen):
 
 
 class TermTyper(App):
+    DEFAULT_CSS = CSS
+
     async def on_mount(self):
         self.push_screen(MainScreen())
 
