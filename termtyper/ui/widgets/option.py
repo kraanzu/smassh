@@ -1,5 +1,6 @@
 from typing import List
 from rich.console import RenderableType
+from textual.app import ComposeResult
 from textual.widget import Widget
 
 
@@ -25,15 +26,50 @@ class BaseOption(Widget):
         pass
 
 
+class OptionItem(Widget):
+    DEFAULT_CSS = """
+    OptionItem {
+        height: 1;
+        width: auto;
+    }
+    """
+
+    def __init__(self, value: str):
+        super().__init__()
+        self.value = value
+
+    def render(self) -> RenderableType:
+        return self.value
+
+
 class Option(BaseOption):
+    DEFAULT_CSS = """
+    """
+
     def __init__(self, setting_name: str, options: List[str]):
         super().__init__(setting_name)
-        self.options = options
+        self.options = [OptionItem(option) for option in options]
         self._value = 0
 
     @property
     def value(self):
         return self.options[self._value]
+
+    def update_highlight(self):
+        for i, option in enumerate(self.options):
+            option.set_class(i == self._value, "highlight")
+
+    def select_next_option(self):
+        n = len(self.options)
+        self._value = (self._value + 1) % n
+
+    def select_prev_option(self):
+        n = len(self.options)
+        self._value = (self._value - 1 + n) % n
+
+    def compose(self) -> ComposeResult:
+        for option in self.options:
+            yield option
 
 
 class NumberScroll(BaseOption):
