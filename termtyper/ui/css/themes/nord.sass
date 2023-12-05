@@ -1,0 +1,70 @@
+/* Base Main Classes
+$black1: #2e3440
+$black2: #3b4252
+$black3: #434c5e
+$black4: #4c566a
+$white1: #d8dee9
+$white2: #e5e9f0
+$white3: #eceff4
+$frost_green: #8fbcbb
+$frost_cyan: #88c0d0
+$frost_blue: #81a1c1
+$frost_blue2: #5e81ac
+$aurora_red: #bf616a
+$aurora_orange: #d08770
+$aurora_yellow: #ebcb8b
+$aurora_green: #a3be8c
+
+BaseWindow
+  background: $black1
+
+/* Header
+
+Header
+  background: $black2
+
+NavItem
+  color: $white1
+
+  &.active
+    color: $frost_cyan
+
+  &:hover
+    color: $frost_blue
+
+/* Main Screens
+
+SettingsScreen
+  padding: 1
+
+/* Other Widgets
+
+Setting
+  border: heavy $black2
+
+  &.selected
+    background: $black3
+    border: blank
+
+StripSetting
+  background: $black2
+
+  &:hover
+    color: $frost_cyan
+
+StripSeparator
+  color: $black4
+  background: $black2
+
+Bracket
+  color: $black2
+
+// Miscellaneous
+
+BaseWindow
+  scrollbar-background: $black1
+  scrollbar-background-active: $black2
+  scrollbar-background-hover: $black2
+  scrollbar-color: $frost_cyan
+  scrollbar-color-active: $frost_blue
+  scrollbar-color-hover: $frost_blue2

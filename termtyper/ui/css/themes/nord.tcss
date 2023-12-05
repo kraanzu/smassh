@@ -1,0 +1,60 @@
+/* Base Main Classes */
+BaseWindow {
+  background: #2e3440;
+}
+
+/* Header */
+Header {
+  background: #3b4252;
+}
+
+NavItem {
+  color: #d8dee9;
+}
+NavItem.active {
+  color: #88c0d0;
+}
+NavItem:hover {
+  color: #81a1c1;
+}
+
+/* Main Screens */
+SettingsScreen {
+  padding: 1;
+}
+
+/* Other Widgets */
+Setting {
+  border: heavy #3b4252;
+}
+Setting.selected {
+  background: #434c5e;
+  border: blank;
+}
+
+StripSetting {
+  background: #3b4252;
+}
+StripSetting:hover {
+  color: #88c0d0;
+}
+
+StripSeparator {
+  color: #4c566a;
+  background: #3b4252;
+}
+
+Bracket {
+  color: #3b4252;
+}
+
+BaseWindow {
+  scrollbar-background: #2e3440;
+  scrollbar-background-active: #3b4252;
+  scrollbar-background-hover: #3b4252;
+  scrollbar-color: #88c0d0;
+  scrollbar-color-active: #81a1c1;
+  scrollbar-color-hover: #5e81ac;
+}
+
+/*# sourceMappingURL=nord.tcss.map */
