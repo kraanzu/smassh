@@ -17,7 +17,7 @@ class Setting(Widget):
     Setting {
         layout: grid;
         grid-size: 2;
-        grid-columns: 1fr auto;
+        grid-columns: 8fr 1fr;
         height: auto;
         border: blank;
     }
