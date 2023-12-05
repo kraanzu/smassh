@@ -52,8 +52,8 @@ BaseWindow {
   scrollbar-background: #2e3440;
   scrollbar-background-active: #3b4252;
   scrollbar-background-hover: #3b4252;
-  scrollbar-color: #88c0d0;
-  scrollbar-color-active: #81a1c1;
+  scrollbar-color: #81a1c1;
+  scrollbar-color-active: #88c0d0;
   scrollbar-color-hover: #5e81ac;
 }
 
