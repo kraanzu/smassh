@@ -8,6 +8,7 @@ class BaseWindow(Widget):
         layout: vertical;
         overflow-y: auto;
         height: 1fr;
+        scrollbar-size: 1 1;
     }
     """
 
