@@ -44,3 +44,14 @@ class NumberScroll(BaseOption):
     @property
     def value(self):
         return self._value
+
+    def select_next_option(self):
+        self._value = min(self._value + 1, 100)
+        self.refresh()
+
+    def select_prev_option(self):
+        self._value = max(self._value - 1, 0)
+        self.refresh()
+
+    def render(self) -> RenderableType:
+        return str(self._value)
