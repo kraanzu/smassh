@@ -1,8 +1,11 @@
 import os
 from pathlib import Path
 
+CSS = ""
+EXTENSION = ".tcss"
 
-def load_folder(folder):
+
+def load_folder(folder: Path) -> str:
     """
     Load all css files in a folder and return them as a single string
     """
@@ -10,7 +13,7 @@ def load_folder(folder):
     css = ""
 
     for file in os.listdir(folder):
-        if not file.endswith(".css"):
+        if not file.endswith(EXTENSION):
             continue
 
         with open(os.path.join(folder, file), "r") as css_file:
@@ -19,7 +22,6 @@ def load_folder(folder):
     return css
 
 
-CSS = ""
 css_folder = Path(__file__).parent / "css"
 theme_folder = css_folder / "themes"
 
