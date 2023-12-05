@@ -1,3 +1,41 @@
-Setting.selected {
-    background: #000000;
+/* Base Main Classes */
+BaseWindow {
+  background: #2e3440;
 }
+
+/* Header */
+Header {
+  background: #252a34;
+}
+
+NavItem.active {
+  color: orange;
+}
+
+/* Main Screens */
+/* Other Widgets */
+Setting.selected {
+  background: #000000;
+}
+
+StripSetting {
+  background: #4c566a;
+}
+StripSetting:hover {
+  color: red;
+}
+
+StripSeparator {
+  color: dimgrey;
+  background: #4c566a;
+}
+
+Label:hover {
+  color: yellow;
+}
+
+Bracket {
+  color: #4c566a;
+}
+
+/*# sourceMappingURL=base.css.map */

@@ -4,20 +4,12 @@ from textual.app import ComposeResult
 from textual.widget import Widget
 
 
-LB = "#4c566a"
-
-
 class StripSetting(Widget):
     DEFAULT_CSS = """
     StripSetting {
         width: auto;
         height: 1;
         padding: 0 1;
-        background: #4c566a;
-    }
-
-    StripSetting:hover {
-        color: red;
     }
     """
 
@@ -40,8 +32,6 @@ class StripSeparator(Widget):
     StripSeparator {
         width: auto;
         height: 1;
-        color: dimgrey;
-        background: #4c566a;
     }
     """
 
@@ -57,7 +47,6 @@ class Bracket(Widget):
     Bracket {
         width: auto;
         height: 1;
-        color: #4c566a;
     }
     """
 

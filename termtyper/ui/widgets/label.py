@@ -12,10 +12,6 @@ class Label(Widget):
         width: auto;
         padding: 1;
     }
-
-    Label:hover {
-        color: yellow;
-    }
     """
 
     def __init__(self, text: str, screen_name: Optional[str] = None):
@@ -48,7 +44,6 @@ class NavItem(Label):
     DEFAULT_CSS = """
     NavItem.active {
         text-style: bold;
-        color: orange;
     }
     """
 

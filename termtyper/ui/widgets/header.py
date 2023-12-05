@@ -30,7 +30,6 @@ class Header(Widget):
         grid-size: 3 1;
         grid-rows: 5;
         grid-columns: 1fr 8fr 1fr;
-        background: #252a34;
     }
     """
 

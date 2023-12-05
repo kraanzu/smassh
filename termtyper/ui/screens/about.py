@@ -10,7 +10,6 @@ class Section(Widget):
     Section {
         height: auto;
         content-align: center middle;
-        link-hover-background: red;
     }
     """
 

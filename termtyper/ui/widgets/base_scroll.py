@@ -8,7 +8,6 @@ class BaseWindow(Widget):
         layout: vertical;
         overflow-y: auto;
         height: 1fr;
-        background: #2e3440;
     }
     """
 
