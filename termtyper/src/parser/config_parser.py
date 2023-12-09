@@ -42,7 +42,7 @@ class ConfigParser(Parser):
         return self.get("theme") or "nord"
 
     @theme.setter
-    def theme(self, theme):
+    def theme(self, theme: str):
         self.set("theme", theme)
 
 
