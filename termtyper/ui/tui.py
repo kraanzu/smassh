@@ -7,6 +7,7 @@ from termtyper.ui.css import CSS
 from termtyper.ui.events import SetScreen
 from termtyper.ui.widgets import *  # noqa
 from termtyper.ui.screens import *  # noqa
+from termtyper.src.parser import config_parser
 
 
 class MainScreen(Screen):

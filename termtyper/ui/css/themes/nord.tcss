@@ -4,62 +4,62 @@ BaseWindow {
 }
 
 /* Header */
-Header {
+Header.theme-nord {
   background: #3b4252;
 }
 
-NavItem {
+NavItem.theme-nord {
   color: #d8dee9;
 }
-NavItem.active {
+NavItem.theme-nord.active {
   color: #88c0d0;
 }
-NavItem:hover {
+NavItem.theme-nord:hover {
   color: #81a1c1;
 }
 
 /* Main Screens */
-SettingsScreen {
+SettingsScreen.theme-nord {
   padding: 1;
 }
 
 /* Other Widgets */
-Setting {
+Setting.theme-nord {
   border: heavy #3b4252;
 }
-Setting.selected {
+Setting.theme-nord.selected {
   background: #434c5e;
   border: blank;
 }
 
-StripSetting {
+StripSetting.theme-nord {
   background: #3b4252;
 }
-StripSetting:hover {
+StripSetting.theme-nord:hover {
   color: #88c0d0;
 }
 
-StripSeparator {
+StripSeparator.theme-nord {
   color: #4c566a;
   background: #3b4252;
 }
 
-Bracket {
+Bracket.theme-nord {
   color: #3b4252;
 }
 
-Label {
+Label.theme-nord {
   color: #d8dee9;
 }
-Label:hover {
+Label.theme-nord:hover {
   color: #81a1c1;
 }
 
-Section {
+Section.theme-nord {
   color: #ebcb8b;
 }
 
-BaseWindow {
+BaseWindow.theme-nord {
   scrollbar-background: #2e3440;
   scrollbar-background-active: #3b4252;
   scrollbar-background-hover: #3b4252;

@@ -4,38 +4,68 @@ BaseWindow {
 }
 
 /* Header */
-Header {
-  background: #252a34;
+Header.theme-nord {
+  background: #3b4252;
 }
 
-NavItem.active {
-  color: orange;
+NavItem.theme-nord {
+  color: #d8dee9;
+}
+NavItem.theme-nord.active {
+  color: #88c0d0;
+}
+NavItem.theme-nord:hover {
+  color: #81a1c1;
 }
 
 /* Main Screens */
+SettingsScreen.theme-nord {
+  padding: 1;
+}
+
 /* Other Widgets */
-Setting.selected {
-  background: #000000;
+Setting.theme-nord {
+  border: heavy #3b4252;
+}
+Setting.theme-nord.selected {
+  background: #434c5e;
+  border: blank;
 }
 
-StripSetting {
-  background: #4c566a;
+StripSetting.theme-nord {
+  background: #3b4252;
 }
-StripSetting:hover {
-  color: red;
-}
-
-StripSeparator {
-  color: dimgrey;
-  background: #4c566a;
+StripSetting.theme-nord:hover {
+  color: #88c0d0;
 }
 
-Label:hover {
-  color: yellow;
-}
-
-Bracket {
+StripSeparator.theme-nord {
   color: #4c566a;
+  background: #3b4252;
+}
+
+Bracket.theme-nord {
+  color: #3b4252;
+}
+
+Label.theme-nord {
+  color: #d8dee9;
+}
+Label.theme-nord:hover {
+  color: #81a1c1;
+}
+
+Section.theme-nord {
+  color: #ebcb8b;
+}
+
+BaseWindow.theme-nord {
+  scrollbar-background: #2e3440;
+  scrollbar-background-active: #3b4252;
+  scrollbar-background-hover: #3b4252;
+  scrollbar-color: #81a1c1;
+  scrollbar-color-active: #88c0d0;
+  scrollbar-color-hover: #5e81ac;
 }
 
 /*# sourceMappingURL=base.tcss.map */
