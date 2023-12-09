@@ -23,6 +23,7 @@ DEFAULTS = {
     "writing mode": "words",
     "paragraph_size": 15,
     "timeout": 15,
+    "theme": "nord",
 }
 
 
@@ -37,6 +38,14 @@ class ConfigParser(Parser):
     def toggle_punctuations(self):
         punctuations = self.get("punctuations")
         self.set("punctuations", not punctuations)
+
+    @property
+    def theme(self):
+        return self.get("theme") or "nord"
+
+    @theme.setter
+    def theme(self, theme):
+        self.set("theme", theme)
 
 
 config_parser = ConfigParser()
