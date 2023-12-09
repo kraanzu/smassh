@@ -21,8 +21,6 @@ DEFAULTS = {
     "punctuations": False,
     "caret_style": "block",
     "writing mode": "words",
-    "paragraph_size": 15,
-    "timeout": 15,
     "theme": "nord",
 }
 
