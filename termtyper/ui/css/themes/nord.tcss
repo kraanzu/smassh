@@ -68,4 +68,13 @@ BaseWindow.theme-nord {
   scrollbar-color-hover: #5e81ac;
 }
 
+Sponsor.theme-nord {
+  link-background: #3b4252;
+  link-background-hover: #434c5e;
+  link-color: #81a1c1;
+  link-color-hover: #88c0d0;
+  link-style: underline;
+  link-style-hover: underline italic;
+}
+
 /*# sourceMappingURL=nord.tcss.map */
