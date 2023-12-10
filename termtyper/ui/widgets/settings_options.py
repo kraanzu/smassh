@@ -1,11 +1,43 @@
-from typing import Union
+from typing import Dict, Optional, Union
+from rich.console import RenderableType
 from rich.text import Text
 from textual.app import ComposeResult
 from textual.widget import Widget
-from textual.widgets import Static
 from ..widgets.option import Option, NumberScroll
 
 Options = Union[Option, NumberScroll]
+
+
+class SettingDescription(Widget):
+    COMPONENT_CLASSES = {"setting--header"}
+
+    def __init__(
+        self,
+        title: str,
+        info: str,
+        items: Optional[Dict[str, str]] = None,
+        *args,
+        **kwargs,
+    ) -> None:
+        super().__init__(*args, **kwargs)
+        self.title = title
+        self.info = info
+        self.items = items
+
+    def render(self) -> RenderableType:
+
+        c1 = self.get_component_rich_style("setting--header")
+        c2 = "yellow"
+        c3 = "cyan"
+        return Text(self.title, c1) + "\n" + Text(self.info, c2)
+        return Text.from_markup(
+            f"[{c1}]{self.title}[/{c1}]"
+            + "\n"
+            + f"[{c2}]{self.info}[/{c2}]"
+            + "\n".join(
+                f"[{c3}]{sub}[/{c3}]: {desc}" for sub, desc in self.items.items()
+            )
+        )
 
 
 class Setting(Widget):
@@ -37,8 +69,6 @@ class Setting(Widget):
         if self.info:
             self.info += "\n"
 
-        self.description = self.styled_description()
-
     def select(self):
         self.options.highlight()
 
@@ -52,21 +82,8 @@ class Setting(Widget):
         self.options.select_prev_option()
 
     def compose(self) -> ComposeResult:
-        yield Static(self.styled_description())
+        yield SettingDescription(self.title, self.info, self.items)
         yield self.options
-
-    def styled_description(self) -> Text:
-        c1 = "bold blue"
-        c2 = "yellow"
-        c3 = "cyan"
-        return Text.from_markup(
-            f"[{c1}]{self.title}[/{c1}]"
-            + "\n"
-            + f"[{c2}]{self.info}[/{c2}]"
-            + "\n".join(
-                f"[{c3}]{sub}[/{c3}]: {desc}" for sub, desc in self.items.items()
-            )
-        )
 
 
 # First menu
