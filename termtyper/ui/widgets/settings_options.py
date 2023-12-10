@@ -62,6 +62,7 @@ class Setting(Widget):
         grid-size: 2;
         grid-columns: 8fr 1fr;
         height: auto;
+        border: blank;
     }
     """
 

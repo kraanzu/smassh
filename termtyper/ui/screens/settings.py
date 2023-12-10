@@ -5,6 +5,12 @@ from termtyper.ui.widgets.base_scroll import BaseWindow
 
 
 class SettingsScreen(BaseWindow):
+    DEFAULT_CSS = """
+    SettingsScreen {
+        padding: 1;
+    }
+    """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.current_option = -1
