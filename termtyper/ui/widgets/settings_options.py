@@ -9,7 +9,12 @@ Options = Union[Option, NumberScroll]
 
 
 class SettingDescription(Widget):
-    COMPONENT_CLASSES = {"setting--header"}
+    COMPONENT_CLASSES = {
+        "setting--header",
+        "setting--info",
+        "setting--option",
+        "setting--option-description",
+    }
 
     def __init__(
         self,
@@ -25,19 +30,25 @@ class SettingDescription(Widget):
         self.items = items
 
     def render(self) -> RenderableType:
+        def create_options(options: Dict[str, str]) -> Text:
+            text = Text()
+            for option, desc in options.items():
+                text += (
+                    Text(option, c3) + ": " + Text.from_markup(desc, style=c4) + "\n"
+                )
+
+            return text
 
         c1 = self.get_component_rich_style("setting--header")
-        c2 = "yellow"
-        c3 = "cyan"
-        return Text(self.title, c1) + "\n" + Text(self.info, c2)
-        return Text.from_markup(
-            f"[{c1}]{self.title}[/{c1}]"
-            + "\n"
-            + f"[{c2}]{self.info}[/{c2}]"
-            + "\n".join(
-                f"[{c3}]{sub}[/{c3}]: {desc}" for sub, desc in self.items.items()
-            )
-        )
+        c2 = self.get_component_rich_style("setting--info")
+        c3 = self.get_component_rich_style("setting--option")
+        c4 = self.get_component_rich_style("setting--option-description")
+
+        text = Text(self.title, c1) + "\n" + Text(self.info, c2)
+        if self.items:
+            text = text + "\n" + create_options(self.items)
+
+        return text
 
 
 class Setting(Widget):
