@@ -19,6 +19,9 @@ class BaseOption(Widget):
         super().__init__()
         self.setting_name = setting_name
 
+    def on_mount(self):
+        self.load_current_setting()
+
     @property
     def value(self):
         raise NotImplementedError
@@ -46,6 +49,9 @@ class BaseOption(Widget):
     def save(self):
         config_parser.set(self.setting_name, self.value)
 
+    def load_current_setting(self):
+        raise NotImplementedError
+
 
 class OptionItem(Widget):
     DEFAULT_CSS = """
@@ -66,9 +72,18 @@ class OptionItem(Widget):
 
 class Option(BaseOption):
     def __init__(self, setting_name: str, options: List[str]):
-        super().__init__(setting_name)
         self.options = [OptionItem(option) for option in options]
         self._value = 0
+        super().__init__(setting_name)
+
+    def load_current_setting(self):
+        setting = config_parser.get(self.setting_name)
+        if isinstance(setting, bool):
+            setting = ["off", "on"][setting]
+
+        option = [i for i in self.options if i.value == setting][0]
+        self._value = self.options.index(option)
+        self.update_highlight()
 
     @property
     def value(self):
@@ -80,15 +95,13 @@ class Option(BaseOption):
 
     def _select_next_option(self):
         n = len(self.options)
-        self.options[self._value].remove_class("selected")
         self._value = (self._value + 1) % n
-        self.options[self._value].add_class("selected")
+        self.update_highlight()
 
     def _select_prev_option(self):
         n = len(self.options)
-        self.options[self._value].remove_class("selected")
         self._value = (self._value - 1 + n) % n
-        self.options[self._value].add_class("selected")
+        self.update_highlight()
 
     def compose(self) -> ComposeResult:
         for option in self.options:
@@ -103,6 +116,10 @@ class NumberScroll(BaseOption):
     @property
     def value(self):
         return self._value
+
+    def load_current_setting(self):
+        value = config_parser.get(self.setting_name)
+        self._value = value
 
     def _select_next_option(self):
         self._value = min(self._value + 1, 100)
