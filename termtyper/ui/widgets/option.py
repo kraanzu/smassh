@@ -11,6 +11,7 @@ class BaseOption(Widget):
     BaseOption {
         align: center middle;
         content-align: center middle;
+        padding: 0 1;
     }
     """
 
@@ -51,6 +52,7 @@ class OptionItem(Widget):
     OptionItem {
         height: 1;
         width: auto;
+        padding: 0 1;
     }
     """
 
@@ -74,15 +76,19 @@ class Option(BaseOption):
 
     def update_highlight(self):
         for i, option in enumerate(self.options):
-            option.set_class(i == self._value, "highlight")
+            option.set_class(i == self._value, "selected")
 
     def _select_next_option(self):
         n = len(self.options)
+        self.options[self._value].remove_class("selected")
         self._value = (self._value + 1) % n
+        self.options[self._value].add_class("selected")
 
     def _select_prev_option(self):
         n = len(self.options)
+        self.options[self._value].remove_class("selected")
         self._value = (self._value - 1 + n) % n
+        self.options[self._value].add_class("selected")
 
     def compose(self) -> ComposeResult:
         for option in self.options:
