@@ -5,6 +5,14 @@ from textual.widget import Widget
 
 
 class BaseOption(Widget):
+
+    DEFAULT_CSS = """
+    BaseOption {
+        align: center middle;
+        content-align: center middle;
+    }
+    """
+
     def __init__(self, setting_name: str):
         super().__init__()
         self.setting_name = setting_name
@@ -43,9 +51,6 @@ class OptionItem(Widget):
 
 
 class Option(BaseOption):
-    DEFAULT_CSS = """
-    """
-
     def __init__(self, setting_name: str, options: List[str]):
         super().__init__(setting_name)
         self.options = [OptionItem(option) for option in options]
