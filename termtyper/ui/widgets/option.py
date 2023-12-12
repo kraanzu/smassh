@@ -28,11 +28,19 @@ class BaseOption(Widget):
     def lowlight(self):
         pass
 
-    def select_next_option(self):
+    def _select_next_option(self):
         pass
 
-    def select_prev_option(self):
+    def _select_prev_option(self):
         pass
+
+    def select_next_option(self):
+        self._select_next_option()
+        self.save()
+
+    def select_prev_option(self):
+        self._select_prev_option()
+        self.save()
 
     def save(self):
         config_parser.set(self.setting_name, self.value)
@@ -68,11 +76,11 @@ class Option(BaseOption):
         for i, option in enumerate(self.options):
             option.set_class(i == self._value, "highlight")
 
-    def select_next_option(self):
+    def _select_next_option(self):
         n = len(self.options)
         self._value = (self._value + 1) % n
 
-    def select_prev_option(self):
+    def _select_prev_option(self):
         n = len(self.options)
         self._value = (self._value - 1 + n) % n
 
@@ -90,11 +98,11 @@ class NumberScroll(BaseOption):
     def value(self):
         return self._value
 
-    def select_next_option(self):
+    def _select_next_option(self):
         self._value = min(self._value + 1, 100)
         self.refresh()
 
-    def select_prev_option(self):
+    def _select_prev_option(self):
         self._value = max(self._value - 1, 0)
         self.refresh()
 
