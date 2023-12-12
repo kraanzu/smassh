@@ -27,7 +27,7 @@ class SettingsScreen(BaseWindow):
         key = event.key
         n = len(menu)
 
-        if key == "down":
+        if key in ["down", "j"]:
             if self.current_option < n - 1:
                 self.current_setting.remove_class("selected")
                 self.current_option += 1
@@ -35,7 +35,7 @@ class SettingsScreen(BaseWindow):
                 self.current_setting.scroll_visible()
                 self.refresh()
 
-        elif key == "up":
+        elif key == ["up", "k"]:
             if self.current_option > 0:
                 self.current_setting.remove_class("selected")
                 self.current_option -= 1
