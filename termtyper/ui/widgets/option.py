@@ -2,6 +2,7 @@ from typing import List
 from rich.console import RenderableType
 from textual.app import ComposeResult
 from textual.widget import Widget
+from termtyper.src.parser import config_parser
 
 
 class BaseOption(Widget):
@@ -32,6 +33,9 @@ class BaseOption(Widget):
 
     def select_prev_option(self):
         pass
+
+    def save(self):
+        config_parser.set(self.setting_name, self.value)
 
 
 class OptionItem(Widget):
