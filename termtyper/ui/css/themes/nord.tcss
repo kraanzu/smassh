@@ -32,7 +32,13 @@ OptionItem.theme-nord {
   color: #d8dee9;
 }
 OptionItem.theme-nord.selected {
+  color: #3b4252;
   background: #88c0d0;
+}
+
+NumberScroll.theme-nord .scroll--background {
+  background: #88c0d0;
+  color: #3b4252;
 }
 
 SettingDescription.theme-nord .setting--header {
