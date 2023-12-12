@@ -72,7 +72,7 @@ class Option(BaseOption):
 
     @property
     def value(self):
-        return self.options[self._value]
+        return self.options[self._value].value
 
     def update_highlight(self):
         for i, option in enumerate(self.options):
