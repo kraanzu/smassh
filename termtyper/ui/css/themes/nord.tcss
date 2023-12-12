@@ -19,10 +19,6 @@ NavItem.theme-nord:hover {
 }
 
 /* Main Screens */
-SettingsScreen.theme-nord {
-  padding: 1;
-}
-
 /* Other Widgets */
 Setting.theme-nord {
   border: heavy #3b4252;
@@ -30,6 +26,13 @@ Setting.theme-nord {
 Setting.theme-nord.selected {
   background: #434c5e;
   border: blank;
+}
+
+OptionItem.theme-nord {
+  color: #d8dee9;
+}
+OptionItem.theme-nord.selected {
+  background: #88c0d0;
 }
 
 SettingDescription.theme-nord .setting--header {
