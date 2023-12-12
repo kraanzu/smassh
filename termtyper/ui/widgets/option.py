@@ -1,5 +1,6 @@
 from typing import List
 from rich.console import RenderableType
+from rich.text import Text
 from textual.app import ComposeResult
 from textual.widget import Widget
 from termtyper.src.parser import config_parser
@@ -109,6 +110,8 @@ class Option(BaseOption):
 
 
 class NumberScroll(BaseOption):
+    COMPONENT_CLASSES = {"scroll--background"}
+
     def __init__(self, setting_name: str):
         super().__init__(setting_name)
         self._value = 0
@@ -130,4 +133,7 @@ class NumberScroll(BaseOption):
         self.refresh()
 
     def render(self) -> RenderableType:
-        return str(self._value)
+        style = self.get_component_rich_style("scroll--background")
+        text = Text(str(self.value), style=style)
+        text.pad(2)
+        return text
