@@ -229,31 +229,31 @@ menu = [
         + "\n"
         + "'0' means it will not be visible",
     ),
-    Setting(
-        "Keypress Sound",
-        {
-            "off": "Already have good switches? There will be no sound on keypress",
-            "on": "Pressing a key will trigger a click sound except backspace",
-            "backspace": "Pressing key, including backspace, will trigger click sound",
-        },
-        Option(
-            "keypress_sound",
-            options=["off", "on", "backspace"],
-        ),
-        "Sounds good?",
-    ),
-    Setting(
-        "Click sound",
-        {
-            "cream": "Smooth soothing sound to the ears :)",
-            "lubed": "Just the right amount",
-            "mech": "Mechanical feel baby!",
-            "heavy": "Wanna feel like you are on a typewriter?",
-        },
-        Option(
-            "sound",
-            options=["cream", "lubed", "mech", "heavy"],
-        ),
-        "Choose whats most pleasing to you ears :)",
-    ),
+    # Setting(
+    #     "Keypress Sound",
+    #     {
+    #         "off": "Already have good switches? There will be no sound on keypress",
+    #         "on": "Pressing a key will trigger a click sound except backspace",
+    #         "backspace": "Pressing key, including backspace, will trigger click sound",
+    #     },
+    #     Option(
+    #         "keypress_sound",
+    #         options=["off", "on", "backspace"],
+    #     ),
+    #     "Sounds good?",
+    # ),
+    # Setting(
+    #     "Click sound",
+    #     {
+    #         "cream": "Smooth soothing sound to the ears :)",
+    #         "lubed": "Just the right amount",
+    #         "mech": "Mechanical feel baby!",
+    #         "heavy": "Wanna feel like you are on a typewriter?",
+    #     },
+    #     Option(
+    #         "sound",
+    #         options=["cream", "lubed", "mech", "heavy"],
+    #     ),
+    #     "Choose whats most pleasing to you ears :)",
+    # ),
 ]
