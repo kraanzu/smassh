@@ -1,7 +1,7 @@
 from rich.console import RenderableType
 from textual.app import ComposeResult
 from textual.widget import Widget
-from textual.widgets import Digits, Static
+from textual.widgets import Static
 from termtyper.ui.widgets.base_scroll import BaseWindow
 from termtyper.ui.widgets.config_strip import TypingConfigStrip
 from termtyper.ui.widgets.space import Space
