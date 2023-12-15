@@ -1,4 +1,5 @@
 from bisect import bisect_left
+import textwrap
 from rich.console import RenderableType
 from rich.text import Text
 from textual.widget import Widget
@@ -6,14 +7,6 @@ from termtyper.src.generator import master_generator
 
 
 class Space(Widget):
-    DEFAULT_CSS = """
-    Space {
-        height: 1fr;
-        width: 100%;
-        content-align: center middle;
-    }
-    """
-
     def __init__(self):
         super().__init__()
         self.reset()
@@ -22,9 +15,14 @@ class Space(Widget):
     def cursor_row(self):
         return bisect_left(self.newlines, self.cursor)
 
+    def on_show(self):
+        paragraph = self.paragraph.plain
+        width = self.size.width
+        lines = textwrap.wrap(paragraph, width)
+        self.newlines = [len(line) for line in lines]
+
     def reset(self) -> None:
         generated = master_generator.generate()
-        self.newlines = [index for index, i in enumerate(generated) if i == "\n"]
         self.paragraph = Text(generated)
         self.cursor = 0
 
