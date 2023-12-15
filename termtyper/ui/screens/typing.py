@@ -31,17 +31,24 @@ class TypingSpace(Widget):
     }
     """
 
-    def compose(self) -> ComposeResult:
+    def config_strip(self) -> ComposeResult:
         yield TypingConfigStrip()
-        yield Pad(classes="cspan3")
+
+    def counter(self) -> ComposeResult:
         yield Pad()
         yield Static("23")
         yield Pad()
+
+    def space(self) -> ComposeResult:
         yield Pad()
         yield Space()
         yield Pad()
-        for i in range(13):
-            yield Pad()
+
+    def compose(self) -> ComposeResult:
+        yield from self.config_strip()
+        yield Pad(classes="cspan3")
+        yield from self.counter()
+        yield from self.space()
 
 
 class TypingScreen(BaseWindow):
