@@ -1,7 +1,6 @@
 import textwrap
-from typing import List
 from termtyper.assets.words import *  # noqa
-from random import random, randint, sample
+from random import sample
 
 
 PUNCS = "$%&'(),-.:;?"
@@ -16,8 +15,7 @@ class Generator:
         return " ".join(sample(english_words.split(), 64))
 
     def generate(self) -> str:
-        lines = textwrap.wrap(self.words, 100)
-        return "\n".join(lines)
+        return self.words
 
 
 master_generator = Generator()
