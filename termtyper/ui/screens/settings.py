@@ -38,7 +38,7 @@ class SettingsScreen(BaseWindow):
                 self.current_setting.scroll_visible()
                 self.refresh()
 
-        elif key == ["up", "k"]:
+        elif key in ["up", "k"]:
             if self.current_option > 0:
                 self.current_option -= 1
                 self.update_highlight()
