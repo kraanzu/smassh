@@ -23,23 +23,25 @@ class SettingsScreen(BaseWindow):
         for item in menu:
             yield item
 
+    def update_highlight(self):
+        for index, setting in enumerate(menu):
+            setting.set_class(index == self.current_option, "selected")
+
     def on_key(self, event: events.Key):
         key = event.key
         n = len(menu)
 
         if key in ["down", "j"]:
             if self.current_option < n - 1:
-                self.current_setting.remove_class("selected")
                 self.current_option += 1
-                self.current_setting.add_class("selected")
+                self.update_highlight()
                 self.current_setting.scroll_visible()
                 self.refresh()
 
         elif key == ["up", "k"]:
             if self.current_option > 0:
-                self.current_setting.remove_class("selected")
                 self.current_option -= 1
-                self.current_setting.add_class("selected")
+                self.update_highlight()
                 self.current_setting.scroll_visible()
                 self.refresh()
 
