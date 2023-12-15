@@ -64,6 +64,7 @@ class Bracket(Widget):
 class TypingConfigStrip(Widget):
     DEFAULT_CSS = """
     TypingConfigStrip {
+        column-span: 3;
         layout: horizontal;
         height: 3;
         align: center middle;
