@@ -1,10 +1,10 @@
 from rich.console import RenderableType
 from textual.app import ComposeResult
 from textual.widget import Widget
-from textual.widgets import Static
 from termtyper.ui.widgets.base_scroll import BaseWindow
 from termtyper.ui.widgets.config_strip import TypingConfigStrip
 from termtyper.ui.widgets.space import Space
+from termtyper.ui.widgets.ticker import Ticker
 
 
 class Pad(Widget):
@@ -36,7 +36,7 @@ class TypingSpace(Widget):
 
     def counter(self) -> ComposeResult:
         yield Pad()
-        yield Static("23")
+        yield Ticker("0")
         yield Pad()
 
     def space(self) -> ComposeResult:
