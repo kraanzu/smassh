@@ -1,5 +1,5 @@
 from rich.console import RenderableType
-from textual.app import ComposeResult
+from textual.app import ComposeResult, events
 from textual.widget import Widget
 from termtyper.ui.widgets.base_scroll import BaseWindow
 from termtyper.ui.widgets.config_strip import TypingConfigStrip
@@ -50,7 +50,14 @@ class TypingSpace(Widget):
         yield from self.counter()
         yield from self.space()
 
+    def keypress(self, key: str):
+        self.query_one(Space).keypress(key)
+
 
 class TypingScreen(BaseWindow):
     def compose(self) -> ComposeResult:
         yield TypingSpace()
+
+    def on_key(self, event: events.Key):
+        key = event.key
+        self.query_one(TypingSpace).keypress(key)
