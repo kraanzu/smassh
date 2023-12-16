@@ -790,13 +790,13 @@ testing-integration = ["build[virtualenv] (>=1.0.3)", "filelock (>=3.4.0)", "jar
 
 [[package]]
 name = "textual"
-version = "0.44.1"
+version = "0.45.1"
 description = "Modern Text User Interface framework"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "textual-0.44.1-py3-none-any.whl", hash = "sha256:19cfd3a0c623bff02cc80d872ba3e93e1a5b77289fecf74c16ffcfa7407b49a1"},
-    {file = "textual-0.44.1.tar.gz", hash = "sha256:7a45b85943957095b97d0a90c4fa4d3e1028fa26493c0720f403d879157a6589"},
+    {file = "textual-0.45.1-py3-none-any.whl", hash = "sha256:67ed2fe72451c3c23f9146a0442d05ebadd604dec78800e5bf7bbf4560efe05d"},
+    {file = "textual-0.45.1.tar.gz", hash = "sha256:1a6f80fb87e40a0490cf9a16526f5418a790d9c032a2983b0c7edd1c8abf39f3"},
 ]
 
 [package.dependencies]
@@ -1003,4 +1003,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "431f331775c9141a640ac1f99dbe682ea67935d93322fdf1226e95a03db5f641"
+content-hash = "51876b2e2f23937c7c162627c61d22e950f643a98abc74f1410d77991473778d"
