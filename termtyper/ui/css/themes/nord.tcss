@@ -54,6 +54,10 @@ SettingDescription.theme-nord .setting--option-description {
   color: #d8dee9;
 }
 
+Ticker.theme-nord {
+  color: #81a1c1;
+}
+
 StripSetting.theme-nord {
   background: #3b4252;
 }
