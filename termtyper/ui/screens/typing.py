@@ -5,6 +5,7 @@ from termtyper.ui.widgets.base_scroll import BaseWindow
 from termtyper.ui.widgets.config_strip import TypingConfigStrip
 from termtyper.ui.widgets.space import Space
 from termtyper.ui.widgets.ticker import Ticker
+from textual.containers import VerticalScroll
 
 
 class Pad(Widget):
@@ -41,7 +42,8 @@ class TypingSpace(Widget):
 
     def space(self) -> ComposeResult:
         yield Pad()
-        yield Space()
+        with VerticalScroll():
+            yield Space()
         yield Pad()
 
     def compose(self) -> ComposeResult:
