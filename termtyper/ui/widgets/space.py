@@ -23,6 +23,9 @@ class Space(Widget):
     def cursor_row(self):
         return bisect_right(self.newlines, self.cursor)
 
+    def reverse_span(self, pos: int) -> Span:
+        return Span(pos, pos + 1, "reverse")
+
     def on_show(self):
         paragraph = self.paragraph.plain
         width = self.size.width
@@ -37,13 +40,13 @@ class Space(Widget):
     def reset(self) -> None:
         generated = master_generator.generate()
         self.paragraph = Text(generated)
+        self.paragraph.spans.append(self.reverse_span(0))
         self.cursor = 0
 
     def render(self) -> RenderableType:
         return self.paragraph
 
-    def keypress(self, key: str) -> None:
-        current_row = self.cursor_row
+    def update_colors(self, key: str) -> None:
         correct = self.paragraph.plain[self.cursor] == key
         self.paragraph.spans.append(
             Span(
@@ -52,7 +55,12 @@ class Space(Widget):
                 "green" if correct else "red",
             )
         )
+        self.paragraph.spans.append(self.reverse_span(self.cursor + 1))
 
+    def keypress(self, key: str) -> None:
+        self.paragraph.spans.pop()
+        current_row = self.cursor_row
+        self.update_colors(key)
         self.cursor += 1
         if self.cursor_row != current_row:
             self.parent.scroll_down()
