@@ -30,6 +30,11 @@ class TypingSpace(Widget):
         height: 100%;
         width: 100%;
     }
+
+    VerticalScroll {
+        scrollbar-size: 0 1;
+    }
+
     """
 
     def config_strip(self) -> ComposeResult:
