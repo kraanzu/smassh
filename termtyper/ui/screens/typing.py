@@ -61,5 +61,6 @@ class TypingScreen(BaseWindow):
         yield TypingSpace()
 
     def on_key(self, event: events.Key):
+        event.stop()
         key = event.key
         self.query_one(TypingSpace).keypress(key)
