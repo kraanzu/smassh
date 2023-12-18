@@ -61,6 +61,10 @@ Ticker.theme-nord {
 StripSetting.theme-nord {
   background: #3b4252;
 }
+StripSetting.theme-nord.enabled {
+  color: #81a1c1;
+  text-style: bold;
+}
 StripSetting.theme-nord:hover {
   color: #88c0d0;
 }
