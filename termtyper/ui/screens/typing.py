@@ -32,7 +32,7 @@ class TypingSpace(Widget):
     }
 
     VerticalScroll {
-        scrollbar-size: 0 1;
+        scrollbar-size: 0 0;
     }
 
     """
