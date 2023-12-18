@@ -2,6 +2,7 @@ from typing import Literal, Optional
 from rich.console import RenderableType
 from textual.app import ComposeResult
 from textual.widget import Widget
+from termtyper.src.parser import config_parser
 
 
 class StripSetting(Widget):
@@ -24,6 +25,22 @@ class StripSetting(Widget):
             return self.icon + " " + self.setting_name
 
         return self.setting_name
+
+
+class PunctuationStripSetting(StripSetting):
+    def __init__(self):
+        super().__init__("punctuation", "󰸥")
+        self.refresh_setting()
+
+    def refresh_setting(self) -> None:
+        self.set_class(config_parser.get("punctuations"), "enabled")
+
+    def toggle(self):
+        config_parser.toggle_punctuations()
+        self.refresh_setting()
+
+    def on_click(self):
+        self.toggle()
 
 
 class StripSeparator(Widget):
@@ -74,7 +91,7 @@ class TypingConfigStrip(Widget):
 
     def compose(self) -> ComposeResult:
         yield Bracket("left")
-        yield StripSetting("punctuation", "󰸥")
+        yield PunctuationStripSetting()
         yield StripSetting("numbers", "󰲰")
         yield StripSeparator()
         yield StripSetting("time", "󰥔")
