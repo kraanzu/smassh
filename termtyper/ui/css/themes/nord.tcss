@@ -24,6 +24,13 @@ Space.theme-nord {
 }
 
 /* Other Widgets */
+Palette.theme-nord {
+  color: #81a1c1 70%;
+}
+Palette.theme-nord:hover {
+  color: #81a1c1;
+}
+
 Setting.theme-nord {
   border: heavy #3b4252;
 }
