@@ -43,6 +43,22 @@ class PunctuationStripSetting(StripSetting):
         self.toggle()
 
 
+class NumberStripSetting(StripSetting):
+    def __init__(self):
+        super().__init__("numbers", "󰲰")
+        self.refresh_setting()
+
+    def refresh_setting(self) -> None:
+        self.set_class(config_parser.get("numbers"), "enabled")
+
+    def toggle(self):
+        config_parser.toggle_numbers()
+        self.refresh_setting()
+
+    def on_click(self):
+        self.toggle()
+
+
 class StripSeparator(Widget):
 
     DEFAULT_CSS = """
@@ -92,7 +108,7 @@ class TypingConfigStrip(Widget):
     def compose(self) -> ComposeResult:
         yield Bracket("left")
         yield PunctuationStripSetting()
-        yield StripSetting("numbers", "󰲰")
+        yield NumberStripSetting()
         yield StripSeparator()
         yield StripSetting("time", "󰥔")
         yield StripSetting("words", "󰯬")
