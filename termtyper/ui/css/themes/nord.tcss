@@ -20,7 +20,7 @@ NavItem.theme-nord:hover {
 
 /* Main Screens */
 Space.theme-nord {
-  color: #d8dee9;
+  color: #d8dee9 75%;
 }
 
 /* Other Widgets */
