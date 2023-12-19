@@ -19,6 +19,10 @@ NavItem.theme-nord:hover {
 }
 
 /* Main Screens */
+Space.theme-nord {
+  color: #d8dee9;
+}
+
 /* Other Widgets */
 Setting.theme-nord {
   border: heavy #3b4252;
