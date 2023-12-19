@@ -3,6 +3,7 @@ from textual.app import ComposeResult, events
 from textual.widget import Widget
 from termtyper.ui.widgets.base_scroll import BaseWindow
 from termtyper.ui.widgets.config_strip import TypingConfigStrip
+from termtyper.ui.widgets.palette_options import PaletteOptions
 from termtyper.ui.widgets.space import Space
 from termtyper.ui.widgets.ticker import Ticker
 from textual.containers import VerticalScroll
@@ -56,6 +57,8 @@ class TypingSpace(Widget):
         yield Pad(classes="cspan3")
         yield from self.counter()
         yield from self.space()
+        yield Pad(classes="cspan3")
+        yield PaletteOptions()
 
     def keypress(self, key: str):
         self.query_one(Space).keypress(key)
