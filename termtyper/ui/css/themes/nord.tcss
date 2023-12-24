@@ -4,103 +4,103 @@ BaseWindow {
 }
 
 /* Header */
-Header.theme-nord {
+Header {
   background: #3b4252;
 }
 
-NavItem.theme-nord {
+NavItem {
   color: #d8dee9;
 }
-NavItem.theme-nord.active {
+NavItem.active {
   color: #88c0d0;
 }
-NavItem.theme-nord:hover {
+NavItem:hover {
   color: #81a1c1;
 }
 
 /* Main Screens */
-Space.theme-nord {
+Space {
   color: #d8dee9 75%;
 }
 
 /* Other Widgets */
-Palette.theme-nord {
+Palette {
   color: #81a1c1 70%;
 }
-Palette.theme-nord:hover {
+Palette:hover {
   color: #81a1c1;
 }
 
-Setting.theme-nord {
+Setting {
   border: heavy #3b4252;
 }
-Setting.theme-nord.selected {
+Setting.selected {
   background: #434c5e;
   border: blank;
 }
 
-OptionItem.theme-nord {
+OptionItem {
   color: #d8dee9;
 }
-OptionItem.theme-nord.selected {
+OptionItem.selected {
   color: #3b4252;
   background: #88c0d0;
 }
 
-NumberScroll.theme-nord .scroll--background {
+NumberScroll .scroll--background {
   background: #88c0d0;
   color: #3b4252;
 }
 
-SettingDescription.theme-nord .setting--header {
+SettingDescription .setting--header {
   color: #8fbcbb;
 }
-SettingDescription.theme-nord .setting--info {
+SettingDescription .setting--info {
   color: #ebcb8b;
 }
-SettingDescription.theme-nord .setting--option {
+SettingDescription .setting--option {
   color: #b48ead;
 }
-SettingDescription.theme-nord .setting--option-description {
+SettingDescription .setting--option-description {
   color: #d8dee9;
 }
 
-Ticker.theme-nord {
+Ticker {
   color: #81a1c1;
 }
 
-StripSetting.theme-nord {
+StripSetting {
   background: #3b4252;
 }
-StripSetting.theme-nord.enabled {
+StripSetting.enabled {
   color: #81a1c1;
   text-style: bold;
 }
-StripSetting.theme-nord:hover {
+StripSetting:hover {
   color: #88c0d0;
 }
 
-StripSeparator.theme-nord {
+StripSeparator {
   color: #4c566a;
   background: #3b4252;
 }
 
-Bracket.theme-nord {
+Bracket {
   color: #3b4252;
 }
 
-Label.theme-nord {
+Label {
   color: #d8dee9;
 }
-Label.theme-nord:hover {
+Label:hover {
   color: #81a1c1;
 }
 
-Section.theme-nord {
+Section {
   color: #ebcb8b;
 }
 
-BaseWindow.theme-nord {
+BaseWindow {
   scrollbar-background: #2e3440;
   scrollbar-background-active: #3b4252;
   scrollbar-background-hover: #3b4252;
@@ -109,7 +109,7 @@ BaseWindow.theme-nord {
   scrollbar-color-hover: #5e81ac;
 }
 
-Sponsor.theme-nord {
+Sponsor {
   link-background: #3b4252;
   link-background-hover: #434c5e;
   link-color: #81a1c1;
