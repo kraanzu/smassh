@@ -4,62 +4,103 @@ BaseWindow {
 }
 
 /* Header */
-Header.theme-nord {
-  background: #3b4252;
+Header {
+  background: red;
 }
 
-NavItem.theme-nord {
+NavItem {
   color: #d8dee9;
 }
-NavItem.theme-nord.active {
+NavItem.active {
   color: #88c0d0;
 }
-NavItem.theme-nord:hover {
+NavItem:hover {
   color: #81a1c1;
 }
 
 /* Main Screens */
-SettingsScreen.theme-nord {
-  padding: 1;
+Space {
+  color: #d8dee9 75%;
 }
 
 /* Other Widgets */
-Setting.theme-nord {
+Palette {
+  color: #81a1c1 70%;
+}
+Palette:hover {
+  color: #81a1c1;
+}
+
+Setting {
   border: heavy #3b4252;
 }
-Setting.theme-nord.selected {
+Setting.selected {
   background: #434c5e;
   border: blank;
 }
 
-StripSetting.theme-nord {
+OptionItem {
+  color: #d8dee9;
+}
+OptionItem.selected {
+  color: #3b4252;
+  background: #88c0d0;
+}
+
+NumberScroll .scroll--background {
+  background: #88c0d0;
+  color: #3b4252;
+}
+
+SettingDescription .setting--header {
+  color: #8fbcbb;
+}
+SettingDescription .setting--info {
+  color: #ebcb8b;
+}
+SettingDescription .setting--option {
+  color: #b48ead;
+}
+SettingDescription .setting--option-description {
+  color: #d8dee9;
+}
+
+Ticker {
+  color: #81a1c1;
+}
+
+StripSetting {
   background: #3b4252;
 }
-StripSetting.theme-nord:hover {
+StripSetting.enabled {
+  color: #81a1c1;
+  text-style: bold;
+}
+StripSetting:hover {
   color: #88c0d0;
 }
 
-StripSeparator.theme-nord {
+StripSeparator {
   color: #4c566a;
   background: #3b4252;
 }
 
-Bracket.theme-nord {
+Bracket {
   color: #3b4252;
 }
 
-Label.theme-nord {
+Label {
   color: #d8dee9;
 }
-Label.theme-nord:hover {
+Label:hover {
   color: #81a1c1;
 }
 
-Section.theme-nord {
+Section {
   color: #ebcb8b;
 }
 
-BaseWindow.theme-nord {
+BaseWindow {
   scrollbar-background: #2e3440;
   scrollbar-background-active: #3b4252;
   scrollbar-background-hover: #3b4252;
@@ -68,4 +109,13 @@ BaseWindow.theme-nord {
   scrollbar-color-hover: #5e81ac;
 }
 
-/*# sourceMappingURL=base.tcss.map */
+Sponsor {
+  link-background: #3b4252;
+  link-background-hover: #434c5e;
+  link-color: #81a1c1;
+  link-color-hover: #88c0d0;
+  link-style: underline;
+  link-style-hover: underline italic;
+}
+
+/*# sourceMappingURL=nord.tcss.map */
