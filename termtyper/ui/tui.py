@@ -1,14 +1,13 @@
+import shutil
+from pathlib import Path
 import webbrowser
 from textual import on
 from textual.app import App, ComposeResult, events
 from textual.screen import Screen
-from textual.widget import Widget
 from textual.widgets import ContentSwitcher
-from termtyper.ui.css import CSS
 from termtyper.ui.events import SetScreen
 from termtyper.ui.widgets import *  # noqa
 from termtyper.ui.screens import *  # noqa
-from termtyper.src.parser import config_parser
 
 
 class MainScreen(Screen):
@@ -42,25 +41,22 @@ class MainScreen(Screen):
 
 
 class TermTyper(App):
-    DEFAULT_CSS = CSS
+    CSS_PATH = "css/base.tcss"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs, watch_css=True)
 
     async def on_mount(self):
         self.push_screen(MainScreen())
-
-    async def on_ready(self):
-        self.action_theme(config_parser.theme)
 
     def action_sponsor(self):
         webbrowser.open("https://github.com/sponsors/kraanzu")
 
     def action_theme(self, theme: str):
-        def remove_existing_theme(w: Widget):
-            for name in w.classes:
-                if name.startswith("theme-"):
-                    w.remove_class(name)
-                    return
+        css_folder = Path.absolute(Path(__file__).parent.parent) / "ui" / "css"
+        themes_folder = css_folder / "themes"
 
-        with self.batch_update():
-            for widget in self.query("*"):
-                remove_existing_theme(widget)
-                widget.add_class(f"theme-{theme}")
+        base_css = css_folder / "base.tcss"
+        theme_path = themes_folder / f"{theme}.tcss"
+
+        shutil.copy(theme_path, base_css)
