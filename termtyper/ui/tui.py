@@ -45,6 +45,8 @@ class TermTyper(App):
     CSS_PATH = "css/styles.tcss"
     SCREENS = {
         "main": MainScreen(),
+        "theme": ThemePaletteScreen(),
+        "language": LanguagePaletteScreen(),
     }
 
     def __init__(self, *args, **kwargs):
