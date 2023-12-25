@@ -5,7 +5,7 @@ BaseWindow {
 
 /* Header */
 Header {
-  background: red;
+  background: #3b4252;
 }
 
 NavItem {
