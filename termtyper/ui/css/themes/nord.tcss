@@ -101,7 +101,7 @@ Section {
 }
 
 BaseWindow {
-  scrollbar-background: #2e3440;
+  scrollbar-background: #3b4252;
   scrollbar-background-active: #3b4252;
   scrollbar-background-hover: #3b4252;
   scrollbar-color: #81a1c1;
