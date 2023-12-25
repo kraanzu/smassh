@@ -43,12 +43,15 @@ class MainScreen(Screen):
 
 class TermTyper(App):
     CSS_PATH = "css/styles.tcss"
+    SCREENS = {
+        "main": MainScreen(),
+    }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs, watch_css=True)
 
     async def on_mount(self):
-        self.push_screen(MainScreen())
+        self.push_screen("main")
         self.action_theme(config_parser.get("theme"))
 
     def action_sponsor(self):
