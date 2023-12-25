@@ -1,15 +1,11 @@
 from typing import Callable, List, Optional
 from textual.app import ComposeResult
 from textual.widget import Widget
-from textual.widgets import Input
+from termtyper.ui.widgets.palette_input import PaletteInput
+from termtyper.ui.widgets.palette_list import PaletteList
 
 
 class PaletteMenu(Widget):
-    DEFAULT_CSS = """
-    PaletteMenu {
-    }
-    """
-
     def __init__(self, callback: Optional[Callable] = None, **kwargs):
         super().__init__(**kwargs)
         self.callback = callback
@@ -19,20 +15,15 @@ class PaletteMenu(Widget):
         raise NotImplementedError
 
     def compose(self) -> ComposeResult:
-        yield Input()
+        yield PaletteInput()
+        yield PaletteList()
 
 
 class LanguagePaletteMenu(PaletteMenu):
-    def __init__(self):
-        super().__init__()
-
     def get_options(self) -> List[str]:
         return ["english", "french"]
 
 
 class ThemePaletteMenu(PaletteMenu):
-    def __init__(self):
-        super().__init__()
-
     def get_options(self) -> List[str]:
         return ["nord", "catapuccin"]
