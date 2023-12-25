@@ -1,4 +1,5 @@
 from textual.app import ComposeResult
+from textual.binding import Binding
 from textual.screen import Screen
 from termtyper.ui.widgets.palette_menu import (
     PaletteMenu,
@@ -14,6 +15,9 @@ class PaletteScreen(Screen):
         align: center middle;
     }
     """
+    BINDINGS = [
+        Binding("escape", "app.pop_screen"),
+    ]
 
     palette_widget: PaletteMenu
 
