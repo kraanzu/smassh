@@ -41,7 +41,7 @@ class MainScreen(Screen):
 
 
 class TermTyper(App):
-    CSS_PATH = "css/base.tcss"
+    CSS_PATH = "css/styles.tcss"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs, watch_css=True)
@@ -56,7 +56,7 @@ class TermTyper(App):
         css_folder = Path.absolute(Path(__file__).parent.parent) / "ui" / "css"
         themes_folder = css_folder / "themes"
 
-        base_css = css_folder / "base.tcss"
+        base_css = css_folder / "styles.tcss"
         theme_path = themes_folder / f"{theme}.tcss"
 
         shutil.copy(theme_path, base_css)
