@@ -6,6 +6,8 @@ from termtyper.ui.widgets.palette import Palette
 
 
 class LanguagePalette(Palette):
+    screen_name = "language"
+
     @property
     def current_language(self) -> str:
         return "english"
@@ -15,6 +17,8 @@ class LanguagePalette(Palette):
 
 
 class ThemePalette(Palette):
+    screen_name = "theme"
+
     @property
     def current_theme(self) -> str:
         return "nord"
