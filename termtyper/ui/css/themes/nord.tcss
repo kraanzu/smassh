@@ -23,6 +23,10 @@ Space {
   color: #d8dee9 75%;
 }
 
+PaletteScreen {
+  background: #2e3440 50%;
+}
+
 /* Other Widgets */
 Palette {
   color: #81a1c1 70%;
