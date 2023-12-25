@@ -9,3 +9,8 @@ class Palette(Widget):
         height: 1;
     }
     """
+
+    screen_name: str
+
+    def on_click(self, event):
+        self.app.push_screen(self.screen_name)
