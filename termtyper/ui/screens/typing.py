@@ -1,11 +1,13 @@
 from rich.console import RenderableType
 from textual.app import ComposeResult, events
 from textual.widget import Widget
-from termtyper.ui.widgets.base_scroll import BaseWindow
-from termtyper.ui.widgets.config_strip import TypingConfigStrip
-from termtyper.ui.widgets.palette_options import PaletteOptions
-from termtyper.ui.widgets.space import Space
-from termtyper.ui.widgets.ticker import Ticker
+from termtyper.ui.widgets import (
+    BaseWindow,
+    TypingConfigStrip,
+    PaletteOptions,
+    Space,
+    Ticker,
+)
 from textual.containers import VerticalScroll
 
 

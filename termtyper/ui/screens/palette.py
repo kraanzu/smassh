@@ -1,7 +1,7 @@
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.screen import Screen
-from termtyper.ui.widgets.palette_menu import (
+from termtyper.ui.widgets import (
     PaletteMenu,
     LanguagePaletteMenu,
     ThemePaletteMenu,

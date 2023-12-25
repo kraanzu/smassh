@@ -1,7 +1,7 @@
 from textual.app import ComposeResult
 from textual import events
-from termtyper.ui.widgets.settings_options import menu
-from termtyper.ui.widgets.base_scroll import BaseWindow
+from termtyper.ui.widgets import menu
+from termtyper.ui.widgets import BaseWindow
 
 
 class SettingsScreen(BaseWindow):

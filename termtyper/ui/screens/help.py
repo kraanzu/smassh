@@ -5,7 +5,7 @@ from rich.text import Text
 from textual.widget import Widget
 from textual.app import ComposeResult
 from termtyper.src.help_menu import SETTINGS_KEYBINDS, TYPING_KEYBINDS
-from termtyper.ui.widgets.base_scroll import BaseWindow
+from termtyper.ui.widgets.base_window import BaseWindow
 
 
 class Table(Widget):

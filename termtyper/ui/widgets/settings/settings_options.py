@@ -3,7 +3,7 @@ from rich.console import RenderableType
 from rich.text import Text
 from textual.app import ComposeResult
 from textual.widget import Widget
-from ..widgets.option import Option, NumberScroll
+from .option import Option, NumberScroll
 
 Options = Union[Option, NumberScroll]
 

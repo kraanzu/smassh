@@ -1,8 +1,8 @@
 from typing import Callable, List, Optional
 from textual.app import ComposeResult
 from textual.widget import Widget
-from termtyper.ui.widgets.palette_input import PaletteInput
-from termtyper.ui.widgets.palette_list import PaletteList
+from .palette_input import PaletteInput
+from .palette_list import PaletteList
 
 
 class PaletteMenu(Widget):

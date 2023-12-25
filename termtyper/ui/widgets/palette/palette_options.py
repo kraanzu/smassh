@@ -2,7 +2,7 @@ from textual import RenderableType
 from textual.app import ComposeResult
 from textual.widget import Widget
 
-from termtyper.ui.widgets.palette import Palette
+from .palette import Palette
 
 
 class LanguagePalette(Palette):
