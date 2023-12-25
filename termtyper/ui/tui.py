@@ -35,10 +35,10 @@ class MainScreen(Screen):
     def screen_change(self, event: SetScreen):
         self.query_one(ContentSwitcher).current = event.screen_name
 
-    def on_key(self, event: events.Key):
+    async def handle_key(self, event: events.Key):
         visible = self.query_one(ContentSwitcher).visible_content
         if visible:
-            visible.on_key(event)
+            await visible.handle_key(event)
 
 
 class TermTyper(App):
