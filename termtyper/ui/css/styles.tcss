@@ -23,7 +23,17 @@ Space {
   color: #d8dee9 75%;
 }
 
+PaletteScreen {
+  background: #2e3440 50%;
+}
+
 /* Other Widgets */
+PaletteMenu {
+  background: #2e3440 50%;
+  width: 60%;
+  height: 80%;
+}
+
 Palette {
   color: #81a1c1 70%;
 }
@@ -98,6 +108,10 @@ Label:hover {
 
 Section {
   color: #ebcb8b;
+}
+
+SimpleInput {
+  background: #3b4252 50%;
 }
 
 BaseWindow {
