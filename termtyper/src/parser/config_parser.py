@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import List
 from .parser import Parser
 import appdirs
 
@@ -26,8 +27,29 @@ DEFAULTS = {
 
 
 class ConfigParser(Parser):
+    _root_dir = Path(__file__).parent.parent.parent
     config_path = Path(appdirs.user_config_dir("smassh"))
     DEFAULT_CONFIG = DEFAULTS
+
+    @property
+    def configured_languages(self) -> List[str]:
+        words_dir = self._root_dir / "assets" / "words"
+        languages = [
+            file_obj.stem
+            for file_obj in words_dir.iterdir()
+            if file_obj.stem != "__init__"
+        ]
+        return languages
+
+    @property
+    def configured_themes(self) -> List[str]:
+        themes_dir = self._root_dir / "ui" / "css" / "themes"
+        themes = [
+            file_obj.stem
+            for file_obj in themes_dir.iterdir()
+            if file_obj.suffix == ".tcss"
+        ]
+        return themes
 
     def toggle_numbers(self):
         numbers = self.get("numbers")
