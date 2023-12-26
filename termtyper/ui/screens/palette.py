@@ -2,7 +2,6 @@ from textual.containers import Vertical
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.screen import Screen
-from textual.widgets import Label
 from termtyper.ui.widgets import (
     PaletteList,
     PaletteInput,
@@ -17,9 +16,8 @@ class PaletteMenu(Vertical):
         width: 60%;
         height: 50%;
         layout: grid;
-        grid-size: 2 2;
+        grid-size: 1 2;
         grid-rows: 1 1fr;
-        grid-columns: auto 1fr;
     }
     """
 
@@ -48,7 +46,6 @@ class PaletteScreen(Screen):
 
     def compose(self) -> ComposeResult:
         with PaletteMenu():
-            yield Label(self.palette_icon)
             yield PaletteInput()
             yield self.palette_list
 

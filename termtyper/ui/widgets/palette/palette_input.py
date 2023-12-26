@@ -6,9 +6,11 @@ class PaletteInput(Input):
     PaletteInput {
         border: none;
         height: 1;
+        padding: 0;
     }
 
     PaletteInput:focus {
         border: none;
+        padding: 0;
     }
     """
