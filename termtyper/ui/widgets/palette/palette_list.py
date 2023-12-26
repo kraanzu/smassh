@@ -3,13 +3,17 @@ from textual.widgets import Label, ListView, ListItem
 from termtyper.src.parser import config_parser
 
 
+class PaletteListItem(Label):
+    ...
+
+
 class PaletteList(ListView, can_focus=False):
     def get_options(self):
         raise NotImplementedError
 
     def compose(self) -> ComposeResult:
         for option in self.get_options():
-            yield ListItem(Label(option))
+            yield ListItem(PaletteListItem(option))
 
 
 class LanguagePaletteList(PaletteList):
