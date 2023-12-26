@@ -2,6 +2,7 @@ from textual.containers import Vertical
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.screen import Screen
+from textual.widgets import Label
 from termtyper.ui.widgets import (
     PaletteList,
     PaletteInput,
@@ -16,8 +17,17 @@ class PaletteMenu(Vertical):
         width: 60%;
         height: 50%;
         layout: grid;
-        grid-size: 1 2;
-        grid-rows: 1 1fr;
+        grid-size: 1 3;
+        grid-rows: 1 auto 1fr;
+    }
+    """
+
+
+class PaletteHeader(Label):
+    DEFAULT_CSS = """
+    PaletteHeader {
+        content-align: center middle;
+        width: 100%;
     }
     """
 
@@ -37,6 +47,7 @@ class PaletteScreen(Screen):
 
     palette_list: PaletteList
     palette_icon: str
+    palette_header: str
 
     def action_next_option(self):
         self.query_one(PaletteList).action_cursor_down()
@@ -46,15 +57,18 @@ class PaletteScreen(Screen):
 
     def compose(self) -> ComposeResult:
         with PaletteMenu():
+            yield PaletteHeader(self.palette_header)
             yield PaletteInput()
             yield self.palette_list
 
 
 class LanguagePaletteScreen(PaletteScreen):
     palette_list = LanguagePaletteList()
-    palette_icon = "  "
+    palette_icon = "  "
+    palette_header = f"{palette_icon} language"
 
 
 class ThemePaletteScreen(PaletteScreen):
     palette_list = ThemePaletteList()
     palette_icon = "  "
+    palette_header = f"{palette_icon} themes"
