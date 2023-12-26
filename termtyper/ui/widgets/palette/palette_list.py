@@ -8,6 +8,12 @@ class PaletteListItem(Label):
 
 
 class PaletteList(ListView, can_focus=False):
+    DEFAULT_CSS = """
+    PaletteList {
+        column-span: 2;
+    }
+    """
+
     def get_options(self):
         raise NotImplementedError
 

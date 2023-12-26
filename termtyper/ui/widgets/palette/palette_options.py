@@ -1,4 +1,4 @@
-from textual import RenderableType
+from rich.console import RenderableType
 from textual.app import ComposeResult
 from textual.widget import Widget
 
