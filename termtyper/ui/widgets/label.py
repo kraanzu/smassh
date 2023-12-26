@@ -5,9 +5,9 @@ from termtyper.src.figlet import generate_figlet
 from termtyper.ui.events import SetScreen
 
 
-class Label(Widget):
+class NavItemBase(Widget):
     DEFAULT_CSS = """
-    Label {
+    NavItemBase {
         content-align: center middle;
         width: auto;
         padding: 1;
@@ -27,7 +27,7 @@ class Label(Widget):
         return self.text
 
 
-class Banner(Label):
+class Banner(NavItemBase):
     """
     Text Widget to render text in a bigger font
     """
@@ -36,7 +36,7 @@ class Banner(Label):
         return generate_figlet(self.text)
 
 
-class NavItem(Label):
+class NavItem(NavItemBase):
     """
     Just a label widget with a callback
     """

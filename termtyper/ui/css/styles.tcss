@@ -99,10 +99,10 @@ Bracket {
   color: #3b4252;
 }
 
-Label {
+NavItemBase {
   color: #d8dee9;
 }
-Label:hover {
+NavItemBase:hover {
   color: #81a1c1;
 }
 
