@@ -13,7 +13,7 @@ class LanguagePalette(Palette):
         return "english"
 
     def render(self) -> RenderableType:
-        return f" {self.current_language}"
+        return f" {self.current_language}"
 
 
 class ThemePalette(Palette):
