@@ -1,25 +1,19 @@
-from textual.app import ComposeResult
-from textual.widgets import Label, ListView, ListItem
+from textual.widgets import OptionList
 from termtyper.src.parser import config_parser
 
 
-class PaletteListItem(Label):
-    ...
-
-
-class PaletteList(ListView, can_focus=False):
+class PaletteList(OptionList, can_focus=False):
     DEFAULT_CSS = """
     PaletteList {
-        column-span: 2;
+        border: none;
     }
     """
 
     def get_options(self):
         raise NotImplementedError
 
-    def compose(self) -> ComposeResult:
-        for option in self.get_options():
-            yield ListItem(PaletteListItem(option))
+    async def on_mount(self, _):
+        self.add_options(self.get_options())
 
 
 class LanguagePaletteList(PaletteList):
