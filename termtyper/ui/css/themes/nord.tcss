@@ -37,6 +37,23 @@ PaletteInput {
   color: #d8dee9;
 }
 
+PaletteList {
+  background: #2e3440;
+  color: #d8dee9;
+}
+PaletteList .option-list--option-highlighted {
+  background: #8fbcbb;
+  color: #eceff4;
+}
+PaletteList .option-list--option-hover {
+  background: #8fbcbb;
+  color: #eceff4;
+}
+PaletteList .option-list--option-hover-highlighted {
+  background: #8fbcbb;
+  color: #eceff4;
+}
+
 /* Other Widgets */
 PaletteMenu {
   background: #2e3440 50%;
