@@ -1,3 +1,4 @@
+from textual import on
 from textual.containers import Vertical
 from textual.app import ComposeResult
 from textual.binding import Binding
@@ -48,6 +49,12 @@ class PaletteScreen(Screen):
     palette_list: PaletteList
     palette_icon: str
     palette_header: str
+
+    @on(PaletteInput.Changed)
+    def update_palette_list(self, event):
+        event.stop()
+        text = self.query_one(PaletteInput).value
+        self.query_one(PaletteList).apply_filter(text)
 
     def action_next_option(self):
         self.query_one(PaletteList).action_cursor_down()
