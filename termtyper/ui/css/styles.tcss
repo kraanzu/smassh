@@ -27,6 +27,16 @@ PaletteScreen {
   background: #2e3440 50%;
 }
 
+PaletteHeader {
+  background: #2e3440;
+  color: #81a1c1;
+}
+
+PaletteInput {
+  background: #3b4252;
+  color: #d8dee9;
+}
+
 /* Other Widgets */
 PaletteMenu {
   background: #2e3440 50%;
