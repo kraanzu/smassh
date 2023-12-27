@@ -5,12 +5,13 @@ class PaletteInput(Input):
     DEFAULT_CSS = """
     PaletteInput {
         border: none;
-        height: 1;
-        padding: 0;
+        content-align: left middle;
+        padding: 0 1;
     }
 
     PaletteInput:focus {
         border: none;
-        padding: 0;
+        content-align: left middle;
+        padding: 0 1;
     }
     """

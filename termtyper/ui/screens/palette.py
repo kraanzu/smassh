@@ -19,7 +19,7 @@ class PaletteMenu(Vertical):
         height: 50%;
         layout: grid;
         grid-size: 1 3;
-        grid-rows: 1 auto 1fr;
+        grid-rows: 1 3 1fr;
     }
     """
 
