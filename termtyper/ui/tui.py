@@ -9,6 +9,8 @@ from termtyper.ui.events import SetScreen
 from termtyper.ui.widgets import *  # noqa
 from termtyper.ui.screens import *  # noqa
 from termtyper.src.parser import config_parser
+from termtyper.ui.widgets.palette.palette_list import ApplyLanguage, ApplyTheme
+from termtyper.ui.widgets.typing.space import Space
 
 
 class MainScreen(Screen):
@@ -55,6 +57,14 @@ class TermTyper(App):
     async def on_mount(self):
         self.push_screen("main")
         self.action_theme(config_parser.get("theme"))
+
+    @on(ApplyLanguage)
+    def apply_language(self, event: ApplyLanguage):
+        config_parser.set("language", event.value)
+
+    @on(ApplyTheme)
+    def apply_theme(self, event: ApplyTheme):
+        self.action_theme(event.value)
 
     def action_sponsor(self):
         webbrowser.open("https://github.com/sponsors/kraanzu")
