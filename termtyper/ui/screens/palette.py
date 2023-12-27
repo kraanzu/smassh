@@ -56,6 +56,12 @@ class PaletteScreen(Screen):
         text = self.query_one(PaletteInput).value
         self.query_one(PaletteList).apply_filter(text)
 
+    @on(PaletteList.OptionHighlighted)
+    def preview_palette_option(self, event: PaletteList.OptionHighlighted):
+        palette_list = self.query_one(PaletteList)
+        prompt = str(event.option.prompt)
+        self.post_message(palette_list._highlight_event(prompt))
+
     def action_next_option(self):
         self.query_one(PaletteList).action_cursor_down()
 
