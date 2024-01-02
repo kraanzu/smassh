@@ -1,9 +1,10 @@
-from typing import List
+from typing import Callable, List, Optional
 from rich.console import RenderableType
 from rich.text import Text
 from textual.app import ComposeResult
 from textual.widget import Widget
 from termtyper.src.parser import config_parser
+from termtyper.ui.widgets.typing.space import Space
 
 
 class BaseOption(Widget):
@@ -16,9 +17,10 @@ class BaseOption(Widget):
     }
     """
 
-    def __init__(self, setting_name: str):
+    def __init__(self, setting_name: str, callback: Callable):
         super().__init__(id=f"option-{setting_name}")
         self.setting_name = setting_name
+        self.callback = callback
 
     def on_mount(self):
         self.load_current_setting()
@@ -48,6 +50,7 @@ class BaseOption(Widget):
         self.save()
 
     def save(self):
+        self.callback()
         config_parser.set(self.setting_name, self.value)
 
     def load_current_setting(self):
@@ -72,10 +75,18 @@ class OptionItem(Widget):
 
 
 class Option(BaseOption):
-    def __init__(self, setting_name: str, options: List[str]):
+    def __init__(
+        self,
+        setting_name: str,
+        options: List[str],
+        callback: Optional[Callable] = None,
+    ):
         self.options = [OptionItem(option) for option in options]
         self._value = 0
-        super().__init__(setting_name)
+        if not callback:
+            callback = lambda: self.app.query_one(Space).reset()
+
+        super().__init__(setting_name, callback)
 
     def load_current_setting(self):
         setting = config_parser.get(self.setting_name)
@@ -112,8 +123,15 @@ class Option(BaseOption):
 class NumberScroll(BaseOption):
     COMPONENT_CLASSES = {"scroll--background"}
 
-    def __init__(self, setting_name: str):
-        super().__init__(setting_name)
+    def __init__(
+        self,
+        setting_name: str,
+        callback: Optional[Callable] = None,
+    ):
+        if not callback:
+            callback = lambda: self.app.query_one(Space).reset()
+
+        super().__init__(setting_name, callback)
         self._value = 0
 
     @property
