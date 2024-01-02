@@ -27,7 +27,7 @@ class SettingsScreen(BaseWindow):
         for index, setting in enumerate(menu):
             setting.set_class(index == self.current_option, "selected")
 
-    def on_key(self, event: events.Key):
+    async def handle_key(self, event: events.Key):
         key = event.key
         n = len(menu)
 
