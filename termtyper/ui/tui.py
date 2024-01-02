@@ -10,7 +10,6 @@ from termtyper.ui.widgets import *  # noqa
 from termtyper.ui.screens import *  # noqa
 from termtyper.src.parser import config_parser
 from termtyper.ui.widgets.palette.palette_list import ApplyLanguage, ApplyTheme
-from termtyper.ui.widgets.typing.space import Space
 
 
 class MainScreen(Screen):
@@ -53,6 +52,10 @@ class TermTyper(App):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs, watch_css=True)
+
+    async def _on_css_change(self) -> None:
+        await super()._on_css_change()
+        self.refresh_css()
 
     async def on_mount(self):
         self.push_screen("main")
