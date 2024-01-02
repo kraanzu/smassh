@@ -17,7 +17,7 @@ class BaseOption(Widget):
     """
 
     def __init__(self, setting_name: str):
-        super().__init__()
+        super().__init__(id=f"option-{setting_name}")
         self.setting_name = setting_name
 
     def on_mount(self):
