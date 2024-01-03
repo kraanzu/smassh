@@ -125,12 +125,6 @@ menu = [
         + "Note: If your accuracy for a word falls below this accuracy you will be declared failed",
     ),
     Setting(
-        "Language",
-        {},
-        Option("language", options=["english", "french"]),
-        "Choose the language you want the words to be generated from !",
-    ),
-    Setting(
         "Difficulty",
         {
             "normal": "You can type at your own accuracy",
@@ -229,6 +223,12 @@ menu = [
         + "\n"
         + "'0' means it will not be visible",
     ),
+    # Setting(
+    #     "Language",
+    #     {},
+    #     Option("language", options=["english", "french"]),
+    #     "Choose the language you want the words to be generated from !",
+    # ),
     # Setting(
     #     "Keypress Sound",
     #     {
