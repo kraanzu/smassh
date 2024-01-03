@@ -12,5 +12,6 @@ class Palette(Widget):
 
     screen_name: str
 
-    def on_click(self, event):
-        self.app.push_screen(self.screen_name)
+    async def on_click(self, _) -> None:
+        await self.app.push_screen(self.screen_name)
+        self.app.refresh_css(animate=False)
