@@ -68,8 +68,8 @@ class TermTyper(App):
     def apply_theme(self, event: ApplyTheme):
         self.action_theme(event.value)
 
-    def action_sponsor(self):
-        webbrowser.open("https://github.com/sponsors/kraanzu")
+    def action_star(self):
+        webbrowser.open("https://github.com/kraanzu/termtyper")
 
     def action_theme(self, theme: str):
         css_folder = Path.absolute(Path(__file__).parent.parent) / "ui" / "css"

@@ -34,10 +34,10 @@ class AboutDescription(Section):
         self.styles.padding = 2
 
 
-class Sponsor(Section):
+class Star(Section):
     def __init__(self):
         TEXT = """\
-    [@click=app.sponsor]Sponsor this project on GitHub![/],
+    [@click=app.star]Star this project on GitHub![/],
     """
         super().__init__(TEXT)
 
@@ -53,5 +53,5 @@ class AboutOutro(Section):
 class AboutScreen(BaseWindow):
     def compose(self) -> ComposeResult:
         yield AboutDescription()
-        yield Sponsor()
+        yield Star()
         yield AboutOutro()

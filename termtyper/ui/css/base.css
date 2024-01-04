@@ -65,7 +65,7 @@ BaseWindow {
   scrollbar-color-hover: $main-color;
 }
 
-Sponsor {
+Star {
   link-background: $sub-alt-color;
   link-background-hover: $sub-alt-color;
   link-color: $main-color;
