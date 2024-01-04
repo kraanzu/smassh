@@ -44,7 +44,7 @@ class SettingDescription(Widget):
         c3 = self.get_component_rich_style("setting--option")
         c4 = self.get_component_rich_style("setting--option-description")
 
-        text = Text(self.title, c1) + "\n" + Text(self.info, c2)
+        text = Text(self.title, c1) + "\n" + Text.from_markup(self.info, style=c2)
         if self.items:
             text = text + "\n" + create_options(self.items)
 
