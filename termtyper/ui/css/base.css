@@ -1,0 +1,75 @@
+BaseWindow {
+  background: $bg-color;
+}
+
+Header {
+  background: $sub-alt-color;
+}
+
+NavItem:hover,
+Section,
+SettingDescription .setting--info,
+SettingDescription .setting--option-description {
+  color: $text-color;
+}
+
+NavItem,
+Space,
+Palette,
+StripSetting,
+AboutOutro,
+SettingDescription .setting--header {
+  color: $sub-color;
+}
+
+SettingDescription .setting--option {
+  color: $main-color;
+}
+
+Palette:hover,
+StripSetting:hover,
+NavItem.active {
+  color: $text-color;
+}
+
+StripSetting,
+StripSeparator {
+  background: $sub-alt-color;
+}
+
+StripSeparator {
+  color: $bg-color;
+}
+
+Bracket {
+  color: $sub-alt-color;
+}
+
+StripSetting.enabled,
+Ticker {
+  color: $main-color;
+}
+
+Setting.selected {
+  background: $sub-alt-color;
+}
+
+/* ========== EXTRAS ============ */
+
+BaseWindow {
+  scrollbar-background: $sub-alt-color;
+  scrollbar-background-hover: $sub-alt-color;
+  scrollbar-background-active: $sub-alt-color;
+  scrollbar-color: $sub-color;
+  scrollbar-color-active: $main-color;
+  scrollbar-color-hover: $main-color;
+}
+
+Sponsor {
+  link-background: $sub-alt-color;
+  link-background-hover: $sub-alt-color;
+  link-color: $main-color;
+  link-color-hover: $main-color;
+  link-style: underline;
+  link-style-hover: underline italic;
+}
