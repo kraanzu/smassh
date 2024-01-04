@@ -13,7 +13,7 @@ class SettingsScreen(BaseWindow):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.current_option = -1
+        self.current_option = 0
 
     @property
     def current_setting(self):
@@ -22,6 +22,8 @@ class SettingsScreen(BaseWindow):
     def compose(self) -> ComposeResult:
         for item in menu:
             yield item
+
+        self.update_highlight()
 
     def update_highlight(self):
         for index, setting in enumerate(menu):
