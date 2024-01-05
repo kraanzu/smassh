@@ -2,7 +2,9 @@ BaseWindow {
   background: $bg-color;
 }
 
-Header {
+Header,
+PaletteHeader,
+PaletteInput {
   background: $sub-alt-color;
 }
 
@@ -52,6 +54,15 @@ Ticker {
 
 Setting.selected {
   background: $sub-alt-color;
+}
+
+PaletteScreen,
+PaletteMenu {
+  background: $bg-color 50%;
+}
+
+PaletteMenu {
+  background: $bg-color 50%;
 }
 
 /* ========== EXTRAS ============ */
