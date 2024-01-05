@@ -17,13 +17,19 @@ class BaseOption(Widget):
     }
     """
 
-    def __init__(self, setting_name: str, callback: Callable):
+    def __init__(self, setting_name: str, callback: Optional[Callable] = None):
         super().__init__(id=f"option-{setting_name}")
         self.setting_name = setting_name
-        self.callback = callback
+        self._callback = callback
 
     def on_mount(self):
         self.load_current_setting()
+
+    def callback(self):
+        if self._callback:
+            return self._callback()
+
+        return self.app.query_one(Space).reset()
 
     @property
     def value(self):
@@ -83,9 +89,6 @@ class Option(BaseOption):
     ):
         self.options = [OptionItem(option) for option in options]
         self._value = 0
-        if not callback:
-            callback = lambda: self.app.query_one(Space).reset()
-
         super().__init__(setting_name, callback)
 
     def load_current_setting(self):
@@ -128,9 +131,6 @@ class NumberScroll(BaseOption):
         setting_name: str,
         callback: Optional[Callable] = None,
     ):
-        if not callback:
-            callback = lambda: self.app.query_one(Space).reset()
-
         super().__init__(setting_name, callback)
         self._value = 0
 

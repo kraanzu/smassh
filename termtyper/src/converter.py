@@ -1,4 +1,6 @@
-import re, os, sys
+import re
+import os
+import sys
 
 
 def convert_css(input_file, output_file):

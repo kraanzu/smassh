@@ -1,4 +1,3 @@
-import textwrap
 from termtyper.assets.words import *  # noqa
 from random import sample
 
