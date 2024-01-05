@@ -25,3 +25,4 @@ termtyper = 'termtyper.__init__:main'
 
 [tool.ruff]
 exclude = ["venv"]
+ignore = ["F405"]
