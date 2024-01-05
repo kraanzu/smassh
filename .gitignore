@@ -9,7 +9,7 @@ test.py
 x.py
 
 # auto-generated file
-styles.css
+styles.tcss
 
 # Extra css files (sass, css, etc)
 /termtyper/ui/css/themes/*
