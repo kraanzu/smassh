@@ -57,12 +57,20 @@ Setting.selected {
 }
 
 PaletteScreen,
+PaletteList,
 PaletteMenu {
   background: $bg-color 50%;
 }
 
-PaletteMenu {
-  background: $bg-color 50%;
+PaletteList {
+  color: $text-color;
+
+  .option-list--option-highlighted,
+  .option-list--option-hover,
+  .option-list--option-hover-highlighted {
+    background: $caret-color;
+    color: $sub-alt-color;
+  }
 }
 
 /* ========== EXTRAS ============ */
