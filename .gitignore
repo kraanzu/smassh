@@ -1,13 +1,21 @@
 # tests folder
 tests/
 *map
-styles.css
 
 # extras
 backport/
 main.py
 test.py
 x.py
+
+# auto-generated file
+styles.css
+
+# Extra css files (sass, css, etc)
+/termtyper/ui/css/themes/*
+
+# only allow .tcss
+!/termtyper/ui/css/themes/*.tcss
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
