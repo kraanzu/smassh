@@ -23,6 +23,11 @@ class PaletteList(OptionList, can_focus=False):
     DEFAULT_CSS = """
     PaletteList {
         border: none;
+
+        .option-list--option {
+            padding: 0 1;
+        }
+
     }
     """
 
