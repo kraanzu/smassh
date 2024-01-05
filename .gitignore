@@ -1,6 +1,7 @@
 # tests folder
 tests/
 *map
+styles.css
 
 # extras
 backport/
