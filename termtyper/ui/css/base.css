@@ -75,7 +75,7 @@ PaletteList {
 
 /* ========== EXTRAS ============ */
 
-BaseWindow {
+BaseWindow, PaletteList {
   scrollbar-background: $sub-alt-color;
   scrollbar-background-hover: $sub-alt-color;
   scrollbar-background-active: $sub-alt-color;

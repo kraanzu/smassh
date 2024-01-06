@@ -23,6 +23,7 @@ class PaletteList(OptionList, can_focus=False):
     DEFAULT_CSS = """
     PaletteList {
         border: none;
+        scrollbar-size: 0 1;
 
         .option-list--option {
             padding: 0 1;
