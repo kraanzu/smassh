@@ -60,6 +60,7 @@ class PaletteScreen(Screen):
     def preview_palette_option(self, event: PaletteList.OptionHighlighted):
         palette_list = self.query_one(PaletteList)
         prompt = str(event.option.prompt)
+        prompt = prompt.replace(" ", "_")
         self.post_message(palette_list._highlight_event(prompt))
 
     def action_next_option(self):
