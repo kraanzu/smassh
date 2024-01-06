@@ -101,7 +101,7 @@ class Setting(Widget):
 # First menu
 menu = [
     Setting(
-        "Min Speed",
+        " Min Speed",
         {},
         NumberScroll("min_speed"),
         info="Are you fast enough?"
@@ -109,7 +109,7 @@ menu = [
         + "Note: If your speed falls below this speed you will be declared failed",
     ),
     Setting(
-        "Min Accuracy",
+        " Min Accuracy",
         {},
         NumberScroll("min_accuracy"),
         info="You can't go wrong with this"
@@ -117,7 +117,7 @@ menu = [
         + "Note: If your accuracy falls below this accuracy you will be declared failed",
     ),
     Setting(
-        "Min Burst",
+        " Min Burst",
         {},
         NumberScroll("min_burst"),
         info="Wanna make your life harder?"
@@ -125,7 +125,7 @@ menu = [
         + "Note: If your accuracy for a word falls below this accuracy you will be declared failed",
     ),
     Setting(
-        "Difficulty",
+        " Difficulty",
         {
             "normal": "You can type at your own accuracy",
             "expert": "Moving forward without writing the prev word correctly? YOU'RE FAILED!",
@@ -138,7 +138,7 @@ menu = [
         "Where's the fun without some conditions?",
     ),
     Setting(
-        "Blind Mode",
+        "󰈉 Blind Mode",
         {
             "off": "You will get to know whether you typed right or  wrong",
             "on": "Just believe your spidey sense!",
@@ -149,7 +149,7 @@ menu = [
         + "Note: You should turn [bold]force correct[/bold] off if you are turing blind mode on",
     ),
     Setting(
-        "Tab Reset",
+        " Tab Reset",
         {
             "on": "Pressing tab will cancel the current typing and re-start it",
             "off": "Pressing tab will have no effect ",
@@ -158,7 +158,7 @@ menu = [
         "Lost your gusto in the middle of typing? Restart by hitting a tab!",
     ),
     Setting(
-        "Restart Same",
+        "󰕇 Restart Same",
         {
             "off": "Pressing tab will render a new paragraph",
             "on": "Pressing tab will restart the typing session with the same paragraph",
@@ -167,7 +167,7 @@ menu = [
         "Wanna practice the same paragraph over and over? This option is for you!",
     ),
     Setting(
-        "Force correct",
+        " Force correct",
         {
             "on": "You will not be allowed to move forward until"
             + "\n"
@@ -178,7 +178,7 @@ menu = [
         "Are you worthy?",
     ),
     Setting(
-        "Confidence Mode:",
+        "󰁮 Confidence Mode:",
         {
             "off": "You can type backspace as many times you want",
             "on": "You will only be able to backspace until the start of the current word",
@@ -188,7 +188,7 @@ menu = [
         "Feeling Lucky?",
     ),
     Setting(
-        "Capitalization Mode:",
+        "󰬵 Capitalization Mode:",
         {
             "off": "All lowercase words, don't worry about your 'Shift' key",
             "on": "You will come across some words that start with a capital letter, but not many",
@@ -201,7 +201,7 @@ menu = [
         "Getting your hands dirty?",
     ),
     Setting(
-        "Caret style",
+        "󰗧 Caret style",
         {
             "off": "[green]hello pete[/green]r",
             "underline": "[green]hello pete[/green][underline]r[/underline]",
@@ -214,7 +214,7 @@ menu = [
         info="Choose your style!",
     ),
     Setting(
-        "Cursor buddy",
+        "󱔎 Cursor buddy",
         {},
         NumberScroll("cursor_buddy_speed"),
         info="Feeling a little lonely?"
