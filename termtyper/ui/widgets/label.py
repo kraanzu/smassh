@@ -41,12 +41,6 @@ class NavItem(NavItemBase):
     Just a label widget with a callback
     """
 
-    DEFAULT_CSS = """
-    NavItem.active {
-        text-style: bold;
-    }
-    """
-
     def on_click(self) -> None:
         if self.parent:
             for item in self.parent.query(NavItem):
