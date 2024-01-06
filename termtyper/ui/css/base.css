@@ -73,6 +73,7 @@ OptionItem:hover {
 NumberScroll {
   .scroll--background {
     background: $main-color;
+    color: $sub-alt-color;
   }
 }
 
