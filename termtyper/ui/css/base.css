@@ -68,7 +68,7 @@ PaletteList {
   .option-list--option-highlighted,
   .option-list--option-hover,
   .option-list--option-hover-highlighted {
-    background: $caret-color;
+    background: $text-color;
     color: $sub-alt-color;
   }
 }
