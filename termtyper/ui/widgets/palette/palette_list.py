@@ -44,7 +44,11 @@ class PaletteList(OptionList, can_focus=False):
         for option in sorted(self.get_options()):
             option = option.replace("_", " ")
             text = Text(option)
-            count = text.highlight_words([self._filter], "green")
+            if self._filter:
+                count = text.highlight_words([self._filter], "green")
+            else:
+                count = 1
+
             if count:
                 self.add_option(text)
 
