@@ -40,7 +40,6 @@ class Section(Widget):
 class AboutDescription(Section):
     def __init__(self):
         super().__init__(DESCRIPTION)
-        self.styles.padding = 2
 
 
 class Star(Section):
@@ -49,11 +48,26 @@ class Star(Section):
 
 
 class AboutOutro(Section):
+    DEFAULT_CSS = """
+    AboutOutro {
+        content-align: center bottom;
+        height: 100%;
+    }
+    """
+
     def __init__(self):
         super().__init__(OUTRO)
 
 
 class AboutScreen(BaseWindow):
+    DEFAULT_CSS = """
+    AboutScreen {
+        layout: grid;
+        grid-size: 1 3;
+        grid-rows: auto auto 1fr;
+    }
+    """
+
     def compose(self) -> ComposeResult:
         yield AboutDescription()
         yield Star()
