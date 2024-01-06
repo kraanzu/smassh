@@ -3,7 +3,6 @@ BaseWindow {
 }
 
 Header,
-PaletteHeader,
 PaletteInput {
   background: $sub-alt-color;
 }
@@ -57,9 +56,13 @@ Setting.selected {
 }
 
 PaletteScreen,
-PaletteList,
-PaletteMenu {
+PaletteList {
   background: $bg-color 50%;
+}
+
+PaletteMenu {
+  background: $bg-color;
+  border: solid $main-color;
 }
 
 PaletteList {
@@ -75,7 +78,8 @@ PaletteList {
 
 /* ========== EXTRAS ============ */
 
-BaseWindow, PaletteList {
+BaseWindow,
+PaletteList {
   scrollbar-background: $sub-alt-color;
   scrollbar-background-hover: $sub-alt-color;
   scrollbar-background-active: $sub-alt-color;
