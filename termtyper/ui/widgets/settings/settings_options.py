@@ -117,7 +117,7 @@ menu = [
         + "Note: If your accuracy falls below this accuracy you will be declared failed",
     ),
     Setting(
-        "Min Burst:",
+        "Min Burst",
         {},
         NumberScroll("min_burst"),
         info="Wanna make your life harder?"
