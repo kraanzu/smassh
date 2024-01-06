@@ -56,6 +56,26 @@ Setting.selected {
   background: $sub-alt-color;
 }
 
+BaseOption {
+  color: $text-color;
+}
+
+OptionItem.selected {
+  background: $main-color;
+  color: $sub-alt-color;
+}
+
+OptionItem:hover {
+  background: $text-color;
+  color: $sub-alt-color;
+}
+
+NumberScroll {
+  .scroll--background {
+    background: $main-color;
+  }
+}
+
 PaletteScreen,
 PaletteList {
   background: $bg-color 50%;
