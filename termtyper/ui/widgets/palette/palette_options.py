@@ -1,30 +1,18 @@
-from rich.console import RenderableType
 from textual.app import ComposeResult
 from textual.widget import Widget
-
 from .palette import Palette
 
 
 class LanguagePalette(Palette):
     screen_name = "language"
-
-    @property
-    def current_language(self) -> str:
-        return "english"
-
-    def render(self) -> RenderableType:
-        return f" {self.current_language}"
+    config_name = "language"
+    icon = ""
 
 
 class ThemePalette(Palette):
     screen_name = "theme"
-
-    @property
-    def current_theme(self) -> str:
-        return "nord"
-
-    def render(self) -> RenderableType:
-        return f" {self.current_theme}"
+    config_name = "theme"
+    icon = ""
 
 
 class PaletteOptions(Widget):
