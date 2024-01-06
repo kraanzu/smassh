@@ -9,6 +9,7 @@ from termtyper.ui.screens import *  # noqa
 from termtyper.src.parser import config_parser
 from termtyper.src.css_generator import generate_theme_file
 from termtyper.ui.widgets.palette.palette_list import ApplyLanguage, ApplyTheme
+from termtyper.ui.widgets.palette import LanguagePalette, ThemePalette
 
 
 class MainScreen(Screen):
@@ -63,10 +64,13 @@ class TermTyper(App):
     @on(ApplyLanguage)
     def apply_language(self, event: ApplyLanguage):
         config_parser.set("language", event.value)
+        self.SCREENS["main"].query_one(LanguagePalette).refresh()
 
     @on(ApplyTheme)
     def apply_theme(self, event: ApplyTheme):
         self.action_theme(event.value)
+        config_parser.set("theme", event.value)
+        self.SCREENS["main"].query_one(ThemePalette).refresh()
 
     def action_star(self):
         webbrowser.open("https://github.com/kraanzu/termtyper")
