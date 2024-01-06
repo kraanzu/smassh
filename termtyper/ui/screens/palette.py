@@ -1,4 +1,4 @@
-from textual import on
+from textual import on, work
 from textual.containers import Vertical
 from textual.app import ComposeResult
 from textual.binding import Binding
@@ -51,6 +51,7 @@ class PaletteScreen(Screen):
     palette_header: str
 
     @on(PaletteInput.Changed)
+    @work(thread=True, exclusive=True)
     def update_palette_list(self, event):
         event.stop()
         text = self.query_one(PaletteInput).value
