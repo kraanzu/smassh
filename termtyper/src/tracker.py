@@ -37,4 +37,9 @@ class Tracker:
         ...
 
     def handle_letter(self, key: str) -> Cursor:
-        ...
+        if key == self.paragraph[self.cursor_pos]:
+            self.cursor_pos += 1
+            return Cursor(self.cursor_pos - 1, self.cursor_pos, True)
+
+        self.cursor_pos += 1
+        return Cursor(self.cursor_pos - 1, self.cursor_pos, False)
