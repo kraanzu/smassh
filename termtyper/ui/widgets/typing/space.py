@@ -6,6 +6,7 @@ from rich.console import RenderableType
 from rich.text import Span, Text
 from textual.widget import Widget
 from termtyper.src.generator import master_generator
+from termtyper.src.tracker import Tracker, Cursor
 
 
 class Space(Widget):
@@ -22,9 +23,8 @@ class Space(Widget):
 
     # ---------------- UTILS -----------------
 
-    @property
-    def cursor_row(self):
-        return bisect_right(self.newlines, self.cursor)
+    def cursor_row(self, cursor_pos: int) -> int:
+        return bisect_right(self.newlines, cursor_pos)
 
     def reverse_span(self, pos: int) -> Span:
         return Span(pos, pos + 1, "reverse white")
@@ -53,58 +53,45 @@ class Space(Widget):
         generated = master_generator.generate()
         self.paragraph = Text(generated)
         self.paragraph.spans.append(self.reverse_span(0))
+        self.tracker = Tracker(generated)
         self.cursor = 0
 
     def render(self) -> RenderableType:
         return self.paragraph
 
-    def update_cursor(self) -> None:
-        self.paragraph.spans.append(self.reverse_span(self.cursor))
-
-    def update_colors(self) -> None:
-        if not self.current_key:
-            return
-
+    def update_colors(self, cursor: Cursor) -> None:
         self.paragraph.spans.pop()
-        key = self.current_key
-        spans = self.paragraph.spans
+        old = cursor.old
+        new = cursor.new
+        correct = cursor.correct
 
-        while spans and spans[-1].start >= self.cursor:
-            spans.pop()
-
-        if len(key) != 1:
+        if new < old:
             return
 
-        # -1 because the cursor is ahead if a key is pressed
-        correct = self.paragraph.plain[self.cursor - 1] == key
-        self.paragraph.spans.append(self.cursor_span(correct))
+        diff = new - old
+        if diff == 1:
+            span = Span(old, new, "green" if correct else "red")
+            self.paragraph.spans.append(span)
+            return
 
     # ---------------- KEYPRESS -----------------
 
-    def apply_key(self, key: str) -> None:
-        if key == "backspace":
-            self.cursor -= 1
+    def keypress(self, key: str) -> None:
+        cursor = self.tracker.keypress(key)
+        if not cursor:
             return
 
-        self.cursor += 1
-
-    def keypress(self, key: str) -> None:
-
-        if key == "space":
-            key = " "
-
-        current_row = self.cursor_row
-        self.current_key = key
+        current_row = self.cursor_row(cursor.old)
+        new_row = self.cursor_row(cursor.new)
 
         if (
-            self.cursor_row != current_row
-            and self.cursor_row > 1
+            current_row != new_row
+            and current_row > 1
             and isinstance(self.parent, Widget)
         ):
             self.parent.scroll_down()
 
-        self.apply_key(key)
-        self.update_colors()
-        self.update_cursor()
+        self.update_colors(cursor)
+        self.paragraph.spans.append(self.reverse_span(cursor.new))
 
         self.refresh()
