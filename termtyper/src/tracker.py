@@ -40,7 +40,16 @@ class Tracker:
         return Cursor(old, self.cursor_pos, True)
 
     def handle_delete_word(self) -> Cursor:
-        ...
+        old = self.cursor_pos
+
+        # incase it's the start of a word
+        if self.cursor_pos:
+            self.cursor_pos -= 1
+
+        while self.cursor_pos > 0 and self.paragraph[self.cursor_pos - 1] != " ":
+            self.cursor_pos -= 1
+
+        return Cursor(old, self.cursor_pos, True)
 
     def handle_letter(self, key: str) -> Cursor:
         old = self.cursor_pos
