@@ -30,16 +30,18 @@ class Tracker:
         if len(key) == 1:
             return self.handle_letter(key)
 
-    def handle_delete_letter(self) -> Cursor:
+    def handle_delete_letter(self) -> Optional[Cursor]:
         ...
 
     def handle_delete_word(self) -> Cursor:
         ...
 
     def handle_letter(self, key: str) -> Cursor:
+        old = self.cursor_pos
+
         if key == self.paragraph[self.cursor_pos]:
             self.cursor_pos += 1
-            return Cursor(self.cursor_pos - 1, self.cursor_pos, True)
+            return Cursor(old, self.cursor_pos, True)
 
         self.cursor_pos += 1
-        return Cursor(self.cursor_pos - 1, self.cursor_pos, False)
+        return Cursor(old, self.cursor_pos, False)
