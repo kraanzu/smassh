@@ -70,6 +70,9 @@ class Space(Widget):
             return
 
         diff = new - old
+
+        empty_spans = [Span(i, i + 1, "") for i in range(old, new - 1)]
+        self.paragraph.spans.extend(empty_spans)
         if diff == 1:
             span = Span(old, new, "green" if correct else "red")
             self.paragraph.spans.append(span)
