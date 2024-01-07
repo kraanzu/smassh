@@ -62,7 +62,7 @@ class Space(Widget):
         current_row = self.cursor_row
         self.update_colors(key)
         self.cursor += 1
-        if self.cursor_row != current_row:
+        if self.cursor_row != current_row and self.cursor_row > 1:
             self.parent.scroll_down()
 
         self.refresh()
