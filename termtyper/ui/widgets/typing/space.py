@@ -66,6 +66,7 @@ class Space(Widget):
         correct = cursor.correct
 
         if new < old:
+            self.paragraph.spans = self.paragraph.spans[:new]
             return
 
         diff = new - old
