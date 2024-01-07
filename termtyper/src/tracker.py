@@ -31,7 +31,13 @@ class Tracker:
             return self.handle_letter(key)
 
     def handle_delete_letter(self) -> Optional[Cursor]:
-        ...
+        old = self.cursor_pos
+
+        if self.cursor_pos == 0:
+            return
+
+        self.cursor_pos -= 1
+        return Cursor(old, self.cursor_pos, True)
 
     def handle_delete_word(self) -> Cursor:
         ...
