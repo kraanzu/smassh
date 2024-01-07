@@ -25,4 +25,4 @@ class Palette(Widget):
         self.app.refresh_css(animate=False)
 
     def render(self) -> RenderableType:
-        return f"{self.icon} {self.current}"
+        return f"{self.icon} {self.current.replace('_', ' ')}"
