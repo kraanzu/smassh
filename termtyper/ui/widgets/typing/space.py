@@ -6,6 +6,7 @@ from rich.console import RenderableType
 from rich.text import Span, Text
 from textual.widget import Widget
 from termtyper.src import master_generator, Tracker, Cursor
+from termtyper.ui.events import SetScreen
 
 
 class Space(Widget):
@@ -96,5 +97,8 @@ class Space(Widget):
 
         self.update_colors(cursor)
         self.paragraph.spans.append(self.reverse_span(cursor.new))
+
+        if cursor.new == len(self.paragraph.plain):
+            self.screen.post_message(SetScreen("result"))
 
         self.refresh()
