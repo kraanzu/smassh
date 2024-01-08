@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import Optional
+from .stats_tracker import StatsTracker, CheckPoint, Match
 
 
 @dataclass
@@ -8,6 +9,12 @@ class Cursor:
     new: int
     correct: bool
 
+    def to_checkpoint(self) -> CheckPoint:
+        if self.new > self.old:
+            return CheckPoint(self.new, Match.MATCH if self.correct else Match.MISMATCH)
+
+        return CheckPoint(self.new, Match.BACKSPACE)
+
 
 class Tracker:
     def __init__(self, paragraph: str) -> None:
@@ -15,20 +22,27 @@ class Tracker:
 
     def reset(self, paragraph: str) -> None:
         self.paragraph = paragraph
+        self.stats = StatsTracker()
         self.cursor_pos = 0
 
     def keypress(self, key: str) -> Optional[Cursor]:
         if key == "space":
             key = " "
 
+        res = None
+
         if key == "backspace":
-            return self.handle_delete_letter()
+            res = self.handle_delete_letter()
 
-        if key == "ctrl+w":
-            return self.handle_delete_word()
+        elif key == "ctrl+w":
+            res = self.handle_delete_word()
 
-        if len(key) == 1:
-            return self.handle_letter(key)
+        elif len(key) == 1:
+            res = self.handle_letter(key)
+
+        if res:
+            self.stats.add_checkpoint(res.to_checkpoint())
+            return res
 
     def handle_delete_letter(self) -> Optional[Cursor]:
         old = self.cursor_pos
