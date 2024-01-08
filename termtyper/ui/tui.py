@@ -3,7 +3,7 @@ from textual import on
 from textual.app import App, ComposeResult, events
 from textual.screen import Screen
 from textual.widgets import ContentSwitcher
-from termtyper.ui.events import SetScreen
+from termtyper.ui.events import SetScreen, ShowResults
 from termtyper.ui.widgets import *  # noqa
 from termtyper.ui.screens import *  # noqa
 from termtyper.ui.widgets.palette.palette_list import ApplyLanguage, ApplyTheme
@@ -35,6 +35,11 @@ class MainScreen(Screen):
     @on(SetScreen)
     def screen_change(self, event: SetScreen):
         self.query_one(ContentSwitcher).current = event.screen_name
+
+    @on(ShowResults)
+    def show_results(self, event: ShowResults):
+        self.query_one(ContentSwitcher).current = "result"
+        self.query_one(ResultScreen).set_results(event.stats)
 
     async def handle_key(self, event: events.Key):
         visible = self.query_one(ContentSwitcher).visible_content
