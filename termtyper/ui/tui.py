@@ -27,6 +27,7 @@ class MainScreen(Screen):
             AboutScreen(id="about"),
             SettingsScreen(id="settings"),
             HelpScreen(id="help"),
+            ResultScreen(id="result"),
             # initial screen
             initial="typing",
         )
