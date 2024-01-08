@@ -19,6 +19,9 @@ class CheckPoint:
 
 
 class StatsTracker:
+    def __init__(self) -> None:
+        self.reset()
+
     @property
     def raw_wpm(self) -> float:
         ...
