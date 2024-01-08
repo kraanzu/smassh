@@ -54,6 +54,12 @@ class StatsTracker:
         self.checkpoints = []
 
     def add_checkpoint(self, checkpoint: CheckPoint) -> None:
+
+        if checkpoint.correct == Match.BACKSPACE:
+            diff = self.checkpoints[-1].position - checkpoint.position
+            self.checkpoints = self.checkpoints[:-diff]
+            return
+
         if not self.start_time:
             self.start_time = time()
 
