@@ -23,8 +23,11 @@ class StatsTracker:
         self.reset()
 
     @property
-    def raw_wpm(self) -> float:
-        ...
+    def raw_wpm(self) -> int:
+        time_taken = self.checkpoints[-1].elapsed / 60
+        words = len(self.checkpoints) / 5
+
+        return round(words / time_taken)
 
     @property
     def accuracy(self) -> float:
