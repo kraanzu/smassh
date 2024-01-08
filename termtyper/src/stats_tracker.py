@@ -1,3 +1,4 @@
+from time import time
 from dataclasses import dataclass
 from enum import Enum
 
@@ -12,6 +13,9 @@ class Match(Enum):
 class CheckPoint:
     position: int
     correct: Match
+
+    def add_elapsed(self, elapsed) -> None:
+        self.elapsed = elapsed
 
 
 class StatsTracker:
@@ -47,4 +51,10 @@ class StatsTracker:
         self.checkpoints = []
 
     def add_checkpoint(self, checkpoint: CheckPoint) -> None:
+        if not self.start_time:
+            self.start_time = time()
+
+        elapsed = time() - self.start_time
+        checkpoint.add_elapsed(elapsed)
+
         self.checkpoints.append(checkpoint)
