@@ -6,10 +6,9 @@ from textual.widgets import ContentSwitcher
 from termtyper.ui.events import SetScreen
 from termtyper.ui.widgets import *  # noqa
 from termtyper.ui.screens import *  # noqa
-from termtyper.src.parser import config_parser
-from termtyper.src.css_generator import generate_theme_file
 from termtyper.ui.widgets.palette.palette_list import ApplyLanguage, ApplyTheme
 from termtyper.ui.widgets.palette import LanguagePalette, ThemePalette
+from termtyper.src import config_parser, generate_theme_file
 
 
 class MainScreen(Screen):

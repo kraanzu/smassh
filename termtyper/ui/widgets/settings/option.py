@@ -3,7 +3,7 @@ from rich.console import RenderableType
 from rich.text import Text
 from textual.app import ComposeResult
 from textual.widget import Widget
-from termtyper.src.parser import config_parser
+from termtyper.src import config_parser
 from termtyper.ui.widgets.typing.space import Space
 
 

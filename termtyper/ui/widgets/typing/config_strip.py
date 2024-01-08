@@ -2,7 +2,7 @@ from typing import Literal, Optional
 from rich.console import RenderableType
 from textual.app import ComposeResult
 from textual.widget import Widget
-from termtyper.src.parser import config_parser
+from termtyper.src import config_parser
 
 
 class StripSetting(Widget):

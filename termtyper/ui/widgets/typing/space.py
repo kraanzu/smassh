@@ -5,8 +5,7 @@ from itertools import accumulate
 from rich.console import RenderableType
 from rich.text import Span, Text
 from textual.widget import Widget
-from termtyper.src.generator import master_generator
-from termtyper.src.tracker import Tracker, Cursor
+from termtyper.src import master_generator, Tracker, Cursor
 
 
 class Space(Widget):

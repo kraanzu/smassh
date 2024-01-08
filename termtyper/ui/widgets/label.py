@@ -1,7 +1,7 @@
 from typing import Optional
 from rich.console import RenderableType
 from textual.widget import Widget
-from termtyper.src.figlet import generate_figlet
+from termtyper.src import generate_figlet
 from termtyper.ui.events import SetScreen
 
 

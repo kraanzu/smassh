@@ -2,7 +2,7 @@ from typing import Type
 from textual.message import Message
 from textual.widgets import OptionList
 from rich.text import Text
-from termtyper.src.parser import config_parser
+from termtyper.src import config_parser
 
 
 class PaletteOptionHighlighted(Message):

@@ -1,5 +1,5 @@
 from rich.console import RenderableType
-from termtyper.src.parser import config_parser
+from termtyper.src import config_parser
 from textual.widget import Widget
 
 
