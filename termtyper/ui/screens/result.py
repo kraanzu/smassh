@@ -1,5 +1,6 @@
 from textual.app import ComposeResult
 from textual.widgets import Label
+from termtyper.src.stats_tracker import StatsTracker
 from termtyper.ui.widgets import BaseWindow
 
 
@@ -11,3 +12,6 @@ class ResultScreen(BaseWindow):
 
     def compose(self) -> ComposeResult:
         yield Label("Result Screen")
+
+    def set_results(self, stats: StatsTracker):
+        self.stats = stats
