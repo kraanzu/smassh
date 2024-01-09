@@ -7,6 +7,7 @@ class Match(Enum):
     MATCH = 1
     MISMATCH = 2
     BACKSPACE = 3
+    SKIPPED = 4
 
 
 @dataclass
@@ -30,24 +31,29 @@ class StatsTracker:
         return round(words / time_taken)
 
     @property
-    def accuracy(self) -> float:
-        ...
+    def accuracy(self) -> int:
+        accuracy = (self.correct / (self.correct + self.incorrect)) * 100
+        return round(accuracy)
 
     @property
     def wpm(self) -> float:
-        ...
+        return round(self.raw_wpm * (self.accuracy / 100))
 
     @property
     def correct(self) -> int:
-        ...
+        return sum(checkpoint.correct == Match.MATCH for checkpoint in self.checkpoints)
 
     @property
     def incorrect(self) -> int:
-        ...
+        return sum(
+            checkpoint.correct == Match.MISMATCH for checkpoint in self.checkpoints
+        )
 
     @property
     def missed(self) -> int:
-        ...
+        return sum(
+            checkpoint.correct == Match.SKIPPED for checkpoint in self.checkpoints
+        )
 
     # ---------------------------------------
 
