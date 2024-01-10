@@ -49,6 +49,8 @@ class Space(Widget):
         self.paragraph.spans.append(self.reverse_span(0))
         self.tracker = Tracker(generated, intervention=self.intervene)
         self.cursor = 0
+        self.refresh()
+
         if self.size.width:
             self.reset_newlines()
 

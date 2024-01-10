@@ -3,6 +3,7 @@ from rich.console import RenderableType
 from textual.app import ComposeResult
 from textual.widget import Widget
 from termtyper.src import config_parser
+from termtyper.ui.widgets.typing.space import Space
 
 
 class StripSetting(Widget):
@@ -41,6 +42,7 @@ class PunctuationStripSetting(StripSetting):
 
     def on_click(self):
         self.toggle()
+        self.screen.query_one(Space).reset()
 
 
 class NumberStripSetting(StripSetting):
@@ -57,6 +59,7 @@ class NumberStripSetting(StripSetting):
 
     def on_click(self):
         self.toggle()
+        self.screen.query_one(Space).reset()
 
 
 class StripSeparator(Widget):
