@@ -28,38 +28,43 @@ class StripSetting(Widget):
         return self.setting_name
 
 
-class PunctuationStripSetting(StripSetting):
+class Mode(StripSetting):
+    setting_name: str
+    setting_icon: str
+
     def __init__(self):
-        super().__init__("punctuation", "󰸥")
+        super().__init__(self.setting_name, self.setting_icon)
         self.refresh_setting()
 
     def refresh_setting(self) -> None:
-        self.set_class(config_parser.get("punctuations"), "enabled")
+        self.set_class(config_parser.get(self.setting_name), "enabled")
+
+    def _toggle(self):
+        ...
 
     def toggle(self):
+        self._toggle()
+        self.refresh_setting()
+
+    def on_click(self):
+        self.toggle()
+        self.screen.query_one(Space).reset()
+
+
+class PunctuationMode(Mode):
+    setting_name = "punctuations"
+    setting_icon = "󰸥"
+
+    def _toggle(self):
         config_parser.toggle_punctuations()
-        self.refresh_setting()
-
-    def on_click(self):
-        self.toggle()
-        self.screen.query_one(Space).reset()
 
 
-class NumberStripSetting(StripSetting):
-    def __init__(self):
-        super().__init__("numbers", "󰲰")
-        self.refresh_setting()
+class NumberMode(Mode):
+    setting_name = "numbers"
+    setting_icon = "󰲰"
 
-    def refresh_setting(self) -> None:
-        self.set_class(config_parser.get("numbers"), "enabled")
-
-    def toggle(self):
+    def _toggle(self):
         config_parser.toggle_numbers()
-        self.refresh_setting()
-
-    def on_click(self):
-        self.toggle()
-        self.screen.query_one(Space).reset()
 
 
 class StripSeparator(Widget):
@@ -110,8 +115,8 @@ class TypingConfigStrip(Widget):
 
     def compose(self) -> ComposeResult:
         yield Bracket("left")
-        yield PunctuationStripSetting()
-        yield NumberStripSetting()
+        yield PunctuationMode()
+        yield NumberMode()
         yield StripSeparator()
         yield StripSetting("time", "󰥔")
         yield StripSetting("words", "󰯬")
