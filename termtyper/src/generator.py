@@ -12,21 +12,20 @@ def numbers(func: GeneratorFunc) -> GeneratorFunc:
     def wrapper(*args, **kwargs):
         paragraph = func(*args, **kwargs)
 
-        if config_parser.get("numbers"):
+        if not config_parser.get("numbers"):
+            return paragraph
 
-            words = paragraph.split()
-            total_words = len(words)
-            words_to_insert = total_words // 5
-            positions = sample(range(total_words), words_to_insert)
-            positions.sort()
+        words = paragraph.split()
+        total_words = len(words)
+        words_to_insert = total_words // 5
+        positions = sample(range(total_words), words_to_insert)
+        positions.sort()
 
-            for position in positions:
-                numbers = [str(randint(10**i, 10 ** (i + 1))) for i in range(4)]
-                words[position] = choice(numbers)
+        for position in positions:
+            numbers = [str(randint(10**i, 10 ** (i + 1))) for i in range(4)]
+            words[position] = choice(numbers)
 
-            return " ".join(words)
-
-        return paragraph
+        return " ".join(words)
 
     return wrapper
 
@@ -36,26 +35,25 @@ def punctuations(func: GeneratorFunc) -> GeneratorFunc:
         paragraph = func(*args, **kwargs)
 
         if config_parser.get("punctuations"):
-            words = paragraph.split()
-            new_paragraph = []
+            return paragraph
 
-            for word in words:
-                i = randint(0, 20)
+        words = paragraph.split()
+        new_paragraph = []
 
-                if i == 0:
-                    word = word + choice(PUNCS)
-                elif i == 1:
-                    word = f"'{word}'"
-                elif i == 2:
-                    word = f'"{word}"'
-                elif i == 3:
-                    word = f"({word})"
+        for word in words:
+            i = randint(0, 20)
+            if i == 0:
+                word = word + choice(PUNCS)
+            elif i == 1:
+                word = f"'{word}'"
+            elif i == 2:
+                word = f'"{word}"'
+            elif i == 3:
+                word = f"({word})"
 
-                new_paragraph.append(word)
+            new_paragraph.append(word)
 
-            paragraph = " ".join(new_paragraph)
-
-        return paragraph
+        return " ".join(new_paragraph)
 
     return wrapper
 
