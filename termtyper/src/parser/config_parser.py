@@ -10,7 +10,7 @@ DEFAULTS = {
     "min_accuracy": 0,
     "min_burst": 0,
     "force_correct": False,
-    "confidence_mode": False,
+    "confidence_mode": "off",
     "capitalization_mode": False,
     "single_line_words": False,
     "cursor_buddy": 0,
