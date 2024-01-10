@@ -89,8 +89,13 @@ class Space(Widget):
         current_row = self.cursor_row(cursor.old)
         new_row = self.cursor_row(cursor.new)
 
-        if current_row != new_row and current_row and isinstance(self.parent, Widget):
-            self.parent.scroll_down()
+        if current_row != new_row and isinstance(self.parent, Widget):
+            if new_row > current_row:
+                if current_row:
+                    self.parent.scroll_down()
+            else:
+                if current_row != len(self.newlines) - 1:
+                    self.parent.scroll_up()
 
         self.update_colors(cursor)
         self.paragraph.spans.append(self.reverse_span(cursor.new))
