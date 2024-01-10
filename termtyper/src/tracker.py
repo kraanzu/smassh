@@ -1,6 +1,9 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import Callable, Optional
 from .stats_tracker import StatsTracker, CheckPoint, Match
+from termtyper.src.parser import config_parser
+
+TrackerFunc = Callable[["Tracker"], Optional["Cursor"]]
 
 
 @dataclass
@@ -14,6 +17,15 @@ class Cursor:
             return CheckPoint(self.new, Match.MATCH if self.correct else Match.MISMATCH)
 
         return CheckPoint(self.new, Match.BACKSPACE)
+
+
+def confidence_mode(func: TrackerFunc) -> TrackerFunc:
+    def wrapper(tracker: "Tracker", *args, **kwargs) -> Optional[Cursor]:
+        _ = config_parser.get("confidence_mode")
+        result = func(tracker, *args, **kwargs)
+        return result
+
+    return wrapper
 
 
 class Tracker:
@@ -44,6 +56,7 @@ class Tracker:
             self.stats.add_checkpoint(res.to_checkpoint())
             return res
 
+    @confidence_mode
     def handle_delete_letter(self) -> Optional[Cursor]:
         old = self.cursor_pos
 
@@ -53,6 +66,7 @@ class Tracker:
         self.cursor_pos -= 1
         return Cursor(old, self.cursor_pos, True)
 
+    @confidence_mode
     def handle_delete_word(self) -> Cursor:
         old = self.cursor_pos
 
