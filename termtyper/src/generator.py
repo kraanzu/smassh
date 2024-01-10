@@ -1,4 +1,8 @@
+import operator
+import textwrap
+from itertools import accumulate
 from collections.abc import Callable
+from typing import List
 from termtyper.assets.words import *  # noqa
 from termtyper.src.parser import config_parser
 from random import randint, choice, sample
@@ -70,6 +74,15 @@ class Generator:
     @punctuations
     def generate(self) -> str:
         return self.words
+
+    def get_newlines(self, paragraph: str, width: int) -> List[int]:
+        lines = textwrap.wrap(paragraph, width)
+        return list(
+            accumulate(
+                [len(line) + 1 for line in lines],
+                operator.add,
+            )
+        )
 
 
 master_generator = Generator()

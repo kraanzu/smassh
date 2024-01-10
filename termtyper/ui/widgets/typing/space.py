@@ -1,7 +1,4 @@
-import operator
-import textwrap
 from bisect import bisect_right
-from itertools import accumulate
 from rich.console import RenderableType
 from rich.text import Span, Text
 from textual.widget import Widget
@@ -39,14 +36,9 @@ class Space(Widget):
     # ----------------- RENDER ------------------
 
     def on_show(self):
-        paragraph = self.paragraph.plain
-        width = self.size.width
-        lines = textwrap.wrap(paragraph, width)
-        self.newlines = list(
-            accumulate(
-                [len(line) + 1 for line in lines],
-                operator.add,
-            )
+        self.newlines = master_generator.get_newlines(
+            self.paragraph.plain,
+            self.size.width,
         )
 
     def reset(self) -> None:
