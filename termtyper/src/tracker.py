@@ -8,7 +8,17 @@ TrackerFunc = Callable[["Tracker"], Optional["Cursor"]]
 
 def confidence_mode(func: TrackerFunc) -> TrackerFunc:
     def wrapper(tracker: "Tracker", *args, **kwargs) -> Optional[Cursor]:
-        _ = config_parser.get("confidence_mode")
+        setting = config_parser.get("confidence_mode")
+        if setting == "max":
+            return
+
+        if (
+            setting == "on"
+            and tracker.cursor_pos
+            and tracker.paragraph[tracker.cursor_pos - 1] == " "
+        ):
+            return
+
         result = func(tracker, *args, **kwargs)
         return result
 
