@@ -38,7 +38,7 @@ def punctuations(func: GeneratorFunc) -> GeneratorFunc:
     def wrapper(*args, **kwargs):
         paragraph = func(*args, **kwargs)
 
-        if config_parser.get("punctuations"):
+        if not config_parser.get("punctuations"):
             return paragraph
 
         words = paragraph.split()
