@@ -39,8 +39,11 @@ class Cursor:
 
 
 class Tracker:
-    def __init__(self, paragraph: str) -> None:
+    def __init__(self, paragraph: str, intervention: Optional[Callable] = None) -> None:
         self.reset(paragraph)
+
+        # callback function for cases where restrictions are broken
+        self.intervention = intervention or (lambda _: None)
 
     def reset(self, paragraph: str) -> None:
         self.paragraph = paragraph

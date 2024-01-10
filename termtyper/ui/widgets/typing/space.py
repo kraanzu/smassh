@@ -53,8 +53,11 @@ class Space(Widget):
         generated = master_generator.generate()
         self.paragraph = Text(generated)
         self.paragraph.spans.append(self.reverse_span(0))
-        self.tracker = Tracker(generated)
+        self.tracker = Tracker(generated, intervention=self.intervene)
         self.cursor = 0
+
+    def intervene(self, message: str):
+        ...
 
     def render(self) -> RenderableType:
         return self.paragraph
