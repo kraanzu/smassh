@@ -89,11 +89,7 @@ class Space(Widget):
         current_row = self.cursor_row(cursor.old)
         new_row = self.cursor_row(cursor.new)
 
-        if (
-            current_row != new_row
-            and current_row > 1
-            and isinstance(self.parent, Widget)
-        ):
+        if current_row != new_row and current_row and isinstance(self.parent, Widget):
             self.parent.scroll_down()
 
         self.update_colors(cursor)
