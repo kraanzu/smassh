@@ -34,8 +34,10 @@ class Space(Widget):
         )
 
     # ----------------- RENDER ------------------
-
     def on_show(self):
+        self.reset_newlines()
+
+    def reset_newlines(self) -> None:
         self.newlines = master_generator.get_newlines(
             self.paragraph.plain,
             self.size.width,
@@ -47,6 +49,8 @@ class Space(Widget):
         self.paragraph.spans.append(self.reverse_span(0))
         self.tracker = Tracker(generated, intervention=self.intervene)
         self.cursor = 0
+        if self.size.width:
+            self.reset_newlines()
 
     def intervene(self, message: str):
         ...
