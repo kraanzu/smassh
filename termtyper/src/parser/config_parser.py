@@ -62,6 +62,11 @@ class ConfigParser(Parser):
         punctuations = self.get("punctuations")
         self.set("punctuations", not punctuations)
 
+    def toggle_mode(self):
+        mode = self.get("mode")
+        mode = "words" if mode == "time" else "time"
+        self.set("mode", mode)
+
     @property
     def theme(self):
         return self.get("theme") or "nord"
