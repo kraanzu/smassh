@@ -51,7 +51,7 @@ class Switchable(StripSetting):
         self.screen.query_one(Space).reset()
 
 
-class PunctuationMode(Switchable):
+class PunctuationSwitch(Switchable):
     setting_name = "punctuations"
     setting_icon = "󰸥"
 
@@ -59,7 +59,7 @@ class PunctuationMode(Switchable):
         config_parser.toggle_punctuations()
 
 
-class NumberMode(Switchable):
+class NumberSwitch(Switchable):
     setting_name = "numbers"
     setting_icon = "󰲰"
 
@@ -115,8 +115,8 @@ class TypingConfigStrip(Widget):
 
     def compose(self) -> ComposeResult:
         yield Bracket("left")
-        yield PunctuationMode()
-        yield NumberMode()
+        yield PunctuationSwitch()
+        yield NumberSwitch()
         yield StripSeparator()
         yield StripSetting("time", "󰥔")
         yield StripSetting("words", "󰯬")
