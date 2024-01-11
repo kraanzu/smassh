@@ -73,6 +73,7 @@ class WordMode(Switchable):
 
     def _toggle(self):
         config_parser.toggle_mode()
+        self.screen.query_one(TimeMode).refresh_setting()
 
     def refresh_setting(self) -> None:
         configured_mode = config_parser.get("mode")
@@ -85,6 +86,7 @@ class TimeMode(Switchable):
 
     def _toggle(self):
         config_parser.toggle_mode()
+        self.screen.query_one(WordMode).refresh_setting()
 
     def refresh_setting(self) -> None:
         configured_mode = config_parser.get("mode")
