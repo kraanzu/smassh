@@ -72,7 +72,10 @@ class WordMode(Switchable):
     setting_icon = "󰯬"
 
     def _toggle(self):
-        config_parser.set("mode", "words")
+        config_parser.toggle_mode()
+
+        # TODO: Why this is needed?
+        self._refresh_setting()
 
     def _refresh_setting(self) -> None:
         configured_mode = config_parser.get("mode")
@@ -84,7 +87,8 @@ class TimeMode(Switchable):
     setting_icon = "󰥔"
 
     def _toggle(self):
-        config_parser.set("mode", "time")
+        config_parser.toggle_mode()
+        self._refresh_setting()
 
     def _refresh_setting(self) -> None:
         configured_mode = config_parser.get("mode")
