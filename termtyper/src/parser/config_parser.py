@@ -21,7 +21,7 @@ DEFAULTS = {
     "numbers": False,
     "punctuations": False,
     "mode": "words",
-    "word_count": 30,
+    "words_count": 30,
     "time_count": 30,
     "caret_style": "block",
     "writing mode": "words",
