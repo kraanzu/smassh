@@ -28,7 +28,7 @@ class StripSetting(Widget):
         return self.setting_name
 
 
-class Mode(StripSetting):
+class Switchable(StripSetting):
     setting_name: str
     setting_icon: str
 
@@ -51,7 +51,7 @@ class Mode(StripSetting):
         self.screen.query_one(Space).reset()
 
 
-class PunctuationMode(Mode):
+class PunctuationMode(Switchable):
     setting_name = "punctuations"
     setting_icon = "󰸥"
 
@@ -59,7 +59,7 @@ class PunctuationMode(Mode):
         config_parser.toggle_punctuations()
 
 
-class NumberMode(Mode):
+class NumberMode(Switchable):
     setting_name = "numbers"
     setting_icon = "󰲰"
 
