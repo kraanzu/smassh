@@ -74,10 +74,7 @@ class WordMode(Switchable):
     def _toggle(self):
         config_parser.toggle_mode()
 
-        # TODO: Why this is needed?
-        self._refresh_setting()
-
-    def _refresh_setting(self) -> None:
+    def refresh_setting(self) -> None:
         configured_mode = config_parser.get("mode")
         self.set_class(configured_mode == "words", "enabled")
 
@@ -88,9 +85,8 @@ class TimeMode(Switchable):
 
     def _toggle(self):
         config_parser.toggle_mode()
-        self._refresh_setting()
 
-    def _refresh_setting(self) -> None:
+    def refresh_setting(self) -> None:
         configured_mode = config_parser.get("mode")
         self.set_class(configured_mode == "time", "enabled")
 
