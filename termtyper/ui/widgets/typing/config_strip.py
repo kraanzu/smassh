@@ -67,6 +67,30 @@ class NumberSwitch(Switchable):
         config_parser.toggle_numbers()
 
 
+class WordMode(Switchable):
+    setting_name = "words"
+    setting_icon = "󰯬"
+
+    def _toggle(self):
+        config_parser.set("mode", "words")
+
+    def _refresh_setting(self) -> None:
+        configured_mode = config_parser.get("mode")
+        self.set_class(configured_mode == "words", "enabled")
+
+
+class TimeMode(Switchable):
+    setting_name = "time"
+    setting_icon = "󰥔"
+
+    def _toggle(self):
+        config_parser.set("mode", "time")
+
+    def _refresh_setting(self) -> None:
+        configured_mode = config_parser.get("mode")
+        self.set_class(configured_mode == "time", "enabled")
+
+
 class StripSeparator(Widget):
 
     DEFAULT_CSS = """
@@ -118,8 +142,8 @@ class TypingConfigStrip(Widget):
         yield PunctuationSwitch()
         yield NumberSwitch()
         yield StripSeparator()
-        yield StripSetting("time", "󰥔")
-        yield StripSetting("words", "󰯬")
+        yield WordMode()
+        yield TimeMode()
         yield StripSeparator()
         yield StripSetting("15")
         yield StripSetting("30")
