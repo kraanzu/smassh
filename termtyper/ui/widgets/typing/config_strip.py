@@ -1,4 +1,5 @@
 from typing import Literal, Optional
+from rich.text import Text
 from rich.console import RenderableType
 from textual.app import ComposeResult
 from textual.widget import Widget
@@ -93,6 +94,31 @@ class TimeMode(Switchable):
         self.set_class(configured_mode == "time", "enabled")
 
 
+class ModeValue(Widget):
+    DEFAULT_CSS = """
+    ModeValue {
+        width: auto;
+        height: 1;
+    }
+    """
+
+    def action_update_config(self, value: int):
+        self.notify(str(value))
+
+    def render(self) -> RenderableType:
+        mode = config_parser.get("mode")
+        count = config_parser.get(f"{mode}_count")
+        text = Text()
+
+        for i in [15, 30, 60, 120]:
+            style = "blue" if i == count else ""
+            count = Text(f"{i} ", style=style)
+            count.apply_meta({"@click": f"update_config({i})"})
+            text += count
+
+        return text
+
+
 class StripSeparator(Widget):
 
     DEFAULT_CSS = """
@@ -147,8 +173,5 @@ class TypingConfigStrip(Widget):
         yield WordMode()
         yield TimeMode()
         yield StripSeparator()
-        yield StripSetting("15")
-        yield StripSetting("30")
-        yield StripSetting("60")
-        yield StripSetting("120")
+        yield ModeValue()
         yield Bracket("right")

@@ -98,6 +98,15 @@ PaletteList {
   }
 }
 
+ModeValue {
+  link-background: $sub-alt-color;
+  link-background-hover: $sub-alt-color;
+  link-color: $sub-color;
+  link-color-hover: $text-color;
+  link-style: none;
+  link-style-hover: none;
+}
+
 /* ========== EXTRAS ============ */
 
 BaseWindow,
