@@ -1,9 +1,9 @@
 from dataclasses import dataclass
-from typing import Any, Callable, Optional
+from typing import Callable, Optional
 from termtyper.src.parser import config_parser
 from .stats_tracker import StatsTracker, CheckPoint, Match
 
-TrackerFunc = Callable[["Tracker", Any], Optional["Cursor"]]
+TrackerFunc = Callable[..., Optional["Cursor"]]
 
 
 def force_correct(func: TrackerFunc) -> TrackerFunc:
