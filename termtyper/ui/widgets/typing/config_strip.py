@@ -104,6 +104,14 @@ class ModeCount(Widget):
         super().__init__()
         self.value = value
 
+    def on_click(self):
+        config_parser.set(f"{config_parser.get('mode')}_count", self.value)
+
+        for counts in self.screen.query(ModeCount):
+            counts.refresh()
+
+        self.screen.query_one(Space).reset()
+
     def render(self) -> RenderableType:
         mode = config_parser.get("mode")
         count = config_parser.get(f"{mode}_count")
