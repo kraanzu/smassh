@@ -1,9 +1,18 @@
 from dataclasses import dataclass
-from typing import Callable, Optional
+from typing import Any, Callable, Optional
 from termtyper.src.parser import config_parser
 from .stats_tracker import StatsTracker, CheckPoint, Match
 
-TrackerFunc = Callable[["Tracker"], Optional["Cursor"]]
+TrackerFunc = Callable[["Tracker", Any], Optional["Cursor"]]
+
+
+def force_correct(func: TrackerFunc) -> TrackerFunc:
+    def wrapper(tracker: "Tracker", key: str) -> Optional[Cursor]:
+        setting = config_parser.get("force_correct")
+        if not setting or tracker.paragraph[tracker.cursor_pos] == key:
+            return func(tracker, key)
+
+    return wrapper
 
 
 def confidence_mode(func: TrackerFunc) -> TrackerFunc:
@@ -92,6 +101,7 @@ class Tracker:
 
         return Cursor(old, self.cursor_pos, True)
 
+    @force_correct
     def handle_letter(self, key: str) -> Cursor:
         old = self.cursor_pos
 
