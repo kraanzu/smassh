@@ -72,5 +72,5 @@ class TypingScreen(BaseWindow):
 
     def on_key(self, event: events.Key):
         event.stop()
-        key = event.key
+        key = event.character if event.is_printable and event.character else event.key
         self.query_one(TypingSpace).keypress(key)
