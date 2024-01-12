@@ -24,8 +24,18 @@ class StatsTracker:
         self.reset()
 
     @property
+    def elapsed_time(self):
+        if not self.start_time:
+            raise ValueError("Start time not set")
+
+        if self.end_time:
+            return self.end_time - self.start_time
+
+        return time() - self.start_time
+
+    @property
     def raw_wpm(self) -> int:
-        time_taken = self.checkpoints[-1].elapsed / 60
+        time_taken = self.elapsed_time / 60
         words = len(self.checkpoints) / 5
 
         return round(words / time_taken)
@@ -61,6 +71,9 @@ class StatsTracker:
         self.start_time = None
         self.end_time = None
         self.checkpoints = []
+
+    def finish(self) -> None:
+        self.end_time = time()
 
     def add_checkpoint(self, checkpoint: CheckPoint) -> None:
 
