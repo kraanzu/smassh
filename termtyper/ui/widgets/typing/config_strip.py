@@ -71,8 +71,13 @@ class WordMode(Switchable):
     setting_name = "words"
     setting_icon = "󰯬"
 
+    def _refresh_mode_count(self) -> None:
+        for counts in self.screen.query(ModeCount):
+            counts.refresh()
+
     def _toggle(self):
         config_parser.toggle_mode()
+        self._refresh_mode_count()
         self.screen.query_one(TimeMode).refresh_setting()
 
     def refresh_setting(self) -> None:
@@ -84,8 +89,13 @@ class TimeMode(Switchable):
     setting_name = "time"
     setting_icon = "󰥔"
 
+    def _refresh_mode_count(self) -> None:
+        for counts in self.screen.query(ModeCount):
+            counts.refresh()
+
     def _toggle(self):
         config_parser.toggle_mode()
+        self._refresh_mode_count()
         self.screen.query_one(WordMode).refresh_setting()
 
     def refresh_setting(self) -> None:
