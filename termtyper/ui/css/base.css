@@ -19,6 +19,7 @@ NavItem,
 Space,
 Palette,
 StripSetting,
+ModeCount,
 AboutOutro,
 SettingDescription .setting--header {
   color: $sub-color;
@@ -29,12 +30,14 @@ SettingDescription .setting--option {
 }
 
 Palette:hover,
+ModeCount:hover,
 StripSetting:hover,
 NavItem.active {
   color: $text-color;
 }
 
 StripSetting,
+ModeCount,
 StripSeparator {
   background: $sub-alt-color;
 }
@@ -48,6 +51,7 @@ Bracket {
 }
 
 StripSetting.enabled,
+ModeCount.enabled,
 Ticker {
   color: $main-color;
 }
@@ -96,15 +100,6 @@ PaletteList {
     background: $text-color;
     color: $sub-alt-color;
   }
-}
-
-ModeValue {
-  link-background: $sub-alt-color;
-  link-background-hover: $sub-alt-color;
-  link-color: $sub-color;
-  link-color-hover: $text-color;
-  link-style: none;
-  link-style-hover: none;
 }
 
 /* ========== EXTRAS ============ */
