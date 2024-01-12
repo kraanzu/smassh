@@ -4,9 +4,10 @@ from textual.app import ComposeResult
 from textual.widget import Widget
 from termtyper.src import config_parser
 from termtyper.ui.widgets.typing.space import Space
+from textual.widgets import Static
 
 
-class StripSetting(Widget):
+class StripSetting(Static):
     DEFAULT_CSS = """
     StripSetting {
         width: auto;
@@ -103,7 +104,7 @@ class TimeMode(Switchable):
         self.set_class(configured_mode == "time", "enabled")
 
 
-class ModeCount(Widget):
+class ModeCount(Static):
     DEFAULT_CSS = """
     ModeCount {
         width: auto;
@@ -165,6 +166,28 @@ class Bracket(Widget):
             return ""
 
 
+class StripSection(Widget):
+    DEFAULT_CSS = """
+    StripSection {
+        layout: horizontal;
+        width: auto;
+        height: 1;
+    }
+    """
+
+
+class LeftStripSection(StripSection):
+    ...
+
+
+class MiddleStripSection(StripSection):
+    ...
+
+
+class RightStripSection(StripSection):
+    ...
+
+
 class TypingConfigStrip(Widget):
     DEFAULT_CSS = """
     TypingConfigStrip {
@@ -178,14 +201,21 @@ class TypingConfigStrip(Widget):
 
     def compose(self) -> ComposeResult:
         yield Bracket("left")
-        yield PunctuationSwitch()
-        yield NumberSwitch()
-        yield StripSeparator()
-        yield WordMode()
-        yield TimeMode()
+
+        with LeftStripSection():
+            yield PunctuationSwitch()
+            yield NumberSwitch()
+
         yield StripSeparator()
 
-        for i in [15, 30, 60, 120]:
-            yield ModeCount(i)
+        with MiddleStripSection():
+            yield WordMode()
+            yield TimeMode()
+
+        yield StripSeparator()
+
+        with RightStripSection():
+            for i in [15, 30, 60, 120]:
+                yield ModeCount(i)
 
         yield Bracket("right")
