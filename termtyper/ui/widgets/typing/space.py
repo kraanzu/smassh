@@ -43,11 +43,17 @@ class Space(Widget):
             self.size.width,
         )
 
+    def restart(self) -> None:
+        generated = self.paragraph.plain
+        self.paragraph = Text(generated)
+
     def reset(self) -> None:
         generated = master_generator.generate()
         self.paragraph = Text(generated)
+
+    def reset_components(self) -> None:
         self.paragraph.spans.append(self.reverse_span(0))
-        self.tracker = Tracker(generated, intervention=self.intervene)
+        self.tracker = Tracker(self.paragraph.plain, intervention=self.intervene)
         self.cursor = 0
         self.refresh()
 
