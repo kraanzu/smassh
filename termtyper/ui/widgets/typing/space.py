@@ -55,6 +55,7 @@ class Space(Widget):
     def reset(self) -> None:
         generated = master_generator.generate()
         self.paragraph = Text(generated)
+        self.reset_components()
 
     def reset_components(self) -> None:
         self.paragraph.spans.append(self.reverse_span(0))
