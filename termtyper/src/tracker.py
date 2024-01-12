@@ -60,9 +60,6 @@ class Tracker:
         self.cursor_pos = 0
 
     def keypress(self, key: str) -> Optional[Cursor]:
-        if key == "space":
-            key = " "
-
         res = None
 
         if key == "backspace":
