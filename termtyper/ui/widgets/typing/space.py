@@ -3,6 +3,7 @@ from rich.console import RenderableType
 from rich.text import Span, Text
 from textual.widget import Widget
 from termtyper.src import master_generator, Tracker, Cursor
+from termtyper.src.parser import config_parser
 from termtyper.ui.events import ShowResults
 
 
@@ -44,8 +45,12 @@ class Space(Widget):
         )
 
     def restart(self) -> None:
-        generated = self.paragraph.plain
-        self.paragraph = Text(generated)
+        if config_parser.get("restart_same"):
+            generated = self.paragraph.plain
+            self.paragraph = Text(generated)
+            self.reset_components()
+        else:
+            self.reset()
 
     def reset(self) -> None:
         generated = master_generator.generate()
