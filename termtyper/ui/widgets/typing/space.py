@@ -59,15 +59,12 @@ class Space(Widget):
 
     def reset_components(self) -> None:
         self.paragraph.spans.append(self.reverse_span(0))
-        self.tracker = Tracker(self.paragraph.plain, intervention=self.intervene)
+        self.tracker = Tracker(self.paragraph.plain)
         self.cursor = 0
         self.refresh()
 
         if self.size.width:
             self.reset_newlines()
-
-    def intervene(self, message: str):
-        ...
 
     def render(self) -> RenderableType:
         return self.paragraph
