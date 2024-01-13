@@ -118,6 +118,11 @@ Space {
     color: $error-color;
     background: $bg-color;
   }
+
+  .--blind-match {
+    color: $sub-color;
+    background: $bg-color;
+  }
 }
 
 /* ========== EXTRAS ============ */

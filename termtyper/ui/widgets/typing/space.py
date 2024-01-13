@@ -32,6 +32,16 @@ def cursor_buddy(func):
     return wrapper
 
 
+def blind_mode(func):
+    def wrapper(space: "Space", *args, **kwargs) -> Style:
+        if config_parser.get("blind_mode"):
+            return space.get_component_rich_style("--blind-match")
+
+        return func(space, *args, **kwargs)
+
+    return wrapper
+
+
 class Space(Widget):
     DEFAULT_CSS = """
     Space {
@@ -43,6 +53,7 @@ class Space(Widget):
         "--cursor-buddy",
         "--correct-match",
         "--incorrect-match",
+        "--blind-match",
     }
 
     def __init__(self):
@@ -130,6 +141,7 @@ class Space(Widget):
     def render(self) -> RenderableType:
         return self.paragraph
 
+    @blind_mode
     def get_match_style(self, correct: bool) -> Style:
         rich_style = "correct" if correct else "incorrect"
         style = self.get_component_rich_style(f"--{rich_style}-match")
