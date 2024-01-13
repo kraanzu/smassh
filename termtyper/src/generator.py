@@ -3,13 +3,12 @@ import textwrap
 from itertools import accumulate
 from collections.abc import Callable
 from typing import List
-from termtyper.assets.words import *  # noqa
 from termtyper.src.parser import config_parser
 from random import randint, choice, sample
 
 
 PUNCS = ",.;?!"
-GeneratorFunc = Callable[["Generator"], str]
+GeneratorFunc = Callable[["Generator", str], str]
 
 
 def numbers(func: GeneratorFunc) -> GeneratorFunc:
@@ -66,14 +65,27 @@ class Generator:
     def __init__(self) -> None:
         self.settings = {}
 
-    @property
-    def words(self) -> str:
-        return " ".join(sample(english_words.split(), 64))
+    def get_words(self, language: str) -> List[str]:
+        words = [
+            "lorem",
+            "ipsum",
+            "dolor",
+            "sit",
+            "amet",
+            "consectetur",
+            "adipiscing",
+            "elit",
+            "sed",
+            "do",
+            "eiusmod",
+        ] * 20
+        return words
 
-    @numbers
     @punctuations
-    def generate(self) -> str:
-        return self.words
+    @numbers
+    def generate(self, language: str) -> str:
+        words = self.get_words(language)
+        return " ".join(sample(words, 64))
 
     def get_newlines(self, paragraph: str, width: int) -> List[int]:
         lines = textwrap.wrap(paragraph, width)

@@ -69,7 +69,7 @@ class Space(Widget):
         self.screen.post_message(ShowResults(self.tracker.stats))
 
     def reset(self) -> None:
-        generated = master_generator.generate()
+        generated = master_generator.generate(config_parser.get("language"))
         self.paragraph = Text(generated)
         self.reset_components()
 
