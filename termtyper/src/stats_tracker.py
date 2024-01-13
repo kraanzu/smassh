@@ -12,6 +12,7 @@ class Match(Enum):
 
 @dataclass
 class CheckPoint:
+    key: str
     position: int
     correct: Match
 

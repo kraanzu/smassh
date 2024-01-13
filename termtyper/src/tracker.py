@@ -39,12 +39,15 @@ class Cursor:
     old: int
     new: int
     correct: bool
+    key: str = ""
 
     def to_checkpoint(self) -> CheckPoint:
         if self.new > self.old:
-            return CheckPoint(self.new, Match.MATCH if self.correct else Match.MISMATCH)
+            return CheckPoint(
+                self.key, self.new, Match.MATCH if self.correct else Match.MISMATCH
+            )
 
-        return CheckPoint(self.new, Match.BACKSPACE)
+        return CheckPoint(self.key, self.new, Match.BACKSPACE)
 
 
 class Tracker:
@@ -101,7 +104,7 @@ class Tracker:
 
         if key == self.paragraph[self.cursor_pos]:
             self.cursor_pos += 1
-            return Cursor(old, self.cursor_pos, True)
+            return Cursor(old, self.cursor_pos, True, key)
 
         self.cursor_pos += 1
-        return Cursor(old, self.cursor_pos, False)
+        return Cursor(old, self.cursor_pos, False, key)
