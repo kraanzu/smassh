@@ -101,10 +101,6 @@ class Tracker:
     @force_correct
     def handle_letter(self, key: str) -> Cursor:
         old = self.cursor_pos
-
-        if key == self.paragraph[self.cursor_pos]:
-            self.cursor_pos += 1
-            return Cursor(old, self.cursor_pos, True, key)
-
+        correct = key == self.paragraph[old]
         self.cursor_pos += 1
-        return Cursor(old, self.cursor_pos, False, self.paragraph[old])
+        return Cursor(old, self.cursor_pos, correct, self.paragraph[old])
