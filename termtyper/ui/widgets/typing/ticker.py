@@ -18,7 +18,7 @@ class Ticker(Widget):
         if mode == "words":
             count = config_parser.get("words_count")
             words_typed = stats.word_count
-            finished = words_typed == count
+            finished = words_typed >= count
             self.text = f"{words_typed}/{count}"
         else:
             finished = False
