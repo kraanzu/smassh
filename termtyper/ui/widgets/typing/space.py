@@ -17,10 +17,9 @@ class Space(Widget):
 
     def __init__(self):
         super().__init__()
-        self.check_timer = None
         self.current_key = None
         self.reset()
-        self.check_timer = self.set_interval(1, self.check_restrictions)
+        self.check_timer = self.set_interval(1, self.check_restrictions, pause=True)
 
     # ---------------- UTILS -----------------
 
@@ -62,7 +61,12 @@ class Space(Widget):
         if min_speed := config_parser.get("min_speed"):
             wpm = self.tracker.stats.wpm
             if wpm < min_speed:
-                self.screen.post_message(ShowResults(self.tracker.stats))
+                return self.finish_typing()
+
+    def finish_typing(self):
+        self.check_timer.pause()
+        self.screen.query_one(Ticker).update_check.pause()
+        self.screen.post_message(ShowResults(self.tracker.stats))
 
     def reset(self) -> None:
         generated = master_generator.generate()
@@ -126,4 +130,5 @@ class Space(Widget):
         if cursor.new == len(self.paragraph.plain):
             self.screen.post_message(ShowResults(self.tracker.stats))
 
+        self.check_timer.resume()
         self.refresh()
