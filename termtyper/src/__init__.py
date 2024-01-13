@@ -4,6 +4,7 @@ from .figlet import generate_figlet
 from .css_generator import generate_theme_file
 from .generator import master_generator
 from .stats_tracker import StatsTracker
+from .buddy import Buddy
 
 
 __all__ = [
@@ -14,4 +15,5 @@ __all__ = [
     "generate_theme_file",
     "master_generator",
     "StatsTracker",
+    "Buddy",
 ]
