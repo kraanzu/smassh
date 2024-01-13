@@ -3,12 +3,24 @@ from termtyper.src import config_parser
 
 
 class Ticker(Widget):
-    def __init__(self, text: str = "", *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.text = text
+        self.reset()
+        self.set_interval(1, self.update)
 
-    def update(self, value: str) -> None:
-        self.text = value
+    def update(self) -> None:
+        from termtyper.ui.widgets import Space
+
+        mode = config_parser.get("mode")
+        stats = self.screen.query_one(Space).tracker.stats
+        if mode == "words":
+            self.text = str(stats.word_count)
+        else:
+            if stats.start_time:
+                count = config_parser.get("time_count")
+                time_remaining = count - stats.elapsed_time
+                self.text = str(round(time_remaining))
+
         self.refresh()
 
     def reset(self):

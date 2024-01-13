@@ -45,7 +45,7 @@ class TypingSpace(Widget):
 
     def counter(self) -> ComposeResult:
         yield Pad()
-        yield Ticker("0")
+        yield Ticker()
         yield Pad()
 
     def space(self) -> ComposeResult:
