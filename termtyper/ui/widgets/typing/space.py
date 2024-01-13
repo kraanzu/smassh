@@ -16,8 +16,10 @@ class Space(Widget):
 
     def __init__(self):
         super().__init__()
-        self.reset()
+        self.check_timer = None
         self.current_key = None
+        self.reset()
+        self.check_timer = self.set_interval(1, self.check_restrictions)
 
     # ---------------- UTILS -----------------
 
@@ -52,6 +54,12 @@ class Space(Widget):
         else:
             self.reset()
 
+    def check_restrictions(self):
+        if not self.tracker.stats.start_time:
+            return
+
+        _ = self.tracker.stats.wpm
+
     def reset(self) -> None:
         generated = master_generator.generate()
         self.paragraph = Text(generated)
@@ -61,10 +69,10 @@ class Space(Widget):
         self.paragraph.spans.append(self.reverse_span(0))
         self.tracker = Tracker(self.paragraph.plain)
         self.cursor = 0
-        self.refresh()
-
         if self.size.width:
             self.reset_newlines()
+
+        self.refresh()
 
     def render(self) -> RenderableType:
         return self.paragraph
