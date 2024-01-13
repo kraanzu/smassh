@@ -35,11 +35,16 @@ class StatsTracker:
         return time() - self.start_time
 
     @property
+    def word_count(self):
+        if not self.checkpoints:
+            return 0
+
+        return sum(checkpoint.key == " " for checkpoint in self.checkpoints)
+
+    @property
     def raw_wpm(self) -> int:
         time_taken = self.elapsed_time / 60
-        words = len(self.checkpoints) / 5
-
-        return round(words / time_taken)
+        return round(self.word_count / time_taken)
 
     @property
     def accuracy(self) -> int:
