@@ -1,5 +1,7 @@
 import operator
 import textwrap
+from json import load
+from pathlib import Path
 from itertools import accumulate
 from collections.abc import Callable
 from typing import List
@@ -66,20 +68,11 @@ class Generator:
         self.settings = {}
 
     def get_words(self, language: str) -> List[str]:
-        words = [
-            "lorem",
-            "ipsum",
-            "dolor",
-            "sit",
-            "amet",
-            "consectetur",
-            "adipiscing",
-            "elit",
-            "sed",
-            "do",
-            "eiusmod",
-        ] * 20
-        return words
+        path = (
+            Path(__file__).parent.parent / "assets" / "languages" / f"{language}.json"
+        )
+        with open(path) as f:
+            return load(f)["words"]
 
     @punctuations
     @numbers
