@@ -99,6 +99,11 @@ class Space(Widget):
             if accuracy < min_accuracy:
                 return self.finish_typing()
 
+        if min_burst := config_parser.get("min_burst"):
+            burst = self.tracker.stats.last_word_wpm
+            if burst < min_burst:
+                return self.finish_typing()
+
     def finish_typing(self):
         self.check_timer.pause()
         self.screen.query_one(Ticker).update_check.pause()
