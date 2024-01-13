@@ -43,6 +43,8 @@ class StatsTracker:
 
     @property
     def raw_wpm(self) -> int:
+        # TODO: Better formula because this is not accurate
+
         time_taken = self.elapsed_time / 60
         return round(self.word_count / time_taken)
 
