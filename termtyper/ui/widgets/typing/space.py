@@ -10,6 +10,16 @@ from termtyper.ui.events import ShowResults
 from termtyper.ui.widgets.typing.ticker import Ticker
 
 
+def tab_reset(func):
+    def wrapper(space: "Space", key: str) -> None:
+        if key == "tab" and config_parser.get("tab_reset"):
+            return space.restart()
+
+        return func(space, key)
+
+    return wrapper
+
+
 def cursor_buddy(func):
     def wrapper(space: "Space") -> RenderableType:
         wpm = config_parser.get("cursor_buddy_speed")
@@ -170,6 +180,7 @@ class Space(Widget):
 
     # ---------------- KEYPRESS -----------------
 
+    @tab_reset
     def keypress(self, key: str) -> None:
         cursor = self.tracker.keypress(key)
         if not cursor:
