@@ -36,11 +36,11 @@ class ConfigParser(Parser):
 
     @property
     def configured_languages(self) -> List[str]:
-        words_dir = self._root_dir / "assets" / "words"
+        words_dir = self._root_dir / "assets" / "languages"
         languages = [
             file_obj.stem
             for file_obj in words_dir.iterdir()
-            if file_obj.stem != "__init__"
+            if file_obj.suffix == ".json"
         ]
         return languages
 
