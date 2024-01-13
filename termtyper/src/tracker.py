@@ -34,6 +34,25 @@ def confidence_mode(func: TrackerFunc) -> TrackerFunc:
     return wrapper
 
 
+def difficulty(func: TrackerFunc) -> TrackerFunc:
+    def wrapper(tracker: "Tracker", key: str) -> Optional[Cursor]:
+        setting = config_parser.get("difficulty")
+
+        if setting == "master" and tracker.paragraph[tracker.cursor_pos] != key:
+            return
+
+        if (
+            setting == "expert"
+            and tracker.paragraph[tracker.cursor_pos] == " "
+            and tracker.stats.last_word_accuracy < 100
+        ):
+            return
+
+        return func(tracker, key)
+
+    return wrapper
+
+
 @dataclass
 class Cursor:
     old: int
@@ -98,6 +117,7 @@ class Tracker:
 
         return Cursor(old, self.cursor_pos, True)
 
+    @difficulty
     @force_correct
     def handle_letter(self, key: str) -> Cursor:
         old = self.cursor_pos
