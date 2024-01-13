@@ -3,9 +3,31 @@ from rich.console import RenderableType
 from rich.text import Span, Text
 from textual.widget import Widget
 from termtyper.src import master_generator, Tracker, Cursor
+from termtyper.src.buddy import Buddy
 from termtyper.src.parser import config_parser
 from termtyper.ui.events import ShowResults
 from termtyper.ui.widgets.typing.ticker import Ticker
+
+
+def cursor_buddy(func):
+    def wrapper(space: "Space") -> RenderableType:
+        wpm = config_parser.get("cursor_buddy_speed")
+        res = func(space)
+
+        if not wpm or not space.tracker.stats.start_time:
+            return res
+
+        elapsed = space.tracker.stats.elapsed_time
+        letters_typed = Buddy.get_letters_typed(elapsed, wpm, 5)
+
+        if letters_typed > len(space.paragraph.plain):
+            return res
+
+        res_copy = res.copy()
+        res_copy.spans.append(Span(letters_typed, letters_typed + 1, "reverse green"))
+        return res_copy
+
+    return wrapper
 
 
 class Space(Widget):
@@ -20,6 +42,8 @@ class Space(Widget):
         self.current_key = None
         self.reset()
         self.check_timer = self.set_interval(1, self.check_restrictions, pause=True)
+        if config_parser.get("cursor_buddy_speed"):
+            self.set_interval(0.1, self.refresh)
 
     # ---------------- UTILS -----------------
 
@@ -84,6 +108,7 @@ class Space(Widget):
 
         self.refresh()
 
+    @cursor_buddy
     def render(self) -> RenderableType:
         return self.paragraph
 
