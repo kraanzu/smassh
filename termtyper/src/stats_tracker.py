@@ -42,6 +42,20 @@ class StatsTracker:
         return sum(checkpoint.letter == " " for checkpoint in self.checkpoints)
 
     @property
+    def last_word_accuracy(self):
+        correct = 0
+        incorrect = 0
+
+        for i in reversed(self.checkpoints):
+            if i.letter == " ":
+                break
+
+            correct += i.correct == Match.MATCH
+            incorrect += i.correct == Match.MISMATCH
+
+        return round((correct / (correct + incorrect)) * 100)
+
+    @property
     def raw_wpm(self) -> int:
         # TODO: Better formula because this is not accurate
 
