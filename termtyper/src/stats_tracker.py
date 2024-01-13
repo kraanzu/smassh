@@ -1,7 +1,8 @@
+from math import inf
 from time import time
 from dataclasses import dataclass
 from enum import Enum
-from typing import Iterable
+from typing import List
 
 
 class Match(Enum):
@@ -25,7 +26,7 @@ class StatsTracker:
     def __init__(self) -> None:
         self.reset()
 
-    def get_checkpoints_last_word(self) -> Iterable[CheckPoint]:
+    def get_checkpoints_last_word(self) -> List[CheckPoint]:
         checkpoints = self.checkpoints.copy()
         word_checkpoints = []
 
@@ -35,7 +36,7 @@ class StatsTracker:
         while checkpoints and checkpoints[-1].letter != " ":
             word_checkpoints.append(checkpoints.pop())
 
-        return reversed(word_checkpoints)
+        return list(reversed(word_checkpoints))
 
     @property
     def elapsed_time(self):
@@ -60,11 +61,32 @@ class StatsTracker:
         incorrect = 0
 
         checkpoints = self.get_checkpoints_last_word()
+
+        if not checkpoints:
+            raise ValueError("No checkpoints")
+
         for i in checkpoints:
             correct += i.correct == Match.MATCH
             incorrect += i.correct == Match.MISMATCH
 
         return round((correct / (correct + incorrect)) * 100)
+
+    @property
+    def last_word_wpm(self):
+        checkpoints = self.get_checkpoints_last_word()
+
+        if not checkpoints:
+            return ValueError("No checkpoints")
+
+        start = checkpoints[0].elapsed
+        stop = checkpoints[-1].elapsed
+        elapsed = stop - start
+
+        if elapsed == 0:
+            return inf
+
+        raw = 60 / elapsed
+        return round(self.last_word_accuracy * raw / 100)
 
     @property
     def raw_wpm(self) -> int:
