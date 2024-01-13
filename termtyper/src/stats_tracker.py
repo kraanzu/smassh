@@ -12,7 +12,7 @@ class Match(Enum):
 
 @dataclass
 class CheckPoint:
-    key: str
+    letter: str
     position: int
     correct: Match
 
@@ -39,7 +39,7 @@ class StatsTracker:
         if not self.checkpoints:
             return 0
 
-        return sum(checkpoint.key == " " for checkpoint in self.checkpoints)
+        return sum(checkpoint.letter == " " for checkpoint in self.checkpoints)
 
     @property
     def raw_wpm(self) -> int:
