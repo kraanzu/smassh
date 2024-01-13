@@ -38,6 +38,9 @@ class PaletteList(OptionList, can_focus=False):
     def get_options(self):
         raise NotImplementedError
 
+    def get_current(self):
+        raise NotImplementedError
+
     def apply_filter(self, text):
         self._filter = text
         self.clear_options()
@@ -54,6 +57,9 @@ class PaletteList(OptionList, can_focus=False):
 
     async def on_mount(self, _):
         self.apply_filter("")
+        options = sorted(self.get_options())
+        index = options.index(self.get_current())
+        self.highlighted = index
 
 
 class LanguagePaletteList(PaletteList):
@@ -62,9 +68,15 @@ class LanguagePaletteList(PaletteList):
     def get_options(self):
         return config_parser.configured_languages
 
+    def get_current(self):
+        return config_parser.get("language")
+
 
 class ThemePaletteList(PaletteList):
     _highlight_event = ApplyTheme
 
     def get_options(self):
         return config_parser.configured_themes
+
+    def get_current(self):
+        return config_parser.get("theme")
