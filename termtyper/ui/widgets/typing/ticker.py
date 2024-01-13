@@ -14,7 +14,9 @@ class Ticker(Widget):
         mode = config_parser.get("mode")
         stats = self.screen.query_one(Space).tracker.stats
         if mode == "words":
-            self.text = str(stats.word_count)
+            count = config_parser.get("words_count")
+            words_typed = stats.word_count
+            self.text = f"{words_typed}/{count}"
         else:
             if stats.start_time:
                 count = config_parser.get("time_count")
@@ -26,7 +28,8 @@ class Ticker(Widget):
     def reset(self):
         mode = config_parser.get("mode")
         if mode == "words":
-            self.text = "0"
+            count = config_parser.get("words_count")
+            self.text = f"0/{count}"
         else:
             count = config_parser.get("time_count")
             self.text = str(count)
