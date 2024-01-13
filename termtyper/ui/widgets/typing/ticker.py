@@ -7,7 +7,7 @@ class Ticker(Widget):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.reset()
-        self.set_interval(1, self.update)
+        self.update_check = self.set_interval(1, self.update)
 
     def update(self) -> None:
         from termtyper.ui.widgets import Space
@@ -29,6 +29,7 @@ class Ticker(Widget):
                 self.text = str(round(time_remaining))
 
         if finished:
+            self.update_check.pause()
             self.screen.post_message(ShowResults(stats))
 
         self.refresh()
@@ -42,6 +43,7 @@ class Ticker(Widget):
             count = config_parser.get("time_count")
             self.text = str(count)
 
+        self.update_check.reset()
         self.refresh()
 
     def render(self) -> str:
