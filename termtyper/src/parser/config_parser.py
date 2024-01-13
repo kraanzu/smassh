@@ -11,7 +11,7 @@ DEFAULTS = {
     "min_burst": 0,
     "force_correct": False,
     "confidence_mode": "off",
-    "capitalization_mode": False,
+    "capitalization_mode": "off",
     "single_line_words": False,
     "cursor_buddy_speed": 0,
     "tab_reset": False,
