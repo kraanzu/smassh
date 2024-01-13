@@ -108,6 +108,16 @@ Space {
     color: $bg-color;
     text-style: bold;
   }
+
+  .--correct-match {
+    color: $text-color;
+    background: $bg-color;
+  }
+
+  .--incorrect-match {
+    color: $error-color;
+    background: $bg-color;
+  }
 }
 
 /* ========== EXTRAS ============ */

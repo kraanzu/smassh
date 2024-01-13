@@ -40,6 +40,8 @@ class Space(Widget):
 
     COMPONENT_CLASSES = {
         "--cursor-buddy",
+        "--correct-match",
+        "--incorrect-match",
     }
 
     def __init__(self):
@@ -136,8 +138,12 @@ class Space(Widget):
 
         empty_spans = [Span(i, i + 1, "") for i in range(old, new - 1)]
         self.paragraph.spans.extend(empty_spans)
+
+        rich_style = "correct" if correct else "incorrect"
+        style = self.get_component_rich_style(f"--{rich_style}-match")
+
         if diff == 1:
-            span = Span(old, new, "green" if correct else "red")
+            span = Span(old, new, style)
             self.paragraph.spans.append(span)
             return
 
