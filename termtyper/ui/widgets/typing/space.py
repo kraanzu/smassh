@@ -5,6 +5,7 @@ from textual.widget import Widget
 from termtyper.src import master_generator, Tracker, Cursor
 from termtyper.src.parser import config_parser
 from termtyper.ui.events import ShowResults
+from termtyper.ui.widgets.typing.ticker import Ticker
 
 
 class Space(Widget):
@@ -69,8 +70,10 @@ class Space(Widget):
         self.paragraph.spans.append(self.reverse_span(0))
         self.tracker = Tracker(self.paragraph.plain)
         self.cursor = 0
+
         if self.size.width:
             self.reset_newlines()
+            self.screen.query_one(Ticker).reset()
 
         self.refresh()
 
