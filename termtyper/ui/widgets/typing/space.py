@@ -1,5 +1,6 @@
 from bisect import bisect_right
 from rich.console import RenderableType
+from rich.style import Style
 from rich.text import Span, Text
 from textual.widget import Widget
 from termtyper.src import master_generator, Tracker, Cursor
@@ -129,6 +130,11 @@ class Space(Widget):
     def render(self) -> RenderableType:
         return self.paragraph
 
+    def get_match_style(self, correct: bool) -> Style:
+        rich_style = "correct" if correct else "incorrect"
+        style = self.get_component_rich_style(f"--{rich_style}-match")
+        return style
+
     def update_colors(self, cursor: Cursor) -> None:
         self.paragraph.spans.pop()
         old = cursor.old
@@ -143,9 +149,7 @@ class Space(Widget):
 
         empty_spans = [Span(i, i + 1, "") for i in range(old, new - 1)]
         self.paragraph.spans.extend(empty_spans)
-
-        rich_style = "correct" if correct else "incorrect"
-        style = self.get_component_rich_style(f"--{rich_style}-match")
+        style = self.get_match_style(correct)
 
         if diff == 1:
             span = Span(old, new, style)
