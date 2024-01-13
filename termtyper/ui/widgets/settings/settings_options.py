@@ -122,7 +122,7 @@ menu = [
         NumberScroll("min_burst"),
         info="Wanna make your life harder?"
         + "\n"
-        + "Note: If your accuracy for a word falls below this accuracy you will be declared failed",
+        + "Note: If your speed for a word falls below this speed you will be declared failed",
     ),
     Setting(
         " Difficulty",
