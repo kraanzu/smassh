@@ -13,7 +13,6 @@ DEFAULTS = {
     "confidence_mode": "off",
     "capitalization_mode": False,
     "single_line_words": False,
-    "cursor_buddy": 0,
     "cursor_buddy_speed": 0,
     "tab_reset": False,
     "restart_same": False,
