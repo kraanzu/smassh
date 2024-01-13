@@ -24,7 +24,8 @@ def cursor_buddy(func):
             return res
 
         res_copy = res.copy()
-        res_copy.spans.append(Span(letters_typed, letters_typed + 1, "reverse green"))
+        style = space.get_component_rich_style("--cursor-buddy")
+        res_copy.spans.append(Span(letters_typed, letters_typed + 1, style))
         return res_copy
 
     return wrapper
@@ -36,6 +37,10 @@ class Space(Widget):
         height: auto;
     }
     """
+
+    COMPONENT_CLASSES = {
+        "--cursor-buddy",
+    }
 
     def __init__(self):
         super().__init__()
