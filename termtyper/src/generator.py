@@ -63,6 +63,34 @@ def punctuations(func: GeneratorFunc) -> GeneratorFunc:
     return wrapper
 
 
+def capitalization(func: GeneratorFunc) -> GeneratorFunc:
+    def wrapper(*args, **kwargs):
+        paragraph = func(*args, **kwargs)
+
+        if config_parser.get("capitalization_mode") == "off":
+            return paragraph
+
+        def convert(word: str) -> str:
+            if config_parser.get("capitalization_mode") == "on":
+                return word[0].upper() + word[1:]
+
+            return "".join([i.upper() if randint(0, 1) else i for i in word])
+
+        words = paragraph.split()
+        new_paragraph = []
+
+        for word in words:
+            i = randint(0, 2)
+            if i == 0:
+                word = convert(word)
+
+            new_paragraph.append(word)
+
+        return " ".join(new_paragraph)
+
+    return wrapper
+
+
 class Generator:
     def __init__(self) -> None:
         self.settings = {}
@@ -74,6 +102,7 @@ class Generator:
         with open(path) as f:
             return load(f)["words"]
 
+    @capitalization
     @punctuations
     @numbers
     def generate(self, language: str) -> str:
