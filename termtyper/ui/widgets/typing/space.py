@@ -92,6 +92,11 @@ class Space(Widget):
             if wpm < min_speed:
                 return self.finish_typing()
 
+        if min_accuracy := config_parser.get("min_accuracy"):
+            accuracy = self.tracker.stats.accuracy
+            if accuracy < min_accuracy:
+                return self.finish_typing()
+
     def finish_typing(self):
         self.check_timer.pause()
         self.screen.query_one(Ticker).update_check.pause()
