@@ -59,7 +59,10 @@ class Space(Widget):
         if not self.tracker.stats.start_time:
             return
 
-        _ = self.tracker.stats.wpm
+        if min_speed := config_parser.get("min_speed"):
+            wpm = self.tracker.stats.wpm
+            if wpm < min_speed:
+                self.screen.post_message(ShowResults(self.tracker.stats))
 
     def reset(self) -> None:
         generated = master_generator.generate()
