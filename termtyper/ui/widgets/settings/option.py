@@ -56,8 +56,8 @@ class BaseOption(Widget):
         self.save()
 
     def save(self):
-        self.callback()
         config_parser.set(self.setting_name, self.value)
+        self.callback()
 
     def load_current_setting(self):
         raise NotImplementedError
