@@ -9,6 +9,7 @@ from termtyper.ui.widgets import (
     Ticker,
 )
 from textual.containers import VerticalScroll
+from termtyper.ui.events import SetScreen
 
 
 class Pad(Widget):
@@ -63,6 +64,9 @@ class TypingSpace(Widget):
         yield PaletteOptions()
 
     def keypress(self, key: str):
+        if key == "ctrl+s":
+            return self.screen.post_message(SetScreen("settings"))
+
         self.query_one(Space).keypress(key)
 
 
