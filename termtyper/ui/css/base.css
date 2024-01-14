@@ -123,6 +123,15 @@ Space {
     color: $sub-color;
     background: $bg-color;
   }
+
+  .--caret-underline {
+    text-style: underline;
+  }
+
+  .--caret-block {
+    background: $text-color;
+    color: $bg-color;
+  }
 }
 
 /* ========== EXTRAS ============ */
