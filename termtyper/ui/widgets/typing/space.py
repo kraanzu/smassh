@@ -10,6 +10,29 @@ from termtyper.ui.events import ShowResults
 from termtyper.ui.widgets.typing.ticker import Ticker
 
 
+def caret(func):
+    def wrapper(space: "Space") -> Text:
+        renderable: Text = func(space).copy()
+        setting = config_parser.get("caret_style")
+
+        if setting == "off":
+            return renderable
+
+        pos = space.tracker.cursor_pos
+
+        if setting == "underline":
+            rich_style = "--caret-underline"
+        else:
+            rich_style = "--caret-block"
+
+        style = space.get_component_rich_style(rich_style)
+        renderable.spans.append(Span(pos, pos + 1, style))
+
+        return renderable
+
+    return wrapper
+
+
 def tab_reset(func):
     def wrapper(space: "Space", key: str) -> None:
         if key == "tab" and config_parser.get("tab_reset"):
@@ -64,6 +87,8 @@ class Space(Widget):
         "--correct-match",
         "--incorrect-match",
         "--blind-match",
+        "--caret-underline",
+        "--caret-block",
     }
 
     def __init__(self):
@@ -79,7 +104,7 @@ class Space(Widget):
     def cursor_row(self, cursor_pos: int) -> int:
         return bisect_right(self.newlines, cursor_pos)
 
-    def reverse_span(self, pos: int) -> Span:
+    def cursor_span(self, pos: int) -> Span:
         return Span(pos, pos + 1, "reverse white")
 
     # ----------------- RENDER ------------------
@@ -130,7 +155,6 @@ class Space(Widget):
         self.reset_components()
 
     def reset_components(self) -> None:
-        self.paragraph.spans.append(self.reverse_span(0))
         self.tracker = Tracker(self.paragraph.plain)
         self.cursor = 0
 
@@ -141,6 +165,7 @@ class Space(Widget):
         self.refresh()
 
     @cursor_buddy
+    @caret
     def render(self) -> RenderableType:
         return self.paragraph
 
@@ -151,7 +176,6 @@ class Space(Widget):
         return style
 
     def update_colors(self, cursor: Cursor) -> None:
-        self.paragraph.spans.pop()
         old = cursor.old
         new = cursor.new
         correct = cursor.correct
@@ -191,8 +215,6 @@ class Space(Widget):
                     self.parent.scroll_up()
 
         self.update_colors(cursor)
-        self.paragraph.spans.append(self.reverse_span(cursor.new))
-
         if cursor.new == len(self.paragraph.plain):
             self.screen.post_message(ShowResults(self.tracker.stats))
 
