@@ -74,7 +74,7 @@ class TypingScreen(BaseWindow):
     def compose(self) -> ComposeResult:
         yield TypingSpace()
 
-    def on_key(self, event: events.Key):
+    async def handle_key(self, event: events.Key):
         event.stop()
         key = event.character if event.is_printable and event.character else event.key
         self.query_one(TypingSpace).keypress(key)
