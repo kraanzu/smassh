@@ -4,10 +4,9 @@ from textual.app import ComposeResult
 from textual.widget import Widget
 from termtyper.src import config_parser
 from termtyper.ui.widgets.typing.space import Space
-from textual.widgets import Static
 
 
-class StripSetting(Static):
+class StripSetting(Widget):
     DEFAULT_CSS = """
     StripSetting {
         width: auto;
@@ -20,6 +19,7 @@ class StripSetting(Static):
         super().__init__()
         self.setting_name = setting_name
         self.icon = icon
+        self.shrink = False
 
     def render(self) -> RenderableType:
 
@@ -104,7 +104,7 @@ class TimeMode(Switchable):
         self.set_class(configured_mode == "time", "enabled")
 
 
-class ModeCount(Static):
+class ModeCount(Widget):
     DEFAULT_CSS = """
     ModeCount {
         width: auto;
@@ -114,6 +114,7 @@ class ModeCount(Static):
     def __init__(self, value: int):
         super().__init__()
         self.value = value
+        self.shrink = False
 
     def _refresh_other_counts(self) -> None:
         for counts in self.screen.query(ModeCount):
