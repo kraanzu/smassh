@@ -42,8 +42,8 @@ class Header(Widget):
 
             yield Banner("smassh")
             yield home
-            yield NavItem(" about", "about")
             yield NavItem(" settings", "settings")
             yield NavItem("󰋗 help", "help")
+            yield NavItem(" about", "about")
 
         # yield NavItem("  " + get_username())
