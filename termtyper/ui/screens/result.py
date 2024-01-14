@@ -10,6 +10,13 @@ class ResultScreen(BaseWindow):
     E.g. Typing Chart, Accuracy, WPM etc.
     """
 
+    DEFAULT_CSS = """
+    ResultScreen {
+        layout: horizontal;
+        align: center middle;
+    }
+    """
+
     def compose(self) -> ComposeResult:
         yield Label("Result Screen")
 
