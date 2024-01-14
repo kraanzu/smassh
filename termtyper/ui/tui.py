@@ -36,6 +36,7 @@ class MainScreen(Screen):
     @on(SetScreen)
     def screen_change(self, event: SetScreen):
         self.query_one(ContentSwitcher).current = event.screen_name
+        self.query_one(Header).set_active(event.screen_name)
 
     @on(ShowResults)
     def show_results(self, event: ShowResults):

@@ -33,6 +33,10 @@ class Header(Widget):
     }
     """
 
+    def set_active(self, name: str):
+        for i in self.query(NavItem):
+            i.set_class(i.screen_name == name, "active")
+
     def compose(self) -> ComposeResult:
         yield Static()
 
