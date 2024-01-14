@@ -82,13 +82,6 @@ class Space(Widget):
     def reverse_span(self, pos: int) -> Span:
         return Span(pos, pos + 1, "reverse white")
 
-    def cursor_span(self, correct: bool) -> Span:
-        return Span(
-            self.cursor - 1,
-            self.cursor,
-            "green" if correct else "red",
-        )
-
     # ----------------- RENDER ------------------
     def on_show(self):
         self.reset_newlines()
