@@ -40,9 +40,3 @@ class NavItem(NavItemBase):
     """
     Just a label widget with a callback
     """
-
-    def on_click(self) -> None:
-        if self.parent:
-            for item in self.parent.query(NavItem):
-                item.remove_class("active")
-            self.add_class("active")
