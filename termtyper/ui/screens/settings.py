@@ -33,6 +33,8 @@ class SettingsScreen(BaseWindow):
         key = event.key
         n = len(menu)
 
+        await super().handle_key(event)
+
         if key in ["down", "j"]:
             if self.current_option < n - 1:
                 self.current_option += 1

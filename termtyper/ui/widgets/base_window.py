@@ -1,5 +1,6 @@
 from textual.app import events
 from textual.widget import Widget
+from termtyper.ui.events import SetScreen
 
 
 class BaseWindow(Widget):
@@ -12,14 +13,6 @@ class BaseWindow(Widget):
     }
     """
 
-    def on_key(self, event: events.Key):
-        key = event.key
-
-        if key in ["j", "down"]:
-            self.scroll_down()
-        elif key in ["k", "up"]:
-            self.scroll_up()
-        elif key in ["g", "home"]:
-            self.scroll_home()
-        elif key in ["G", "end"]:
-            self.scroll_end()
+    async def handle_key(self, event: events.Key):
+        if event.key == "escape":
+            return self.post_message(SetScreen("typing"))
