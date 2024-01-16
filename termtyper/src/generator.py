@@ -10,7 +10,7 @@ from random import randint, choice, sample
 
 
 PUNCS = ",.;?!"
-GeneratorFunc = Callable[["Generator", str], str]
+GeneratorFunc = Callable[..., str]
 
 
 def numbers(func: GeneratorFunc) -> GeneratorFunc:
@@ -105,9 +105,9 @@ class Generator:
     @capitalization
     @punctuations
     @numbers
-    def generate(self, language: str) -> str:
+    def generate(self, language: str, size: int) -> str:
         words = self.get_words(language)
-        return " ".join(sample(words, 64))
+        return " ".join(sample(words, size))
 
     def get_newlines(self, paragraph: str, width: int) -> List[int]:
         lines = textwrap.wrap(paragraph, width)

@@ -150,7 +150,20 @@ class Space(Widget):
         self.screen.post_message(ShowResults(self.tracker.stats))
 
     def reset(self) -> None:
-        generated = master_generator.generate(config_parser.get("language"))
+        mode = config_parser.get("mode")
+        if mode == "words":
+            word_count = config_parser.get(f"{mode}_count")
+        else:
+            minutes = config_parser.get(f"{mode}_count") / 60
+            word_count = round(300 * minutes)
+
+        language = config_parser.get("language")
+
+        generated = master_generator.generate(
+            language,
+            word_count,
+        )
+
         self.paragraph = Text(generated)
         self.reset_components()
 
