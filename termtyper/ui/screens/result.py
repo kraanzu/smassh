@@ -2,6 +2,7 @@ from textual.app import ComposeResult
 from textual.widgets import Label
 from termtyper.src.stats_tracker import StatsTracker
 from termtyper.ui.widgets import BaseWindow
+from termtyper.ui.widgets.typing.space import Space
 
 
 class ResultScreen(BaseWindow):
@@ -16,6 +17,9 @@ class ResultScreen(BaseWindow):
         align: center middle;
     }
     """
+
+    def on_show(self):
+        self.app.query_one(Space).reset()
 
     def compose(self) -> ComposeResult:
         yield Label("Result Screen")
