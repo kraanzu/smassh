@@ -1,6 +1,5 @@
 from textual.widget import Widget
 from termtyper.src import config_parser
-from termtyper.ui.events import ShowResults
 
 
 class Ticker(Widget):
@@ -18,19 +17,12 @@ class Ticker(Widget):
         if mode == "words":
             count = config_parser.get("words_count")
             words_typed = stats.word_count
-            finished = words_typed >= count
             self.text = f"{words_typed}/{count}"
         else:
-            finished = False
             if stats.start_time:
                 count = config_parser.get("time_count")
                 time_remaining = count - stats.elapsed_time
-                finished = time_remaining <= 0
                 self.text = str(round(time_remaining))
-
-        if finished:
-            self.update_check.reset()
-            self.screen.post_message(ShowResults(stats))
 
         self.refresh()
 
@@ -43,7 +35,6 @@ class Ticker(Widget):
             count = config_parser.get("time_count")
             self.text = str(count)
 
-        self.update_check.reset()
         self.refresh()
 
     def render(self) -> str:

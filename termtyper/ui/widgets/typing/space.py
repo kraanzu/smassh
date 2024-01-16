@@ -145,8 +145,6 @@ class Space(Widget):
                 return self.finish_typing()
 
     def finish_typing(self):
-        self.check_timer.pause()
-        self.screen.query_one(Ticker).update_check.pause()
         self.screen.post_message(ShowResults(self.tracker.stats))
 
     def reset(self) -> None:
@@ -230,6 +228,7 @@ class Space(Widget):
         self.update_colors(cursor)
         if cursor.new == len(self.paragraph.plain):
             self.screen.post_message(ShowResults(self.tracker.stats))
+            return
 
         self.check_timer.resume()
         self.refresh()

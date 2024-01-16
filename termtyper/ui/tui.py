@@ -9,7 +9,7 @@ from termtyper.ui.screens import *  # noqa
 from termtyper.ui.widgets.palette.palette_list import ApplyLanguage, ApplyTheme
 from termtyper.ui.widgets.palette import LanguagePalette, ThemePalette
 from termtyper.src import config_parser, generate_theme_file
-from termtyper.ui.widgets import Space
+from termtyper.ui.widgets import Space, Ticker
 
 
 class MainScreen(Screen):
@@ -40,6 +40,11 @@ class MainScreen(Screen):
 
     @on(ShowResults)
     def show_results(self, event: ShowResults):
+
+        # reset all watching timers
+        self.query_one(Space).check_timer.pause()
+        self.query_one(Ticker).update_check.pause()
+
         self.query_one(ContentSwitcher).current = "result"
         self.query_one(ResultScreen).set_results(event.stats)
 
