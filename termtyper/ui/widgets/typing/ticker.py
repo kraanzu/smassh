@@ -29,7 +29,7 @@ class Ticker(Widget):
                 self.text = str(round(time_remaining))
 
         if finished:
-            self.update_check.pause()
+            self.update_check.reset()
             self.screen.post_message(ShowResults(stats))
 
         self.refresh()
