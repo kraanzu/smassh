@@ -43,7 +43,7 @@ class MainScreen(Screen):
 
         # reset all watching timers
         self.query_one(Space).check_timer.pause()
-        self.query_one(Ticker).update_check.pause()
+        self.query_one(Ticker).reset()
 
         self.query_one(ContentSwitcher).current = "result"
         self.query_one(ResultScreen).set_results(event.stats)
