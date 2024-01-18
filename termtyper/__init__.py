@@ -16,7 +16,7 @@ def main():
     args = args.parse_args()
 
     if args.version:
-        ver = version("dooit")
+        ver = version("termtyper")
         print(f"termtyper - {ver}")
         return
 
