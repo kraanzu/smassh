@@ -1,4 +1,4 @@
-from .parser import config_parser
+from .parser import config_parser, data_parser
 from .tracker import Tracker, Cursor
 from .figlet import generate_figlet
 from .css_generator import generate_theme_file
@@ -9,6 +9,7 @@ from .buddy import Buddy
 
 __all__ = [
     "config_parser",
+    "data_parser",
     "Tracker",
     "Cursor",
     "generate_figlet",
