@@ -1,5 +1,6 @@
 from pathlib import Path
 from .parser import Parser
+from termtyper.src import StatsTracker
 import appdirs
 
 
@@ -18,8 +19,8 @@ class DataParser(Parser):
     config_path = Path(appdirs.user_data_dir("smassh"))
     DEFAULT_CONFIG = DEFAULTS
 
-    def save(self, stats):
-        pass
+    def add_stats(self, stats: StatsTracker):
+        ...
 
 
 data_parser = DataParser()
