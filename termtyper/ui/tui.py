@@ -8,7 +8,7 @@ from termtyper.ui.widgets import *  # noqa
 from termtyper.ui.screens import *  # noqa
 from termtyper.ui.widgets.palette.palette_list import ApplyLanguage, ApplyTheme
 from termtyper.ui.widgets.palette import LanguagePalette, ThemePalette
-from termtyper.src import config_parser, generate_theme_file
+from termtyper.src import config_parser, generate_theme_file, data_parser
 from termtyper.ui.widgets import Space, Ticker
 
 
@@ -47,6 +47,9 @@ class MainScreen(Screen):
 
         self.query_one(ContentSwitcher).current = "result"
         self.query_one(ResultScreen).set_results(event.stats)
+
+        if not event.failed:
+            data_parser.save(event.stats)
 
     async def handle_key(self, event: events.Key):
         visible = self.query_one(ContentSwitcher).visible_content
