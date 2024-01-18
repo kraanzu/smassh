@@ -9,6 +9,7 @@ class SetScreen(Message):
 
 
 class ShowResults(Message):
-    def __init__(self, stats: StatsTracker) -> None:
+    def __init__(self, stats: StatsTracker, failed: bool = False) -> None:
         super().__init__()
         self.stats = stats
+        self.failed = failed

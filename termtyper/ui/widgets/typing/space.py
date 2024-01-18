@@ -144,8 +144,8 @@ class Space(Widget):
             if burst < min_burst:
                 return self.finish_typing()
 
-    def finish_typing(self):
-        self.screen.post_message(ShowResults(self.tracker.stats))
+    def finish_typing(self, fail: bool = True):
+        self.screen.post_message(ShowResults(self.tracker.stats, fail))
 
     def reset(self) -> None:
         mode = config_parser.get("mode")
