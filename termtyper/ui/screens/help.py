@@ -14,7 +14,7 @@ class Table(Widget):
         height: auto;
         content-align: center middle;
         align: center middle;
-        margin: 1;
+        margin: 1 3;
     }
     """
 
@@ -27,12 +27,14 @@ class Table(Widget):
         from rich.table import Table
 
         table = Table(
+            expand=True,
             show_header=False,
             padding=(0, 0),
             box=box.SIMPLE,
             title=Text(
-                f"Keybinds for {self.title}",
+                f" Keybinds for {self.title}",
                 style="black on blue",
+                justify="left",
             ),
         )
         table.add_column(Text("Key", style="black on green"), style="magenta")
