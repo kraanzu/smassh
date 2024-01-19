@@ -15,6 +15,7 @@ SettingDescription .setting--option-description {
   color: $text-color;
 }
 
+ResultStripItem,
 ValueLabel,
 NavItem,
 Space,
