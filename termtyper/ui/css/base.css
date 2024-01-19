@@ -3,11 +3,13 @@ BaseWindow {
   background: $bg-color;
 }
 
+Tooltip,
 Header,
 PaletteInput {
   background: $sub-alt-color;
 }
 
+Tooltip,
 ResultStripItem:hover,
 NavItem:hover,
 Section,
@@ -139,6 +141,9 @@ Space {
 }
 
 /* ========== EXTRAS ============ */
+Tooltip {
+  padding: 0 1;
+}
 
 BaseWindow,
 PaletteList {
