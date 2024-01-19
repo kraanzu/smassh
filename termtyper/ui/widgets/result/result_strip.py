@@ -6,7 +6,7 @@ from textual.widgets import Label, Static
 class ResultStripItem(Label):
     DEFAULT_CSS = """
     ResultStripItem {
-        margin: 0 3;
+        padding: 0 3;
     }
     """
 
