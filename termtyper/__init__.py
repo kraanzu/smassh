@@ -1,14 +1,9 @@
-from importlib.metadata import version as getVersion
+from importlib.metadata import version
 import click
 
 from .ui import TermTyper
 
 @click.command
-@click.option("--version", "-v", is_flag=True, help="Show version", default=False)
-def main(version):
-    if(version):
-        ver = getVersion("termtyper")
-        print(f"termtyper - {ver}")
-        return
-
+@click.version_option(version("termtyper"), prog_name="termtyper")
+def main():
     TermTyper().run()
