@@ -140,6 +140,24 @@ Space {
   }
 }
 
+Table {
+  .--header {
+    background: $sub-alt-color;
+    color: $sub-color;
+  }
+
+  .--key {
+    text-style: bold;
+    background: $bg-color;
+    color: $main-color;
+  }
+
+  .--action {
+    background: $bg-color;
+    color: $text-color;
+  }
+}
+
 /* ========== EXTRAS ============ */
 Tooltip {
   padding: 0 1;
