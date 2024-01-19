@@ -1,8 +1,6 @@
 TYPING_KEYBINDS = [
-    ("ctrl+d", "toggle race-bar details"),
     ("ctrl+n", "toggle numbers"),
     ("ctrl+p", "toggle punctuations"),
-    ("ctrl+b", "open up a bar theme menu"),
     ("ctrl+w", "delete a whole word"),
 ]
 
