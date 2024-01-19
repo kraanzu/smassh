@@ -11,6 +11,10 @@ class ResultStripItem(Label):
     """
 
     icon: str
+    help: str
+
+    def on_mount(self) -> None:
+        self.tooltip = self.help
 
     def render(self) -> RenderableType:
         return self.icon
@@ -18,10 +22,12 @@ class ResultStripItem(Label):
 
 class NextTest(ResultStripItem):
     icon = ""
+    help = "Next test"
 
 
 class RepeatTest(ResultStripItem):
     icon = ""
+    help = "Repeat test"
 
 
 class ResultStrip(Static):
