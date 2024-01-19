@@ -8,6 +8,7 @@ PaletteInput {
   background: $sub-alt-color;
 }
 
+ResultStripItem:hover,
 NavItem:hover,
 Section,
 SettingDescription .setting--info,
