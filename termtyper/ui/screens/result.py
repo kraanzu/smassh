@@ -1,28 +1,27 @@
 from textual.app import ComposeResult
-from textual.widgets import Digits, Label, Static
+from textual.containers import Container
+from textual.widgets import Static
 from termtyper.src.stats_tracker import StatsTracker
 from termtyper.ui.widgets import BaseWindow
 from termtyper.ui.widgets.typing.space import Space
-
-
-class ValueLabel(Label):
-    pass
-
-
-class Value(Digits, Static):
-    DEFAULT_CSS = """
-    Value {
-        margin: 0 2;
-        content-align: right middle;
-        height: auto;
-        width: auto;
-    }
-    """
+from termtyper.ui.widgets.result import ValueContainer, Value, ResultStrip
 
 
 class AutoVertical(Static):
     DEFAULT_CSS = """
     AutoVertical {
+        margin: 1;
+        height: auto;
+        width: auto;
+        background: red;
+    }
+    """
+
+
+class AutoHorizontal(Static):
+    DEFAULT_CSS = """
+    AutoVertical {
+        layout: horizontal;
         margin: 1;
         height: auto;
         width: auto;
@@ -38,7 +37,9 @@ class ResultScreen(BaseWindow):
 
     DEFAULT_CSS = """
     ResultScreen {
-        layout: horizontal;
+        layout: grid;
+        grid-size: 1 4;
+        grid-rows: 1fr auto 1 1fr;
         align: center middle;
     }
     """
@@ -49,18 +50,14 @@ class ResultScreen(BaseWindow):
         self.accuracy = Value()
 
     def compose(self) -> ComposeResult:
-        with AutoVertical():
-            yield ValueLabel("WPM")
-            yield self.wpm
-
-        with AutoVertical():
-            yield ValueLabel("ACC")
-            yield self.accuracy
+        yield Container()
+        yield ValueContainer()
+        yield ResultStrip()
+        yield Container()
 
     def on_show(self):
         self.app.query_one(Space).reset()
 
     def set_results(self, stats: StatsTracker):
         self.stats = stats
-        self.wpm.update(str(stats.wpm))
-        self.accuracy.update(str(stats.accuracy))
+        self.query_one(ValueContainer).update_stats(stats)
