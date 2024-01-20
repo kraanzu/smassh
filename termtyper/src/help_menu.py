@@ -1,3 +1,8 @@
+GENERAL_KEYBINDS = [
+    ("ctrl+q", "Quit App"),
+    ("ctrl+s", "Open Settings"),
+]
+
 TYPING_KEYBINDS = [
     ("ctrl+n", "toggle numbers"),
     ("ctrl+p", "toggle punctuations"),
