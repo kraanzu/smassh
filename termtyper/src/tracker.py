@@ -119,7 +119,10 @@ class Tracker:
 
     @difficulty
     @force_correct
-    def handle_letter(self, key: str) -> Cursor:
+    def handle_letter(self, key: str) -> Optional[Cursor]:
+        if self.cursor_pos >= len(self.paragraph):
+            return
+
         old = self.cursor_pos
         correct = key == self.paragraph[old]
         self.cursor_pos += 1
