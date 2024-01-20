@@ -36,7 +36,7 @@ class RepeatTest(ResultStripItem):
     help = "Repeat test"
 
     def on_click(self, _) -> None:
-        self.screen.query_one(Space).restart()
+        self.screen.query_one(Space).restart(force=True)
         self.post_message(SetScreen("typing"))
 
 

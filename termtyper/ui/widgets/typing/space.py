@@ -141,8 +141,8 @@ class Space(Widget):
             self.size.width,
         )
 
-    def restart(self) -> None:
-        if config_parser.get("restart_same"):
+    def restart(self, force: bool = False) -> None:
+        if force or config_parser.get("restart_same"):
             generated = self.paragraph.plain
             self.paragraph = Text(generated)
             self.reset_components()
