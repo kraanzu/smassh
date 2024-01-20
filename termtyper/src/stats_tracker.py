@@ -125,7 +125,7 @@ class StatsTracker:
     def reset(self) -> None:
         self.start_time = None
         self.end_time = None
-        self.checkpoints = []
+        self.checkpoints: List[CheckPoint] = []
 
     def finish(self) -> None:
         self.end_time = time()
