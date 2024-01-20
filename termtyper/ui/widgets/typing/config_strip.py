@@ -51,6 +51,10 @@ class Switchable(StripSetting):
         self.toggle()
         self.screen.query_one(Space).reset()
 
+    def render(self) -> RenderableType:
+        self.refresh_setting()
+        return super().render()
+
 
 class PunctuationSwitch(Switchable):
     setting_name = "punctuations"
