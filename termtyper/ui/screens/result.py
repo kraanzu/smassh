@@ -3,7 +3,6 @@ from textual.containers import Container
 from textual.widgets import Static
 from termtyper.src.stats_tracker import StatsTracker
 from termtyper.ui.widgets import BaseWindow
-from termtyper.ui.widgets.typing.space import Space
 from termtyper.ui.widgets.result import ValueContainer, Value, ResultStrip
 
 
@@ -54,9 +53,6 @@ class ResultScreen(BaseWindow):
         yield ValueContainer()
         yield ResultStrip()
         yield Container()
-
-    def on_show(self):
-        self.app.query_one(Space).reset()
 
     def set_results(self, stats: StatsTracker):
         self.stats = stats
