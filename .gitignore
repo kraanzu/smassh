@@ -146,3 +146,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Ignore all language files (keep only english)
+/termtyper/assets/languages/*
+
+!/termtyper/assets/languages/english_1k.json
+!/termtyper/assets/languages/english.json
