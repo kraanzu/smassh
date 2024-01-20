@@ -43,6 +43,30 @@ def tab_reset(func):
     return wrapper
 
 
+def toggle_settings(func):
+    def wrapper(space: "Space", key: str) -> None:
+
+        config_changed = False
+
+        if key == "ctrl+n":
+            config_parser.toggle_numbers()
+            config_changed = True
+
+        elif key == "ctrl+p":
+            config_parser.toggle_punctuations()
+            config_changed = True
+
+        if config_changed:
+            for i in space.screen.query("Switchable"):
+                i.refresh()
+
+            return space.restart()
+
+        return func(space, key)
+
+    return wrapper
+
+
 def cursor_buddy(func):
     def wrapper(space: "Space") -> RenderableType:
         wpm = config_parser.get("cursor_buddy_speed")
@@ -208,6 +232,7 @@ class Space(Widget):
 
     # ---------------- KEYPRESS -----------------
 
+    @toggle_settings
     @tab_reset
     def keypress(self, key: str) -> None:
         cursor = self.tracker.keypress(key)
