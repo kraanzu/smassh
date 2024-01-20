@@ -5,6 +5,7 @@ from termtyper.src.stats_tracker import StatsTracker
 from termtyper.ui.widgets import BaseWindow
 from termtyper.ui.widgets.typing.space import Space
 from termtyper.ui.widgets.result import ValueContainer, Value, ResultStrip
+from termtyper.ui.widgets.typing.ticker import Ticker
 
 
 class AutoVertical(Static):
@@ -62,4 +63,5 @@ class ResultScreen(BaseWindow):
     def on_hide(self):
         space = self.screen.query_one(Space)
         if space.paragraph.spans:
+            self.screen.query_one(Ticker).reset()
             space.restart()
