@@ -14,11 +14,10 @@ def caret(func):
     def wrapper(space: "Space") -> Text:
         renderable: Text = func(space).copy()
         setting = config_parser.get("caret_style")
-
-        if setting == "off":
-            return renderable
-
         pos = space.tracker.cursor_pos
+
+        if setting == "off" or pos == len(space.paragraph.plain):
+            return renderable
 
         if setting == "underline":
             rich_style = "--caret-underline"
