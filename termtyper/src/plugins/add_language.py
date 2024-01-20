@@ -3,7 +3,10 @@ import requests
 from typing import Optional
 from pathlib import Path
 
-LANGUAGE_PACK_DIR = Path.absolute(Path(__file__).parent.parent.parent) / "assets" / "languages"
+LANGUAGE_PACK_DIR = (
+    Path.absolute(Path(__file__).parent.parent.parent) / "assets" / "languages"
+)
+
 
 class AddLanguage:
     """Adds a new language to termtyper"""
@@ -18,7 +21,7 @@ class AddLanguage:
         uri = f"https://raw.githubusercontent.com/monkeytypegame/monkeytype/master/frontend/static/languages/{name}.json"
         req = requests.get(uri)
 
-        return req.text if(req.status_code == 200) else None
+        return req.text if (req.status_code == 200) else None
 
     def add(self, name: str):
         """Downloads a new language for termtyper"""
@@ -26,8 +29,9 @@ class AddLanguage:
         self.log("Checking if language pack exists...")
         pack = self.get_pack(name)
 
-        if(pack == None): return self.log("Language pack doesnt exist!", "red")
-        
+        if pack is None:
+            return self.log("Language pack doesnt exist!", "red")
+
         self.log("Downloading language pack...")
 
         with open(LANGUAGE_PACK_DIR / f"{name}.json", "w") as f:
