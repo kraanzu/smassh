@@ -43,9 +43,9 @@ class Table(Widget):
                 justify="left",
             ),
         )
-        table.add_column(Text("Key"), style=table_key)
+        table.add_column(Text("Key"), style=table_key, ratio=1)
         table.add_column("", width=5)
-        table.add_column(Text("Action"), style=table_action)
+        table.add_column(Text("Action"), style=table_action, ratio=4)
         for key, description in self.keys:
             table.add_row(key, "", description)
 
