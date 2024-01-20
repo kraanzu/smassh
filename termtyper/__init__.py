@@ -2,7 +2,7 @@ from importlib.metadata import version as pkgVersion
 import click
 
 from .ui import TermTyper
-from .src.plugins import AddLanguage
+from termtyper.src.plugins.add_language import AddLanguage
 
 
 @click.group(
