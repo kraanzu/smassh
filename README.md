@@ -78,12 +78,9 @@ Statues: [![Python application](https://github.com/kraanzu/termtyper/actions/wor
 
 > That's it fellas (See [Contribution](https://github.com/kraanzu/termtyper#contribution-) if you want something more)
 
-> See Demo Video below in order to get a visual :)
+# Screenshots 🖼️
 
-# Demo 🎥
-
-https://user-images.githubusercontent.com/97718086/179387912-27b0016b-fa31-4284-9006-c11d24171065.mp4
-
+![github](https://github.com/kraanzu/termtyper/assets/97718086/ba0748ec-37d8-4721-a26c-9c6abf60e588)
 
 
 # Contribution 🤝
