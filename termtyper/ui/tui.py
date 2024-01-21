@@ -41,7 +41,9 @@ class MainScreen(Screen):
     @on(ShowResults)
     def show_results(self, event: ShowResults):
         # reset all watching timers
-        self.query_one(Space).check_timer.pause()
+        space = self.query_one(Space)
+        space.check_timer.pause()
+        space.tracker.stats.finish()
         self.query_one(Ticker).reset()
 
         self.query_one(ContentSwitcher).current = "result"
