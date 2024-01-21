@@ -1,10 +1,32 @@
+from rich.console import RenderableType
 from textual.app import ComposeResult
 from textual.widget import Widget
-from textual.widgets import Digits, Label, Static
+from textual.widgets import Digits, Static
+
+from termtyper.src.parser import data_parser
 
 
-class ValueLabel(Label):
-    pass
+class ValueLabel(Widget):
+    DEFAULT_CSS = """
+    ValueLabel {
+        height: auto;
+        width: auto;
+    }
+    """
+
+    best = False
+
+    def __init__(self, text: str, **kwargs):
+        self.text = text
+        super().__init__(**kwargs)
+
+    def set_best(self, is_best: bool):
+        self.best = is_best
+        self.refresh()
+
+    def render(self) -> RenderableType:
+        best_icon = "👑" if self.best else ""
+        return self.text + best_icon
 
 
 class AutoVertical(Widget):
@@ -46,14 +68,18 @@ class ValueContainer(Static):
         self.accuracy = Value()
 
     def update_stats(self, stats):
+
+        wpm_label = self.query_one("#wpm_label", expect_type=ValueLabel)
+        wpm_label.set_best(data_parser.is_highest_wpm(stats.wpm))
+
         self.wpm.update(str(stats.wpm))
         self.accuracy.update(str(stats.accuracy))
 
     def compose(self) -> ComposeResult:
         with AutoVertical():
-            yield ValueLabel("WPM")
+            yield ValueLabel("WPM", id="wpm_label")
             yield self.wpm
 
         with AutoVertical():
-            yield ValueLabel("ACC")
+            yield ValueLabel("ACC", id="acc_label")
             yield self.accuracy

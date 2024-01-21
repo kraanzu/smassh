@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Dict
 from .parser import Parser
 from termtyper.src.stats_tracker import StatsTracker
 from termtyper.src.parser.config_parser import config_parser
@@ -30,6 +31,23 @@ class DataParser(Parser):
         report = self.generate_report(stats) | dict(failed=failed)
         self.get("data").append(report)
         self.save()
+
+    def hightest_wpm(self) -> int:
+        mode = config_parser.get("mode")
+        count = config_parser.get(f"{mode}_count")
+
+        def same_mode(test: Dict):
+            return test["mode"] == mode and count == test["count"]
+
+        tests = list(filter(same_mode, self.get("data")))
+
+        if not tests:
+            return 0
+
+        return max(tests, key=lambda x: x["wpm"])["wpm"]
+
+    def is_highest_wpm(self, wpm: int) -> bool:
+        return wpm > self.hightest_wpm()
 
 
 data_parser = DataParser()
