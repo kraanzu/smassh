@@ -131,7 +131,6 @@ class StatsTracker:
         self.end_time = time()
 
     def add_checkpoint(self, checkpoint: CheckPoint) -> None:
-
         if not self.start_time:
             self.start_time = time()
 

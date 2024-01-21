@@ -22,7 +22,6 @@ class StripSetting(Widget):
         self.shrink = False
 
     def render(self) -> RenderableType:
-
         if self.icon:
             return self.icon + " " + self.setting_name
 
@@ -137,7 +136,6 @@ class ModeCount(Widget):
 
 
 class StripSeparator(Widget):
-
     DEFAULT_CSS = """
     StripSeparator {
         width: auto;
