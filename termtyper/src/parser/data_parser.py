@@ -12,7 +12,9 @@ class DataParser(Parser):
     def generate_report(self, stats: StatsTracker):
         mode = config_parser.get("mode")
         count = config_parser.get(f"{mode}_count")
-        elapsed = stats.checkpoints[-1].elapsed if stats.checkpoints else 0
+        start = stats.start_time or 0
+        end = stats.end_time or 0
+        elapsed = end - start
 
         return dict(
             mode=mode,
