@@ -12,10 +12,10 @@ x.py
 styles.tcss
 
 # Extra css files (sass, css, etc)
-/termtyper/ui/css/themes/*
+/smassh/ui/css/themes/*
 
 # only allow .tcss
-!/termtyper/ui/css/themes/*.tcss
+!/smassh/ui/css/themes/*.tcss
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -148,7 +148,7 @@ dmypy.json
 .pyre/
 
 # Ignore all language files (keep only english)
-/termtyper/assets/languages/*
+/smassh/assets/languages/*
 
-!/termtyper/assets/languages/english_1k.json
-!/termtyper/assets/languages/english.json
+!/smassh/assets/languages/english_1k.json
+!/smassh/assets/languages/english.json
