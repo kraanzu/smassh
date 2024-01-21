@@ -25,7 +25,7 @@ class ValueLabel(Widget):
         self.refresh()
 
     def render(self) -> RenderableType:
-        best_icon = "👑" if self.best else ""
+        best_icon = " 󱟜 " if self.best else ""
         return self.text + best_icon
 
 
