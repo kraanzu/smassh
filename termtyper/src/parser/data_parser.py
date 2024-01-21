@@ -42,15 +42,24 @@ class DataParser(Parser):
         return list(filter(same_mode, self.get("data")))
 
     def hightest_wpm(self) -> int:
-
         tests = self.current_mode_tests()
         if not tests:
             return 0
 
         return max(tests, key=lambda x: x["wpm"])["wpm"]
 
+    def hightest_accuracy(self) -> int:
+        tests = self.current_mode_tests()
+        if not tests:
+            return 0
+
+        return max(tests, key=lambda x: x["accuracy"])["accuracy"]
+
     def is_highest_wpm(self, wpm: int) -> bool:
         return wpm > self.hightest_wpm()
+
+    def is_highest_accuracy(self, accuracy: int) -> bool:
+        return accuracy > self.hightest_accuracy()
 
 
 data_parser = DataParser()

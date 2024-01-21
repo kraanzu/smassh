@@ -72,6 +72,9 @@ class ValueContainer(Static):
         wpm_label = self.query_one("#wpm_label", expect_type=ValueLabel)
         wpm_label.set_best(data_parser.is_highest_wpm(stats.wpm))
 
+        acc_label = self.query_one("#acc_label", expect_type=ValueLabel)
+        acc_label.set_best(data_parser.is_highest_accuracy(stats.accuracy))
+
         self.wpm.update(str(stats.wpm))
         self.accuracy.update(str(stats.accuracy))
 
