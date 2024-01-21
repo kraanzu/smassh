@@ -5,11 +5,19 @@ from textual.widget import Widget
 from termtyper.ui.widgets import BaseWindow
 
 DESCRIPTION = """
-Termtyper is a TUI typing application which was highly inspired
-by monkeytype -- An online web-based typing application which is
-by far the most customizable typing application
+Smassh is a TUI based typing test application inspired by MonkeyType
+-- A very popular online web-based typing application
 
-Termtyper tries to bring features of monkeytype to terminal
+All the other TUI based applications I found were not graphically appealing
+and then I discovered textual which made it possible to create this application.
+
+Smassh tries to be a full fledged typing test experience but not missing
+out on looks and feel!
+
+A lot of work is still left to be done and I'll be more than happy to accept
+any ideas and contributions :D
+
+Thanks for checking out this project!
 """
 
 STAR = """
