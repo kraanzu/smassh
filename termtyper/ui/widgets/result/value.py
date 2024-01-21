@@ -1,4 +1,5 @@
 from rich.console import RenderableType
+from rich.text import Text
 from textual.app import ComposeResult
 from textual.widget import Widget
 from textual.widgets import Digits, Static
@@ -14,10 +15,12 @@ class ValueLabel(Widget):
     }
     """
 
+    COMPONENT_CLASSES = {"--personal-best"}
+
     best = False
 
     def __init__(self, text: str, **kwargs):
-        self.text = text
+        self.text = Text(text)
         super().__init__(**kwargs)
 
     def set_best(self, is_best: bool):
@@ -25,7 +28,8 @@ class ValueLabel(Widget):
         self.refresh()
 
     def render(self) -> RenderableType:
-        best_icon = " 󱟜 " if self.best else ""
+        style = self.get_component_rich_style("--personal-best")
+        best_icon = Text(" 󱟜 " if self.best else "", style=style)
         return self.text + best_icon
 
 

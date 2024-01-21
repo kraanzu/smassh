@@ -158,6 +158,12 @@ Table {
   }
 }
 
+ValueLabel {
+  .--personal-best {
+    color: $main-color;
+  }
+}
+
 /* ========== EXTRAS ============ */
 Tooltip {
   padding: 0 1;
