@@ -40,7 +40,6 @@ class MainScreen(Screen):
 
     @on(ShowResults)
     def show_results(self, event: ShowResults):
-
         # reset all watching timers
         self.query_one(Space).check_timer.pause()
         self.query_one(Ticker).reset()

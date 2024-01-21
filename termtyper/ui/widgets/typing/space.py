@@ -44,7 +44,6 @@ def tab_reset(func):
 
 def toggle_settings(func):
     def wrapper(space: "Space", key: str) -> None:
-
         config_changed = False
 
         if key == "ctrl+n":

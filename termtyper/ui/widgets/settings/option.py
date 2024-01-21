@@ -8,7 +8,6 @@ from termtyper.ui.widgets.typing.space import Space
 
 
 class BaseOption(Widget):
-
     DEFAULT_CSS = """
     BaseOption {
         align: center middle;
