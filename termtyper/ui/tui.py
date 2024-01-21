@@ -49,8 +49,7 @@ class MainScreen(Screen):
         self.query_one(ContentSwitcher).current = "result"
         self.query_one(ResultScreen).set_results(event.stats)
 
-        if not event.failed:
-            data_parser.add_stats(event.stats)
+        data_parser.add_stats(event.stats, event.failed)
 
     async def handle_key(self, event: events.Key):
         visible = self.query_one(ContentSwitcher).visible_content

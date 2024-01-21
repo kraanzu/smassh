@@ -26,8 +26,8 @@ class DataParser(Parser):
             accuracy=stats.accuracy,
         )
 
-    def add_stats(self, stats: StatsTracker):
-        report = self.generate_report(stats)
+    def add_stats(self, stats: StatsTracker, failed: bool):
+        report = self.generate_report(stats) | dict(failed=failed)
         self.get("data").append(report)
         self.save()
 
