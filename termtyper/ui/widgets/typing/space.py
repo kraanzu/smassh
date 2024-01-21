@@ -101,6 +101,7 @@ class Space(Widget):
     DEFAULT_CSS = """
     Space {
         height: auto;
+        min-height: 3;
     }
     """
 
