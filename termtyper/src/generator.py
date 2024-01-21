@@ -107,6 +107,11 @@ class Generator:
     @numbers
     def generate(self, language: str, size: int) -> str:
         words = self.get_words(language)
+
+        if size > len(words):
+            q = size // len(words)
+            words = words * q + words[: size % len(words)]
+
         return " ".join(sample(words, size))
 
     def get_newlines(self, paragraph: str, width: int) -> List[int]:
