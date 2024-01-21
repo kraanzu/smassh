@@ -3,6 +3,7 @@ from rich.console import RenderableType
 from rich.style import Style
 from rich.text import Span, Text
 from textual.widget import Widget
+from textual.widgets import Static
 from termtyper.src import master_generator, Tracker, Cursor
 from termtyper.src.buddy import Buddy
 from termtyper.src.parser import config_parser
@@ -97,14 +98,7 @@ def blind_mode(func):
     return wrapper
 
 
-class Space(Widget):
-    DEFAULT_CSS = """
-    Space {
-        height: auto;
-        min-height: 3;
-    }
-    """
-
+class Space(Static):
     COMPONENT_CLASSES = {
         "--cursor-buddy",
         "--correct-match",
@@ -196,7 +190,7 @@ class Space(Widget):
             self.reset_newlines()
             self.screen.query_one(Ticker).reset()
 
-        self.refresh()
+        self.refresh(layout=True)
 
     @cursor_buddy
     @caret
