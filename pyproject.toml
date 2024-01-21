@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "termtyper"
+name = "smassh"
 version = "2.0.0"
 description = "A TUI based typing application"
 authors = ["kraanzu <kraanzu@gmail.com>"]
@@ -23,7 +23,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-termtyper = 'termtyper.__init__:main'
+smassh = 'smassh.__init__:main'
 
 [tool.ruff]
 exclude = ["venv"]
