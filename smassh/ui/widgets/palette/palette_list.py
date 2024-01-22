@@ -1,7 +1,7 @@
+from functools import cache
 from typing import Type
 from textual.message import Message
 from textual.widgets import OptionList
-from rich.text import Text
 from smassh.src import config_parser
 
 
@@ -35,29 +35,32 @@ class PaletteList(OptionList, can_focus=False):
     _filter: str = ""
     _highlight_event: Type[PaletteOptionHighlighted]
 
-    def get_options(self):
+    def _get_options(self):
         raise NotImplementedError
+
+    @cache
+    def get_options(self):
+        options = self._get_options()
+        return sorted([option.replace("_", " ") for option in options])
 
     def get_current(self):
         raise NotImplementedError
 
-    def apply_filter(self, text):
-        self._filter = text
-        self.clear_options()
-        for option in sorted(self.get_options()):
-            option = option.replace("_", " ")
-            text = Text(option)
-            if self._filter:
-                count = text.highlight_words([self._filter], "green")
-            else:
-                count = 1
+    def apply_filter(self, filter_text: str):
+        def valid_option(option_text: str):
+            if not filter_text:
+                return True
 
-            if count:
-                self.add_option(text)
+            return filter_text in option_text
+
+        self.clear_options()
+        self._filter = filter_text
+        valid_options = filter(valid_option, self.get_options())
+        self.add_options(valid_options)
 
     async def on_mount(self, _):
         self.apply_filter("")
-        options = sorted(self.get_options())
+        options = sorted(self._get_options())
         index = options.index(self.get_current())
         self.highlighted = index
 
@@ -65,7 +68,7 @@ class PaletteList(OptionList, can_focus=False):
 class LanguagePaletteList(PaletteList):
     _highlight_event = ApplyLanguage
 
-    def get_options(self):
+    def _get_options(self):
         return config_parser.configured_languages
 
     def get_current(self):
@@ -75,7 +78,7 @@ class LanguagePaletteList(PaletteList):
 class ThemePaletteList(PaletteList):
     _highlight_event = ApplyTheme
 
-    def get_options(self):
+    def _get_options(self):
         return config_parser.configured_themes
 
     def get_current(self):
