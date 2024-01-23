@@ -31,7 +31,7 @@ pip install smassh
 yay -S smassh
 ```
 
-### Executable binary
+### Executable binary 🔌
 
 You should be able to see binaries for `Linux`, `mac` and `windows` in the [releases section](https://github.com/kraanzu/termtyper/releases)
 
@@ -80,7 +80,7 @@ See [CONTRIBUTING.md](https://github.com/kraanzu/termtyper/blob/main/README.md) 
 ---
 ---
 
-#### Other TUI projects 🤓 :
+# Other TUI projects 🤓 :
 
 If you liked smassh then you might wanna try out some of my other TUI projects as well
 
