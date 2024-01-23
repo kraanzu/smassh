@@ -1,4 +1,7 @@
-<img src="https://user-images.githubusercontent.com/97718086/177029838-49fc77c2-6dc4-4d62-ab6b-1d830c7260b5.png" align="right" alt="Termtyper icon" width="303" height="200">
+
+![SMASSH](https://github.com/kraanzu/termtyper/assets/97718086/799dcaf9-a424-49b9-aaab-5ec8e1427347)
+
+
 
 # Termtyper 🖮
 
