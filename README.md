@@ -1,5 +1,5 @@
 
-![SMASSH](https://github.com/kraanzu/termtyper/assets/97718086/799dcaf9-a424-49b9-aaab-5ec8e1427347)
+![SMASSH](imgs/smassh_banner.png)
 
 
 # Smassh 🖮
@@ -69,7 +69,7 @@ You should be able to see binaries for `Linux`, `mac` and `windows` in the [rele
 
 # Screenshots 🖼️
 
-![github](https://github.com/kraanzu/termtyper/assets/97718086/ba0748ec-37d8-4721-a26c-9c6abf60e588)
+![github](imgs/preview.png)
 
 
 # Contribution 🤝
