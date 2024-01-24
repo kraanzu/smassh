@@ -74,7 +74,7 @@ You should be able to see binaries for `Linux`, `mac` and `windows` in the [rele
 
 # Contribution 🤝
 
-See [CONTRIBUTING.md](https://github.com/kraanzu/termtyper/blob/main/README.md) for contributions
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contributions
 
 
 # Other TUI projects 🤓 :
