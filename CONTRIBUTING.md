@@ -43,9 +43,9 @@ Steps:
   This will install all the required and dev dependencies 
 
 - run `pre-commit` install \
-  This will setup pre-commit hooks for GitHub which will automatically run `ruff` and `black` to test your code
+  This will set pre-commit hooks for GitHub which will automatically run `ruff` and `black` to test your code
 
-- Finally you can run the app
+- Finally, you can run the app
   ```bash
   smassh
   ```
@@ -53,4 +53,13 @@ Steps:
 - If you see a typing screen that means everything is installed properly
 
 
+## Before opening a PR
 
+Before you open your PR, please go through this checklist and make sure you've checked all the items that apply:
+
+ - [ ] Update the `CHANGELOG.md`
+ - [ ] Format your code with black
+ - [ ] All your code has docstrings in the style of the rest of the codebase
+
+## Questions
+If you have any questions, comments, concerns, or problems let me know on [Discord](https://discord.com/invite/WA2ER9MBWa) or ask a question on Smassh's GitHub discussions and I'll be happy to assist you.
