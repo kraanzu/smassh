@@ -57,7 +57,7 @@ class MainScreen(Screen):
             await visible.handle_key(event)
 
 
-class TermTyper(App):
+class Smassh(App):
     CSS_PATH = "css/styles.tcss"
     SCREENS = {
         "main": MainScreen(),

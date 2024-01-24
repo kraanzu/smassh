@@ -1,8 +1,7 @@
 from importlib.metadata import version as pkgVersion
 import click
-
-from .ui import TermTyper
 from smassh.src.plugins.add_language import AddLanguage
+from smassh.ui.tui import Smassh
 
 
 @click.group(
@@ -13,10 +12,10 @@ from smassh.src.plugins.add_language import AddLanguage
 @click.pass_context
 def main(ctx, version: bool):
     if version:
-        return print(f"termtyper - v{pkgVersion('termtyper')}")
+        return print(f"smassh - v{pkgVersion('smassh')}")
 
     if ctx.invoked_subcommand is None:
-        TermTyper().run()
+        Smassh().run()
 
 
 @main.command

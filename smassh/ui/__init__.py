@@ -1,3 +1,3 @@
-from .tui import TermTyper
+from .tui import Smassh
 
-__all__ = ["TermTyper", "menu"]
+__all__ = ["Smassh", "menu"]
