@@ -7,8 +7,8 @@ Thanks for taking the time to contribute to smash
 You can do that in a lot of ways
 
 - Add a theme
-- Report a bug ( [see GitHub issue tracker](https://github.com/kraanzu/termtyper/issues) )
-- Suggest a new feature or enhancement ( [see GitHub issue tracker](https://github.com/kraanzu/termtyper/issues) )
+- Report a bug ( [see GitHub issue tracker](https://github.com/kraanzu/smassh/issues) )
+- Suggest a new feature or enhancement ( [see GitHub issue tracker](https://github.com/kraanzu/smassh/issues) )
 - Open a PR for any of the reasons above
 
 <hr>

@@ -89,7 +89,7 @@ class Smassh(App):
         self.SCREENS["main"].query_one(ThemePalette).refresh()
 
     def action_star(self):
-        webbrowser.open("https://github.com/kraanzu/termtyper")
+        webbrowser.open("https://github.com/kraanzu/smassh")
 
     def action_theme(self, theme: str):
         generate_theme_file(theme)

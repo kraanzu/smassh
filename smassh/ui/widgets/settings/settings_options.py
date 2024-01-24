@@ -53,7 +53,7 @@ class SettingDescription(Widget):
 
 class Setting(Widget):
     """
-    A class that holds one setting for the termtyper!
+    A class that holds one setting for the smassh!
     """
 
     DEFAULT_CSS = """

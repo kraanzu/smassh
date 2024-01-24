@@ -6,9 +6,9 @@
 
 _Smassh your keyboard, TUI Edition_ 
 
-[![GitHub issues](https://img.shields.io/github/issues/kraanzu/termtyper?color=red&style=for-the-badge)](https://github.com/kraanzu/termtyper/issues)
-[![GitHub stars](https://img.shields.io/github/stars/kraanzu/termtyper?color=green&style=for-the-badge)](https://github.com/kraanzu/termtyper/stargazers)
-[![GitHub license](https://img.shields.io/github/license/kraanzu/termtyper?color=yellow&style=for-the-badge)](https://github.com/kraanzu/termtyper/blob/main/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/kraanzu/smassh?color=red&style=for-the-badge)](https://github.com/kraanzu/smassh/issues)
+[![GitHub stars](https://img.shields.io/github/stars/kraanzu/smassh?color=green&style=for-the-badge)](https://github.com/kraanzu/smassh/stargazers)
+[![GitHub license](https://img.shields.io/github/license/kraanzu/smassh?color=yellow&style=for-the-badge)](https://github.com/kraanzu/smassh/blob/main/LICENSE)
 [![Support Server](https://img.shields.io/discord/989186205025464390.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge)](https://discord.gg/WA2ER9MBWa)
 
 > [!CAUTION]
@@ -33,7 +33,7 @@ yay -S smassh
 
 ### Executable binary 🔌
 
-You should be able to see binaries for `Linux`, `mac` and `windows` in the [releases section](https://github.com/kraanzu/termtyper/releases)
+You should be able to see binaries for `Linux`, `mac` and `windows` in the [releases section](https://github.com/kraanzu/smassh/releases)
 
 > [!NOTE]
 > This should automatically create an executable `smassh` that can be directly run from command line \
@@ -47,7 +47,7 @@ You should be able to see binaries for `Linux`, `mac` and `windows` in the [rele
 - Words and Time modes for typing
 - Real-time comparison of speed carets
 - Change styles/settings on the fly
-- Lots of options to tweak! (See [tweaks](https://github.com/kraanzu/termtyper#tweaks-gear))
+- Lots of options to tweak! (See [tweaks](#tweaks-gear))
 
 # Tweaks ⚙️
 

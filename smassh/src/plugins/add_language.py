@@ -9,7 +9,7 @@ LANGUAGE_PACK_DIR = (
 
 
 class AddLanguage:
-    """Adds a new language to termtyper"""
+    """Adds a new language to smassh"""
 
     def log(self, message: str, color: str = "green"):
         """Logs a message to the console"""
@@ -24,7 +24,7 @@ class AddLanguage:
         return req.text if (req.status_code == 200) else None
 
     def add(self, name: str):
-        """Downloads a new language for termtyper"""
+        """Downloads a new language for smassh"""
 
         self.log("Checking if language pack exists...")
         pack = self.get_pack(name)
