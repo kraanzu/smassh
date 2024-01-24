@@ -19,7 +19,7 @@ You can do that in a lot of ways
 Currently, we're using [themes from monkeytype](https://github.com/monkeytypegame/monkeytype/tree/master/frontend/static/themes) but if you feel like some theme is missing, 
 feel free to open a PR to add it! \
 
-The theme format is pretty simple and you can look into [any of the theme files](smassh/ui/css/themes) \
+The theme format is pretty simple and you can look into [any of the theme files](smassh/ui/css/themes)
 
 Steps:
 
