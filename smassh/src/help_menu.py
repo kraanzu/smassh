@@ -4,14 +4,15 @@ GENERAL_KEYBINDS = [
 ]
 
 TYPING_KEYBINDS = [
-    ("ctrl+n", "toggle numbers"),
-    ("ctrl+p", "toggle punctuations"),
-    ("ctrl+w", "delete a whole word"),
+    ("escape", "Reset typing"),
+    ("ctrl+n", "Toggle numbers"),
+    ("ctrl+p", "Toggle punctuations"),
+    ("ctrl+w", "Delete a whole word"),
 ]
 
 SETTINGS_KEYBINDS = [
-    ("j/down", "move to next setting"),
-    ("k/up", "move to previous setting"),
-    ("tab", "move to next option"),
-    ("shift+tab", "move to previous option"),
+    ("j/down", "Move to next setting"),
+    ("k/up", "Move to previous setting"),
+    ("tab", "Move to next option"),
+    ("shift+tab", "Move to previous option"),
 ]
