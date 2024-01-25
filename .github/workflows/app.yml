@@ -32,7 +32,7 @@ jobs:
 
       - name: Package app with pyinstaller
         run: |
-          python -c "with open('termtyper.py', 'w') as f: f.write('from termtyper import main\nmain()\n')"
+          python -c "with open('smassh.py', 'w') as f: f.write('from smassh.__main__ import main\nmain()\n')"
           pyinstaller -F termtyper.py -i pic.ico
 
       - name: Upload a Build Artifact
