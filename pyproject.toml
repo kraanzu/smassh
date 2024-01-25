@@ -23,7 +23,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-smassh = 'smassh.__init__:main'
+smassh = 'smassh.__main__:main'
 
 [tool.ruff]
 exclude = ["venv"]
