@@ -228,6 +228,10 @@ class Space(Static):
     @toggle_settings
     @tab_reset
     def keypress(self, key: str) -> None:
+
+        if key == "escape":
+            return self.reset()
+
         cursor = self.tracker.keypress(key)
         if not cursor:
             return
