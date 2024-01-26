@@ -24,7 +24,7 @@ jobs:
         pip install pyinstaller
     - name: Package app with pyinstaller
       run: |
-          python -c "with open('smassh.py', 'w') as f: f.write('from smassh.__main__ import main\nmain()\n')"
+          python -c "with open('smassh.py', 'w') as f: f.write('from smassh.__init__ import main\nmain()\n')"
           pyinstaller -F smassh.py --add-data="smassh/assets/languages/:smassh/assets/languages" --add-data="smassh/ui/css/:smassh/ui/css"
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
@@ -54,7 +54,7 @@ jobs:
         pip install pyinstaller
     - name: Package app with pyinstaller
       run: |
-          python -c "with open('smassh.py', 'w') as f: f.write('from smassh.__main__ import main\nmain()\n')"
+          python -c "with open('smassh.py', 'w') as f: f.write('from smassh.__init__ import main\nmain()\n')"
           pyinstaller -F smassh.py --add-data="smassh/assets/languages/:smassh/assets/languages" --add-data="smassh/ui/css/:smassh/ui/css"
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
@@ -84,7 +84,7 @@ jobs:
         pip install pyinstaller
     - name: Package app with pyinstaller
       run: |
-          python -c "with open('smassh.py', 'w') as f: f.write('from smassh.__main__ import main\nmain()\n')"
+          python -c "with open('smassh.py', 'w') as f: f.write('from smassh.__init__ import main\nmain()\n')"
           pyinstaller -F smassh.py --add-data="smassh/assets/languages/:smassh/assets/languages" --add-data="smassh/ui/css/:smassh/ui/css"
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.0
