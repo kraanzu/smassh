@@ -47,7 +47,7 @@ You should be able to see binaries for `Linux`, `mac` and `windows` in the [rele
 - Change styles/settings on the fly
 - Mutliple theme support
 - Mutliple language support
-- Lots of options to tweak! (See [tweaks](#tweaks-gear))
+- Lots of options to tweak!
 
 # Tweaks ⚙️
 
