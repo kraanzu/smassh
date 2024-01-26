@@ -18,7 +18,7 @@ def main(ctx, version: bool):
         Smassh().run()
 
 
-@main.command
+@main.command(help="Add a language to smassh")
 @click.argument("name")
 def add(name: str):
     AddLanguage().add(name)
