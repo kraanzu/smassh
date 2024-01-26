@@ -8,6 +8,8 @@ TYPING_KEYBINDS = [
     ("ctrl+n", "Toggle numbers"),
     ("ctrl+p", "Toggle punctuations"),
     ("ctrl+w", "Delete a whole word"),
+    ("ctrl+l", "Opens language menu"),
+    ("ctrl+t", "Opens theme menu"),
 ]
 
 SETTINGS_KEYBINDS = [
