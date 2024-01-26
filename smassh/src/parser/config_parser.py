@@ -15,7 +15,6 @@ DEFAULTS = {
     "single_line_words": False,
     "cursor_buddy_speed": 0,
     "tab_reset": False,
-    "restart_same": False,
     "language": "english",
     "numbers": False,
     "punctuations": False,

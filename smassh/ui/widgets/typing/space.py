@@ -135,7 +135,7 @@ class Space(Static):
         )
 
     def restart(self, force: bool = False) -> None:
-        if force or config_parser.get("restart_same"):
+        if force:
             generated = self.paragraph.plain
             self.paragraph = Text(generated)
             self.reset_components()

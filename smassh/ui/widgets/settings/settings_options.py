@@ -158,15 +158,6 @@ menu = [
         "Lost your gusto in the middle of typing? Restart by hitting a tab!",
     ),
     Setting(
-        "󰕇 Restart Same",
-        {
-            "off": "Pressing tab will render a new paragraph",
-            "on": "Pressing tab will restart the typing session with the same paragraph",
-        },
-        Option("restart_same", options=["off", "on"]),
-        "Wanna practice the same paragraph over and over? This option is for you!",
-    ),
-    Setting(
         " Force correct",
         {
             "on": "You will not be allowed to move forward until"
