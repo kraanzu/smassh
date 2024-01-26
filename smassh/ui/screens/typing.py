@@ -67,6 +67,12 @@ class TypingSpace(Widget):
         if key == "ctrl+s":
             return self.screen.post_message(SetScreen("settings"))
 
+        if key == "ctrl+l":
+            return self.app.push_screen("language")
+
+        if key == "ctrl+t":
+            return self.app.push_screen("theme")
+
         self.query_one(Space).keypress(key)
 
 
