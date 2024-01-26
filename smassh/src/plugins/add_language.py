@@ -9,7 +9,9 @@ LANGUAGE_PACK_DIR = (
 
 
 class AddLanguage:
-    """Adds a new language to smassh"""
+    """
+    Plugin to add new languages to smassh
+    """
 
     def log(self, message: str, color: str = "green") -> None:
         """Logs a message to the console"""

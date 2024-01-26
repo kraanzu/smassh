@@ -16,6 +16,10 @@ class ThemePalette(Palette):
 
 
 class PaletteOptions(Widget):
+    """
+    Typing Space Widget which shows current enable palette options
+    """
+
     DEFAULT_CSS = """
     PaletteOptions {
         layout: horizontal;

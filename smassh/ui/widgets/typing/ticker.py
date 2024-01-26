@@ -3,6 +3,10 @@ from smassh.src import config_parser
 
 
 class Ticker(Widget):
+    """
+    Ticker widget to show time/word left
+    """
+
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.update_check = self.set_interval(0.1, self.update)

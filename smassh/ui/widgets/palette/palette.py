@@ -4,6 +4,10 @@ from textual.widget import Widget
 
 
 class Palette(Widget):
+    """
+    Palette Widget to show current set palette option
+    """
+
     DEFAULT_CSS = """
     Palette {
         margin: 0 3;

@@ -9,6 +9,10 @@ from smassh.ui.widgets.base_window import BaseWindow
 
 
 class Table(Widget):
+    """
+    Table widget to show keybindings
+    """
+
     DEFAULT_CSS = """
     Table {
         height: auto;
@@ -53,6 +57,10 @@ class Table(Widget):
 
 
 class HelpScreen(BaseWindow):
+    """
+    Help Screen to show help tables for various screens
+    """
+
     def compose(self) -> ComposeResult:
         yield Table("General Stuff", GENERAL_KEYBINDS)
         yield Table("Typing Screen", TYPING_KEYBINDS)

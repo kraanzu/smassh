@@ -13,6 +13,10 @@ from smassh.ui.widgets import (
 
 
 class PaletteMenu(Vertical):
+    """
+    A menu to show all the avaialble options for the setting
+    """
+
     DEFAULT_CSS = """
     PaletteMenu {
         width: 60%;
@@ -25,6 +29,10 @@ class PaletteMenu(Vertical):
 
 
 class PaletteHeader(Label):
+    """
+    Header widget to show setting name of palette menu
+    """
+
     DEFAULT_CSS = """
     PaletteHeader {
         content-align: center middle;
@@ -34,6 +42,10 @@ class PaletteHeader(Label):
 
 
 class PaletteScreen(Screen):
+    """
+    Screen for palette with dark mask over main window
+    """
+
     DEFAULT_CSS = """
     PaletteScreen {
         layout: vertical;
@@ -52,13 +64,27 @@ class PaletteScreen(Screen):
 
     @on(PaletteInput.Changed)
     @work(thread=True, exclusive=True)
-    def update_palette_list(self, event) -> None:
+    def update_palette_list(self, event: PaletteInput.Changed) -> None:
+        """
+        Function to filter changes based on Input field in Palette
+
+        Args:
+            event (PaletteInput.Changed): Change Event
+        """
+
         event.stop()
         text = self.query_one(PaletteInput).value
         self.query_one(PaletteList).apply_filter(text)
 
     @on(PaletteList.OptionHighlighted)
     def preview_palette_option(self, event: PaletteList.OptionHighlighted) -> None:
+        """
+        Function to preview change in smassh
+
+        Args:
+            event (PaletteList.OptionHighlighted): Change Event
+        """
+
         palette_list = self.query_one(PaletteList)
         prompt = str(event.option.prompt)
         prompt = prompt.replace(" ", "_")

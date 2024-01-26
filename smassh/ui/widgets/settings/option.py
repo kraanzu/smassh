@@ -8,6 +8,10 @@ from smassh.ui.widgets.typing.space import Space
 
 
 class BaseOption(Widget):
+    """
+    Base Option Widget to extent from for setting
+    """
+
     DEFAULT_CSS = """
     BaseOption {
         align: center middle;
@@ -63,6 +67,10 @@ class BaseOption(Widget):
 
 
 class OptionItem(Widget):
+    """
+    Widget for sigle option in `Option` widget
+    """
+
     DEFAULT_CSS = """
     OptionItem {
         height: 1;
@@ -80,6 +88,10 @@ class OptionItem(Widget):
 
 
 class Option(BaseOption):
+    """
+    Option Widget for choosing between multiple options
+    """
+
     def __init__(
         self,
         setting_name: str,
@@ -123,6 +135,10 @@ class Option(BaseOption):
 
 
 class NumberScroll(BaseOption):
+    """
+    Widget for setting numeric value for a setting
+    """
+
     COMPONENT_CLASSES = {"scroll--background"}
 
     def __init__(

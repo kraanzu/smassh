@@ -92,6 +92,10 @@ def capitalization(func: GeneratorFunc) -> GeneratorFunc:
 
 
 class Generator:
+    """
+    Generator class to generate paragraphs for typing tests
+    """
+
     def __init__(self) -> None:
         self.settings = {}
 

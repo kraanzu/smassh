@@ -6,6 +6,10 @@ from smassh.ui.widgets import Space
 
 
 class ResultStripItem(Label):
+    """
+    A strip widget item containg action after typing is finished
+    """
+
     DEFAULT_CSS = """
     ResultStripItem {
         padding: 0 3;
@@ -41,6 +45,10 @@ class RepeatTest(ResultStripItem):
 
 
 class ResultStrip(Static):
+    """
+    Strip widget that contain all the available actions on result screen
+    """
+
     DEFAULT_CSS = """
     ResultStrip {
         layout: horizontal;

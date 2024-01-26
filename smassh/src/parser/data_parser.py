@@ -7,6 +7,10 @@ import appdirs
 
 
 class DataParser(Parser):
+    """
+    Inherited from `Parser` class to manage user data
+    """
+
     config_path = Path(appdirs.user_data_dir("smassh"))
     DEFAULT_CONFIG = dict(data=[])
 

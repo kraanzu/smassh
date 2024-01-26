@@ -5,6 +5,10 @@ from typing import List
 
 
 class Match(Enum):
+    """
+    Match enum class for character match
+    """
+
     MATCH = 1
     MISMATCH = 2
     BACKSPACE = 3
@@ -13,6 +17,10 @@ class Match(Enum):
 
 @dataclass
 class CheckPoint:
+    """
+    Checkpoint class to maintain record of position and elapsed time at that point
+    """
+
     letter: str
     position: int
     correct: Match
@@ -22,6 +30,10 @@ class CheckPoint:
 
 
 class StatsTracker:
+    """
+    Tracker class to calculate stats while typing
+    """
+
     def __init__(self) -> None:
         self.reset()
 

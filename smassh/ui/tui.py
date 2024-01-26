@@ -13,6 +13,10 @@ from smassh.ui.widgets import Space, Ticker
 
 
 class MainScreen(Screen):
+    """
+    Main Screen which renders all the first visible option when app starts
+    """
+
     DEFAULT_CSS = """
     MainScreen {
         layout: grid;
@@ -35,11 +39,25 @@ class MainScreen(Screen):
 
     @on(SetScreen)
     def screen_change(self, event: SetScreen) -> None:
+        """
+        Change BaseWidget in the main screen depending on name
+
+        Args:
+            event (SetScreen): event with screen name
+        """
+
         self.query_one(ContentSwitcher).current = event.screen_name
         self.query_one(Header).set_active(event.screen_name)
 
     @on(ShowResults)
     def show_results(self, event: ShowResults) -> None:
+        """
+        Triggered when typing is finished
+
+        Args:
+            event (ShowResults): Event containing stats and if it the typing was a failed attempt
+        """
+
         # reset all watching timers
         space = self.query_one(Space)
         space.check_timer.pause()

@@ -6,6 +6,10 @@ from smassh.ui.events import SetScreen
 
 
 class NavItemBase(Widget):
+    """
+    Base Widget for Header NavItems
+    """
+
     DEFAULT_CSS = """
     NavItemBase {
         content-align: center middle;

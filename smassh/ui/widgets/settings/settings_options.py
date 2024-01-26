@@ -9,6 +9,10 @@ Options = Union[Option, NumberScroll]
 
 
 class SettingDescription(Widget):
+    """
+    Widget to show description of a setting
+    """
+
     COMPONENT_CLASSES = {
         "setting--header",
         "setting--info",

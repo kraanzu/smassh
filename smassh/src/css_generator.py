@@ -2,6 +2,13 @@ from pathlib import Path
 
 
 def generate_theme_file(theme: str) -> None:
+    """
+    Theme generator which merges theme and base CSS files
+
+    Args:
+        theme (str): theme name
+    """
+
     css_folder = Path.absolute(Path(__file__).parent.parent) / "ui" / "css"
     themes_folder = css_folder / "themes"
 

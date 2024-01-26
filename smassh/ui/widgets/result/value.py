@@ -8,6 +8,10 @@ from smassh.src.parser import data_parser
 
 
 class ValueLabel(Widget):
+    """
+    Label Widgets for values in result screen
+    """
+
     DEFAULT_CSS = """
     ValueLabel {
         height: auto;
@@ -45,6 +49,10 @@ class AutoVertical(Widget):
 
 
 class Value(Digits, Static):
+    """
+    Widget to show result values in larger font size
+    """
+
     DEFAULT_CSS = """
     Value {
         margin: 0 2;
@@ -56,6 +64,10 @@ class Value(Digits, Static):
 
 
 class ValueContainer(Static):
+    """
+    Container widget that holds all the Values
+    """
+
     DEFAULT_CSS = """
     ValueContainer {
         layout: horizontal;

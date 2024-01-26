@@ -8,7 +8,12 @@ from smassh.ui.tui import Smassh
     context_settings={"help_option_names": ["-h", "--help"]},
     invoke_without_command=True,
 )
-@click.option("--version", "-v", is_flag=True, help="Show version and exit.")
+@click.option(
+    "--version",
+    "-v",
+    is_flag=True,
+    help="Show version and exit.",
+)
 @click.pass_context
 def main(ctx, version: bool) -> None:
     if version:

@@ -6,6 +6,10 @@ from smassh.ui.widgets.settings.settings_options import Setting
 
 
 class SettingsScreen(BaseWindow):
+    """
+    Setting Screen to show all the tweakables!
+    """
+
     DEFAULT_CSS = """
     SettingsScreen {
         padding: 1;
@@ -27,6 +31,10 @@ class SettingsScreen(BaseWindow):
         self.update_highlight()
 
     def update_highlight(self) -> None:
+        """
+        Automatically update highlights based on current option
+        """
+
         for index, setting in enumerate(menu):
             setting.set_class(index == self.current_option, "selected")
 

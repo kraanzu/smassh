@@ -55,6 +55,10 @@ def difficulty(func: TrackerFunc) -> TrackerFunc:
 
 @dataclass
 class Cursor:
+    """
+    Cursor class to maintain record of checkpoints
+    """
+
     old: int
     new: int
     correct: bool
@@ -70,6 +74,10 @@ class Cursor:
 
 
 class Tracker:
+    """
+    Tracker class to track keypresses on typing test
+    """
+
     def __init__(self, paragraph: str) -> None:
         self.reset(paragraph)
 

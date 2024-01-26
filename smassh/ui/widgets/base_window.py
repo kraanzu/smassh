@@ -5,6 +5,10 @@ from smassh.ui.events import SetScreen
 
 
 class BaseWindow(Widget):
+    """
+    Base Window widget for content switcher
+    """
+
     DEFAULT_CSS = """
     BaseWindow {
         layout: vertical;

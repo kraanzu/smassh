@@ -30,6 +30,10 @@ Made with ❤️  by kraanzu
 
 
 class Section(Widget):
+    """
+    Section Widget for each section of About Menu
+    """
+
     DEFAULT_CSS = """
     Section {
         height: auto;
@@ -68,6 +72,10 @@ class AboutOutro(Section):
 
 
 class AboutScreen(BaseWindow):
+    """
+    About screen to show info about the project
+    """
+
     DEFAULT_CSS = """
     AboutScreen {
         layout: grid;

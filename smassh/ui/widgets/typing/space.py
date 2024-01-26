@@ -99,6 +99,10 @@ def blind_mode(func):
 
 
 class Space(Static):
+    """
+    Space Widget to handle keypress and display typing text
+    """
+
     COMPONENT_CLASSES = {
         "--cursor-buddy",
         "--correct-match",

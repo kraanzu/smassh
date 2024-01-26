@@ -27,6 +27,10 @@ DEFAULTS = {
 
 
 class ConfigParser(Parser):
+    """
+    Inherited from `Parser` class to manage config
+    """
+
     _root_dir = Path(__file__).parent.parent.parent
     config_path = Path(appdirs.user_config_dir("smassh"))
     DEFAULT_CONFIG = DEFAULTS

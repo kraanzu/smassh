@@ -13,6 +13,10 @@ from smassh.ui.events import SetScreen
 
 
 class Pad(Widget):
+    """
+    Pad widget for empty spaces
+    """
+
     DEFAULT_CSS = """
     Pad.cspan3 {
         column-span: 3;
@@ -24,6 +28,10 @@ class Pad(Widget):
 
 
 class TypingSpace(Widget):
+    """
+    Widget that holds all the test paragraph and time ticker
+    """
+
     DEFAULT_CSS = """
     TypingSpace {
         layout: grid;
@@ -77,6 +85,10 @@ class TypingSpace(Widget):
 
 
 class TypingScreen(BaseWindow):
+    """
+    Screen Widget for typing area!
+    """
+
     def compose(self) -> ComposeResult:
         yield TypingSpace()
 

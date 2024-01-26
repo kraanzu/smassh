@@ -6,7 +6,11 @@ from smassh.src import config_parser
 
 
 class PaletteOptionHighlighted(Message):
-    def __init__(self, value: str):
+    """
+    Highlight Event for Palette when option is changed
+    """
+
+    def __init__(self, value: str) -> None:
         super().__init__()
         self.value = value
 
@@ -20,6 +24,10 @@ class ApplyTheme(PaletteOptionHighlighted):
 
 
 class PaletteList(OptionList, can_focus=False):
+    """
+    List Widget to list all the available options
+    """
+
     DEFAULT_CSS = """
     PaletteList {
         border: none;
