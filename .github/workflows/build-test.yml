@@ -1,0 +1,70 @@
+name: Python Application Testing
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        python-version: ["3.8", "3.9", "3.10"]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install .
+          pip install pyinstaller
+
+      - name: Package app with PyInstaller
+        run: |
+          python -c "with open('smassh.py', 'w') as f: f.write('from smassh.__main__ import main\nmain()\n')"
+          pyinstaller -F smassh.py --add-data="smassh/assets/languages/:smassh/assets/languages" --add-data="smassh/ui/css/:smassh/ui/css"
+
+      - name: Run the generated app in the background
+        run: |
+          # Adjust the command based on the operating system
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            start /B ./dist/smassh.exe
+          else
+            ./dist/smassh &
+          fi
+
+      - name: Wait for the app to run
+        run: sleep 10  # Adjust the sleep duration as needed
+
+      - name: Check for errors
+        run: |
+          # Replace this with your actual check for errors logic
+          # For example, you might want to check if a certain process is still running
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            if tasklist | grep -q "smassh.exe"; then
+              echo "No errors found."
+            else
+              echo "Error found during execution."
+              exit 1
+            fi
+          else
+            if pgrep -f "smassh" > /dev/null; then
+              echo "No errors found."
+            else
+              echo "Error found during execution."
+              exit 1
+            fi
+          fi
+
