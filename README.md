@@ -1,10 +1,8 @@
-
 ![SMASSH](imgs/smassh_banner.png)
-
 
 # Smassh 🖮
 
-_Smassh your keyboard, TUI Edition_ 
+_Smassh your keyboard, TUI Edition_
 
 [![GitHub issues](https://img.shields.io/github/issues/kraanzu/smassh?color=red&style=for-the-badge)](https://github.com/kraanzu/smassh/issues)
 [![GitHub stars](https://img.shields.io/github/stars/kraanzu/smassh?color=green&style=for-the-badge)](https://github.com/kraanzu/smassh/stargazers)
@@ -58,24 +56,20 @@ You should be able to see binaries for `Linux`, `mac` and `windows` in the [rele
 | Caret Style     | Caret style matters!                                                         |
 | Confidence mode | Are you sure you don't need backspace? Try this :)                           |
 | Cursor Buddy    | Setup your cursor buddy to run along with you!                               |
-| Difficulty      | Choose how strict smassh should be with your wrong keypresses             |
+| Difficulty      | Choose how strict smassh should be with your wrong keypresses                |
 | Force Correct   | You wouldn't be able to able to go on without cleaning your pool of mistakes |
 | Min Accuracy    | Fall below this average accuracy and you fail!                               |
 | Min Burst       | Fall below this average accuracy for even a word and you fail!               |
 | Min Speed       | Fall below this average speed and you fail!                                  |
-| Restart Same    | I won't stop until I clear that passage!                                     |
 | Tab Reset       | Hey hey! You wanna reset already? I got ya!                                  |
-
 
 # Screenshots 🖼️
 
 ![github](imgs/preview.png)
 
-
 # Contribution 🤝
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contributions
-
 
 # Other TUI projects 🤓 :
 
