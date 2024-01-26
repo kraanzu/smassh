@@ -170,7 +170,7 @@ class Space(Static):
             word_count = config_parser.get(f"{mode}_count")
         else:
             minutes = config_parser.get(f"{mode}_count") / 60
-            word_count = round(300 * minutes)
+            word_count = round(600 * minutes)
 
         language = config_parser.get("language")
 
