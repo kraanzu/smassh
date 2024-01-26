@@ -60,7 +60,7 @@ jobs:
               exit 1
             fi
           else
-            if pgrep -f "smassh" > /dev/null; then
+            if ps aux | grep -q "[s]massh"; then
               echo "No errors found."
             else
               echo "Error found during execution."
