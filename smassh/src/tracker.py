@@ -8,7 +8,7 @@ TrackerFunc = Callable[..., Optional["Cursor"]]
 
 def force_correct(func: TrackerFunc) -> TrackerFunc:
     def wrapper(tracker: "Tracker", key: str) -> Optional[Cursor]:
-        setting = config_parser.get("force_correct")
+        setting = config_parser.get("force_correct") == "on"
         if not setting or tracker.paragraph[tracker.cursor_pos] == key:
             return func(tracker, key)
 
