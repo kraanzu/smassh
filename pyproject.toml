@@ -1,22 +1,37 @@
 [tool.poetry]
-name = "termtyper"
-version = "2.0.1"
+name = "smassh"
+version = "3.0.1"
 description = "A TUI based typing application"
+maintainers = ["kraanzu <kraanzu@gmail.com>"]
+license = "GPL v3"
+readme = "README.md"
+homepage = "https://github.com/kraanzu/smassh"
+repository = "https://github.com/kraanzu/smassh"
 authors = ["kraanzu <kraanzu@gmail.com>"]
-license = "MIT"
+exclude = [
+  "imgs",
+]
 
 [tool.poetry.dependencies]
-python = "^3.10"
-textual = "^0.1.15"
+python = "^3.8"
+textual = "^0.47.1"
+appdirs = "^1.4.4"
+click = "^8.1.7"
+requests = "^2.31.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pre-commit = "^2.17.0"
-black = "^22.1.0"
-flake8 = "^4.0.1"
+black = "^24.1.0"
+ruff = "^0.1.5"
+textual-dev = "^1.2.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-termtyper = 'termtyper.__init__:main'
+smassh = 'smassh.__main__:main'
+
+[tool.ruff]
+exclude = ["venv"]
+ignore = ["F405"]

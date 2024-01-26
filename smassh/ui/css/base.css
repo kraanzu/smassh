@@ -1,0 +1,189 @@
+PaletteHeader,
+BaseWindow {
+  background: $bg-color;
+}
+
+Tooltip,
+Header,
+PaletteInput {
+  background: $sub-alt-color;
+}
+
+Tooltip,
+ResultStripItem:hover,
+NavItem:hover,
+Section,
+SettingDescription .setting--info,
+SettingDescription .setting--option-description {
+  color: $text-color;
+}
+
+ResultStripItem,
+ValueLabel,
+NavItem,
+Space,
+Palette,
+StripSetting,
+ModeCount,
+AboutOutro,
+SettingDescription .setting--header {
+  color: $sub-color;
+}
+
+Value,
+SettingDescription .setting--option {
+  color: $main-color;
+}
+
+Palette:hover,
+ModeCount:hover,
+StripSetting:hover,
+NavItem.active {
+  color: $text-color;
+}
+
+StripSetting,
+ModeCount,
+StripSeparator {
+  background: $sub-alt-color;
+}
+
+StripSeparator {
+  color: $bg-color;
+}
+
+Bracket {
+  color: $sub-alt-color;
+}
+
+StripSetting.enabled,
+ModeCount.enabled,
+Ticker {
+  color: $main-color;
+}
+
+Setting.selected {
+  background: $sub-alt-color;
+}
+
+BaseOption {
+  color: $text-color;
+}
+
+OptionItem.selected {
+  background: $main-color;
+  color: $sub-alt-color;
+}
+
+OptionItem:hover {
+  background: $text-color;
+  color: $sub-alt-color;
+}
+
+NumberScroll {
+  .scroll--background {
+    background: $main-color;
+    color: $sub-alt-color;
+  }
+}
+
+PaletteScreen,
+PaletteList {
+  background: $bg-color 50%;
+}
+
+PaletteMenu {
+  background: $bg-color;
+  border: solid $main-color;
+}
+
+PaletteList {
+  color: $text-color;
+
+  .option-list--option-highlighted,
+  .option-list--option-hover,
+  .option-list--option-hover-highlighted {
+    background: $text-color;
+    color: $sub-alt-color;
+  }
+}
+
+Space {
+  .--cursor-buddy {
+    background: $main-color;
+    color: $bg-color;
+    text-style: bold;
+  }
+
+  .--correct-match {
+    color: $text-color;
+    background: $bg-color;
+  }
+
+  .--incorrect-match {
+    color: $error-color;
+    background: $bg-color;
+  }
+
+  .--blind-match {
+    color: $sub-color;
+    background: $bg-color;
+  }
+
+  .--caret-underline {
+    text-style: underline;
+  }
+
+  .--caret-block {
+    background: $text-color;
+    color: $bg-color;
+  }
+}
+
+Table {
+  .--header {
+    background: $sub-alt-color;
+    color: $sub-color;
+  }
+
+  .--key {
+    text-style: bold;
+    background: $bg-color;
+    color: $main-color;
+  }
+
+  .--action {
+    background: $bg-color;
+    color: $text-color;
+  }
+}
+
+ValueLabel {
+  .--personal-best {
+    color: $main-color;
+  }
+}
+
+/* ========== EXTRAS ============ */
+Tooltip {
+  padding: 0 1;
+}
+
+BaseWindow,
+PaletteList {
+  scrollbar-background: $sub-alt-color;
+  scrollbar-background-hover: $sub-alt-color;
+  scrollbar-background-active: $sub-alt-color;
+  scrollbar-color: $sub-color;
+  scrollbar-color-active: $main-color;
+  scrollbar-color-hover: $main-color;
+}
+
+Star {
+  link-background: $sub-alt-color;
+  link-background-hover: $sub-alt-color;
+  link-color: $main-color;
+  link-color-hover: $main-color;
+  link-style: underline;
+  link-style-hover: underline italic;
+}

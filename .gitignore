@@ -1,8 +1,21 @@
 # tests folder
 tests/
+*map
+
+# extras
+backport/
 main.py
 test.py
 x.py
+
+# auto-generated file
+styles.tcss
+
+# Extra css files (sass, css, etc)
+/smassh/ui/css/themes/*
+
+# only allow .tcss
+!/smassh/ui/css/themes/*.tcss
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -133,3 +146,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Ignore all language files (keep only english)
+/smassh/assets/languages/*
+
+!/smassh/assets/languages/english_1k.json
+!/smassh/assets/languages/english.json

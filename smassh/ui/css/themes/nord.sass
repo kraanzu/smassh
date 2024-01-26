@@ -1,0 +1,160 @@
+/* Base Main Classes
+$black1: #2e3440
+$black2: #3b4252
+$black3: #434c5e
+$black4: #4c566a
+$white1: #d8dee9
+$white2: #e5e9f0
+$white3: #eceff4
+$frost_green: #8fbcbb
+$frost_cyan: #88c0d0
+$frost_blue: #81a1c1
+$frost_blue2: #5e81ac
+$aurora_red: #bf616a
+$aurora_orange: #d08770
+$aurora_yellow: #ebcb8b
+$aurora_green: #a3be8c
+$aurora_purple: #b48ead
+
+BaseWindow
+  background: $black1
+
+/* Header
+
+Header
+  background: $black2
+
+NavItem
+  color: $white1
+
+  &.active
+    color: $frost_cyan
+
+  &:hover
+    color: $frost_blue
+
+/* Main Screens
+
+Space
+  color: $white1 75%
+
+PaletteScreen
+  background: $black1 50%
+
+PaletteHeader
+  background: $black1
+  color: $frost_blue
+
+PaletteInput
+  background: $black2
+  color: $white1
+
+PaletteList
+  background: $black1
+  color: $white1
+
+  .option-list--option-highlighted
+    background: $frost_green
+    color: $white3
+
+  .option-list--option-hover
+    background: $frost_green
+    color: $white3
+
+  .option-list--option-hover-highlighted
+    background: $frost_green
+    color: $white3
+
+/* Other Widgets
+
+PaletteMenu
+  background: $black1 50%
+  width: 60%
+  height: 80%
+
+Palette
+  color: $frost_blue 70%
+
+  &:hover
+    color: $frost_blue
+
+Setting
+  border: heavy $black2
+
+  &.selected
+    background: $black3
+    border: blank
+
+OptionItem
+  color: $white1
+
+  &.selected
+    color: $black2
+    background: $frost_cyan
+
+NumberScroll
+  .scroll--background
+    background: $frost_cyan
+    color: $black2
+
+
+SettingDescription
+  .setting--header
+    color: $frost_green
+  .setting--info
+    color: $aurora_yellow
+  .setting--option
+    color: $aurora_purple
+  .setting--option-description
+    color: $white1
+
+Ticker
+  color: $frost_blue
+
+
+StripSetting
+  background: $black2
+
+  &.enabled
+    color: $frost_blue
+    text-style: bold
+
+  &:hover
+    color: $frost_cyan
+
+StripSeparator
+  color: $black4
+  background: $black2
+
+Bracket
+  color: $black2
+
+NavItemBase
+  color: $white1
+
+  &:hover
+    color: $frost_blue
+
+Section
+  color: $aurora_yellow
+
+SimpleInput
+  background: $black2 50%
+
+// Miscellaneous
+
+BaseWindow
+  scrollbar-background: $black2
+  scrollbar-background-active: $black2
+  scrollbar-background-hover: $black2
+  scrollbar-color: $frost_blue
+  scrollbar-color-active: $frost_cyan
+  scrollbar-color-hover: $frost_blue2
+
+Sponsor
+  link-background: $black2
+  link-background-hover: $black3
+  link-color: $frost_blue
+  link-color-hover: $frost_cyan
+  link-style: underline
+  link-style-hover: underline italic
