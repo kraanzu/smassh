@@ -1,4 +1,5 @@
 from bisect import bisect_right
+from typing import List
 from rich.console import RenderableType
 from rich.style import Style
 from rich.text import Span, Text
@@ -189,6 +190,7 @@ class Space(Static):
     def reset_components(self) -> None:
         self.tracker = Tracker(self.paragraph.plain)
         self.cursor = 0
+        self.paragraph_spans = []
 
         if self.size.width:
             self.reset_newlines()
@@ -199,6 +201,7 @@ class Space(Static):
     @cursor_buddy
     @caret
     def render(self) -> RenderableType:
+        self.paragraph.spans = self.get_colorized()
         return self.paragraph
 
     @blind_mode
@@ -206,6 +209,28 @@ class Space(Static):
         rich_style = "correct" if correct else "incorrect"
         style = self.get_component_rich_style(f"--{rich_style}-match")
         return style
+
+    def get_colorized(self) -> List[Span]:
+        spans = []
+        for index, keymatch in enumerate(self.paragraph_spans):
+            if keymatch != "":
+                spans.append(
+                    Span(
+                        index,
+                        index + 1,
+                        self.get_match_style(keymatch),
+                    )
+                )
+            else:
+                spans.append(
+                    Span(
+                        index,
+                        index + 1,
+                        "",
+                    )
+                )
+
+        return spans
 
     def update_colors(self, cursor: Cursor) -> None:
         old = cursor.old
@@ -217,15 +242,10 @@ class Space(Static):
             return
 
         diff = new - old
-
-        empty_spans = [Span(i, i + 1, "") for i in range(old, new - 1)]
-        self.paragraph.spans.extend(empty_spans)
-        style = self.get_match_style(correct)
+        self.paragraph_spans.extend([""] * (diff - 1))
 
         if diff == 1:
-            span = Span(old, new, style)
-            self.paragraph.spans.append(span)
-            return
+            self.paragraph_spans.append(correct)
 
     # ---------------- KEYPRESS -----------------
 
