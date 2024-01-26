@@ -248,8 +248,8 @@ class Space(Static):
 
         self.update_colors(cursor)
         if cursor.new == len(self.paragraph.plain):
-            self.screen.post_message(ShowResults(self.tracker.stats))
-            return
+            return self.finish_typing(fail=False)
 
         self.check_timer.resume()
+        self.screen.query_one(Ticker).update_check.resume()
         self.refresh()

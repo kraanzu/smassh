@@ -25,11 +25,15 @@ class Ticker(Widget):
             if stats.start_time:
                 count = config_parser.get("time_count")
                 time_remaining = count - stats.elapsed_time
+                if time_remaining <= 0:
+                    return self.screen.query_one(Space).finish_typing(fail=False)
+
                 self.text = str(round(time_remaining))
 
         self.refresh()
 
     def reset(self):
+        self.update_check.pause()
         mode = config_parser.get("mode")
         if mode == "words":
             count = config_parser.get("words_count")
