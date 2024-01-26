@@ -39,8 +39,7 @@ class Switchable(StripSetting):
     def refresh_setting(self) -> None:
         self.set_class(config_parser.get(self.setting_name), "enabled")
 
-    def _toggle(self):
-        ...
+    def _toggle(self): ...
 
     def toggle(self):
         self._toggle()
@@ -179,16 +178,13 @@ class StripSection(Widget):
     """
 
 
-class LeftStripSection(StripSection):
-    ...
+class LeftStripSection(StripSection): ...
 
 
-class MiddleStripSection(StripSection):
-    ...
+class MiddleStripSection(StripSection): ...
 
 
-class RightStripSection(StripSection):
-    ...
+class RightStripSection(StripSection): ...
 
 
 class TypingConfigStrip(Widget):
