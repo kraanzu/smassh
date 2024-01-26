@@ -45,7 +45,7 @@ class ResultScreen(BaseWindow):
     }
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
         self.wpm = Value()
         self.accuracy = Value()
@@ -56,11 +56,11 @@ class ResultScreen(BaseWindow):
         yield ResultStrip()
         yield Container()
 
-    def set_results(self, stats: StatsTracker):
+    def set_results(self, stats: StatsTracker) -> None:
         self.stats = stats
         self.query_one(ValueContainer).update_stats(stats)
 
-    def on_hide(self):
+    def on_hide(self) -> None:
         space = self.screen.query_one(Space)
         if space.paragraph.spans:
             self.screen.query_one(Ticker).reset()

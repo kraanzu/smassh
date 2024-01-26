@@ -3,7 +3,7 @@ import os
 import sys
 
 
-def convert_css(input_file, output_file):
+def convert_css(input_file, output_file) -> None:
     with open(input_file, "r") as f:
         css_content = f.read()
 

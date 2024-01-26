@@ -14,7 +14,7 @@ class NavItemBase(Widget):
     }
     """
 
-    def __init__(self, text: str, screen_name: Optional[str] = None):
+    def __init__(self, text: str, screen_name: Optional[str] = None) -> None:
         super().__init__()
         self.text = text
         self.screen_name = screen_name

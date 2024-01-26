@@ -52,22 +52,22 @@ class PaletteScreen(Screen):
 
     @on(PaletteInput.Changed)
     @work(thread=True, exclusive=True)
-    def update_palette_list(self, event):
+    def update_palette_list(self, event) -> None:
         event.stop()
         text = self.query_one(PaletteInput).value
         self.query_one(PaletteList).apply_filter(text)
 
     @on(PaletteList.OptionHighlighted)
-    def preview_palette_option(self, event: PaletteList.OptionHighlighted):
+    def preview_palette_option(self, event: PaletteList.OptionHighlighted) -> None:
         palette_list = self.query_one(PaletteList)
         prompt = str(event.option.prompt)
         prompt = prompt.replace(" ", "_")
         self.post_message(palette_list._highlight_event(prompt))
 
-    def action_next_option(self):
+    def action_next_option(self) -> None:
         self.query_one(PaletteList).action_cursor_down()
 
-    def action_prev_option(self):
+    def action_prev_option(self) -> None:
         self.query_one(PaletteList).action_cursor_up()
 
     def compose(self) -> ComposeResult:

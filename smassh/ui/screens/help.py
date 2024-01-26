@@ -20,7 +20,7 @@ class Table(Widget):
 
     COMPONENT_CLASSES = {"--header", "--key", "--action"}
 
-    def __init__(self, title: str, keys: List[Tuple[str, str]] = []):
+    def __init__(self, title: str, keys: List[Tuple[str, str]] = []) -> None:
         super().__init__()
         self.title = title
         self.keys = keys

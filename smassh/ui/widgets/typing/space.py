@@ -108,7 +108,7 @@ class Space(Static):
         "--caret-block",
     }
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.current_key = None
         self.reset()
@@ -125,7 +125,7 @@ class Space(Static):
         return Span(pos, pos + 1, "reverse white")
 
     # ----------------- RENDER ------------------
-    def on_show(self):
+    def on_show(self) -> None:
         self.reset_newlines()
 
     def reset_newlines(self) -> None:
@@ -142,7 +142,7 @@ class Space(Static):
         else:
             self.reset()
 
-    def check_restrictions(self):
+    def check_restrictions(self) -> None:
         if not self.tracker.stats.start_time:
             return
 
@@ -161,7 +161,7 @@ class Space(Static):
             if burst < min_burst:
                 return self.finish_typing()
 
-    def finish_typing(self, fail: bool = True):
+    def finish_typing(self, fail: bool = True) -> None:
         self.screen.post_message(ShowResults(self.tracker.stats, fail))
 
     def reset(self) -> None:

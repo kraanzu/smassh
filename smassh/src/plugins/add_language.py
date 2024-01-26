@@ -11,7 +11,7 @@ LANGUAGE_PACK_DIR = (
 class AddLanguage:
     """Adds a new language to smassh"""
 
-    def log(self, message: str, color: str = "green"):
+    def log(self, message: str, color: str = "green") -> None:
         """Logs a message to the console"""
         print(f"=>[bold {color}] {message}[/bold {color}]")
 
@@ -23,7 +23,7 @@ class AddLanguage:
 
         return req.text if (req.status_code == 200) else None
 
-    def add(self, name: str):
+    def add(self, name: str) -> None:
         """Downloads a new language for smassh"""
 
         self.log("Checking if language pack exists...")

@@ -15,7 +15,7 @@ class StripSetting(Widget):
     }
     """
 
-    def __init__(self, setting_name: str, icon: Optional[str] = None):
+    def __init__(self, setting_name: str, icon: Optional[str] = None) -> None:
         super().__init__()
         self.setting_name = setting_name
         self.icon = icon
@@ -32,20 +32,20 @@ class Switchable(StripSetting):
     setting_name: str
     setting_icon: str
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(self.setting_name, self.setting_icon)
         self.refresh_setting()
 
     def refresh_setting(self) -> None:
         self.set_class(config_parser.get(self.setting_name), "enabled")
 
-    def _toggle(self): ...
+    def _toggle(self) -> None: ...
 
-    def toggle(self):
+    def toggle(self) -> None:
         self._toggle()
         self.refresh_setting()
 
-    def on_click(self):
+    def on_click(self) -> None:
         self.toggle()
         self.screen.query_one(Space).reset()
 
@@ -58,7 +58,7 @@ class PunctuationSwitch(Switchable):
     setting_name = "punctuations"
     setting_icon = "󰸥"
 
-    def _toggle(self):
+    def _toggle(self) -> None:
         config_parser.toggle_punctuations()
 
 
@@ -66,7 +66,7 @@ class NumberSwitch(Switchable):
     setting_name = "numbers"
     setting_icon = "󰲰"
 
-    def _toggle(self):
+    def _toggle(self) -> None:
         config_parser.toggle_numbers()
 
 
@@ -78,7 +78,7 @@ class WordMode(Switchable):
         for counts in self.screen.query(ModeCount):
             counts.refresh()
 
-    def _toggle(self):
+    def _toggle(self) -> None:
         config_parser.toggle_mode()
         self._refresh_mode_count()
         self.screen.query_one(TimeMode).refresh_setting()
@@ -96,7 +96,7 @@ class TimeMode(Switchable):
         for counts in self.screen.query(ModeCount):
             counts.refresh()
 
-    def _toggle(self):
+    def _toggle(self) -> None:
         config_parser.toggle_mode()
         self._refresh_mode_count()
         self.screen.query_one(WordMode).refresh_setting()
@@ -113,7 +113,7 @@ class ModeCount(Widget):
     }
     """
 
-    def __init__(self, value: int):
+    def __init__(self, value: int) -> None:
         super().__init__()
         self.value = value
         self.shrink = False
@@ -122,7 +122,7 @@ class ModeCount(Widget):
         for counts in self.screen.query(ModeCount):
             counts.refresh()
 
-    def on_click(self):
+    def on_click(self) -> None:
         config_parser.set(f"{config_parser.get('mode')}_count", self.value)
         self._refresh_other_counts()
         self.screen.query_one(Space).reset()
@@ -142,7 +142,7 @@ class StripSeparator(Widget):
     }
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(disabled=True)
 
     def render(self) -> RenderableType:
@@ -157,7 +157,7 @@ class Bracket(Widget):
     }
     """
 
-    def __init__(self, bracket_type: Literal["left", "right"]):
+    def __init__(self, bracket_type: Literal["left", "right"]) -> None:
         super().__init__(disabled=True)
         self.bracket_type = bracket_type
 

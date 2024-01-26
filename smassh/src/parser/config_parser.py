@@ -51,25 +51,25 @@ class ConfigParser(Parser):
         ]
         return themes
 
-    def toggle_numbers(self):
+    def toggle_numbers(self) -> None:
         numbers = self.get("numbers")
         self.set("numbers", not numbers)
 
-    def toggle_punctuations(self):
+    def toggle_punctuations(self) -> None:
         punctuations = self.get("punctuations")
         self.set("punctuations", not punctuations)
 
-    def toggle_mode(self):
+    def toggle_mode(self) -> None:
         mode = self.get("mode")
         mode = "words" if mode == "time" else "time"
         self.set("mode", mode)
 
     @property
-    def theme(self):
+    def theme(self) -> str:
         return self.get("theme") or "nord"
 
     @theme.setter
-    def theme(self, theme: str):
+    def theme(self, theme: str) -> None:
         self.set("theme", theme)
 
 

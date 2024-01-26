@@ -19,11 +19,11 @@ class ValueLabel(Widget):
 
     best = False
 
-    def __init__(self, text: str, **kwargs):
+    def __init__(self, text: str, **kwargs) -> None:
         self.text = Text(text)
         super().__init__(**kwargs)
 
-    def set_best(self, is_best: bool):
+    def set_best(self, is_best: bool) -> None:
         self.best = is_best
         self.refresh()
 
@@ -66,12 +66,12 @@ class ValueContainer(Static):
     }
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
         self.wpm = Value()
         self.accuracy = Value()
 
-    def update_stats(self, stats):
+    def update_stats(self, stats) -> None:
         wpm_label = self.query_one("#wpm_label", expect_type=ValueLabel)
         wpm_label.set_best(data_parser.is_highest_wpm(stats.wpm))
 

@@ -1,4 +1,3 @@
-from math import inf
 from time import time
 from dataclasses import dataclass
 from enum import Enum
@@ -39,7 +38,7 @@ class StatsTracker:
         return list(reversed(word_checkpoints))
 
     @property
-    def elapsed_time(self):
+    def elapsed_time(self) -> float:
         if not self.start_time:
             raise ValueError("Start time not set")
 
@@ -49,14 +48,14 @@ class StatsTracker:
         return time() - self.start_time
 
     @property
-    def word_count(self):
+    def word_count(self) -> int:
         if not self.checkpoints:
             return 0
 
         return sum(checkpoint.letter == " " for checkpoint in self.checkpoints)
 
     @property
-    def last_word_accuracy(self):
+    def last_word_accuracy(self) -> int:
         correct = 0
         incorrect = 0
 
@@ -72,18 +71,18 @@ class StatsTracker:
         return round((correct / (correct + incorrect)) * 100)
 
     @property
-    def last_word_wpm(self):
+    def last_word_wpm(self) -> int:
         checkpoints = self.get_checkpoints_last_word()
 
         if not checkpoints:
-            return ValueError("No checkpoints")
+            raise ValueError("No checkpoints")
 
         start = checkpoints[0].elapsed
         stop = checkpoints[-1].elapsed
         elapsed = stop - start
 
         if elapsed == 0:
-            return inf
+            raise ValueError("Elapsed time is 0")
 
         raw = 60 / elapsed
         return round(self.last_word_accuracy * raw / 100)
@@ -101,7 +100,7 @@ class StatsTracker:
         return round(accuracy)
 
     @property
-    def wpm(self) -> float:
+    def wpm(self) -> int:
         return round(self.raw_wpm * (self.accuracy / 100))
 
     @property

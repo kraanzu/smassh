@@ -33,7 +33,7 @@ class Header(Widget):
     }
     """
 
-    def set_active(self, name: str):
+    def set_active(self, name: str) -> None:
         for i in self.query(NavItem):
             i.set_class(i.screen_name == name, "active")
 

@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-def generate_theme_file(theme: str):
+def generate_theme_file(theme: str) -> None:
     css_folder = Path.absolute(Path(__file__).parent.parent) / "ui" / "css"
     themes_folder = css_folder / "themes"
 

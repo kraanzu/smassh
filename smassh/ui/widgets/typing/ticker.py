@@ -32,7 +32,7 @@ class Ticker(Widget):
 
         self.refresh()
 
-    def reset(self):
+    def reset(self) -> None:
         self.update_check.pause()
         mode = config_parser.get("mode")
         if mode == "words":

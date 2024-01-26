@@ -37,7 +37,7 @@ class Section(Widget):
     }
     """
 
-    def __init__(self, renderable: str):
+    def __init__(self, renderable: str) -> None:
         super().__init__()
         self.renderable = renderable
 
@@ -46,12 +46,12 @@ class Section(Widget):
 
 
 class AboutDescription(Section):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(DESCRIPTION)
 
 
 class Star(Section):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(STAR)
 
 
@@ -63,7 +63,7 @@ class AboutOutro(Section):
     }
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(OUTRO)
 
 

@@ -2,6 +2,7 @@ from textual.app import ComposeResult
 from textual import events
 from smassh.ui.widgets import menu
 from smassh.ui.widgets import BaseWindow
+from smassh.ui.widgets.settings.settings_options import Setting
 
 
 class SettingsScreen(BaseWindow):
@@ -11,12 +12,12 @@ class SettingsScreen(BaseWindow):
     }
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.current_option = 0
 
     @property
-    def current_setting(self):
+    def current_setting(self) -> Setting:
         return menu[self.current_option]
 
     def compose(self) -> ComposeResult:
@@ -25,11 +26,11 @@ class SettingsScreen(BaseWindow):
 
         self.update_highlight()
 
-    def update_highlight(self):
+    def update_highlight(self) -> None:
         for index, setting in enumerate(menu):
             setting.set_class(index == self.current_option, "selected")
 
-    async def handle_key(self, event: events.Key):
+    async def handle_key(self, event: events.Key) -> None:
         key = event.key
         n = len(menu)
 

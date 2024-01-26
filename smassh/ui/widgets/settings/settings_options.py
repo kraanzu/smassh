@@ -81,16 +81,16 @@ class Setting(Widget):
         if self.info:
             self.info += "\n"
 
-    def select(self):
+    def select(self) -> None:
         self.options.highlight()
 
-    def deselect(self):
+    def deselect(self) -> None:
         self.options.lowlight()
 
-    def select_next(self):
+    def select_next(self) -> None:
         self.options.select_next_option()
 
-    def select_prev(self):
+    def select_prev(self) -> None:
         self.options.select_prev_option()
 
     def compose(self) -> ComposeResult:

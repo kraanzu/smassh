@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Dict, List
+from typing import Any, Dict, List
 from .parser import Parser
 from smassh.src.stats_tracker import StatsTracker
 from smassh.src.parser.config_parser import config_parser
@@ -10,7 +10,7 @@ class DataParser(Parser):
     config_path = Path(appdirs.user_data_dir("smassh"))
     DEFAULT_CONFIG = dict(data=[])
 
-    def generate_report(self, stats: StatsTracker):
+    def generate_report(self, stats: StatsTracker) -> Dict[str, Any]:
         mode = config_parser.get("mode")
         count = config_parser.get(f"{mode}_count")
         start = stats.start_time or 0
@@ -27,7 +27,7 @@ class DataParser(Parser):
             accuracy=stats.accuracy,
         )
 
-    def add_stats(self, stats: StatsTracker, failed: bool):
+    def add_stats(self, stats: StatsTracker, failed: bool) -> None:
         report = self.generate_report(stats) | dict(failed=failed)
         self.get("data").append(report)
         self.save()

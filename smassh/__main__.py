@@ -10,7 +10,7 @@ from smassh.ui.tui import Smassh
 )
 @click.option("--version", "-v", is_flag=True, help="Show version and exit.")
 @click.pass_context
-def main(ctx, version: bool):
+def main(ctx, version: bool) -> None:
     if version:
         return print(f"smassh - v{pkgVersion('smassh')}")
 
@@ -20,5 +20,5 @@ def main(ctx, version: bool):
 
 @main.command(help="Add a language to smassh")
 @click.argument("name")
-def add(name: str):
+def add(name: str) -> None:
     AddLanguage().add(name)
