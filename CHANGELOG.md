@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 3.0.2
+
+## Added
+- Language packs are now stored at user's local data dir
+- The first startup might be slow because english lang pack is downloaded and added
+
+## Fixed
+- Language pack addition was not working for binaries
+
 ## 3.0.1
 
 This new version completely changes the UI so can't really cover in a changelog but I'll \

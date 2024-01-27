@@ -37,7 +37,10 @@ class ConfigParser(Parser):
 
     @property
     def configured_languages(self) -> List[str]:
-        words_dir = self._root_dir / "assets" / "languages"
+        from smassh.src.parser.data_parser import DataParser
+
+        words_dir = DataParser.lang_path
+
         languages = [
             file_obj.stem
             for file_obj in words_dir.iterdir()

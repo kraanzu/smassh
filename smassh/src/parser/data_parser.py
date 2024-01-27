@@ -12,7 +12,21 @@ class DataParser(Parser):
     """
 
     config_path = Path(appdirs.user_data_dir("smassh"))
+    lang_path = config_path / "languages"
     DEFAULT_CONFIG = dict(data=[])
+
+    def __init__(self) -> None:
+        super().__init__()
+
+        english_path = self.lang_path / "english.json"
+
+        if not self.lang_path.is_dir():
+            self.lang_path.mkdir(parents=True, exist_ok=True)
+
+        if not english_path.exists():
+            from smassh.src.plugins.add_language import AddLanguage
+
+            AddLanguage(silent=True).add("english")
 
     def generate_report(self, stats: StatsTracker) -> Dict[str, Any]:
         mode = config_parser.get("mode")
