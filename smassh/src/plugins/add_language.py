@@ -37,9 +37,14 @@ class AddLanguage:
         if pack is None:
             return self.log("Language pack doesnt exist!", "red")
 
+        LANGUAGE_FILE = LANGUAGE_PACK_DIR / f"{name}.json"
+
+        if LANGUAGE_FILE.exists():
+            return self.log("Language pack already exists", "green")
+
         self.log("Downloading language pack...")
 
-        with open(LANGUAGE_PACK_DIR / f"{name}.json", "w") as f:
+        with open(LANGUAGE_FILE) as f:
             f.write(pack)
 
         self.log("Successfully downloaded the language pack!")
