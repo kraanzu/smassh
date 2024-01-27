@@ -34,14 +34,27 @@ jobs:
           python -c "with open('smassh.py', 'w') as f: f.write('from smassh.__init__ import main\nmain()\n')"
           pyinstaller -F smassh.py --add-data="smassh/ui/css/:smassh/ui/css"
 
-      - name: Set Binary file name
-        run: echo "BINARY_FILE_NAME=smassh${{ matrix.os == 'windows-latest' && '.exe' || '' }}" >> $GITHUB_ENV
+      # Setup File name
+      - name: Set Binary file name on Linux and Mac
+        if: matrix.os != 'windows-latest'
+        run: echo "BINARY_FILE_NAME=smassh" >> $GITHUB_ENV
 
-      - name: Set final file name
-        run: echo "FINAL_FILE_NAME=$(echo ${{ matrix.os }} | sed 's/-latest//;s/ubuntu/linux/')-smassh${{ matrix.os == 'windows-latest' && '.exe' || '' }}" >> $GITHUB_ENV
+      - name: Set Binary file name on Windows
+        if: matrix.os != 'windows-latest'
+        run: Add-Content -Path $env:GITHUB_ENV -Value "BINARY_FILE_NAME=smassh.exe"
 
-      - name: Rename final file
-        run: cp ./dist/${{ env.BINARY_FILE_NAME }} ./dist/${{ env.FINAL_FILE_NAME }}
+      # Setup final release file names
+      - name: Set Final file name on Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: echo "FINAL_FILE_NAME=linux-smassh" >> $GITHUB_ENV
+
+      - name: Set Final file name on MacOs
+        if: matrix.os == 'macos-latest'
+        run: echo "FINAL_FILE_NAME=macos-smassh" >> $GITHUB_ENV
+
+      - name: Set Final file name on Windows
+        if: matrix.os == 'windows-latest'
+        run: Add-Content -Path $env:GITHUB_ENV -Value "FINAL_FILE_NAME=windows-smassh.exe"
 
       - name: Release
         uses: softprops/action-gh-release@v1
