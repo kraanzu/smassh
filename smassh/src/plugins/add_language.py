@@ -1,11 +1,10 @@
 from rich import print
 import requests
+import appdirs
 from typing import Optional
 from pathlib import Path
 
-LANGUAGE_PACK_DIR = (
-    Path.absolute(Path(__file__).parent.parent.parent) / "assets" / "languages"
-)
+LANGUAGE_PACK_DIR = Path(appdirs.user_data_dir("smassh")) / "languages"
 
 
 class AddLanguage:
@@ -28,15 +27,23 @@ class AddLanguage:
     def add(self, name: str) -> None:
         """Downloads a new language for smassh"""
 
+        if not LANGUAGE_PACK_DIR.exists():
+            LANGUAGE_PACK_DIR.mkdir()
+
         self.log("Checking if language pack exists...")
         pack = self.get_pack(name)
 
         if pack is None:
             return self.log("Language pack doesnt exist!", "red")
 
+        LANGUAGE_FILE = LANGUAGE_PACK_DIR / f"{name}.json"
+
+        if LANGUAGE_FILE.exists():
+            return self.log("Language pack already exists", "green")
+
         self.log("Downloading language pack...")
 
-        with open(LANGUAGE_PACK_DIR / f"{name}.json", "w") as f:
+        with open(LANGUAGE_FILE) as f:
             f.write(pack)
 
         self.log("Successfully downloaded the language pack!")
