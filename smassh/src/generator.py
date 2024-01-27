@@ -100,9 +100,9 @@ class Generator:
         self.settings = {}
 
     def get_words(self, language: str) -> List[str]:
-        path = (
-            Path(__file__).parent.parent / "assets" / "languages" / f"{language}.json"
-        )
+        from smassh.src.parser.data_parser import DataParser
+
+        path = DataParser.lang_path / f"{language}.json"
         with open(path) as f:
             return load(f)["words"]
 
