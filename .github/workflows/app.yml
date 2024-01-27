@@ -6,96 +6,41 @@ on:
 
 permissions:
   contents: write
-  discussions: write
 
 jobs:
-  windows-build:
-    runs-on: windows-latest
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install .
-        pip install pyinstaller
-    - name: Package app with pyinstaller
-      run: |
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install .
+          pip install pyinstaller
+
+      - name: Package app with pyinstaller
+        run: |
           python -c "with open('smassh.py', 'w') as f: f.write('from smassh.__init__ import main\nmain()\n')"
           pyinstaller -F smassh.py --add-data="smassh/ui/css/:smassh/ui/css"
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.0
-      with:
-        name: smassh-windows
-        path: ./dist/smassh.exe
-    - name: Rename final file
-      run: cp ./dist/smassh.exe ./dist/windows-smassh.exe
-    - name: Release
-      uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
-      with:
-        files: ./dist/windows-smassh.exe
 
-  linux-build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install .
-        pip install pyinstaller
-    - name: Package app with pyinstaller
-      run: |
-          python -c "with open('smassh.py', 'w') as f: f.write('from smassh.__init__ import main\nmain()\n')"
-          pyinstaller -F smassh.py --add-data="smassh/ui/css/:smassh/ui/css"
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.0
-      with:
-        name: smassh-linux
-        path: ./dist/smassh
-    - name: Rename final file
-      run: cp ./dist/smassh ./dist/linux-smassh
-    - name: Release
-      uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
-      with:
-        files: ./dist/linux-smassh
+      - name: Set final file name
+        run: echo "FINAL_FILE_NAME=$(echo ${matrix.os} | sed 's/-latest//;s/ubuntu/linux/')-smassh"
 
-  macOS-build:
-    runs-on: macOS-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install .
-        pip install pyinstaller
-    - name: Package app with pyinstaller
-      run: |
-          python -c "with open('smassh.py', 'w') as f: f.write('from smassh.__init__ import main\nmain()\n')"
-          pyinstaller -F smassh.py --add-data="smassh/ui/css/:smassh/ui/css"
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.0
-      with:
-        name: smassh-macos
-        path: ./dist/smassh
-    - name: Rename final file
-      run: cp ./dist/smassh ./dist/macos-smassh
-    - name: Release
-      uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
-      with:
-        files: ./dist/macos-smassh
+      - name: Rename final file
+        run: cp ./dist/smassh ./dist/${{ env.FINAL_FILE_NAME }}
 
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: ./dist/${{ env.FINAL_FILE_NAME }}
