@@ -2,7 +2,11 @@
 
 # Smassh 🖮
 
-_Smassh your keyboard, TUI Edition_
+Smassh is a TUI based typing test application inspired by MonkeyType \
+-- A very popular online web-based typing application
+
+Smassh tries to be a full fledged typing test experience but not missing
+out on looks and feel!
 
 [![GitHub issues](https://img.shields.io/github/issues/kraanzu/smassh?color=red&style=for-the-badge)](https://github.com/kraanzu/smassh/issues)
 [![GitHub stars](https://img.shields.io/github/stars/kraanzu/smassh?color=green&style=for-the-badge)](https://github.com/kraanzu/smassh/stargazers)
