@@ -16,12 +16,15 @@ class DataParser(Parser):
     lang_path = config_path / "languages"
     DEFAULT_CONFIG = dict(data=[])
 
-    def _create_user_config(self) -> None:
-        super()._create_user_config()
-        os.makedirs(self.lang_path, exist_ok=True)
+    def __init__(self) -> None:
+        super().__init__()
 
         english_path = self.lang_path / "english.json"
-        if not english_path.is_file():
+
+        if not self.lang_path.is_dir():
+            self.lang_path.mkdir(parents=True, exist_ok=True)
+
+        if not english_path.exists():
             from smassh.src.plugins.add_language import AddLanguage
 
             AddLanguage().add("english")
