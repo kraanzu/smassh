@@ -38,7 +38,7 @@ jobs:
         run: echo "BINARY_FILE_NAME=smassh${{ matrix.os == 'windows-latest' && '.exe' || '' }}" >> $GITHUB_ENV
 
       - name: Set final file name
-        run: echo "FINAL_FILE_NAME=$(echo ${{ matrix.os }} | sed 's/-latest//;s/ubuntu/linux')-smassh${{ matrix.os == 'windows-latest' && '.exe' || '' }}" >> $GITHUB_ENV
+        run: echo "FINAL_FILE_NAME=$(echo ${{ matrix.os }} | sed 's/-latest//;s/ubuntu/linux/')-smassh${{ matrix.os == 'windows-latest' && '.exe' || '' }}" >> $GITHUB_ENV
 
       - name: Rename final file
         run: cp ./dist/${{ env.BINARY_FILE_NAME }} ./dist/${{ env.FINAL_FILE_NAME }}
