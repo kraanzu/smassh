@@ -27,7 +27,7 @@ class DataParser(Parser):
         if not english_path.exists():
             from smassh.src.plugins.add_language import AddLanguage
 
-            AddLanguage().add("english")
+            AddLanguage(silent=True).add("english")
 
     def generate_report(self, stats: StatsTracker) -> Dict[str, Any]:
         mode = config_parser.get("mode")
