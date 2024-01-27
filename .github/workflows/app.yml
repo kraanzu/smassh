@@ -1,6 +1,7 @@
 name: Python application
 
 on:
+  workflow_dispatch:
   release:
     types: [published]
 
