@@ -56,6 +56,9 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: Add-Content -Path $env:GITHUB_ENV -Value "FINAL_FILE_NAME=windows-smassh.exe"
 
+      - name: Rename build files
+        run: cp ./dist/${{ env.BINARY_FILE_NAME }} ./dist/${{ env.FINAL_FILE_NAME }}
+
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
