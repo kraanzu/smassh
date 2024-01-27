@@ -4,9 +4,8 @@ import appdirs
 from typing import Optional
 from pathlib import Path
 
-LANGUAGE_PACK_DIR = (
-    Path(appdirs.user_data_dir("smassh")) / "languages"
-)
+LANGUAGE_PACK_DIR = Path(appdirs.user_data_dir("smassh")) / "languages"
+
 
 class AddLanguage:
     """
