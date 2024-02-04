@@ -113,8 +113,11 @@ class Tracker:
         return Cursor(old, self.cursor_pos, True)
 
     @confidence_mode
-    def handle_delete_word(self) -> Cursor:
+    def handle_delete_word(self) -> Optional[Cursor]:
         old = self.cursor_pos
+
+        if self.cursor_pos == 0:
+            return
 
         # incase it's the start of a word
         if self.cursor_pos:
