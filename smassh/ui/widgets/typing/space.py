@@ -238,7 +238,7 @@ class Space(Static):
         correct = cursor.correct
 
         if new < old:
-            self.paragraph.spans = self.paragraph.spans[:new]
+            self.paragraph_spans = self.paragraph_spans[:new]
             return
 
         diff = new - old
