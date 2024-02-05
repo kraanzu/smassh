@@ -83,6 +83,14 @@ class OptionItem(Widget):
         super().__init__()
         self.value = value
 
+    def on_click(self) -> None:
+        parent = self.parent
+        if isinstance(parent, Option):
+            self_index = parent.options.index(self)
+            parent._value = self_index
+            parent.update_highlight()
+            parent.save()
+
     def render(self) -> RenderableType:
         return self.value
 
