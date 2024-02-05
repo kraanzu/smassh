@@ -78,7 +78,7 @@ You should be able to see binaries for `Linux`, `mac` and `windows` in the [rele
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contributions
 
 # Credits 
-[@duwudle](https://github.com/duwudle) for the awesome banner \
+[@frizd](https://github.com/frizd) for the awesome banner \
 [@miodec](https://github.com/Miodec) for monkeytype!
 
 # Other TUI projects 🤓 :
