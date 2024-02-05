@@ -91,7 +91,7 @@ def cursor_buddy(func):
 
 def blind_mode(func):
     def wrapper(space: "Space", *args, **kwargs) -> Style:
-        if config_parser.get("blind_mode"):
+        if config_parser.get("blind_mode") in (True, "on"):
             return space.get_component_rich_style("--blind-match")
 
         return func(space, *args, **kwargs)
