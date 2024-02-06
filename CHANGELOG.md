@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Added
 - More Everforest Themes (https://github.com/kraanzu/smassh/pull/77)
 
+## Fixed
+- --version crash for binary formats
+
 ## 3.0.4
 
 ## Fixed
