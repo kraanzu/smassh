@@ -1,7 +1,8 @@
-from importlib.metadata import version as pkgVersion
 import click
 from smassh.src.plugins.add_language import AddLanguage
 from smassh.ui.tui import Smassh
+
+PKG_VERSION = "3.1.0"
 
 
 @click.group(
@@ -17,7 +18,7 @@ from smassh.ui.tui import Smassh
 @click.pass_context
 def main(ctx, version: bool) -> None:
     if version:
-        return print(f"smassh - v{pkgVersion('smassh')}")
+        return print(f"smassh - v{PKG_VERSION}")
 
     if ctx.invoked_subcommand is None:
         Smassh().run()
