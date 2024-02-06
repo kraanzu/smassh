@@ -28,3 +28,7 @@ def main(ctx, version: bool) -> None:
 @click.argument("name")
 def add(name: str) -> None:
     AddLanguage().add(name)
+
+
+if __name__ == "__main__":
+    main()
