@@ -1,8 +1,8 @@
-$bg-color: #2d353b;
+$bg-color: #272e33;
 $main-color: #a7c080;
 $caret-color: #d699b6;
-$sub-color: #7a8478;
-$sub-alt-color: #343f44;
+$sub-color: #7A8478;
+$sub-alt-color: #2e383c;
 $text-color: #d3c6aa;
 $error-color: #e67e80;
 $error-extra-color: #e69875;
