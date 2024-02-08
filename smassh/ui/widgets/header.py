@@ -46,13 +46,14 @@ class Header(Widget):
 
         # NOTE: This seems like a good ratio (5:30) to enable/disable tall mode
         if height < 30:
-            self.disable_tall_mode(height)
+            self.disable_tall_mode()
         else:
-            self.enable_tall_mode(height)
+            self.enable_tall_mode()
 
         self.refresh(layout=True)
 
-    def enable_tall_mode(self, height) -> None:
+    def enable_tall_mode(self) -> None:
+        height = self.size.height
         if height == 5:
             return
 
@@ -61,7 +62,8 @@ class Header(Widget):
         self.query_one(Banner).styles.height = "100%"
         self.query_one("Header > Horizontal").styles.height = "100%"
 
-    def disable_tall_mode(self, height) -> None:
+    def disable_tall_mode(self) -> None:
+        height = self.size.height
         if height != 5:
             return
 
