@@ -21,7 +21,7 @@ class MainScreen(Screen):
     MainScreen {
         layout: grid;
         grid-size: 1 2;
-        grid-rows: auto 1fr;
+        grid-rows: 5 1fr;
     }
     """
 

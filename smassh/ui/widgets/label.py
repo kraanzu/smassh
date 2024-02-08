@@ -1,5 +1,6 @@
 from typing import Optional
 from rich.console import RenderableType
+from textual.reactive import reactive
 from textual.widget import Widget
 from smassh.src import generate_figlet
 from smassh.ui.events import SetScreen
@@ -13,8 +14,9 @@ class NavItemBase(Widget):
     DEFAULT_CSS = """
     NavItemBase {
         content-align: center middle;
+        height: auto;
         width: auto;
-        padding: 1;
+        padding: 0 1;
     }
     """
 
@@ -36,8 +38,16 @@ class Banner(NavItemBase):
     Text Widget to render text in a bigger font
     """
 
+    DEFAULT_CSS = """
+    Banner {
+        height: 100%;
+    }
+    """
+
+    is_tall = reactive(True, layout=True, always_update=True)
+
     def render(self) -> RenderableType:
-        return generate_figlet(self.text)
+        return generate_figlet(self.text) if self.is_tall else self.text.upper()
 
 
 class NavItem(NavItemBase):

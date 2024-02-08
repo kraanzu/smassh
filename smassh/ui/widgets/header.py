@@ -27,11 +27,48 @@ class Header(Widget):
     DEFAULT_CSS = """
     Header {
         layout: grid;
-        grid-size: 3 1;
+        grid-size: 4 1;
         grid-rows: 5;
-        grid-columns: 1fr 8fr 1fr;
+        grid-columns: 1fr 15 8fr 1fr;
+    }
+
+    Header > Horizontal {
+        align: left middle;
+        height: 100%;
     }
     """
+
+    def on_resize(self) -> None:
+        # XXX: Why use screen size and not widget size?
+        # Ans: Because this can change the widget size (be it header or container)
+        #      which will trigger this method again, causing an infinite loop
+        height = self.screen.size.height
+
+        # NOTE: This seems like a good ratio (5:30) to enable/disable tall mode
+        if height < 30:
+            self.disable_tall_mode(height)
+        else:
+            self.enable_tall_mode(height)
+
+        self.refresh(layout=True)
+
+    def enable_tall_mode(self, height) -> None:
+        if height == 5:
+            return
+
+        self.screen.styles.grid_rows = "5 1fr"
+        self.query_one(Banner).is_tall = True
+        self.query_one(Banner).styles.height = "100%"
+        self.query_one("Header > Horizontal").styles.height = "100%"
+
+    def disable_tall_mode(self, height) -> None:
+        if height != 5:
+            return
+
+        self.screen.styles.grid_rows = "1 1fr"
+        self.query_one(Banner).is_tall = False
+        self.query_one(Banner).styles.height = "auto"
+        self.query_one("Header > Horizontal").styles.height = "auto"
 
     def set_active(self, name: str) -> None:
         for i in self.query(NavItem):
@@ -39,12 +76,12 @@ class Header(Widget):
 
     def compose(self) -> ComposeResult:
         yield Static()
+        yield Banner("smassh")
 
         with Horizontal():
             home = NavItem("󰌌 home", "typing")
             home.add_class("active")
 
-            yield Banner("smassh")
             yield home
             yield NavItem(" settings", "settings")
             yield NavItem("󰋗 help", "help")
