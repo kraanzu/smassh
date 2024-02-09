@@ -46,6 +46,9 @@ class Banner(NavItemBase):
 
     is_tall = reactive(True, layout=True, always_update=True)
 
+    def watch_is_tall(self, value: bool) -> None:
+        self.styles.height = "5" if value else "3"
+
     def render(self) -> RenderableType:
         return generate_figlet(self.text) if self.is_tall else self.text.upper()
 

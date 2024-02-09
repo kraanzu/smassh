@@ -59,18 +59,16 @@ class Header(Widget):
 
         self.screen.styles.grid_rows = "5 1fr"
         self.query_one(Banner).is_tall = True
-        self.query_one(Banner).styles.height = "100%"
-        self.query_one("Header > Horizontal").styles.height = "100%"
+        self.query_one("Header > Horizontal").styles.height = "5"
 
     def disable_tall_mode(self) -> None:
         height = self.size.height
         if height != 5:
             return
 
-        self.screen.styles.grid_rows = "1 1fr"
+        self.screen.styles.grid_rows = "3 1fr"
         self.query_one(Banner).is_tall = False
-        self.query_one(Banner).styles.height = "auto"
-        self.query_one("Header > Horizontal").styles.height = "auto"
+        self.query_one("Header > Horizontal").styles.height = "3"
 
     def set_active(self, name: str) -> None:
         for i in self.query(NavItem):
