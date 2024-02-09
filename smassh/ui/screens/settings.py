@@ -1,8 +1,32 @@
+from rich.console import RenderableType
+from rich.text import Text
 from textual.app import ComposeResult
 from textual import events
 from smassh.ui.widgets import menu
 from smassh.ui.widgets import BaseWindow
 from smassh.ui.widgets.settings.settings_options import Setting
+from textual.widget import Widget
+
+
+class SettingSeparator(Widget):
+    DEFAULT_CSS = """
+    SettingSeparator {
+        padding: 1;
+        height: auto;
+        width: 100%;
+        text-style: bold italic;
+        margin: 0 1;
+    }
+    """
+
+    def __init__(self, section: str, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.section = section
+
+    def render(self) -> RenderableType:
+        text = Text(self.section.upper())
+        text.pad(1)
+        return text
 
 
 class SettingsScreen(BaseWindow):
@@ -19,14 +43,19 @@ class SettingsScreen(BaseWindow):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.current_option = 0
+        self.settings = []
+        for settings in menu.values():
+            self.settings.extend(settings)
 
     @property
     def current_setting(self) -> Setting:
-        return menu[self.current_option]
+        return self.settings[self.current_option]
 
     def compose(self) -> ComposeResult:
-        for item in menu:
-            yield item
+        for section, settings in menu.items():
+            yield SettingSeparator(section)
+            for setting in settings:
+                yield setting
 
         self.update_highlight()
 
@@ -35,12 +64,12 @@ class SettingsScreen(BaseWindow):
         Automatically update highlights based on current option
         """
 
-        for index, setting in enumerate(menu):
+        for index, setting in enumerate(self.settings):
             setting.set_class(index == self.current_option, "selected")
 
     async def handle_key(self, event: events.Key) -> None:
         key = event.key
-        n = len(menu)
+        n = len(self.settings)
 
         await super().handle_key(event)
 
