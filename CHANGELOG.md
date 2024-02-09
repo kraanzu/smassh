@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Fixed
 - Blind Mode not working (https://github.com/kraanzu/smassh/issues/72)
 - [WIP] App crash when cursor buddy finishes the test before you (https://github.com/kraanzu/smassh/issues/78)
-- [WIP] Added delay for restrictions because the initial calculation is highly variable (https://github.com/kraanzu/smassh/issues/75)
+- Added delay for restrictions because the initial calculation is highly variable (https://github.com/kraanzu/smassh/issues/75)
 
 ## 3.1.0
 
