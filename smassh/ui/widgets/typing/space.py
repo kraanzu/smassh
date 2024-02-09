@@ -148,7 +148,7 @@ class Space(Static):
             self.reset()
 
     def check_restrictions(self) -> None:
-        if not self.tracker.stats.start_time:
+        if not self.tracker.stats.start_time or self.tracker.stats.elapsed_time < 1:
             return
 
         if min_speed := config_parser.get("min_speed"):
