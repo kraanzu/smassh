@@ -6,13 +6,13 @@ from smassh.src import config_parser
 from smassh.ui.widgets.typing.space import Space
 
 
-class StripSetting(Widget):
+class TypingStripItem(Widget):
     """
     Single setting widget for strip in the typing screen
     """
 
     DEFAULT_CSS = """
-    StripSetting {
+    TypingStripItem {
         width: auto;
         height: 1;
         padding: 0 1;
@@ -32,7 +32,7 @@ class StripSetting(Widget):
         return self.setting_name
 
 
-class Switchable(StripSetting):
+class Switchable(TypingStripItem):
     """
     A toggle-able setting for typing strip
     """

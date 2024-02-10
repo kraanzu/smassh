@@ -23,7 +23,8 @@ ValueLabel,
 NavItem,
 Space,
 Palette,
-StripSetting,
+TypingStripItem,
+SettingStripSection,
 ModeCount,
 AboutOutro,
 SettingDescription .setting--header {
@@ -37,12 +38,12 @@ SettingDescription .setting--option {
 
 Palette:hover,
 ModeCount:hover,
-StripSetting:hover,
+TypingStripItem:hover,
 NavItem.active {
   color: $text-color;
 }
 
-StripSetting,
+TypingStripItem,
 ModeCount,
 StripSeparator {
   background: $sub-alt-color;
@@ -56,7 +57,7 @@ Bracket {
   color: $sub-alt-color;
 }
 
-StripSetting.enabled,
+TypingStripItem.enabled,
 ModeCount.enabled,
 Ticker {
   color: $main-color;
