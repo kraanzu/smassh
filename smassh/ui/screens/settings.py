@@ -55,6 +55,9 @@ class SettingsScreen(BaseWindow):
         for index, setting in enumerate(self.settings):
             setting.set_class(index == self.current_option, "selected")
 
+        self.current_setting.scroll_visible()
+        self.refresh()
+
     async def handle_key(self, event: events.Key) -> None:
         key = event.key
         n = len(self.settings)
@@ -65,15 +68,11 @@ class SettingsScreen(BaseWindow):
             if self.current_option < n - 1:
                 self.current_option += 1
                 self.update_highlight()
-                self.current_setting.scroll_visible()
-                self.refresh()
 
         elif key in ["up", "k"]:
             if self.current_option > 0:
                 self.current_option -= 1
                 self.update_highlight()
-                self.current_setting.scroll_visible()
-                self.refresh()
 
         elif key == "tab":
             self.current_setting.select_next()
