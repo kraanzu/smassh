@@ -77,9 +77,7 @@ def cursor_buddy(func):
 
         elapsed = space.tracker.stats.elapsed_time
         letters_typed = Buddy.get_letters_typed(elapsed, wpm, 5)
-
-        if letters_typed > len(space.paragraph.plain):
-            return res
+        letters_typed = min(letters_typed, len(space.paragraph.plain) - 1)
 
         res_copy = res.copy()
         style = space.get_component_rich_style("--cursor-buddy")
