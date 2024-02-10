@@ -1,36 +1,14 @@
-from rich.console import RenderableType
-from rich.text import Text
 from textual.app import ComposeResult
 from textual import events
 from smassh.ui.widgets import menu
 from smassh.ui.widgets import BaseWindow
 from smassh.ui.widgets.settings.settings_options import Setting
-from textual.widget import Widget
-
-
-class SettingSeparator(Widget):
-    DEFAULT_CSS = """
-    SettingSeparator {
-        height: auto;
-        width: 100%;
-        text-style: bold italic;
-        margin: 1 0;
-    }
-    """
-
-    COMPONENT_CLASSES = {"--primary-bg", "--danger-bg"}
-
-    def __init__(self, section: str, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        self.section = section
-
-    def render(self) -> RenderableType:
-        classname = "danger" if "danger" in self.section else "primary"
-        style = self.get_component_rich_style(f"--{classname}-bg")
-
-        text = Text(self.section.upper(), style=style)
-        text.pad(1)
-        return text
+from smassh.ui.widgets.settings import (
+    SettingStrip,
+    SettingStripSection,
+    SettingSeparator,
+    Bracket,
+)
 
 
 class SettingsScreen(BaseWindow):
@@ -56,6 +34,12 @@ class SettingsScreen(BaseWindow):
         return self.settings[self.current_option]
 
     def compose(self) -> ComposeResult:
+        with SettingStrip():
+            yield Bracket("left")
+            for i in menu.keys():
+                yield SettingStripSection(i)
+            yield Bracket("right")
+
         for section, settings in menu.items():
             yield SettingSeparator(section)
             for setting in settings:
