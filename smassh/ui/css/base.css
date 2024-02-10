@@ -24,7 +24,7 @@ NavItem,
 Space,
 Palette,
 TypingStripItem,
-SettingStripSection,
+SettingStripItem,
 ModeCount,
 AboutOutro,
 SettingDescription .setting--header {
@@ -39,11 +39,13 @@ SettingDescription .setting--option {
 Palette:hover,
 ModeCount:hover,
 TypingStripItem:hover,
+SettingStripItem:hover,
 NavItem.active {
   color: $text-color;
 }
 
 TypingStripItem,
+SettingStripItem,
 ModeCount,
 StripSeparator {
   background: $sub-alt-color;
