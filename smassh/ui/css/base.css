@@ -164,6 +164,19 @@ ValueLabel {
   }
 }
 
+SettingSeparator {
+  color: $bg-color;
+  background: $sub-alt-color;
+
+  .--primary-bg {
+    background: $main-color;
+  }
+
+  .--danger-bg {
+    background: $error-color;
+  }
+}
+
 /* ========== EXTRAS ============ */
 Tooltip {
   padding: 0 1;
