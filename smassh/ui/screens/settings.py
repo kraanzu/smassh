@@ -5,7 +5,7 @@ from smassh.ui.widgets import BaseWindow
 from smassh.ui.widgets.settings.settings_options import Setting
 from smassh.ui.widgets.settings import (
     SettingStrip,
-    SettingStripSection,
+    SettingStripItem,
     SettingSeparator,
     Bracket,
 )
@@ -37,7 +37,7 @@ class SettingsScreen(BaseWindow):
         with SettingStrip():
             yield Bracket("left")
             for i in menu.keys():
-                yield SettingStripSection(i)
+                yield SettingStripItem(i)
             yield Bracket("right")
 
         for section, settings in menu.items():

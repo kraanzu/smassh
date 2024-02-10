@@ -2,9 +2,9 @@ from textual.widget import Widget
 from textual.widgets import Label
 
 
-class SettingStripSection(Label):
+class SettingStripItem(Label):
     DEFAULT_CSS = """
-    SettingStripSection {
+    SettingStripItem {
         color: white;
         padding: 0 2;
         height: 1;
