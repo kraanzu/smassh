@@ -66,6 +66,29 @@ class BaseOption(Widget):
         raise NotImplementedError
 
 
+class Confirm(BaseOption):
+    def __init__(
+        self,
+        setting_name: str,
+        message: str,
+        callback: Optional[Callable] = None,
+    ) -> None:
+        super().__init__(setting_name, callback)
+        self.message = message
+
+    def load_current_setting(self) -> None:
+        pass
+
+    def select_prev_option(self) -> None:
+        pass
+
+    def select_next_option(self) -> None:
+        self.app.push_screen("confirm")
+
+    def render(self) -> RenderableType:
+        return self.message
+
+
 class OptionItem(Widget):
     """
     Widget for sigle option in `Option` widget
