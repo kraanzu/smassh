@@ -3,12 +3,23 @@ from rich.console import RenderableType
 from textual.app import ComposeResult
 from textual.screen import Screen
 from textual.widget import Widget
-from textual.widgets import Static
 
 
 class ConfirmButton(Widget):
+    DEFAULT_CSS = """
+    ConfirmButton {
+        padding: 1;
+        height: 3;
+        content-align: center middle;
+    }
+    """
+
     def __init__(
-        self, label: str, button_type: Literal["ok", "cancel"], *args, **kwargs
+        self,
+        label: str,
+        button_type: Literal["ok", "cancel"],
+        *args,
+        **kwargs,
     ) -> None:
         super().__init__(*args, **kwargs)
         self.label = label
@@ -18,36 +29,35 @@ class ConfirmButton(Widget):
         return self.label
 
 
+class MessageBox(Widget):
+    DEFAULT_CSS = """
+    MessageBox {
+        content-align: center middle;
+        column-span: 2;
+    }
+    """
+
+    def render(self) -> RenderableType:
+        return "Are you sure?\nThis action cannot be undone."
+
+
 class MessageDialogue(Widget):
 
     DEFAULT_CSS = """
     MessageDialogue {
         layout: grid;
         width: 50;
-        height: 4;
+        height: auto;
         background: black;
         grid-size: 2 2;
-        grid-rows: 3 1;
+        grid-rows: 4 3;
         grid-columns: 1fr 1fr;
-    }
-
-    MessageDialogue > Static {
-        column-span: 2;
-        height: 100%;
-        background: orange;
-    }
-
-    MessageDialogue > ConfirmButton {
-        background: blue;
+        border: solid red;
     }
     """
 
-    def __init__(self, message: str, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        self.message = message
-
     def compose(self) -> ComposeResult:
-        yield Static(self.message)
+        yield MessageBox()
         yield ConfirmButton("OK", button_type="ok")
         yield ConfirmButton("CANCEL", button_type="cancel")
 
@@ -60,4 +70,4 @@ class ConfirmScreen(Screen):
     """
 
     def compose(self) -> ComposeResult:
-        yield MessageDialogue("Are you sure?")
+        yield MessageDialogue()
