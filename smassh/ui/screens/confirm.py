@@ -1,6 +1,7 @@
 from typing import Literal
 from rich.console import RenderableType
 from textual.app import ComposeResult
+from textual.binding import Binding
 from textual.screen import Screen
 from textual.widget import Widget
 
@@ -71,6 +72,10 @@ class ConfirmScreen(Screen):
         align: center middle;
     }
     """
+
+    BINDINGS = [
+        Binding("escape", "app.pop_screen"),
+    ]
 
     def compose(self) -> ComposeResult:
         yield MessageDialogue()
