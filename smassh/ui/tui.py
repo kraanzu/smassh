@@ -10,6 +10,7 @@ from smassh.ui.widgets.palette.palette_list import ApplyLanguage, ApplyTheme
 from smassh.ui.widgets.palette import LanguagePalette, ThemePalette
 from smassh.src import config_parser, generate_theme_file, data_parser
 from smassh.ui.widgets import Space, Ticker
+from smassh.ui.screens.confirm import ConfirmScreen
 
 
 class MainScreen(Screen):
@@ -81,6 +82,7 @@ class Smassh(App):
         "main": MainScreen(),
         "theme": ThemePaletteScreen(),
         "language": LanguagePaletteScreen(),
+        "confirm": ConfirmScreen(),
     }
 
     def __init__(self, *args, **kwargs) -> None:
