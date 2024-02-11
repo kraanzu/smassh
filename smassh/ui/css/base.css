@@ -91,6 +91,7 @@ NumberScroll {
   }
 }
 
+ConfirmScreen,
 PaletteScreen,
 PaletteList {
   background: $bg-color 50%;
