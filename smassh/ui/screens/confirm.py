@@ -25,6 +25,9 @@ class ConfirmButton(Widget):
         self.label = label
         self.button_type = button_type
 
+    def on_click(self) -> None:
+        self.screen.dismiss(self.button_type == "ok")
+
     def render(self) -> RenderableType:
         return self.label
 
