@@ -2,7 +2,6 @@ from typing import List
 from textual.app import ComposeResult
 from textual import events
 from textual.widget import Widget
-from textual.containers import ScrollableContainer
 from smassh.ui.widgets import menu
 from smassh.ui.widgets import BaseWindow
 from smassh.ui.widgets.settings.settings_options import Setting
@@ -20,6 +19,17 @@ class SettingGrid(Widget):
         layout: grid;
         grid-size: 1 2;
         grid-rows: 2 1fr;
+    }
+    """
+
+
+class SettingsContainer(Widget):
+    DEFAULT_CSS = """
+    SettingsContainer {
+        width: 1fr;
+        height: 1fr;
+        layout: vertical;
+        overflow: auto auto;
     }
     """
 
@@ -64,7 +74,7 @@ class SettingsScreen(BaseWindow):
                 yield from self.sections
                 yield Bracket("right")
 
-            with ScrollableContainer():
+            with SettingsContainer():
                 for section, settings in menu.items():
                     yield SettingSeparator(section)
                     for setting in settings:

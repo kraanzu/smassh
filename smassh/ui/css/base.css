@@ -187,7 +187,7 @@ Tooltip {
 }
 
 BaseWindow,
-ScrollableContainer,
+SettingsContainer,
 PaletteList {
   scrollbar-size: 0 1;
   scrollbar-background: $sub-alt-color;
