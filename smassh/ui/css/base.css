@@ -59,6 +59,7 @@ Bracket {
   color: $sub-alt-color;
 }
 
+SettingStripItem.enabled,
 TypingStripItem.enabled,
 ModeCount.enabled,
 Ticker {
