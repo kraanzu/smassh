@@ -1,5 +1,7 @@
 from textual.app import ComposeResult
 from textual import events
+from textual.widget import Widget
+from textual.containers import ScrollableContainer
 from smassh.ui.widgets import menu
 from smassh.ui.widgets import BaseWindow
 from smassh.ui.widgets.settings.settings_options import Setting
@@ -9,6 +11,16 @@ from smassh.ui.widgets.settings import (
     SettingSeparator,
     Bracket,
 )
+
+
+class SettingGrid(Widget):
+    DEFAULT_CSS = """
+    SettingGrid {
+        layout: grid;
+        grid-size: 1 2;
+        grid-rows: 2 1fr;
+    }
+    """
 
 
 class SettingsScreen(BaseWindow):
@@ -34,16 +46,19 @@ class SettingsScreen(BaseWindow):
         return self.settings[self.current_option]
 
     def compose(self) -> ComposeResult:
-        with SettingStrip():
-            yield Bracket("left")
-            for i in menu.keys():
-                yield SettingStripItem(i)
-            yield Bracket("right")
 
-        for section, settings in menu.items():
-            yield SettingSeparator(section)
-            for setting in settings:
-                yield setting
+        with SettingGrid():
+            with SettingStrip():
+                yield Bracket("left")
+                for i in menu.keys():
+                    yield SettingStripItem(i)
+                yield Bracket("right")
+
+            with ScrollableContainer():
+                for section, settings in menu.items():
+                    yield SettingSeparator(section)
+                    for setting in settings:
+                        yield setting
 
         self.update_highlight()
 

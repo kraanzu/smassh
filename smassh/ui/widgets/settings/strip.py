@@ -33,9 +33,9 @@ class SettingStripItem(Label):
 class SettingStrip(Widget):
     DEFAULT_CSS = """
     SettingStrip {
-        height: 1;
+        height: 2;
         layout: horizontal;
         width: 100%;
-        align: center middle;
+        align: center top;
     }
     """
