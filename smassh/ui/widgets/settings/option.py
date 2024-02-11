@@ -82,8 +82,12 @@ class Confirm(BaseOption):
     def select_prev_option(self) -> None:
         pass
 
+    def perform(self, ok: bool) -> None:
+        if not ok:
+            return
+
     def select_next_option(self) -> None:
-        self.app.push_screen("confirm")
+        self.app.push_screen("confirm", self.perform)
 
     def render(self) -> RenderableType:
         return self.message
