@@ -1,3 +1,4 @@
+from typing import List
 from textual.app import ComposeResult
 from textual import events
 from textual.widget import Widget
@@ -37,21 +38,30 @@ class SettingsScreen(BaseWindow):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.current_option = 0
-        self.settings = []
-        for settings in menu.values():
+        self.sections: List[SettingStripItem] = []
+        self.settings: List[Setting] = []
+
+        for section, settings in menu.items():
+            self.sections.append(SettingStripItem(section))
             self.settings.extend(settings)
 
     @property
     def current_setting(self) -> Setting:
         return self.settings[self.current_option]
 
+    def get_section(self, setting: Setting) -> str:
+        for section, settings in menu.items():
+            if setting in settings:
+                return section
+
+        raise ValueError(f"Setting {setting} not found in menu")
+
     def compose(self) -> ComposeResult:
 
         with SettingGrid():
             with SettingStrip():
                 yield Bracket("left")
-                for i in menu.keys():
-                    yield SettingStripItem(i)
+                yield from self.sections
                 yield Bracket("right")
 
             with ScrollableContainer():
@@ -62,13 +72,20 @@ class SettingsScreen(BaseWindow):
 
         self.update_highlight()
 
+    def update_highlight_strip(self, section_name: str) -> None:
+        for section in self.sections:
+            section.set_class(section.section == section_name, "enabled")
+
     def update_highlight(self) -> None:
         """
         Automatically update highlights based on current option
         """
 
         for index, setting in enumerate(self.settings):
-            setting.set_class(index == self.current_option, "selected")
+            is_current = index == self.current_option
+            setting.set_class(is_current, "selected")
+            if is_current:
+                self.update_highlight_strip(self.get_section(setting))
 
         self.current_setting.scroll_visible()
         self.refresh()
