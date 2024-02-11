@@ -3,9 +3,9 @@ from rich.console import RenderableType
 from rich.text import Text
 from textual.app import ComposeResult
 from textual.widget import Widget
-from .option import Option, NumberScroll
+from .option import Confirm, Option, NumberScroll
 
-Options = Union[Option, NumberScroll]
+Options = Union[Option, NumberScroll, Confirm]
 
 
 class SettingDescription(Widget):
@@ -222,6 +222,14 @@ menu = {
             + "A cursor will race along with you with this constant speed."
             + "\n"
             + "'0' means it will not be visible",
+        ),
+    ],
+    "danger zone": [
+        Setting(
+            "delete config",
+            {},
+            Confirm("delete_config", "Delete Your Config"),
+            info="This will delete your current config and reset it to default",
         ),
     ],
     # "sound": [
