@@ -101,7 +101,7 @@ PaletteList {
 MessageDialogue,
 PaletteMenu {
   background: $bg-color;
-  border: solid $main-color;
+  border: heavy $main-color;
 }
 
 PaletteList {
