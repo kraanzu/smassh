@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Header auto resize for large font sizes (https://github.com/kraanzu/smassh/issues/76)
 - Cool Setting Section Separators
 - Strip in settings to directly jump to a specific section
+- `Reset Config` option in settings
 
 ## Fixed
 - Blind Mode not working (https://github.com/kraanzu/smassh/issues/72)
