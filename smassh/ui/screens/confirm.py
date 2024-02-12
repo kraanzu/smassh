@@ -42,6 +42,7 @@ class MessageBox(Widget):
     MessageBox {
         content-align: center middle;
         column-span: 2;
+        text-style: bold italic;
     }
     """
 
