@@ -27,7 +27,10 @@ class ConfirmButton(Widget):
         self.button_type = button_type
 
     def on_click(self) -> None:
-        self.screen.dismiss(self.button_type == "ok")
+        return self.dismiss()
+
+    def dismiss(self) -> None:
+        return self.screen.dismiss(self.button_type == "ok")
 
     def render(self) -> RenderableType:
         return self.label
@@ -61,9 +64,12 @@ class MessageDialogue(Widget):
     """
 
     def compose(self) -> ComposeResult:
+        self.ok = ConfirmButton("[O]K", button_type="ok")
+        self.cancel = ConfirmButton("[C]ANCEL", button_type="cancel")
+
         yield MessageBox()
-        yield ConfirmButton("OK", button_type="ok")
-        yield ConfirmButton("CANCEL", button_type="cancel")
+        yield self.ok
+        yield self.cancel
 
 
 class ConfirmScreen(Screen):
@@ -79,3 +85,9 @@ class ConfirmScreen(Screen):
 
     def compose(self) -> ComposeResult:
         yield MessageDialogue()
+
+    def key_o(self):
+        self.query_one(MessageDialogue).ok.dismiss()
+
+    def key_c(self):
+        self.query_one(MessageDialogue).cancel.dismiss()
