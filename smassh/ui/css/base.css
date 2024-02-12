@@ -1,3 +1,4 @@
+MessageDialogue,
 PaletteHeader,
 BaseWindow {
   background: $bg-color;
@@ -97,6 +98,7 @@ PaletteList {
   background: $bg-color 50%;
 }
 
+MessageDialogue,
 PaletteMenu {
   background: $bg-color;
   border: solid $main-color;
