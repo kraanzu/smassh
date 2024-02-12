@@ -104,6 +104,14 @@ class Setting(Widget):
 
 # First menu
 menu = {
+    "danger zone": [
+        Setting(
+            "Delete Config",
+            {},
+            Confirm("delete_config", "Delete"),
+            info="This will delete your current config and reset it to default",
+        ),
+    ],
     "behaviour": [
         Setting(
             " Min Speed",
@@ -222,14 +230,6 @@ menu = {
             + "A cursor will race along with you with this constant speed."
             + "\n"
             + "'0' means it will not be visible",
-        ),
-    ],
-    "danger zone": [
-        Setting(
-            "delete config",
-            {},
-            Confirm("delete_config", "Delete Your Config"),
-            info="This will delete your current config and reset it to default",
         ),
     ],
     # "sound": [

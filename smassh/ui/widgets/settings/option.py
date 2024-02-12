@@ -3,6 +3,7 @@ from rich.console import RenderableType
 from rich.text import Text
 from textual.app import ComposeResult
 from textual.widget import Widget
+from textual.widgets import Label
 from smassh.src import config_parser
 from smassh.ui.widgets.typing.space import Space
 
@@ -66,7 +67,12 @@ class BaseOption(Widget):
         raise NotImplementedError
 
 
+class ConfirmLabel(Label):
+    pass
+
+
 class Confirm(BaseOption):
+
     def __init__(
         self,
         setting_name: str,
@@ -89,8 +95,8 @@ class Confirm(BaseOption):
     def select_next_option(self) -> None:
         self.app.push_screen("confirm", self.perform)
 
-    def render(self) -> RenderableType:
-        return self.message
+    def compose(self) -> ComposeResult:
+        yield ConfirmLabel(self.message)
 
 
 class OptionItem(Widget):
