@@ -79,7 +79,7 @@ class Confirm(BaseOption):
         self,
         setting_name: str,
         message: str,
-        callback: Optional[Callable] = None,
+        callback: Callable = lambda: None,
     ) -> None:
         super().__init__(setting_name, callback)
         self.message = message
@@ -90,12 +90,15 @@ class Confirm(BaseOption):
     def select_prev_option(self) -> None:
         pass
 
-    def perform(self, ok: bool) -> None:
-        if not ok:
-            return
+    def post_confirm(self, ok: bool) -> None:
+        if ok:
+            self.save()
+
+    def save(self) -> None:
+        self.callback()
 
     def select_next_option(self) -> None:
-        self.app.push_screen("confirm", self.perform)
+        self.app.push_screen("confirm", self.post_confirm)
 
     def compose(self) -> ComposeResult:
         yield ConfirmLabel(self.message)
