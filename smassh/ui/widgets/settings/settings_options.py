@@ -3,6 +3,8 @@ from rich.console import RenderableType
 from rich.text import Text
 from textual.app import ComposeResult
 from textual.widget import Widget
+
+from smassh.ui.widgets.settings.danger_options import ResetConfig
 from .option import Confirm, Option, NumberScroll
 
 Options = Union[Option, NumberScroll, Confirm]
@@ -106,9 +108,9 @@ class Setting(Widget):
 menu = {
     "danger zone": [
         Setting(
-            "Delete Config",
+            "Reset Config",
             {},
-            Confirm("delete_config", "Delete"),
+            ResetConfig(),
             info="This will delete your current config and reset it to default",
         ),
     ],
