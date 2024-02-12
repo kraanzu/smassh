@@ -24,7 +24,7 @@ class Parser:
 
     def __init__(self) -> None:
         super().__init__()
-        self.config = self.DEFAULT_CONFIG
+        self.config = self.DEFAULT_CONFIG.copy()
         if not Path.is_file(self.full_path):
             self._create_user_config()
         else:
