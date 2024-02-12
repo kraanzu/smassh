@@ -22,7 +22,8 @@ class ConfirmButton(Widget):
         *args,
         **kwargs,
     ) -> None:
-        super().__init__(*args, **kwargs)
+        classes = "ok-btn" if button_type == "ok" else "cancel-btn"
+        super().__init__(classes=classes, *args, **kwargs)
         self.label = label
         self.button_type = button_type
 

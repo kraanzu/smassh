@@ -184,6 +184,26 @@ SettingSeparator {
   }
 }
 
+ConfirmButton {
+  &.ok-btn {
+    color: $main-color;
+
+    &:hover {
+      background: $main-color;
+      color: $bg-color;
+    }
+  }
+
+  &.cancel-btn {
+    color: $error-color;
+
+    &:hover {
+      background: $error-color;
+      color: $bg-color;
+    }
+  }
+}
+
 /* ========== EXTRAS ============ */
 Tooltip {
   padding: 0 1;
