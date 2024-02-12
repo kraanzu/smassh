@@ -68,6 +68,12 @@ class BaseOption(Widget):
 
 
 class ConfirmLabel(Label):
+    DEFAULT_CSS = """
+    ConfirmLabel {
+        padding: 0 1;
+    }
+    """
+
     def on_click(self):
         if self.parent and isinstance(self.parent, Confirm):
             self.parent.select_next_option()

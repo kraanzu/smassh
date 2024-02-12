@@ -184,6 +184,11 @@ SettingSeparator {
   }
 }
 
+ConfirmLabel {
+  background: $error-color;
+  color: $bg-color;
+}
+
 ConfirmButton {
   &.ok-btn {
     color: $main-color;
