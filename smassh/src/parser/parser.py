@@ -49,6 +49,10 @@ class Parser:
         with open(self.full_path, "w") as fp:
             dump(self.config, fp)
 
+    def reset(self):
+        self.config = self.DEFAULT_CONFIG
+        self.save()
+
     def _create_user_config(self) -> None:
         """
         Creates a new config
