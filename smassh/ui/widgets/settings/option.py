@@ -68,7 +68,9 @@ class BaseOption(Widget):
 
 
 class ConfirmLabel(Label):
-    pass
+    def on_click(self):
+        if self.parent and isinstance(self.parent, Confirm):
+            self.parent.select_next_option()
 
 
 class Confirm(BaseOption):
