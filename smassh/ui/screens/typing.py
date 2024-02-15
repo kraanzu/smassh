@@ -93,5 +93,8 @@ class TypingScreen(BaseWindow):
         yield TypingSpace()
 
     async def handle_key(self, event: events.Key):
+        if not self.visible:
+            return
+
         key = event.character if event.is_printable and event.character else event.key
         self.query_one(TypingSpace).keypress(key)
