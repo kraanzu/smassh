@@ -5,9 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 3.2.0
+## 3.1.0
 
 ## Added
+- More Everforest Themes (https://github.com/kraanzu/smassh/pull/77)
 - Header auto resize for large font sizes (https://github.com/kraanzu/smassh/issues/76)
 - Cool Setting Section Separators
 - Strip in settings to directly jump to a specific section
@@ -17,13 +18,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Blind Mode not working (https://github.com/kraanzu/smassh/issues/72)
 - App crash when cursor buddy finishes the test before you (https://github.com/kraanzu/smassh/issues/78)
 - Added delay for restrictions because the initial calculation is highly variable (https://github.com/kraanzu/smassh/issues/75)
-
-## 3.1.0
-
-## Added
-- More Everforest Themes (https://github.com/kraanzu/smassh/pull/77)
-
-## Fixed
 - --version crash for binary formats
 
 ## 3.0.4
