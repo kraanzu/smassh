@@ -76,8 +76,10 @@ class SettingsScreen(BaseWindow):
 
             with SettingsContainer():
                 for section, settings in menu.items():
-                    yield SettingSeparator(section)
+                    sep = SettingSeparator(section)
+                    yield sep
                     for setting in settings:
+                        setting.set_section_widget(sep)
                         yield setting
 
         self.update_highlight()
@@ -97,7 +99,10 @@ class SettingsScreen(BaseWindow):
             if is_current:
                 self.update_highlight_strip(self.get_section(setting))
 
-        self.current_setting.scroll_visible()
+        if self.current_setting == self.settings[0]:
+            self.current_setting.section_widget.scroll_visible()
+        else:
+            self.current_setting.scroll_visible()
         self.refresh()
 
     async def handle_key(self, event: events.Key) -> None:

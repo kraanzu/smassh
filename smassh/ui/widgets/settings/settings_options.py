@@ -87,6 +87,9 @@ class Setting(Widget):
         if self.info:
             self.info += "\n"
 
+    def set_section_widget(self, widget):
+        self.section_widget = widget
+
     def select(self) -> None:
         self.options.highlight()
 
@@ -226,7 +229,7 @@ menu = {
             + "'0' means it will not be visible",
         ),
     ],
-    "danger zone": [
+    "danger_zone": [
         Setting(
             "Reset Config",
             {},
