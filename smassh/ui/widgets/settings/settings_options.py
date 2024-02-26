@@ -87,7 +87,7 @@ class Setting(Widget):
         if self.info:
             self.info += "\n"
 
-    def set_section_widget(self, widget):
+    def set_section_widget(self, widget: Widget):
         self.section_widget = widget
 
     def select(self) -> None:

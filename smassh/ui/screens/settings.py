@@ -2,6 +2,7 @@ from typing import List
 from textual.app import ComposeResult
 from textual import events
 from textual.widget import Widget
+from textual.widgets import Static
 from smassh.ui.widgets import menu
 from smassh.ui.widgets import BaseWindow
 from smassh.ui.widgets.settings.settings_options import Setting
@@ -76,10 +77,12 @@ class SettingsScreen(BaseWindow):
 
             with SettingsContainer():
                 for section, settings in menu.items():
-                    sep = SettingSeparator(section)
-                    yield sep
-                    for setting in settings:
-                        setting.set_section_widget(sep)
+                    with Static() as container:
+                        yield SettingSeparator(section)
+                        settings[0].set_section_widget(container)
+                        yield settings[0]
+
+                    for setting in settings[1:]:
                         yield setting
 
         self.update_highlight()
@@ -99,10 +102,12 @@ class SettingsScreen(BaseWindow):
             if is_current:
                 self.update_highlight_strip(self.get_section(setting))
 
-        if self.current_setting == self.settings[0]:
+        section = self.get_section(self.current_setting)
+        if self.current_setting == menu[section][0]:
             self.current_setting.section_widget.scroll_visible()
         else:
             self.current_setting.scroll_visible()
+
         self.refresh()
 
     async def handle_key(self, event: events.Key) -> None:
