@@ -18,7 +18,7 @@ class SettingStripItem(Label):
         self.section = section
 
     def render(self) -> RenderableType:
-        return self.section
+        return self.section.replace("_", " ")
 
     def on_click(self) -> None:
         from smassh.ui.screens import SettingsScreen
