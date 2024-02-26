@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Blind Mode not working (https://github.com/kraanzu/smassh/issues/72)
 - App crash when cursor buddy finishes the test before you (https://github.com/kraanzu/smassh/issues/78)
 - Added delay for restrictions because the initial calculation is highly variable (https://github.com/kraanzu/smassh/issues/75)
+- Fix Permanent blind mode by (https://github.com/kraanzu/smassh/issues/73)
 - --version crash for binary formats
 
 ## 3.0.4
