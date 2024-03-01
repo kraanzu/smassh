@@ -1,5 +1,4 @@
 from json import load, dump
-import os
 from pathlib import Path
 from typing import Any, Dict
 
@@ -14,16 +13,14 @@ def combine_into(d: dict, to: dict) -> None:
 
 class Parser:
     """
-    A sub class of ConfigParser class
-    to parse the currenty set options in the settings menu
+    The base class for ConfigParser and DataParser classes
     """
 
-    _file_name = "smassh"
+    _file_name: str = "smassh"
     config_path: Path
     DEFAULT_CONFIG: Dict[str, Any]
 
     def __init__(self) -> None:
-        super().__init__()
         self.config = self.DEFAULT_CONFIG.copy()
         if not Path.is_file(self.full_path):
             self._create_user_config()
@@ -58,7 +55,7 @@ class Parser:
         Creates a new config
         """
 
-        os.makedirs(self.config_path, exist_ok=True)
+        self.config_path.makedir(parents=True, exist_ok=True)
         self.save()
 
     def get(self, data: str) -> Any:
