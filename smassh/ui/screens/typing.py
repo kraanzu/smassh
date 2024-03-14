@@ -96,5 +96,6 @@ class TypingScreen(BaseWindow):
         if not self.visible:
             return
 
+        event.stop()
         key = event.character if event.is_printable and event.character else event.key
         self.query_one(TypingSpace).keypress(key)
