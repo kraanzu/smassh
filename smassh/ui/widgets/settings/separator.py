@@ -23,6 +23,6 @@ class SettingSeparator(Widget):
         classname = "danger" if "danger" in self.section else "primary"
         style = self.get_component_rich_style(f"--{classname}-bg")
 
-        text = Text(self.section.upper(), style=style)
+        text = Text(self.section.upper().replace("_", " "), style=style)
         text.pad(1)
         return text
