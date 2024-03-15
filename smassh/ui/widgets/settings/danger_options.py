@@ -6,7 +6,6 @@ class ResetConfig(Confirm):
     def __init__(self) -> None:
 
         def callback():
-            self.screen.notify("Resetting configuration")
             config_parser.reset()
             for setting in self.screen.query(BaseOption):
                 setting.load_current_setting()
