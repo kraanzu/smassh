@@ -2,7 +2,7 @@ import click
 from smassh.src.plugins.add_language import AddLanguage
 from smassh.ui.tui import Smassh
 
-PKG_VERSION = "3.1.0"
+PKG_VERSION = "3.1.1"
 
 
 @click.group(
