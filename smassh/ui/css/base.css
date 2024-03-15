@@ -15,8 +15,12 @@ ResultStripItem:hover,
 NavItem:hover,
 Section,
 SettingDescription .setting--info,
-SettingDescription .setting--option-description {
+SettingDescription .setting--option-description-highlighted {
   color: $text-color;
+}
+
+SettingDescription .setting--option-description {
+  color: $sub-color;
 }
 
 ResultStripItem,

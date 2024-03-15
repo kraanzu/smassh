@@ -1,6 +1,6 @@
 from typing import Dict, Optional, Union
 from rich.console import RenderableType
-from rich.text import Text
+from rich.text import Span, Text
 from textual.app import ComposeResult
 from textual.widget import Widget
 
@@ -20,6 +20,7 @@ class SettingDescription(Widget):
         "setting--info",
         "setting--option",
         "setting--option-description",
+        "setting--option-description-highlighted",
     }
 
     def __init__(
@@ -39,9 +40,12 @@ class SettingDescription(Widget):
         def create_options(options: Dict[str, str]) -> Text:
             text = Text()
             for option, desc in options.items():
-                text += (
-                    Text(option, c3) + ": " + Text.from_markup(desc, style=c4) + "\n"
-                )
+                desc = Text.from_markup(desc, style=c4)
+                for index, span in enumerate(desc.spans):
+                    if span.style == "green":
+                        desc.spans[index] = Span(span.start, span.end, c5)
+
+                text += Text(option, c3) + ": " + desc + "\n"
 
             return text
 
@@ -49,6 +53,7 @@ class SettingDescription(Widget):
         c2 = self.get_component_rich_style("setting--info")
         c3 = self.get_component_rich_style("setting--option")
         c4 = self.get_component_rich_style("setting--option-description")
+        c5 = self.get_component_rich_style("setting--option-description-highlighted")
 
         text = Text(self.title, c1) + "\n" + Text.from_markup(self.info, style=c2)
         if self.items:
