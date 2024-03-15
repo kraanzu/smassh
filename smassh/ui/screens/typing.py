@@ -12,6 +12,10 @@ from textual.containers import VerticalScroll
 from smassh.ui.events import SetScreen
 
 
+class TypingScroll(VerticalScroll, can_focus=False):
+    pass
+
+
 class Pad(Widget):
     """
     Pad widget for empty spaces
@@ -59,7 +63,7 @@ class TypingSpace(Widget):
 
     def space(self) -> ComposeResult:
         yield Pad()
-        with VerticalScroll():
+        with TypingScroll():
             yield Space()
         yield Pad()
 
