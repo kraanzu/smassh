@@ -55,7 +55,7 @@ class Parser:
         Creates a new config
         """
 
-        self.config_path.makedir(parents=True, exist_ok=True)
+        self.config_path.mkdir(parents=True, exist_ok=True)
         self.save()
 
     def get(self, data: str) -> Any:
