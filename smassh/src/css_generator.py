@@ -25,7 +25,7 @@ def generate_theme_file(theme: str) -> None:
     css_folder = Path.absolute(Path(__file__).parent.parent) / "ui" / "css"
     themes_folder = css_folder / "themes"
 
-    base_path = css_folder / "base.css"
+    base_path = css_folder / "base.tcss"
     theme_path = themes_folder / f"{theme}.tcss"
 
     with open(theme_path, "r") as theme_file:
