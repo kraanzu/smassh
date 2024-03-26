@@ -1,6 +1,4 @@
 import click
-from smassh.src.plugins.add_language import AddLanguage
-from smassh.ui.tui import Smassh
 
 PKG_VERSION = "3.1.3"
 
@@ -21,12 +19,16 @@ def main(ctx, version: bool) -> None:
         return print(f"smassh - v{PKG_VERSION}")
 
     if ctx.invoked_subcommand is None:
+        from smassh.ui.tui import Smassh
+
         Smassh().run()
 
 
 @main.command(help="Add a language to smassh")
 @click.argument("name")
 def add(name: str) -> None:
+    from smassh.src.plugins.add_language import AddLanguage
+
     AddLanguage().add(name)
 
 
