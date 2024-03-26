@@ -1,4 +1,17 @@
+from appdirs import user_cache_dir
 from pathlib import Path
+
+TARGET_FOLDER = Path(user_cache_dir("smassh"))
+TARGET_FILE = TARGET_FOLDER / "styles.tcss"
+
+
+def write_css_file(theme_css: str, base_css: str) -> None:
+    if not TARGET_FILE.exists():
+        TARGET_FOLDER.mkdir(parents=True, exist_ok=True)
+
+    with open(TARGET_FILE, "w") as target:
+        target.write(theme_css)
+        target.write(base_css)
 
 
 def generate_theme_file(theme: str) -> None:
@@ -14,7 +27,6 @@ def generate_theme_file(theme: str) -> None:
 
     base_path = css_folder / "base.css"
     theme_path = themes_folder / f"{theme}.tcss"
-    target_file = css_folder / "styles.tcss"
 
     with open(theme_path, "r") as theme_file:
         theme_css = theme_file.read()
@@ -22,6 +34,4 @@ def generate_theme_file(theme: str) -> None:
     with open(base_path, "r") as base_file:
         base_css = base_file.read()
 
-    with open(target_file, "w") as target:
-        target.write(theme_css)
-        target.write(base_css)
+    write_css_file(theme_css, base_css)

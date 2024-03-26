@@ -8,7 +8,7 @@ from smassh.ui.widgets import *  # noqa
 from smassh.ui.screens import *  # noqa
 from smassh.ui.widgets.palette.palette_list import ApplyLanguage, ApplyTheme
 from smassh.ui.widgets.palette import LanguagePalette, ThemePalette
-from smassh.src import config_parser, generate_theme_file, data_parser
+from smassh.src import config_parser, generate_theme_file, data_parser, TARGET_FILE
 from smassh.ui.widgets import Space, Ticker
 from smassh.ui.screens.confirm import ConfirmScreen
 
@@ -77,7 +77,7 @@ class MainScreen(Screen):
 
 
 class Smassh(App):
-    CSS_PATH = "css/styles.tcss"
+    CSS_PATH = str(TARGET_FILE)
     SCREENS = {
         "main": MainScreen(),
         "theme": ThemePaletteScreen(),
