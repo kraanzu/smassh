@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Fixed
 - Crash for python build as root user
+- Temp style/tcss files are now stored in cache dir instead of project\
+This can be viewed using this command
+
+```bash
+python -c "import appdirs; print(appdirs.user_cache_dir('smassh'))"
+```
 
 ## 3.1.2
 
