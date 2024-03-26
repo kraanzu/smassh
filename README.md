@@ -30,7 +30,7 @@ pip install smassh
 ## Using AUR 📦
 
 ```
-yay -S smassh
+yay -S smassh-bin
 ```
 
 ### Executable binary 🔌
