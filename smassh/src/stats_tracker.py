@@ -108,7 +108,13 @@ class StatsTracker:
 
     @property
     def accuracy(self) -> int:
-        accuracy = (self.correct / (self.correct + self.incorrect)) * 100
+        total_typed = self.correct + self.incorrect
+
+        if total_typed == 0:
+            return 0
+
+        accuracy = (self.correct / total_typed) * 100
+
         return round(accuracy)
 
     @property
