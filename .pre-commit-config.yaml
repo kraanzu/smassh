@@ -8,9 +8,9 @@ repos:
         types: [python]
         require_serial: true
 
-    -   id: ruff
-        name: ruff
-        entry: ruff
-        language: system
-        types: [python]
-        require_serial: true
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.5.2
+  hooks:
+    - id: ruff
+      args: [ --fix ]
+    - id: ruff-format
