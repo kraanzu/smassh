@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "smassh"
-version = "3.1.3"
+version = "3.1.4"
 description = "A TUI based typing application"
 maintainers = ["kraanzu <kraanzu@gmail.com>"]
 license = "GPL v3"
