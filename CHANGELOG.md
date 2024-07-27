@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Fixed
 
-- ZeroDivisionError by @eklairs (closes #86)
-- Indication for incorrect space (closes #90)
+- ZeroDivisionError by @eklairs (closes https://github.com/kraanzu/smassh/issues/86)
+- Indication for incorrect space (closes https://github.com/kraanzu/smassh/issues/90)
 
 ## 3.1.3
 
