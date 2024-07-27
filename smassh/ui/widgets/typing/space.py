@@ -97,6 +97,29 @@ def blind_mode(func):
     return wrapper
 
 
+def incorrect_spaces(func):
+    INCORRECT_SPACE_CHARACTER = "░"
+
+    def wrapper(space: "Space") -> RenderableType:
+        text: Text = func(space)
+        incorrect_style = space.get_match_style(False)
+
+        plain_text = text.plain
+
+        for span in text.spans:
+            if span.style == incorrect_style and plain_text[span.start] == " ":
+                plain_text = (
+                    plain_text[: span.start]
+                    + INCORRECT_SPACE_CHARACTER
+                    + plain_text[span.end :]
+                )
+
+        text.plain = plain_text
+        return text
+
+    return wrapper
+
+
 class Space(Static):
     """
     Space Widget to handle keypress and display typing text
@@ -198,6 +221,7 @@ class Space(Static):
 
     @cursor_buddy
     @caret
+    @incorrect_spaces
     def render(self) -> RenderableType:
         self.paragraph.spans = self.get_colorized()
         return self.paragraph
