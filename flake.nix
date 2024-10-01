@@ -48,7 +48,7 @@
 
         # Deps: Devshell
         devShell = pkgs.mkShell {
-          name = "dooit";
+          name = "smassh";
           buildInputs =
             mainPkgs
             ++ (with python3; [
