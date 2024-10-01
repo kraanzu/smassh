@@ -101,14 +101,14 @@ class Smassh(App):
     @on(ApplyLanguage)
     def apply_language(self, event: ApplyLanguage) -> None:
         config_parser.set("language", event.value)
-        self.SCREENS["main"].query_one(LanguagePalette).refresh()
-        self.SCREENS["main"].query_one(Space).reset()
+        self.app.get_screen("main").query_one(LanguagePalette).refresh()
+        self.app.get_screen("main").query_one(Space).reset()
 
     @on(ApplyTheme)
     def apply_theme(self, event: ApplyTheme) -> None:
         self.action_theme(event.value)
         config_parser.set("theme", event.value)
-        self.SCREENS["main"].query_one(ThemePalette).refresh()
+        self.app.get_screen("main").query_one(ThemePalette).refresh()
 
     def action_star(self) -> None:
         webbrowser.open("https://github.com/kraanzu/smassh")
