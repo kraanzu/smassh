@@ -66,7 +66,7 @@ class PaletteList(OptionList, can_focus=False):
         valid_options = filter(valid_option, self.get_options())
         self.add_options(valid_options)
 
-    async def on_mount(self, _) -> None:
+    def on_mount(self) -> None:
         self.apply_filter("")
         options = sorted(self._get_options())
         index = options.index(self.get_current())
