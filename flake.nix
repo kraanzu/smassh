@@ -35,13 +35,13 @@
             poetry
           ];
 
+          propagatedBuildInputs = mainPkgs;
+
           pythonRelaxDeps = [
             "textual"
             "tzlocal"
             "platformdirs"
           ];
-
-          buildInputs = mainPkgs;
 
           doCheck = false;  # no tests
         };
