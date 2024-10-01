@@ -19,9 +19,9 @@ click = "^8.1.7"
 requests = "^2.31.0"
 
 platformdirs = "^4.3.6"
+ruff = "^0.6.8"
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^2.17.0"
-ruff = "^0.1.5"
 textual-dev = "^1.6.1"
 
 [build-system]
