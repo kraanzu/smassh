@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## 3.1.5
+
+This release does not change any functionalities, just bumps the underlying tui and fixes all breaking changes
 
 ## 3.1.4
 
@@ -20,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 This can be viewed using this command
 
 ```bash
-python -c "import appdirs; print(appdirs.user_cache_dir('smassh'))"
+python -c "import platformdirs; print(platformdirs.user_cache_dir('smassh'))"
 ```
 
 ## 3.1.2

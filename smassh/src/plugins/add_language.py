@@ -1,10 +1,10 @@
 from rich import print
 import requests
-import appdirs
+import platformdirs
 from typing import Optional
 from pathlib import Path
 
-LANGUAGE_PACK_DIR = Path(appdirs.user_data_dir("smassh")) / "languages"
+LANGUAGE_PACK_DIR = Path(platformdirs.user_data_dir("smassh")) / "languages"
 
 
 class AddLanguage:

@@ -68,7 +68,6 @@ class SettingsScreen(BaseWindow):
         raise ValueError(f"Setting {setting} not found in menu")
 
     def compose(self) -> ComposeResult:
-
         with SettingGrid():
             with SettingStrip():
                 yield Bracket("left")

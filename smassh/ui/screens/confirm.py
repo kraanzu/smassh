@@ -51,7 +51,6 @@ class MessageBox(Widget):
 
 
 class MessageDialogue(Widget):
-
     DEFAULT_CSS = """
     MessageDialogue {
         layout: grid;

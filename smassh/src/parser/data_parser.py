@@ -3,7 +3,7 @@ from typing import Any, Dict, List
 from .parser import Parser
 from smassh.src.stats_tracker import StatsTracker
 from smassh.src.parser.config_parser import config_parser
-import appdirs
+import platformdirs
 
 
 class DataParser(Parser):
@@ -11,7 +11,7 @@ class DataParser(Parser):
     Inherited from `Parser` class to manage user data
     """
 
-    config_path = Path(appdirs.user_data_dir("smassh"))
+    config_path = Path(platformdirs.user_data_dir("smassh"))
     lang_path = config_path / "languages"
     DEFAULT_CONFIG = dict(data=[])
 
