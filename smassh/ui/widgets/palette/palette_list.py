@@ -55,7 +55,6 @@ class PaletteList(OptionList, can_focus=False):
         raise NotImplementedError
 
     def apply_filter(self, filter_text: str) -> None:
-
         def valid_option(option_text: str) -> bool:
             if not filter_text:
                 return True

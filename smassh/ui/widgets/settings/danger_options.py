@@ -4,7 +4,6 @@ from .option import BaseOption, Confirm
 
 class ResetConfig(Confirm):
     def __init__(self) -> None:
-
         def callback():
             config_parser.reset()
             for setting in self.screen.query(BaseOption):

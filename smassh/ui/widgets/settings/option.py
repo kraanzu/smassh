@@ -80,7 +80,6 @@ class ConfirmLabel(Label):
 
 
 class Confirm(BaseOption):
-
     def __init__(
         self,
         setting_name: str,
