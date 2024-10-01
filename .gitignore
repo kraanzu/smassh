@@ -1,6 +1,9 @@
 # tests folder
 *map
 
+# nix
+result
+
 # extras
 backport/
 main.py
