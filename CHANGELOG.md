@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 This can be viewed using this command
 
 ```bash
-python -c "import appdirs; print(appdirs.user_cache_dir('smassh'))"
+python -c "import platformdirs; print(platformdirs.user_cache_dir('smassh'))"
 ```
 
 ## 3.1.2

@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import List
 from .parser import Parser
-import appdirs
+import platformdirs
 
 DEFAULTS = {
     "difficulty": "normal",
@@ -32,7 +32,8 @@ class ConfigParser(Parser):
     """
 
     _root_dir = Path(__file__).parent.parent.parent
-    config_path = Path(appdirs.user_config_dir("smassh"))
+    config_path = Path(platformdirs.user_config_dir("smassh"))
+
     DEFAULT_CONFIG = DEFAULTS
 
     @property
