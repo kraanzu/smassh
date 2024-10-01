@@ -33,4 +33,4 @@ smassh = 'smassh.__main__:main'
 
 [tool.ruff]
 exclude = ["venv"]
-ignore = ["F405"]
+lint.ignore = ["F405"]
