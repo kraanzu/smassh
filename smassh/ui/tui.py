@@ -70,19 +70,21 @@ class MainScreen(Screen):
 
         data_parser.add_stats(event.stats, event.failed)
 
-    async def handle_key(self, event: events.Key) -> None:
+    async def handle_key(self, event: events.Key) -> bool:
         visible = self.query_one(ContentSwitcher).visible_content
         if visible:
             await visible.handle_key(event)
+
+        return True
 
 
 class Smassh(App):
     CSS_PATH = str(TARGET_FILE)
     SCREENS = {
-        "main": MainScreen(),
-        "theme": ThemePaletteScreen(),
-        "language": LanguagePaletteScreen(),
-        "confirm": ConfirmScreen(),
+        "main": MainScreen,
+        "theme": ThemePaletteScreen,
+        "language": LanguagePaletteScreen,
+        "confirm": ConfirmScreen,
     }
 
     def __init__(self, *args, **kwargs) -> None:
