@@ -14,7 +14,7 @@ exclude = [
 
 [tool.poetry.dependencies]
 python = "^3.8.1"
-textual = "^0.81.0"
+textual = "^3.2.0"
 click = "^8.1.7"
 requests = "^2.31.0"
 platformdirs = "^4.3.6"
