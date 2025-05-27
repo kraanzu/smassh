@@ -1178,21 +1178,21 @@ syntax = ["tree-sitter (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-bas
 
 [[package]]
 name = "textual-dev"
-version = "1.6.1"
+version = "1.7.0"
 description = "Development tools for working with Textual"
 optional = false
-python-versions = "<4.0,>=3.8"
+python-versions = "<4.0.0,>=3.8.1"
 groups = ["dev"]
 files = [
-    {file = "textual_dev-1.6.1-py3-none-any.whl", hash = "sha256:de93279da6dd0772be88a83e494be1bc895df0a0c3e47bcd48fa1acb1a83a34b"},
-    {file = "textual_dev-1.6.1.tar.gz", hash = "sha256:0d0d4523a09566bae56eb9ebc4fcbb09069d0f335448e6b9b10dd2d805606bd8"},
+    {file = "textual_dev-1.7.0-py3-none-any.whl", hash = "sha256:a93a846aeb6a06edb7808504d9c301565f7f4bf2e7046d56583ed755af356c8d"},
+    {file = "textual_dev-1.7.0.tar.gz", hash = "sha256:bf1a50eaaff4cd6a863535dd53f06dbbd62617c371604f66f56de3908220ccd5"},
 ]
 
 [package.dependencies]
 aiohttp = ">=3.8.1"
 click = ">=8.1.2"
 msgpack = ">=1.0.3"
-textual = ">=0.36.0"
+textual = ">=0.86.2"
 textual_serve = ">=1.0.3"
 typing-extensions = ">=4.4.0,<5.0.0"
 
