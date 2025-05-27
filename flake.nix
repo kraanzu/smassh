@@ -12,7 +12,7 @@
     flake-utils.lib.eachDefaultSystem (
       system: let
         name = "smassh";
-        version = "3.1.6";
+        version = "3.1.7";
 
         pkgs = import nixpkgs {inherit system;};
         python3 = pkgs.python312Packages;
