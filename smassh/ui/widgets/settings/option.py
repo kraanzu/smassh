@@ -33,7 +33,7 @@ class BaseOption(Widget):
         if self._callback:
             return self._callback()
 
-        return self.app.query_one(Space).reset()
+        return self.screen.query_one(Space).reset()
 
     @property
     def value(self) -> str:
