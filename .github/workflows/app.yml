@@ -3,7 +3,7 @@ name: Python application
 on:
   workflow_dispatch:
   release:
-    types: [published]
+    types: [published, prereleased, released]
 
 permissions:
   contents: write
@@ -16,10 +16,10 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Python 3.10
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
