@@ -60,7 +60,7 @@ jobs:
         run: cp ./dist/${{ env.BINARY_FILE_NAME }} ./dist/${{ env.FINAL_FILE_NAME }}
 
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.FINAL_FILE_NAME }}
           path: ./dist/${{ env.BINARY_FILE_NAME }}
