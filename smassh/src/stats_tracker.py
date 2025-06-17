@@ -101,10 +101,8 @@ class StatsTracker:
 
     @property
     def raw_wpm(self) -> int:
-        # TODO: Better formula because this is not accurate
-
         time_taken = self.elapsed_time / 60
-        return round(self.word_count / time_taken)
+        return int(self.word_count / time_taken)
 
     @property
     def accuracy(self) -> int:
@@ -115,11 +113,11 @@ class StatsTracker:
 
         accuracy = (self.correct / total_typed) * 100
 
-        return round(accuracy)
+        return int(accuracy)
 
     @property
     def wpm(self) -> int:
-        return round(self.raw_wpm * (self.accuracy / 100))
+        return int(self.raw_wpm * (self.accuracy / 100))
 
     @property
     def correct(self) -> int:
@@ -150,11 +148,6 @@ class StatsTracker:
     def add_checkpoint(self, checkpoint: CheckPoint) -> None:
         if not self.start_time:
             self.start_time = time()
-
-        if checkpoint.correct == Match.BACKSPACE:
-            diff = self.checkpoints[-1].position - checkpoint.position
-            self.checkpoints = self.checkpoints[:-diff]
-            return
 
         elapsed = time() - self.start_time
         checkpoint.add_elapsed(elapsed)
