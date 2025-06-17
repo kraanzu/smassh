@@ -4,17 +4,19 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
-  outputs = {
-    self,
-    nixpkgs,
-    flake-utils,
-  }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
     flake-utils.lib.eachDefaultSystem (
-      system: let
+      system:
+      let
         name = "smassh";
-        version = "3.1.7";
+        version = "3.1.8";
 
-        pkgs = import nixpkgs {inherit system;};
+        pkgs = import nixpkgs { inherit system; };
         python3 = pkgs.python312Packages;
 
         mainPkgs = with python3; [
@@ -24,7 +26,8 @@
           platformdirs
           requests
         ];
-      in {
+      in
+      {
         packages.default = python3.buildPythonPackage {
           pname = name;
           version = version;
@@ -43,7 +46,7 @@
             "platformdirs"
           ];
 
-          doCheck = false;  # no tests
+          doCheck = false; # no tests
         };
 
         # Deps: Devshell
