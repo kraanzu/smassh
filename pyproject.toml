@@ -1,33 +1,39 @@
-[tool.poetry]
+[project]
 name = "smassh"
 version = "3.1.8"
 description = "A TUI based typing application"
-maintainers = ["kraanzu <kraanzu@gmail.com>"]
-license = "GPL v3"
 readme = "README.md"
-homepage = "https://github.com/kraanzu/smassh"
-repository = "https://github.com/kraanzu/smassh"
-authors = ["kraanzu <kraanzu@gmail.com>"]
-exclude = ["imgs"]
+license = { text = "GPL v3" }
+authors = [{ name = "kraanzu", email = "kraanzu@gmail.com" }]
+maintainers = [{ name = "kraanzu", email = "kraanzu@gmail.com" }]
+requires-python = ">=3.9"
+dependencies = [
+    "textual>=3.2.0",
+    "click>=8.1.7",
+    "requests>=2.31.0",
+    "platformdirs>=4.3.6",
+]
 
-[tool.poetry.dependencies]
-python = "^3.8.1"
-textual = "^3.2.0"
-click = "^8.1.7"
-requests = "^2.31.0"
-platformdirs = "^4.3.6"
+[project.urls]
+Homepage = "https://github.com/kraanzu/smassh"
+Repository = "https://github.com/kraanzu/smassh"
 
-[tool.poetry.group.dev.dependencies]
-pre-commit = "^2.17.0"
-textual-dev = "^1.6.1"
-ruff = "^0.6.8"
+[project.scripts]
+smassh = "smassh.__main__:main"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=2.17.0",
+    "textual-dev>=1.6.1",
+    "ruff>=0.6.8",
+]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry.scripts]
-smassh = 'smassh.__main__:main'
+[tool.hatch.build.targets.wheel]
+packages = ["smassh"]
 
 [tool.ruff]
 exclude = ["venv"]
