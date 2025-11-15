@@ -1,5 +1,5 @@
 GENERAL_KEYBINDS = [
-    ("ctrl+c", "Quit App"),
+    ("ctrl+q", "Quit App"),
     ("ctrl+s", "Open Settings"),
 ]
 
