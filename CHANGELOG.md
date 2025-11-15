@@ -5,11 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 3.2.1
+
+### Added
+
+- Ability to add custom themes (#102)
+
 ### 3.1.8
 
 - Fix inaccurate accuracy calculation after the incorrect letters were fixed (#99)
 
-### 3.1.7
+## 3.1.7
 
 This release does not change any functionalities, just bumps the underlying tui and fixes upstream nixpkgs
 
