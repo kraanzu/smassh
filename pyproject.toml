@@ -1,6 +1,6 @@
 [project]
 name = "smassh"
-version = "3.1.8"
+version = "3.2.1"
 description = "A TUI based typing application"
 readme = "README.md"
 license = { text = "GPL v3" }
