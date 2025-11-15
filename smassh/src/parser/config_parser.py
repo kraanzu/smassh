@@ -1,7 +1,9 @@
 from pathlib import Path
 from typing import List
-from .parser import Parser
+
 import platformdirs
+
+from .parser import Parser
 
 DEFAULTS = {
     "difficulty": "normal",
@@ -51,11 +53,17 @@ class ConfigParser(Parser):
 
     @property
     def configured_themes(self) -> List[str]:
+        all_themes = []
+
         themes_dir = self._root_dir / "ui" / "css" / "themes"
+        all_themes.extend(themes_dir.iterdir())
+
+        user_themes_dir = self.config_path / "themes"
+        if user_themes_dir.exists():
+            all_themes.extend(user_themes_dir.iterdir())
+
         themes = [
-            file_obj.stem
-            for file_obj in themes_dir.iterdir()
-            if file_obj.suffix == ".tcss"
+            file_obj.stem for file_obj in all_themes if file_obj.suffix == ".tcss"
         ]
         return themes
 
