@@ -1,5 +1,6 @@
-from platformdirs import user_cache_dir
 from pathlib import Path
+
+from platformdirs import user_cache_dir, user_config_dir
 
 TARGET_FOLDER = Path(user_cache_dir("smassh"))
 TARGET_FILE = TARGET_FOLDER / "styles.tcss"
@@ -21,17 +22,24 @@ def generate_theme_file(theme: str) -> None:
     Args:
         theme (str): theme name
     """
-
     css_folder = Path.absolute(Path(__file__).parent.parent) / "ui" / "css"
-    themes_folder = css_folder / "themes"
-
     base_path = css_folder / "base.tcss"
-    theme_path = themes_folder / f"{theme}.tcss"
-
-    with open(theme_path, "r") as theme_file:
-        theme_css = theme_file.read()
-
     with open(base_path, "r") as base_file:
         base_css = base_file.read()
+
+    def get_theme_path():
+        user_themes_folder = Path(user_config_dir("smassh")) / "themes"
+        user_theme_path = user_themes_folder / f"{theme}.tcss"
+
+        if user_theme_path.exists():
+            return user_theme_path
+
+        base_themes_folder = css_folder / "themes"
+        base_theme_path = base_themes_folder / f"{theme}.tcss"
+
+        return base_theme_path
+
+    with open(get_theme_path(), "r") as theme_file:
+        theme_css = theme_file.read()
 
     write_css_file(theme_css, base_css)
