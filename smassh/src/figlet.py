@@ -145,10 +145,14 @@ FigletType = List[str]
 
 def combine_figlets(figlets: List[FigletType]) -> str:
     res = []
-    for line in range(3):
+    max_lines = max((len(f) for f in figlets), default=0)
+    for line in range(max_lines):
         temp = ""
         for figlet in figlets:
-            temp += figlet[line]
+            if line < len(figlet):
+                temp += figlet[line]
+            else:
+                temp += " "
 
         res.append(temp)
 
