@@ -24,9 +24,12 @@ class DataParser(Parser):
             self.lang_path.mkdir(parents=True, exist_ok=True)
 
         if not english_path.exists():
-            from smassh.src.plugins.add_language import AddLanguage
+            import shutil
+            from importlib.resources import as_file, files
 
-            AddLanguage(silent=True).add("english")
+            bundled = files("smassh.data.languages").joinpath("english.json")
+            with as_file(bundled) as src:
+                shutil.copy(src, english_path)
 
     def generate_report(self, stats: StatsTracker) -> Dict[str, Any]:
         mode = config_parser.get("mode")
