@@ -105,13 +105,23 @@ class StatsTracker:
         return int(self.word_count / time_taken)
 
     @property
-    def accuracy(self) -> int:
-        total_typed = self.correct + self.incorrect
+    def total_keystrokes(self) -> int:
+        """Count all keystrokes including backspaces and mistakes."""
+        return len(self.checkpoints)
 
-        if total_typed == 0:
+    @property
+    def accuracy(self) -> int:
+        """Calculate accuracy based on all keystrokes, not just final state.
+
+        This matches the behavior of monkeytype, typeracer, etc. -
+        mistakes count even if they were corrected.
+        """
+        total = self.total_keystrokes
+
+        if total == 0:
             return 0
 
-        accuracy = (self.correct / total_typed) * 100
+        accuracy = (self.correct / total) * 100
 
         return int(accuracy)
 
