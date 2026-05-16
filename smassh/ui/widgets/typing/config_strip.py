@@ -2,7 +2,7 @@ from typing import Literal, Optional
 from rich.console import RenderableType
 from textual.app import ComposeResult
 from textual.widget import Widget
-from smassh.src import config_parser
+from smassh.src import settings
 from smassh.ui.widgets.typing.space import Space
 
 
@@ -45,7 +45,7 @@ class Switchable(TypingStripItem):
         self.refresh_setting()
 
     def refresh_setting(self) -> None:
-        self.set_class(config_parser.get(self.setting_name), "enabled")
+        self.set_class(settings.get(self.setting_name), "enabled")
 
     def _toggle(self) -> None: ...
 
@@ -67,7 +67,7 @@ class PunctuationSwitch(Switchable):
     setting_icon = "󰸥"
 
     def _toggle(self) -> None:
-        config_parser.toggle_punctuations()
+        settings.toggle_punctuations()
 
 
 class NumberSwitch(Switchable):
@@ -75,7 +75,7 @@ class NumberSwitch(Switchable):
     setting_icon = "󰲰"
 
     def _toggle(self) -> None:
-        config_parser.toggle_numbers()
+        settings.toggle_numbers()
 
 
 class WordMode(Switchable):
@@ -87,12 +87,12 @@ class WordMode(Switchable):
             counts.refresh()
 
     def _toggle(self) -> None:
-        config_parser.toggle_mode()
+        settings.toggle_mode()
         self._refresh_mode_count()
         self.screen.query_one(TimeMode).refresh_setting()
 
     def refresh_setting(self) -> None:
-        configured_mode = config_parser.get("mode")
+        configured_mode = settings.get("mode")
         self.set_class(configured_mode == "words", "enabled")
 
 
@@ -105,12 +105,12 @@ class TimeMode(Switchable):
             counts.refresh()
 
     def _toggle(self) -> None:
-        config_parser.toggle_mode()
+        settings.toggle_mode()
         self._refresh_mode_count()
         self.screen.query_one(WordMode).refresh_setting()
 
     def refresh_setting(self) -> None:
-        configured_mode = config_parser.get("mode")
+        configured_mode = settings.get("mode")
         self.set_class(configured_mode == "time", "enabled")
 
 
@@ -131,13 +131,13 @@ class ModeCount(Widget):
             counts.refresh()
 
     def on_click(self) -> None:
-        config_parser.set(f"{config_parser.get('mode')}_count", self.value)
+        settings.set(f"{settings.get('mode')}_count", self.value)
         self._refresh_other_counts()
         self.screen.query_one(Space).reset()
 
     def render(self) -> RenderableType:
-        mode = config_parser.get("mode")
-        count = config_parser.get(f"{mode}_count")
+        mode = settings.get("mode")
+        count = settings.get(f"{mode}_count")
         self.set_class(count == self.value, "enabled")
         return str(self.value) + " "
 

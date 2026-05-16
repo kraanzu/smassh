@@ -4,7 +4,7 @@ from json import load
 from itertools import accumulate
 from collections.abc import Callable
 from typing import List
-from smassh.src.parser import config_parser
+from smassh.src.parser import settings
 from random import randint, choice, sample
 
 
@@ -16,7 +16,7 @@ def numbers(func: GeneratorFunc) -> GeneratorFunc:
     def wrapper(*args, **kwargs):
         paragraph = func(*args, **kwargs)
 
-        if not config_parser.get("numbers"):
+        if not settings.get("numbers"):
             return paragraph
 
         words = paragraph.split()
@@ -38,7 +38,7 @@ def punctuations(func: GeneratorFunc) -> GeneratorFunc:
     def wrapper(*args, **kwargs):
         paragraph = func(*args, **kwargs)
 
-        if not config_parser.get("punctuations"):
+        if not settings.get("punctuations"):
             return paragraph
 
         words = paragraph.split()
@@ -66,11 +66,11 @@ def capitalization(func: GeneratorFunc) -> GeneratorFunc:
     def wrapper(*args, **kwargs):
         paragraph = func(*args, **kwargs)
 
-        if config_parser.get("capitalization_mode") == "off":
+        if settings.get("capitalization_mode") == "off":
             return paragraph
 
         def convert(word: str) -> str:
-            if config_parser.get("capitalization_mode") == "on":
+            if settings.get("capitalization_mode") == "on":
                 return word[0].upper() + word[1:]
 
             return "".join([i.upper() if randint(0, 1) else i for i in word])

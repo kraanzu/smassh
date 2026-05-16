@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Any, Dict, List
 from .parser import Parser
 from smassh.src.stats_tracker import StatsTracker
-from smassh.src.parser.config_parser import config_parser
+from smassh.src.parser.config_parser import settings
 import platformdirs
 
 
@@ -32,8 +32,8 @@ class DataParser(Parser):
                 shutil.copy(src, english_path)
 
     def generate_report(self, stats: StatsTracker) -> Dict[str, Any]:
-        mode = config_parser.get("mode")
-        count = config_parser.get(f"{mode}_count")
+        mode = settings.get("mode")
+        count = settings.get(f"{mode}_count")
         start = stats.start_time or 0
         end = stats.end_time or 0
         elapsed = end - start
@@ -54,8 +54,8 @@ class DataParser(Parser):
         self.save()
 
     def current_mode_tests(self) -> List[Dict]:
-        mode = config_parser.get("mode")
-        count = config_parser.get(f"{mode}_count")
+        mode = settings.get("mode")
+        count = settings.get(f"{mode}_count")
 
         def same_mode(test: Dict):
             return test["mode"] == mode and count == test["count"]

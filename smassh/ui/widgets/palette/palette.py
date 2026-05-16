@@ -1,5 +1,5 @@
 from rich.console import RenderableType
-from smassh.src import config_parser
+from smassh.src import settings
 from textual.widget import Widget
 
 
@@ -22,7 +22,7 @@ class Palette(Widget):
 
     @property
     def current(self) -> str:
-        return config_parser.get(self.config_name)
+        return settings.get(self.config_name)
 
     async def on_click(self, _) -> None:
         await self.app.push_screen(self.screen_name)

@@ -2,7 +2,7 @@ from functools import cache
 from typing import List, Type
 from textual.message import Message
 from textual.widgets import OptionList
-from smassh.src import config_parser
+from smassh.src import settings
 
 
 class PaletteOptionHighlighted(Message):
@@ -77,17 +77,17 @@ class LanguagePaletteList(PaletteList):
     _highlight_event = ApplyLanguage
 
     def _get_options(self) -> List[str]:
-        return config_parser.configured_languages
+        return settings.configured_languages
 
     def get_current(self) -> str:
-        return config_parser.get("language")
+        return settings.get("language")
 
 
 class ThemePaletteList(PaletteList):
     _highlight_event = ApplyTheme
 
     def _get_options(self) -> List[str]:
-        return config_parser.configured_themes
+        return settings.configured_themes
 
     def get_current(self) -> None:
-        return config_parser.get("theme")
+        return settings.get("theme")

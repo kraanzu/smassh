@@ -8,7 +8,7 @@ from smassh.ui.widgets import *  # noqa
 from smassh.ui.screens import *  # noqa
 from smassh.ui.widgets.palette.palette_list import ApplyLanguage, ApplyTheme
 from smassh.ui.widgets.palette import LanguagePalette, ThemePalette
-from smassh.src import config_parser, generate_theme_file, data_parser, TARGET_FILE
+from smassh.src import settings, generate_theme_file, data_parser, TARGET_FILE
 from smassh.ui.widgets import Space, Ticker
 from smassh.ui.screens.confirm import ConfirmScreen
 
@@ -88,7 +88,7 @@ class Smassh(App):
     }
 
     def __init__(self, *args, **kwargs) -> None:
-        self.action_theme(config_parser.get("theme"))
+        self.action_theme(settings.get("theme"))
         super().__init__(*args, **kwargs, watch_css=True)
 
     async def _on_css_change(self) -> None:
@@ -100,14 +100,14 @@ class Smassh(App):
 
     @on(ApplyLanguage)
     def apply_language(self, event: ApplyLanguage) -> None:
-        config_parser.set("language", event.value)
+        settings.set("language", event.value)
         self.app.get_screen("main").query_one(LanguagePalette).refresh()
         self.app.get_screen("main").query_one(Space).reset()
 
     @on(ApplyTheme)
     def apply_theme(self, event: ApplyTheme) -> None:
         self.action_theme(event.value)
-        config_parser.set("theme", event.value)
+        settings.set("theme", event.value)
         self.app.get_screen("main").query_one(ThemePalette).refresh()
 
     def action_star(self) -> None:

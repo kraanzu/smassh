@@ -4,7 +4,7 @@ from rich.text import Text
 from textual.app import ComposeResult
 from textual.widget import Widget
 from textual.widgets import Label
-from smassh.src import config_parser
+from smassh.src import settings
 from smassh.ui.widgets.typing.space import Space
 
 
@@ -60,7 +60,7 @@ class BaseOption(Widget):
         self.save()
 
     def save(self) -> None:
-        config_parser.set(self.setting_name, self.value)
+        settings.set(self.setting_name, self.value)
         self.callback()
 
     def load_current_setting(self) -> None:
@@ -154,7 +154,7 @@ class Option(BaseOption):
         super().__init__(setting_name, callback)
 
     def load_current_setting(self) -> None:
-        setting = config_parser.get(self.setting_name)
+        setting = settings.get(self.setting_name)
         if isinstance(setting, bool):
             setting = ["off", "on"][setting]
 
@@ -205,7 +205,7 @@ class NumberScroll(BaseOption):
         return self._value
 
     def load_current_setting(self) -> None:
-        value = config_parser.get(self.setting_name)
+        value = settings.get(self.setting_name)
         self._value = value
 
     def _select_next_option(self) -> None:

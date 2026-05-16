@@ -1,13 +1,15 @@
 from bisect import bisect_right
 from typing import List
+
 from rich.console import RenderableType
 from rich.style import Style
 from rich.text import Span, Text
 from textual.widget import Widget
 from textual.widgets import Static
-from smassh.src import master_generator, Tracker, Cursor
+
+from smassh.src import Cursor, Tracker, master_generator
 from smassh.src.buddy import Buddy
-from smassh.src.parser import config_parser
+from smassh.src.parser import settings
 from smassh.ui.events import ShowResults
 from smassh.ui.widgets.typing.ticker import Ticker
 
@@ -15,7 +17,7 @@ from smassh.ui.widgets.typing.ticker import Ticker
 def caret(func):
     def wrapper(space: "Space") -> Text:
         renderable: Text = func(space).copy()
-        setting = config_parser.get("caret_style")
+        setting = settings.get("caret_style")
         pos = space.tracker.cursor_pos
 
         if setting == "off" or pos == len(space.paragraph.plain):
@@ -36,7 +38,7 @@ def caret(func):
 
 def tab_reset(func):
     def wrapper(space: "Space", key: str) -> None:
-        if key == "tab" and config_parser.get("tab_reset"):
+        if key == "tab" and settings.get("tab_reset"):
             return space.restart()
 
         return func(space, key)
@@ -49,11 +51,11 @@ def toggle_settings(func):
         config_changed = False
 
         if key == "ctrl+n":
-            config_parser.toggle_numbers()
+            settings.toggle_numbers()
             config_changed = True
 
         elif key == "ctrl+p":
-            config_parser.toggle_punctuations()
+            settings.toggle_punctuations()
             config_changed = True
 
         if config_changed:
@@ -69,7 +71,7 @@ def toggle_settings(func):
 
 def cursor_buddy(func):
     def wrapper(space: "Space") -> RenderableType:
-        wpm = config_parser.get("cursor_buddy_speed")
+        wpm = settings.get("cursor_buddy_speed")
         res = func(space)
 
         if not wpm or not space.tracker.stats.start_time:
@@ -89,7 +91,7 @@ def cursor_buddy(func):
 
 def blind_mode(func):
     def wrapper(space: "Space", *args, **kwargs) -> Style:
-        if config_parser.get("blind_mode") == "on":
+        if settings.get("blind_mode") == "on":
             return space.get_component_rich_style("--blind-match")
 
         return func(space, *args, **kwargs)
@@ -139,7 +141,7 @@ class Space(Static):
         self.current_key = None
         self.reset()
         self.check_timer = self.set_interval(1, self.check_restrictions, pause=True)
-        if config_parser.get("cursor_buddy_speed"):
+        if settings.get("cursor_buddy_speed"):
             self.set_interval(0.1, self.refresh)
 
     # ---------------- UTILS -----------------
@@ -172,17 +174,17 @@ class Space(Static):
         if not self.tracker.stats.start_time or self.tracker.stats.elapsed_time < 1:
             return
 
-        if min_speed := config_parser.get("min_speed"):
+        if min_speed := settings.get("min_speed"):
             wpm = self.tracker.stats.wpm
             if wpm < min_speed:
                 return self.finish_typing()
 
-        if min_accuracy := config_parser.get("min_accuracy"):
+        if min_accuracy := settings.get("min_accuracy"):
             accuracy = self.tracker.stats.accuracy
             if accuracy < min_accuracy:
                 return self.finish_typing()
 
-        if min_burst := config_parser.get("min_burst"):
+        if min_burst := settings.get("min_burst"):
             burst = self.tracker.stats.last_word_wpm
             if burst < min_burst:
                 return self.finish_typing()
@@ -191,14 +193,14 @@ class Space(Static):
         self.screen.post_message(ShowResults(self.tracker.stats, fail))
 
     def reset(self) -> None:
-        mode = config_parser.get("mode")
+        mode = settings.get("mode")
         if mode == "words":
-            word_count = config_parser.get(f"{mode}_count")
+            word_count = settings.get(f"{mode}_count")
         else:
-            minutes = config_parser.get(f"{mode}_count") / 60
+            minutes = settings.get(f"{mode}_count") / 60
             word_count = round(600 * minutes)
 
-        language = config_parser.get("language")
+        language = settings.get("language")
 
         generated = master_generator.generate(
             language,

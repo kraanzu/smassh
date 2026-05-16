@@ -28,7 +28,7 @@ DEFAULTS = {
 }
 
 
-class ConfigParser(Parser):
+class SettingsParser(Parser):
     """
     Inherited from `Parser` class to manage config
     """
@@ -89,4 +89,4 @@ class ConfigParser(Parser):
         self.set("theme", theme)
 
 
-config_parser = ConfigParser()
+settings = SettingsParser()

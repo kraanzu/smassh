@@ -1,4 +1,4 @@
 from .data_parser import data_parser
-from .config_parser import config_parser
+from .config_parser import settings
 
-__all__ = ["data_parser", "config_parser"]
+__all__ = ["data_parser", "settings"]

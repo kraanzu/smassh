@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Callable, Optional
-from smassh.src.parser import config_parser
+from smassh.src.parser import settings
 from .stats_tracker import StatsTracker, CheckPoint, Match
 
 TrackerFunc = Callable[..., Optional["Cursor"]]
@@ -8,7 +8,7 @@ TrackerFunc = Callable[..., Optional["Cursor"]]
 
 def force_correct(func: TrackerFunc) -> TrackerFunc:
     def wrapper(tracker: "Tracker", key: str) -> Optional[Cursor]:
-        setting = config_parser.get("force_correct") == "on"
+        setting = settings.get("force_correct") == "on"
         if not setting or tracker.paragraph[tracker.cursor_pos] == key:
             return func(tracker, key)
 
@@ -17,7 +17,7 @@ def force_correct(func: TrackerFunc) -> TrackerFunc:
 
 def confidence_mode(func: TrackerFunc) -> TrackerFunc:
     def wrapper(tracker: "Tracker", *args, **kwargs) -> Optional[Cursor]:
-        setting = config_parser.get("confidence_mode")
+        setting = settings.get("confidence_mode")
         if setting == "max":
             return
 
@@ -36,7 +36,7 @@ def confidence_mode(func: TrackerFunc) -> TrackerFunc:
 
 def difficulty(func: TrackerFunc) -> TrackerFunc:
     def wrapper(tracker: "Tracker", key: str) -> Optional[Cursor]:
-        setting = config_parser.get("difficulty")
+        setting = settings.get("difficulty")
 
         if setting == "master" and tracker.paragraph[tracker.cursor_pos] != key:
             return
