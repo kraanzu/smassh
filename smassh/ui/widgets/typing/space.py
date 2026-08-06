@@ -166,9 +166,10 @@ class Space(Static):
         if force:
             generated = self.paragraph.plain
             self.paragraph = Text(generated)
-            self.reset_components()
         else:
             self.reset()
+
+        self.reset_components()
 
     def check_restrictions(self) -> None:
         if not self.tracker.stats.start_time or self.tracker.stats.elapsed_time < 1:
@@ -218,6 +219,9 @@ class Space(Static):
         if self.size.width:
             self.reset_newlines()
             self.screen.query_one(Ticker).reset()
+
+        if isinstance(self.parent, Widget):
+            self.parent.scroll_home(animate=False, immediate=True)
 
         self.refresh(layout=True)
 
