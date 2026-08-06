@@ -1,4 +1,3 @@
-from typing import Optional
 from textual.app import events
 from textual.widget import Widget
 from smassh.ui.events import SetScreen
@@ -18,6 +17,7 @@ class BaseWindow(Widget):
     }
     """
 
-    async def handle_key(self, event: events.Key) -> Optional[bool]:
+    async def handle_key(self, event: events.Key) -> bool:
         if event.key == "escape":
             return self.post_message(SetScreen("typing"))
+        return False
