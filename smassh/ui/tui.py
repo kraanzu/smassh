@@ -1,16 +1,19 @@
 import webbrowser
+from typing import ClassVar
+
 from textual import on
 from textual.app import App, ComposeResult, events
 from textual.screen import Screen
 from textual.widgets import ContentSwitcher
+
+from smassh.src import TARGET_FILE, config_parser, data_parser, generate_theme_file
 from smassh.ui.events import SetScreen, ShowResults
-from smassh.ui.widgets import *  # noqa
-from smassh.ui.screens import *  # noqa
-from smassh.ui.widgets.palette.palette_list import ApplyLanguage, ApplyTheme
-from smassh.ui.widgets.palette import LanguagePalette, ThemePalette
-from smassh.src import config_parser, generate_theme_file, data_parser, TARGET_FILE
-from smassh.ui.widgets import Space, Ticker
+from smassh.ui.screens import *
 from smassh.ui.screens.confirm import ConfirmScreen
+from smassh.ui.widgets import *
+from smassh.ui.widgets import Space, Ticker
+from smassh.ui.widgets.palette import LanguagePalette, ThemePalette
+from smassh.ui.widgets.palette.palette_list import ApplyLanguage, ApplyTheme
 
 
 class MainScreen(Screen):
@@ -77,10 +80,15 @@ class MainScreen(Screen):
 
         return True
 
+    async def on_paste(self, event: events.Paste) -> None:
+        visible = self.query_one(ContentSwitcher).visible_content
+        if visible and hasattr(visible, "handle_paste"):
+            await visible.handle_paste(event)
+
 
 class Smassh(App):
     CSS_PATH = str(TARGET_FILE)
-    SCREENS = {
+    SCREENS: ClassVar[dict[str, type[Screen]]] = {
         "main": MainScreen,
         "theme": ThemePaletteScreen,
         "language": LanguagePaletteScreen,
