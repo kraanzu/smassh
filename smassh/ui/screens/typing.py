@@ -1,15 +1,16 @@
 from rich.console import RenderableType
 from textual.app import ComposeResult, events
+from textual.containers import VerticalScroll
 from textual.widget import Widget
+
+from smassh.ui.events import SetScreen
 from smassh.ui.widgets import (
     BaseWindow,
-    TypingConfigStrip,
     PaletteOptions,
     Space,
     Ticker,
+    TypingConfigStrip,
 )
-from textual.containers import VerticalScroll
-from smassh.ui.events import SetScreen
 
 
 class TypingScroll(VerticalScroll, can_focus=False):
@@ -96,6 +97,15 @@ class TypingScreen(BaseWindow):
     def compose(self) -> ComposeResult:
         yield TypingSpace()
 
+    @staticmethod
+    def keypresses_from_text(text: str) -> list[str]:
+        return [character for character in text if character.isprintable()]
+
+    def type_text(self, text: str) -> None:
+        typing_space = self.query_one(TypingSpace)
+        for key in self.keypresses_from_text(text):
+            typing_space.keypress(key)
+
     async def handle_key(self, event: events.Key):
         if not self.visible:
             return
@@ -103,3 +113,10 @@ class TypingScreen(BaseWindow):
         event.stop()
         key = event.character if event.is_printable and event.character else event.key
         self.query_one(TypingSpace).keypress(key)
+
+    async def handle_paste(self, event: events.Paste) -> None:
+        if not self.visible:
+            return
+
+        event.stop()
+        self.type_text(event.text)
