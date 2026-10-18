@@ -1,7 +1,9 @@
 from dataclasses import dataclass
 from typing import Callable, Optional
+
 from smassh.src.parser import settings
-from .stats_tracker import StatsTracker, CheckPoint, Match
+
+from .stats_tracker import CheckPoint, Match, StatsTracker
 
 TrackerFunc = Callable[..., Optional["Cursor"]]
 
@@ -92,7 +94,7 @@ class Tracker:
         if key == "backspace":
             res = self.handle_delete_letter()
 
-        elif key == "ctrl+w":
+        elif key in ["ctrl+w", "ctrl+backspace"]:
             res = self.handle_delete_word()
 
         elif len(key) == 1:
