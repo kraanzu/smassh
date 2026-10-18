@@ -1,12 +1,11 @@
 import operator
 import textwrap
-from json import load
-from itertools import accumulate
 from collections.abc import Callable
-from typing import List
-from smassh.src.parser import settings
-from random import randint, choice, sample
+from itertools import accumulate
+from json import load
+from random import choice, randint, sample
 
+from smassh.src.parser import settings
 
 PUNCS = ",.;?!"
 GeneratorFunc = Callable[..., str]
@@ -98,7 +97,7 @@ class Generator:
     def __init__(self) -> None:
         self.settings = {}
 
-    def get_words(self, language: str) -> List[str]:
+    def get_words(self, language: str) -> list[str]:
         from smassh.src.parser.data_parser import DataParser
 
         path = DataParser.lang_path / f"{language}.json"
@@ -117,7 +116,7 @@ class Generator:
 
         return " ".join(sample(words, size))
 
-    def get_newlines(self, paragraph: str, width: int) -> List[int]:
+    def get_newlines(self, paragraph: str, width: int) -> list[int]:
         lines = textwrap.wrap(paragraph, width)
         return list(
             accumulate(

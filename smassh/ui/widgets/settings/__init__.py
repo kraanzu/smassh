@@ -1,15 +1,15 @@
-from .option import Option, NumberScroll
-from .settings_options import menu
-from .separator import SettingSeparator
-from .strip import SettingStrip, SettingStripItem
 from ..typing.config_strip import Bracket
+from .option import NumberScroll, Option
+from .separator import SettingSeparator
+from .settings_options import menu
+from .strip import SettingStrip, SettingStripItem
 
 __all__ = [
-    "Option",
+    "Bracket",
     "NumberScroll",
-    "menu",
+    "Option",
     "SettingSeparator",
     "SettingStrip",
     "SettingStripItem",
-    "Bracket",
+    "menu",
 ]

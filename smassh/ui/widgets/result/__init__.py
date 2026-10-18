@@ -1,11 +1,11 @@
-from .value import Value, ValueLabel, ValueContainer
-from .result_strip import ResultStrip, NextTest, RepeatTest
+from .result_strip import NextTest, RepeatTest, ResultStrip
+from .value import Value, ValueContainer, ValueLabel
 
 __all__ = [
-    "Value",
-    "ValueLabel",
-    "ResultStrip",
     "NextTest",
     "RepeatTest",
+    "ResultStrip",
+    "Value",
     "ValueContainer",
+    "ValueLabel",
 ]

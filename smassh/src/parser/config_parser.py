@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import List
 
 import platformdirs
 
@@ -39,7 +38,7 @@ class SettingsParser(Parser):
     DEFAULT_CONFIG = DEFAULTS
 
     @property
-    def configured_languages(self) -> List[str]:
+    def configured_languages(self) -> list[str]:
         from smassh.src.parser.data_parser import DataParser
 
         words_dir = DataParser.lang_path
@@ -52,7 +51,7 @@ class SettingsParser(Parser):
         return languages
 
     @property
-    def configured_themes(self) -> List[str]:
+    def configured_themes(self) -> list[str]:
         all_themes = []
 
         themes_dir = self._root_dir / "ui" / "css" / "themes"

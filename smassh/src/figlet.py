@@ -2,9 +2,6 @@
 This file is to generate not too big figlet form of letters (soon digits)
 """
 
-from typing import List
-
-
 LETTERS = {
     "a": [
         "┏┓",
@@ -140,10 +137,10 @@ LETTERS = {
 
 COMBO = LETTERS
 
-FigletType = List[str]
+FigletType = list[str]
 
 
-def combine_figlets(figlets: List[FigletType]) -> str:
+def combine_figlets(figlets: list[FigletType]) -> str:
     res = []
     for line in range(3):
         temp = ""

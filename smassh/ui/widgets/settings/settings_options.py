@@ -1,11 +1,15 @@
-from typing import Dict, Optional, Union
+from __future__ import annotations
+
+from typing import ClassVar, Union
+
 from rich.console import RenderableType
 from rich.text import Span, Text
 from textual.app import ComposeResult
 from textual.widget import Widget
 
 from smassh.ui.widgets.settings.danger_options import ResetConfig
-from .option import Confirm, Option, NumberScroll
+
+from .option import Confirm, NumberScroll, Option
 
 Options = Union[Option, NumberScroll, Confirm]
 
@@ -15,7 +19,7 @@ class SettingDescription(Widget):
     Widget to show description of a setting
     """
 
-    COMPONENT_CLASSES = {
+    COMPONENT_CLASSES: ClassVar[set[str]] = {
         "setting--header",
         "setting--info",
         "setting--option",
@@ -27,7 +31,7 @@ class SettingDescription(Widget):
         self,
         title: str,
         info: str,
-        items: Optional[Dict[str, str]] = None,
+        items: dict[str, str] | None = None,
         *args,
         **kwargs,
     ) -> None:
@@ -37,7 +41,7 @@ class SettingDescription(Widget):
         self.items = items
 
     def render(self) -> RenderableType:
-        def create_options(options: Dict[str, str]) -> Text:
+        def create_options(options: dict[str, str]) -> Text:
             text = Text()
             for option, desc in options.items():
                 desc = Text.from_markup(desc, style=c4)

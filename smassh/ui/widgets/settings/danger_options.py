@@ -1,4 +1,5 @@
 from smassh.src.parser import settings
+
 from .option import BaseOption, Confirm
 
 

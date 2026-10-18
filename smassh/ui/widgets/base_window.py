@@ -1,5 +1,6 @@
 from textual.app import events
 from textual.widget import Widget
+
 from smassh.ui.events import SetScreen
 
 

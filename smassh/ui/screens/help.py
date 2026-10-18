@@ -1,10 +1,14 @@
-from typing import List, Tuple
+from __future__ import annotations
+
+from typing import ClassVar
+
 from rich.console import RenderableType
 from rich.table import box
 from rich.text import Text
-from textual.widget import Widget
 from textual.app import ComposeResult
-from smassh.src.help_menu import SETTINGS_KEYBINDS, TYPING_KEYBINDS, GENERAL_KEYBINDS
+from textual.widget import Widget
+
+from smassh.src.help_menu import GENERAL_KEYBINDS, SETTINGS_KEYBINDS, TYPING_KEYBINDS
 from smassh.ui.widgets.base_window import BaseWindow
 
 
@@ -22,9 +26,11 @@ class Table(Widget):
     }
     """
 
-    COMPONENT_CLASSES = {"--header", "--key", "--action"}
+    COMPONENT_CLASSES: ClassVar[set[str]] = {"--header", "--key", "--action"}
 
-    def __init__(self, title: str, keys: List[Tuple[str, str]] = []) -> None:
+    def __init__(self, title: str, keys: list[tuple[str, str]] | None = None) -> None:
+        if keys is None:
+            keys = []
         super().__init__()
         self.title = title
         self.keys = keys

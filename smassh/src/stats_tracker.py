@@ -1,7 +1,6 @@
-from time import time
 from dataclasses import dataclass
 from enum import Enum
-from typing import List
+from time import time
 
 
 class Match(Enum):
@@ -37,7 +36,7 @@ class StatsTracker:
     def __init__(self) -> None:
         self.reset()
 
-    def get_checkpoints_last_word(self) -> List[CheckPoint]:
+    def get_checkpoints_last_word(self) -> list[CheckPoint]:
         checkpoints = self.checkpoints.copy()
         word_checkpoints = []
 
@@ -140,7 +139,7 @@ class StatsTracker:
     def reset(self) -> None:
         self.start_time = None
         self.end_time = None
-        self.checkpoints: List[CheckPoint] = []
+        self.checkpoints: list[CheckPoint] = []
 
     def finish(self) -> None:
         self.end_time = time()

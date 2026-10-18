@@ -1,6 +1,7 @@
 from rich.console import RenderableType
-from smassh.src import settings
 from textual.widget import Widget
+
+from smassh.src import settings
 
 
 class Palette(Widget):

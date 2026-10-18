@@ -1,8 +1,10 @@
-from rich import print
-import requests
-import platformdirs
-from typing import Optional
+from __future__ import annotations
+
 from pathlib import Path
+
+import platformdirs
+import requests
+from rich import print
 
 LANGUAGE_PACK_DIR = Path(platformdirs.user_data_dir("smassh")) / "languages"
 
@@ -20,7 +22,7 @@ class AddLanguage:
         if not self.silent:
             print(f"=>[bold {color}] {message}[/bold {color}]")
 
-    def get_pack(self, name: str) -> Optional[str]:
+    def get_pack(self, name: str) -> str | None:
         """Checks if a language pack exists. If found, it returns its contents otherwise it returns None"""
 
         uri = f"https://raw.githubusercontent.com/monkeytypegame/monkeytype/master/frontend/static/languages/{name}.json"

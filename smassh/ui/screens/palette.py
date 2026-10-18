@@ -1,13 +1,16 @@
+from typing import ClassVar
+
 from textual import on, work
-from textual.containers import Vertical
 from textual.app import ComposeResult
-from textual.binding import Binding
+from textual.binding import Binding, BindingType
+from textual.containers import Vertical
 from textual.screen import Screen
 from textual.widgets import Label
+
 from smassh.ui.widgets import (
-    PaletteList,
-    PaletteInput,
     LanguagePaletteList,
+    PaletteInput,
+    PaletteList,
     ThemePaletteList,
 )
 
@@ -52,7 +55,7 @@ class PaletteScreen(Screen):
         align: center middle;
     }
     """
-    BINDINGS = [
+    BINDINGS: ClassVar[list[BindingType]] = [
         Binding("escape", "app.pop_screen"),
         Binding("down", "next_option"),
         Binding("up", "prev_option"),

@@ -1,16 +1,16 @@
-from .typing import TypingScreen
-from .help import HelpScreen
 from .about import AboutScreen
-from .settings import SettingsScreen
-from .result import ResultScreen
+from .help import HelpScreen
 from .palette import LanguagePaletteScreen, ThemePaletteScreen
+from .result import ResultScreen
+from .settings import SettingsScreen
+from .typing import TypingScreen
 
 __all__ = [
-    "TypingScreen",
-    "ResultScreen",
-    "HelpScreen",
     "AboutScreen",
-    "SettingsScreen",
+    "HelpScreen",
     "LanguagePaletteScreen",
+    "ResultScreen",
+    "SettingsScreen",
     "ThemePaletteScreen",
+    "TypingScreen",
 ]

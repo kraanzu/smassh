@@ -1,5 +1,5 @@
 from bisect import bisect_right
-from typing import List
+from typing import ClassVar
 
 from rich.console import RenderableType
 from rich.style import Style
@@ -127,7 +127,7 @@ class Space(Static):
     Space Widget to handle keypress and display typing text
     """
 
-    COMPONENT_CLASSES = {
+    COMPONENT_CLASSES: ClassVar[set[str]] = {
         "--cursor-buddy",
         "--correct-match",
         "--incorrect-match",
@@ -238,7 +238,7 @@ class Space(Static):
         style = self.get_component_rich_style(f"--{rich_style}-match")
         return style
 
-    def get_colorized(self) -> List[Span]:
+    def get_colorized(self) -> list[Span]:
         spans = []
         for index, keymatch in enumerate(self.paragraph_spans):
             if keymatch != "":

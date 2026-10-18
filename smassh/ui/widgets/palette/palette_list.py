@@ -1,7 +1,8 @@
-from functools import cache
-from typing import List, Type
+from functools import cached_property
+
 from textual.message import Message
 from textual.widgets import OptionList
+
 from smassh.src import settings
 
 
@@ -41,15 +42,15 @@ class PaletteList(OptionList, can_focus=False):
     """
 
     _filter: str = ""
-    _highlight_event: Type[PaletteOptionHighlighted]
+    _highlight_event: type[PaletteOptionHighlighted]
 
-    def _get_options(self) -> List[str]:
+    def _get_options(self) -> list[str]:
         raise NotImplementedError
 
-    @cache
-    def get_options(self) -> List[str]:
+    @cached_property
+    def get_options(self) -> list[str]:
         options = self._get_options()
-        return sorted([option.replace("_", " ") for option in options])
+        return sorted(option.replace("_", " ") for option in options)
 
     def get_current(self) -> str:
         raise NotImplementedError
@@ -63,7 +64,7 @@ class PaletteList(OptionList, can_focus=False):
 
         self.clear_options()
         self._filter = filter_text
-        valid_options = filter(valid_option, self.get_options())
+        valid_options = filter(valid_option, self.get_options)
         self.add_options(valid_options)
 
     def on_mount(self) -> None:
@@ -76,7 +77,7 @@ class PaletteList(OptionList, can_focus=False):
 class LanguagePaletteList(PaletteList):
     _highlight_event = ApplyLanguage
 
-    def _get_options(self) -> List[str]:
+    def _get_options(self) -> list[str]:
         return settings.configured_languages
 
     def get_current(self) -> str:
@@ -86,7 +87,7 @@ class LanguagePaletteList(PaletteList):
 class ThemePaletteList(PaletteList):
     _highlight_event = ApplyTheme
 
-    def _get_options(self) -> List[str]:
+    def _get_options(self) -> list[str]:
         return settings.configured_themes
 
     def get_current(self) -> None:

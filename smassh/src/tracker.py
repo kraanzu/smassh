@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 from typing import Callable, Optional
 
@@ -9,7 +11,7 @@ TrackerFunc = Callable[..., Optional["Cursor"]]
 
 
 def force_correct(func: TrackerFunc) -> TrackerFunc:
-    def wrapper(tracker: "Tracker", key: str) -> Optional[Cursor]:
+    def wrapper(tracker: Tracker, key: str) -> Cursor | None:
         setting = settings.get("force_correct") == "on"
         if not setting or tracker.paragraph[tracker.cursor_pos] == key:
             return func(tracker, key)
@@ -18,7 +20,7 @@ def force_correct(func: TrackerFunc) -> TrackerFunc:
 
 
 def confidence_mode(func: TrackerFunc) -> TrackerFunc:
-    def wrapper(tracker: "Tracker", *args, **kwargs) -> Optional[Cursor]:
+    def wrapper(tracker: Tracker, *args, **kwargs) -> Cursor | None:
         setting = settings.get("confidence_mode")
         if setting == "max":
             return
@@ -37,7 +39,7 @@ def confidence_mode(func: TrackerFunc) -> TrackerFunc:
 
 
 def difficulty(func: TrackerFunc) -> TrackerFunc:
-    def wrapper(tracker: "Tracker", key: str) -> Optional[Cursor]:
+    def wrapper(tracker: Tracker, key: str) -> Cursor | None:
         setting = settings.get("difficulty")
 
         if setting == "master" and tracker.paragraph[tracker.cursor_pos] != key:
@@ -88,7 +90,7 @@ class Tracker:
         self.stats = StatsTracker()
         self.cursor_pos = 0
 
-    def keypress(self, key: str) -> Optional[Cursor]:
+    def keypress(self, key: str) -> Cursor | None:
         res = None
 
         if key == "backspace":
@@ -105,7 +107,7 @@ class Tracker:
             return res
 
     @confidence_mode
-    def handle_delete_letter(self) -> Optional[Cursor]:
+    def handle_delete_letter(self) -> Cursor | None:
         old = self.cursor_pos
 
         if self.cursor_pos == 0:
@@ -115,7 +117,7 @@ class Tracker:
         return Cursor(old, self.cursor_pos, True)
 
     @confidence_mode
-    def handle_delete_word(self) -> Optional[Cursor]:
+    def handle_delete_word(self) -> Cursor | None:
         old = self.cursor_pos
 
         if self.cursor_pos == 0:
@@ -132,7 +134,7 @@ class Tracker:
 
     @difficulty
     @force_correct
-    def handle_letter(self, key: str) -> Optional[Cursor]:
+    def handle_letter(self, key: str) -> Cursor | None:
         if self.cursor_pos >= len(self.paragraph):
             return
 
