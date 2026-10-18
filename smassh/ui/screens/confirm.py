@@ -1,7 +1,8 @@
-from typing import Literal
+from typing import ClassVar, Literal
+
 from rich.console import RenderableType
 from textual.app import ComposeResult
-from textual.binding import Binding
+from textual.binding import Binding, BindingType
 from textual.screen import Screen
 from textual.widget import Widget
 
@@ -23,7 +24,7 @@ class ConfirmButton(Widget):
         **kwargs,
     ) -> None:
         classes = "ok-btn" if button_type == "ok" else "cancel-btn"
-        super().__init__(classes=classes, *args, **kwargs)
+        super().__init__(*args, classes=classes, **kwargs)
         self.label = label
         self.button_type = button_type
 
@@ -80,7 +81,7 @@ class ConfirmScreen(Screen):
     }
     """
 
-    BINDINGS = [
+    BINDINGS: ClassVar[list[BindingType]] = [
         Binding("escape", "app.pop_screen"),
     ]
 

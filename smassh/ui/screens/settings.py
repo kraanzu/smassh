@@ -1,17 +1,16 @@
-from typing import List
-from textual.app import ComposeResult
 from textual import events
+from textual.app import ComposeResult
 from textual.widget import Widget
 from textual.widgets import Static
-from smassh.ui.widgets import menu
-from smassh.ui.widgets import BaseWindow
-from smassh.ui.widgets.settings.settings_options import Setting
+
+from smassh.ui.widgets import BaseWindow, menu
 from smassh.ui.widgets.settings import (
+    Bracket,
+    SettingSeparator,
     SettingStrip,
     SettingStripItem,
-    SettingSeparator,
-    Bracket,
 )
+from smassh.ui.widgets.settings.settings_options import Setting
 
 
 class SettingGrid(Widget):
@@ -49,8 +48,8 @@ class SettingsScreen(BaseWindow):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.current_option = 0
-        self.sections: List[SettingStripItem] = []
-        self.settings: List[Setting] = []
+        self.sections: list[SettingStripItem] = []
+        self.settings: list[Setting] = []
 
         for section, settings in menu.items():
             self.sections.append(SettingStripItem(section))
@@ -81,8 +80,7 @@ class SettingsScreen(BaseWindow):
                         settings[0].set_section_widget(container)
                         yield settings[0]
 
-                    for setting in settings[1:]:
-                        yield setting
+                    yield from settings[1:]
 
         self.update_highlight()
 

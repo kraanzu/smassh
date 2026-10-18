@@ -1,6 +1,7 @@
 from rich.console import RenderableType
 from textual.app import ComposeResult
 from textual.widgets import Label, Static
+
 from smassh.ui.events import SetScreen
 from smassh.ui.widgets import Space
 

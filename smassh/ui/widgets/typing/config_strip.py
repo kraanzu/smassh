@@ -1,7 +1,11 @@
-from typing import Literal, Optional
+from __future__ import annotations
+
+from typing import Literal
+
 from rich.console import RenderableType
 from textual.app import ComposeResult
 from textual.widget import Widget
+
 from smassh.src import settings
 from smassh.ui.widgets.typing.space import Space
 
@@ -19,7 +23,7 @@ class TypingStripItem(Widget):
     }
     """
 
-    def __init__(self, setting_name: str, icon: Optional[str] = None) -> None:
+    def __init__(self, setting_name: str, icon: str | None = None) -> None:
         super().__init__()
         self.setting_name = setting_name
         self.icon = icon

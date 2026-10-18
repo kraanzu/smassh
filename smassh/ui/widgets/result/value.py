@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from rich.console import RenderableType
 from rich.text import Text
 from textual.app import ComposeResult
@@ -19,7 +21,7 @@ class ValueLabel(Widget):
     }
     """
 
-    COMPONENT_CLASSES = {"--personal-best"}
+    COMPONENT_CLASSES: ClassVar[set[str]] = {"--personal-best"}
 
     best = False
 

@@ -1,6 +1,7 @@
 from rich.console import RenderableType
 from textual.widget import Widget
 from textual.widgets import Label
+
 from smassh.ui.widgets.settings.settings_options import menu
 
 

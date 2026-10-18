@@ -2,6 +2,7 @@ from rich.console import RenderableType
 from rich.text import Text
 from textual.app import ComposeResult
 from textual.widget import Widget
+
 from smassh.ui.widgets import BaseWindow
 
 DESCRIPTION = """

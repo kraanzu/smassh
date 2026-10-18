@@ -1,10 +1,11 @@
 from textual.app import ComposeResult
 from textual.containers import Container
 from textual.widgets import Static
+
 from smassh.src.stats_tracker import StatsTracker
 from smassh.ui.widgets import BaseWindow
+from smassh.ui.widgets.result import ResultStrip, Value, ValueContainer
 from smassh.ui.widgets.typing.space import Space
-from smassh.ui.widgets.result import ValueContainer, Value, ResultStrip
 from smassh.ui.widgets.typing.ticker import Ticker
 
 

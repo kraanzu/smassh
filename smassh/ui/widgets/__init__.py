@@ -1,7 +1,7 @@
-from .header import Header
 from .base_window import BaseWindow
-from .typing import *  # noqa
-from .palette import *  # noqa
-from .settings import *  # noqa
+from .header import Header
+from .palette import *
+from .settings import *
+from .typing import *
 
-__all__ = ["Header", "BaseWindow"]
+__all__ = ["BaseWindow", "Header"]

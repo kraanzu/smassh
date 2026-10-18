@@ -1,6 +1,6 @@
-from json import load, dump
+from json import dump, load
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, ClassVar
 
 
 def combine_into(d: dict, to: dict) -> None:
@@ -18,7 +18,7 @@ class Parser:
 
     _file_name: str = "smassh"
     config_path: Path
-    DEFAULT_CONFIG: Dict[str, Any]
+    DEFAULT_CONFIG: ClassVar[dict[str, Any]]
 
     def __init__(self) -> None:
         self.config = self.DEFAULT_CONFIG.copy()
@@ -39,7 +39,7 @@ class Parser:
         self.config[key] = value
         self.save()
 
-    def update(self, data: Dict[str, Any]) -> None:
+    def update(self, data: dict[str, Any]) -> None:
         combine_into(data, self.config)
 
     def save(self) -> None:
@@ -61,6 +61,6 @@ class Parser:
     def get(self, data: str) -> Any:
         return self.config.get(data)
 
-    def read_from_file(self) -> Dict[str, Any]:
+    def read_from_file(self) -> dict[str, Any]:
         with open(self.full_path, "r") as fp:
             return load(fp)

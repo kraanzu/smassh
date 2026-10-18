@@ -1,7 +1,9 @@
-from typing import Optional
+from __future__ import annotations
+
 from rich.console import RenderableType
 from textual.reactive import reactive
 from textual.widget import Widget
+
 from smassh.src import generate_figlet
 from smassh.ui.events import SetScreen
 
@@ -20,7 +22,7 @@ class NavItemBase(Widget):
     }
     """
 
-    def __init__(self, text: str, screen_name: Optional[str] = None) -> None:
+    def __init__(self, text: str, screen_name: str | None = None) -> None:
         super().__init__()
         self.text = text
         self.screen_name = screen_name

@@ -1,9 +1,13 @@
-from typing import Callable, List, Optional
+from __future__ import annotations
+
+from typing import Callable, ClassVar
+
 from rich.console import RenderableType
 from rich.text import Text
 from textual.app import ComposeResult
 from textual.widget import Widget
 from textual.widgets import Label
+
 from smassh.src import settings
 from smassh.ui.widgets.typing.space import Space
 
@@ -21,7 +25,7 @@ class BaseOption(Widget):
     }
     """
 
-    def __init__(self, setting_name: str, callback: Optional[Callable] = None) -> None:
+    def __init__(self, setting_name: str, callback: Callable | None = None) -> None:
         super().__init__(id=f"option-{setting_name}")
         self.setting_name = setting_name
         self._callback = callback
@@ -146,8 +150,8 @@ class Option(BaseOption):
     def __init__(
         self,
         setting_name: str,
-        options: List[str],
-        callback: Optional[Callable] = None,
+        options: list[str],
+        callback: Callable | None = None,
     ) -> None:
         self.options = [OptionItem(option) for option in options]
         self._value = 0
@@ -158,7 +162,7 @@ class Option(BaseOption):
         if isinstance(setting, bool):
             setting = ["off", "on"][setting]
 
-        option = [i for i in self.options if i.value == setting][0]
+        option = next(i for i in self.options if i.value == setting)
         self._value = self.options.index(option)
         self.update_highlight()
 
@@ -181,8 +185,7 @@ class Option(BaseOption):
         self.update_highlight()
 
     def compose(self) -> ComposeResult:
-        for option in self.options:
-            yield option
+        yield from self.options
 
 
 class NumberScroll(BaseOption):
@@ -190,12 +193,12 @@ class NumberScroll(BaseOption):
     Widget for setting numeric value for a setting
     """
 
-    COMPONENT_CLASSES = {"scroll--background"}
+    COMPONENT_CLASSES: ClassVar[set[str]] = {"scroll--background"}
 
     def __init__(
         self,
         setting_name: str,
-        callback: Optional[Callable] = None,
+        callback: Callable | None = None,
     ) -> None:
         super().__init__(setting_name, callback)
         self._value = 0

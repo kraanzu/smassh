@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from rich.console import RenderableType
 from rich.text import Text
 from textual.widget import Widget
@@ -13,7 +15,7 @@ class SettingSeparator(Widget):
     }
     """
 
-    COMPONENT_CLASSES = {"--primary-bg", "--danger-bg"}
+    COMPONENT_CLASSES: ClassVar[set[str]] = {"--primary-bg", "--danger-bg"}
 
     def __init__(self, section: str, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)

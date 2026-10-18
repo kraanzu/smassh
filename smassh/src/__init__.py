@@ -1,21 +1,20 @@
-from .parser import settings, data_parser
-from .tracker import Tracker, Cursor
-from .figlet import generate_figlet
-from .css_generator import generate_theme_file, TARGET_FILE
-from .generator import master_generator
-from .stats_tracker import StatsTracker
 from .buddy import Buddy
-
+from .css_generator import TARGET_FILE, generate_theme_file
+from .figlet import generate_figlet
+from .generator import master_generator
+from .parser import data_parser, settings
+from .stats_tracker import StatsTracker
+from .tracker import Cursor, Tracker
 
 __all__ = [
-    "settings",
-    "data_parser",
-    "Tracker",
+    "TARGET_FILE",
+    "Buddy",
     "Cursor",
+    "StatsTracker",
+    "Tracker",
+    "data_parser",
     "generate_figlet",
     "generate_theme_file",
     "master_generator",
-    "StatsTracker",
-    "Buddy",
-    "TARGET_FILE",
+    "settings",
 ]
