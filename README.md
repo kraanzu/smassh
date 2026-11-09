@@ -87,3 +87,24 @@ If you liked smassh then you might wanna try out some of my other TUI projects a
 
 - [dooit](https://github.com/kraanzu/dooit) - A todo app that you didn't ask for but needed!
 - [gupshup](https://github.com/kraanzu/gupshup) - A localhost TUI chat client
+
+## Local progress
+
+Results are saved automatically in `smassh.json` in the platform's user data
+folder for smassh. Open **progress** in the header or press `Ctrl+G` to see the
+history, horizontal WPM bars with exact values, accuracy and test counts. Each
+bar shows the average of successful attempts for a calendar week (Monday–Sunday);
+period filters include only attempts within the selected period. Choose
+**Horizontal bars** or **Line chart** using the chart selector. Both views use
+the same weekly averages; the line view shows speed and accuracy separately.
+Filter by the current test settings or view all attempts, and choose a time period. Failed attempts remain in the history but do
+not contribute to records or averages. Older results without language and
+modifier information are available under **All attempts**.
+
+The result screen compares each test with previous successful tests using the
+same mode, limit, language and difficulty settings. Speed calculations follow
+smassh's existing metrics.
+
+Use **Clear history** (or `C` on the progress screen) to remove all saved attempts.
+The confirmation dialog allows cancellation; clearing does not change settings,
+installed languages or themes. This action cannot be undone.
