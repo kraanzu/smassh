@@ -10,6 +10,7 @@ from smassh.src import TARGET_FILE, data_parser, generate_theme_file, settings
 from smassh.ui.events import SetScreen, ShowResults
 from smassh.ui.screens import *
 from smassh.ui.screens.confirm import ConfirmScreen
+from smassh.ui.screens.progress import ProgressScreen
 from smassh.ui.widgets import *
 from smassh.ui.widgets import Space, Ticker
 from smassh.ui.widgets.palette import LanguagePalette, ThemePalette
@@ -37,6 +38,7 @@ class MainScreen(Screen):
             SettingsScreen(id="settings"),
             HelpScreen(id="help"),
             ResultScreen(id="result"),
+            ProgressScreen(id="progress"),
             # initial screen
             initial="typing",
         )
@@ -62,6 +64,9 @@ class MainScreen(Screen):
             event (ShowResults): Event containing stats and if it the typing was a failed attempt
         """
 
+        if event.stats.end_time is not None:
+            return
+
         # reset all watching timers
         space = self.query_one(Space)
         space.check_timer.pause()
@@ -71,9 +76,15 @@ class MainScreen(Screen):
         self.query_one(ContentSwitcher).current = "result"
         self.query_one(ResultScreen).set_results(event.stats)
 
-        data_parser.add_stats(event.stats, event.failed)
+        try:
+            data_parser.add_stats(event.stats, event.failed)
+        except OSError as error:
+            self.notify(f"Result was not saved: {error}", severity="error")
 
     async def handle_key(self, event: events.Key) -> bool:
+        if event.key == "ctrl+g":
+            self.post_message(SetScreen("progress"))
+            return True
         visible = self.query_one(ContentSwitcher).visible_content
         if visible:
             await visible.handle_key(event)

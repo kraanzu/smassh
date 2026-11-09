@@ -84,6 +84,7 @@ class Header(Widget):
             home.add_class("active")
 
             yield home
+            yield NavItem(" progress", "progress")
             yield NavItem(" settings", "settings")
             yield NavItem("󰋗 help", "help")
             yield NavItem(" about", "about")
